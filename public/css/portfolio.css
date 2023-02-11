@@ -8,6 +8,44 @@
     src: url("../../asserts/webfont/JetBrainsMono-Bold.woff2");
 }
 
+:root {  
+    --purple: rgb(123, 31, 162);
+    --violet: rgb(103, 58, 183);
+    --pink: rgb(244, 143, 177);
+}
+
+
+@keyframes background-pan {
+    from {
+      background-position: 0% center;
+    }
+    
+    to {
+      background-position: -200% center;
+    }
+}
+  
+@keyframes scale {
+    from, to {
+      transform: scale(0);
+    }
+    
+    50% {
+      transform: scale(1);
+    }
+}
+  
+@keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    
+    to {
+      transform: rotate(180deg);
+    }
+}
+
+
 html,body{
     margin: 0;
     padding: 0;
@@ -19,34 +57,7 @@ html,body{
 
     font-family: jbmono_bold;
     background-color: #313131;
-    color:white;
-}
-
-.overlay{
-    position: absolute;
-    top:0;left:0;
-}
-
-.name-content{
-    position:relative;
-    top:50px;
-    left:50px;
-}
-
-.container{
-    height:100%;
-    width:100%;
     
-    display: flex;
-    scroll-snap-type:x mandatory;
-
-    overflow-x:scroll;
-    overscroll-behavior-x: contain;
-}
-
-h1{
-    font-size: 15em;
-    user-select: none;
 }
 
 section{
@@ -58,7 +69,7 @@ section{
     justify-content: center;
     /* align-items: center; */
 
-    scroll-snap-align: start;
+    scroll-snap-align: center;
 }
 
 button{
@@ -79,3 +90,115 @@ button:hover{
 
     background-color: #525252;
 }
+
+h1{
+    height:100%;
+    font-size: 15em;
+    user-select: none;
+    text-align: center;
+    margin:0;
+
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a:link{
+    text-decoration: none;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+p{
+    font-size: 20px;
+}
+
+
+.overlay{
+    position: absolute;
+    top:0;left:0;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.name-content{
+    position:relative;
+    top:50px;
+    left:50px;
+}
+
+.container{
+    height:100%;
+    width:100%;
+    
+    display: flex;
+    scroll-snap-type:x mandatory;
+
+    overflow-x:scroll;
+}
+
+.card-img{
+    width:40%;
+    border-radius: 20px;
+}
+
+.box{
+    padding-left: 50px;
+    height:auto;
+
+    padding: 100px;
+    background-color: white;
+}
+
+
+
+
+p > .magic {
+    display: inline-block;
+    position: relative;
+}
+  
+p > .magic > .magic-star {
+    --size: clamp(20px, 1.5vw, 30px);
+    
+    animation: scale 700ms ease forwards;
+    display: block;
+    height: var(--size);
+    left: var(--star-left);
+    position: absolute;
+    top: var(--star-top);
+    width: var(--size);
+}
+  
+p > .magic > .magic-star > svg {
+    animation: rotate 1000ms linear infinite;
+    display: block;
+    opacity: 0.7;
+}
+  
+p > .magic > .magic-star > svg > path {
+    fill: var(--violet);
+}
+  
+p > .magic > .magic-text {
+    animation: background-pan 3s linear infinite;
+    background: linear-gradient(
+      to right,
+      var(--purple),
+      var(--violet),
+      var(--pink),
+      var(--purple)
+    );
+    background-size: 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    white-space: nowrap;
+}
+  
