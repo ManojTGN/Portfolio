@@ -10,8 +10,7 @@ document.querySelectorAll('.hypetext').forEach(function(hypetext) {
                     if(index < iteration)   
                     return event.target.dataset.value[index];   
                     return letters[Math.floor(Math.random() * 26)];
-                })
-                .join("");
+                }).join("");
             
             if(iteration >= event.target.dataset.value.length) clearInterval(intervel);
             iteration += 1 / 3;
@@ -19,6 +18,7 @@ document.querySelectorAll('.hypetext').forEach(function(hypetext) {
     };
     
 });
+
 let cont = document.getElementsByClassName("container")[0];
 document.querySelectorAll(".page-selector").forEach(function(pageSelector) {
     
@@ -29,6 +29,18 @@ document.querySelectorAll(".page-selector").forEach(function(pageSelector) {
     });
     
 });
+
+let curr = 0;
+setInterval(()=>{
+    
+    if(curr == 0) $("#me7").css({"opacity":"0"});
+    else $("#me"+(curr-1)).css({"opacity":"0"});
+    $("#me"+curr).css({"opacity":"100"});
+
+    curr+=1;
+    if(curr == 8) curr = 0;
+},200);
+
 
 let index = 0,interval = 1000;
 const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
@@ -58,3 +70,12 @@ document.getElementById("cards").onmousemove = e => {
       card.style.setProperty("--mouse-y", `${y}px`);
     };
 }
+
+
+$(".wiggle").bind("webkitAnimationEnd mozAnimationEnd animationend", function(){
+    $(this).removeClass("animated");
+})
+  
+$(".wiggle").hover(function(){
+    $(this).addClass("animated");
+})

@@ -8,14 +8,36 @@
 
     <link rel="stylesheet" href="public/css/portfolio.css"/>
     <script src="https://kit.fontawesome.com/08c3f952c9.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
         <section>
             <div>
                 <div class="top-box">
-                    <img class="top-box-img" src="asserts/images/aboutme.jpg" />
-                    <span class="headerOne" onclick="cont.scroll({ top:screen.height-150,behavior: 'smooth'});">ABOUT ME</span>
+                    <video style="width: 100%;" autoplay loop>
+                        <source src="/asserts/images/me/background.mp4" type="video/mp4">
+                    </video>
+                    <div class="me-img-group">
+                        <img id="me0" src="/asserts/images/me/0.png"/>
+                        <img id="me1" src="/asserts/images/me/1.png"/>
+                        <img id="me2" src="/asserts/images/me/2.png"/>
+                        <img id="me3" src="/asserts/images/me/3.png"/>
+                        <img id="me4" src="/asserts/images/me/4.png"/>
+                        <img id="me5" src="/asserts/images/me/5.png"/>
+                        <img id="me6" src="/asserts/images/me/6.png"/>
+                        <img id="me7" src="/asserts/images/me/7.png"/>
+                    </div>
+                    <span class="headerOne" onclick="cont.scroll({ top:screen.height-150,behavior: 'smooth'});"> 
+                        <span class="wiggle">A</span>
+                        <span class="wiggle">B</span>
+                        <span class="wiggle">O</span>
+                        <span class="wiggle">U</span>
+                        <span class="wiggle">T</span>
+                        <span class="wiggle"> </span>
+                        <span class="wiggle">M</span>
+                        <span class="wiggle">E</span>
+                    </span>
                 </div>
                 <div class="box">
                     <div style="display: flex;">
@@ -228,14 +250,26 @@
         <section>
             <div>
                 <div class="top-box">
-                    <span class="headerOne">WORKS</span>
+                    <img class="top-box-img" src="asserts/images/work.jpg" />
+                    <span class="headerOne">
+                        <span class="wiggle">W</span>
+                        <span class="wiggle">O</span>
+                        <span class="wiggle">R</span>
+                        <span class="wiggle">K</span>
+                        <span class="wiggle">S</span>
+                    </span>
                 </div>
             </div>
         </section>
         <section>
             <div>
                 <div class="top-box">
-                    <span class="headerOne">BLOG</span>
+                    <span class="headerOne">
+                        <span class="wiggle">B</span>
+                        <span class="wiggle">L</span>
+                        <span class="wiggle">O</span>
+                        <span class="wiggle">G</span>
+                    </span>
                 </div>
             </div>
         </section>
