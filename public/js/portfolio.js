@@ -23,23 +23,68 @@ let cont = document.getElementsByClassName("container")[0];
 document.querySelectorAll(".page-selector").forEach(function(pageSelector) {
     
     pageSelector.addEventListener('change', function() {
-        if(this.value == 0)      cont.scroll({ top:0,left: 0,behavior: 'smooth'});
+        canAnimate = false;
+        if(this.value == 0){      cont.scroll({ top:0,left: 0,behavior: 'smooth'});canAnimate=true;}
         else if(this.value == 1) cont.scroll({ top:0,left: parseInt(screen.width/1.5),behavior: 'smooth'});
         else if(this.value == 2) cont.scroll({ top:0,left: cont.scrollWidth / 1,behavior: 'smooth'});
     });
     
 });
 
-let curr = 0;
+let curr = 0; let maxAnimation = 7;
+let canAnimate = true;
+let myRange = document.getElementById("myrange");
 setInterval(()=>{
-    
-    if(curr == 0) $("#me7").css({"opacity":"0"});
+    if(!canAnimate) return;
+
+    if(curr == 0) $("#me"+maxAnimation).css({"opacity":"0"});
     else $("#me"+(curr-1)).css({"opacity":"0"});
+
     $("#me"+curr).css({"opacity":"100"});
 
-    curr+=1;
-    if(curr == 8) curr = 0;
+    curr += 1;
+    if(curr == maxAnimation+1) curr = 0;
+    myRange.value = curr;
 },200);
+
+$('input[type=range]').on('input', function () {
+    if(canAnimate) return;
+    
+    $("#me"+curr).css({"opacity":"0"});
+    $("#me"+(curr-1)).css({"opacity":"0"});
+    $("#me"+(curr+1)).css({"opacity":"0"});
+    $("#me"+parseInt(this.value)).css({"opacity":"100"});
+
+    curr = parseInt(this.value);
+});
+
+
+$("#myrange").hover(() => {canAnimate = false;})
+
+$("#myrangeBox").hover(
+    () => {canAnimate = false;}, () => {canAnimate = true;}    
+)
+
+function prevProjectImage(data){
+    let alldata = $(data)[0];
+    $(alldata.dataset.imageid+alldata.dataset.curr).css({"opacity":"0"});
+
+    if(parseInt(alldata.dataset.curr)-1 < 0) alldata.dataset.curr = alldata.dataset.max;
+    else alldata.dataset.curr = parseInt(alldata.dataset.curr)-1;
+
+    $(alldata.dataset.imageid+alldata.dataset.curr).css({"opacity":"100"});
+}
+
+function nextProjectImage(data){
+    let alldata = $(data)[0];
+    $(alldata.dataset.imageid+alldata.dataset.curr).css({"opacity":"0"});
+
+    if(parseInt(alldata.dataset.curr)+1 >alldata.dataset.max) alldata.dataset.curr = 0;
+    else alldata.dataset.curr = parseInt(alldata.dataset.curr)+1;
+
+    $(alldata.dataset.imageid+alldata.dataset.curr).css({"opacity":"100"});
+}
+
 
 
 let index = 0,interval = 1000;
