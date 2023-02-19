@@ -1,0 +1,47 @@
+/*
+ * Global Variables
+ */
+:root{
+    --bodyBg:#1d1d1d;
+}
+
+/*
+ * Font Families
+ */
+@font-face {
+    font-family: jbmono_regular;
+    src: url("../webfont/JetBrainsMono-Regular.woff2");
+}
+
+@font-face {
+    font-family: jbmono_bold;
+    src: url("../webfont/JetBrainsMono-Bold.woff2");
+}
+
+/*
+ * Body Style
+ */
+body{
+    margin:0;
+    padding:0;
+    border:0;
+
+    height:100%;
+    width:100%;
+
+    font-family: jbmono_bold;
+    background-color: var(--bodyBg);
+}
+
+h1, p{
+    margin:0;
+    padding:0;
+}
+
+a{
+    text-decoration: none;
+    color:white;
+}
+a:hover{
+    color:cornflowerblue;
+}

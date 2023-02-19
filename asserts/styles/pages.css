@@ -1,0 +1,10 @@
+.about, .project, .blog{
+    color:white;
+    background-color: var(--bodyBg);
+
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+/* 
+    display: flex;
+    justify-content: center; */
+}

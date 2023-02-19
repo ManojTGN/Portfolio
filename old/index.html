@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ManojTGN</title>
+
+    <link rel="stylesheet" href="public/css/portfolio.css"/>
+    <script src="https://kit.fontawesome.com/08c3f952c9.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- ABOUT ME SECTION -->
+        <section>
+            <div>
+                <div class="top-box">
+                    <video style="width: 100%;" class="top-box-img" autoplay loop>
+                        <source src="/asserts/images/me/background.mp4" type="video/mp4">
+                    </video>
+
+                    <div class="me-img-group">
+                        <img id="me0" src="/asserts/images/me/0.png"/>
+                        <img id="me1" src="/asserts/images/me/1.png"/>
+                        <img id="me2" src="/asserts/images/me/2.png"/>
+                        <img id="me3" src="/asserts/images/me/3.png"/>
+                        <img id="me4" src="/asserts/images/me/4.png"/>
+                        <img id="me5" src="/asserts/images/me/5.png"/>
+                        <img id="me6" src="/asserts/images/me/6.png"/>
+                        <img id="me7" src="/asserts/images/me/7.png"/>
+                    </div>
+                    
+                    <div class="headerOne" style="margin-top:420px;width: 900px;height:40px;" id="myrangeBox">
+                        <input type="range" min="0" max="7" value="0" style="width: 100%;" id="myrange" />
+                    </div>
+                    <span class="headerOne" onclick="cont.scroll({ top:screen.height-150,behavior: 'smooth'});"> 
+                        <span class="wiggle">A</span>
+                        <span class="wiggle">B</span>
+                        <span class="wiggle">O</span>
+                        <span class="wiggle">U</span>
+                        <span class="wiggle">T</span>
+                        <span class="wiggle"> </span>
+                        <span class="wiggle">M</span>
+                        <span class="wiggle">E</span>
+                    </span>
+                    
+                </div>       
+
+                <div class="box">
+                    <!-- #1 SECTION ABOUTME -->
+                    <div style="display: flex;">
+                        <img class="card-img" src="asserts/images/me.gif" draggable="false"/>
+                        <div class="center" style="padding-left:100px;">
+                            <p style="font-size: 30px;color:#313131">
+                            I'm
+                            <span class="magic">
+                                <span class="magic-star"><svg viewBox="0 0 512 512"><path d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" /></svg></span>
+                                <span class="magic-star"><svg viewBox="0 0 512 512"><path d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" /></svg></span>
+                                <span class="magic-star"><svg viewBox="0 0 512 512"><path d="M512 255.1c0 11.34-7.406 20.86-18.44 23.64l-171.3 42.78l-42.78 171.1C276.7 504.6 267.2 512 255.9 512s-20.84-7.406-23.62-18.44l-42.66-171.2L18.47 279.6C7.406 276.8 0 267.3 0 255.1c0-11.34 7.406-20.83 18.44-23.61l171.2-42.78l42.78-171.1C235.2 7.406 244.7 0 256 0s20.84 7.406 23.62 18.44l42.78 171.2l171.2 42.78C504.6 235.2 512 244.6 512 255.1z" /></svg></span>
+                                <span class="magic-text">Manoj</span>
+                            </span>
+                            , aspiring Coder, interested in rendering engineering 
+                            (computer graphics) and I'd love to enhance my knowledge about 
+                            new and emerging trends in Information Technology domain. 
+                            Thanks for visiting and I'd love to <a href="#" class="hypetext" data-value="connect">connect</a>!
+                            </p>
+                        </div>
+                    </div>
+                    <br>
+
+                    <hr style="border:2px dashed">
+                    <br>
+
+                    <!-- #2 SECTION SKILLSETS -->
+                    <div class="middle-box">
+                        <p style="font-size: 50px;">Skill Sets</p>
+                        <div style="display: flex;justify-content: center;align-items: center;">
+                        <div id="cards">
+                            <div class="card">
+                                <div class="card-content">
+                                    
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i id="ic" class="fa-solid fa-crown"></i>
+                                        <div class="card-info-title">
+                                        <h3>C / C++</h3>  
+                                        <h4>Advanced</h4>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i id="ic" class="fa-brands fa-python"></i>
+                                        <div class="card-info-title">
+                                        <h3>Python</h3>  
+                                        <h4>Intermediate</h4>
+                                        </div>    
+                                    </div>  
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i id="ic" class="fa-brands fa-square-js"></i>
+                                        <div class="card-info-title">
+                                        <h3>Javascript</h3>  
+                                        <h4>Intermediate</h4>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i id="ic" class="fa-brands fa-react"></i>
+                                        <div class="card-info-title">
+                                        <h3>React</h3>  
+                                        <h4>Basic</h4>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i id="ic" class="fa-brands fa-hubspot"></i>
+                                        <div class="card-info-title">
+                                        <h3>Express</h3>  
+                                        <h4>Intermediate</h4>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i id="ic" class="fa-solid fa-database"></i>
+                                        <div class="card-info-title">
+                                        <h3>MongoDB</h3>  
+                                        <h4>Intermediate</h4>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                    
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i id="ic" class="fa-solid fa-server"></i>
+                                        <div class="card-info-title">
+                                        <h3>MySQL</h3>  
+                                        <h4>Advanced</h4>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                    
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i id="ic" class="fa-brands fa-php"></i>
+                                        <div class="card-info-title">
+                                        <h3>PHP</h3>  
+                                        <h4>Advanced</h4>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-content">
+                                    
+                                    <div class="card-info-wrapper">
+                                    <div class="card-info">
+                                        <i class="fa-brands fa-html5"></i>
+                                        <div class="card-info-title">
+                                        <h3>Html / Css</h3>  
+                                        <h4>Advanced</h4>
+                                        </div>    
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                        <br><br><br>
+                    </div>
+                    <br>
+
+                    <hr style="border:2px dashed">
+                    <br>
+
+                    <!-- #3 SECTION CONNECTIONS -->
+                    <p style="font-size: 50px;">Connection</p>
+                    <div style="display: flex;">
+                    <div class="center" style="padding-left:50px;font-size: 30px;width:55%;">
+                        <div class="links">
+                            <div class="link-btn">
+                                <div> <i class="fa-regular fa-envelope"></i> </div>
+                                <div> ManojAngurajA@... </div>
+                                <div> 
+                                    <a href="mailto:manojanguraja@gmail.com">
+                                    <button style="width:50px;height:50px;margin-top:-15px;color:#ececec;">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </button>
+                                    </a>
+                                    <button style="width:50px;height:50px;margin-top:-15px;color:#ececec;">
+                                        <i class="fa-regular fa-clone"></i>
+                                    </button>
+                                </div>
+                            </div><br>
+                            <div class="link-btn">
+                                <div> <i class="fa-brands fa-linkedin"></i> </div>
+                                <div> in/Manojbit </div>
+                                <div> 
+                                    <a href="https://www.linkedin.com/in/manojbit/" target="_blank">
+                                    <button style="width:50px;height:50px;margin-top:-15px;color:#ececec;">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </button>
+                                    </a>
+                                    <button style="width:50px;height:50px;margin-top:-15px;color:#ececec;">
+                                        <i class="fa-regular fa-clone"></i>
+                                    </button>
+                                </div>
+                            </div><br>
+                            <div class="link-btn">
+                                <div> <i class="fa-brands fa-github"></i> </div>
+                                <div> git/ManojTGN </div>
+                                <div> 
+                                    <a href="https://github.com/ManojTGN" target="_blank">
+                                    <button style="width:50px;height:50px;margin-top:-15px;color:#ececec;">
+                                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </button>
+                                    </a>
+                                    <button style="width:50px;height:50px;margin-top:-15px;color:#ececec;">
+                                        <i class="fa-regular fa-clone"></i>
+                                    </button>
+                                </div>
+                            </div><br>
+                            
+                        </div>
+                    </div>
+                    <img class="card-img" src="asserts/images/connect.gif" draggable="false"/>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- WORK SECTION -->
+        <section>
+            <div>
+                <div class="top-box">
+                    <img class="top-box-img" src="asserts/images/work.jpg" />
+                    <span class="headerOne">
+                        <span class="wiggle">W</span>
+                        <span class="wiggle">O</span>
+                        <span class="wiggle">R</span>
+                        <span class="wiggle">K</span>
+                        <span class="wiggle">S</span>
+                    </span>
+                </div>
+
+                <div class="box">
+                    <p style="font-size: 50px;">Projects</p>
+                    <!-- #1 SECTION PROJECTS-->
+                    <div style="display: flex;">
+                        <div>
+                            <div class="project-imgs">
+                                <img id="grievance0" class="card-img" src="asserts/images/projects/grievanceforum0.jpg" draggable="false"/>
+                                <img id="grievance1" class="card-img" src="asserts/images/projects/grievanceforum1.jpg" draggable="false"/>
+                                <img id="grievance2" class="card-img" src="asserts/images/projects/grievanceforum2.jpg" draggable="false"/>
+                                <img id="grievance3" class="card-img" src="asserts/images/projects/grievanceforum3.jpg" draggable="false"/>
+                                <div class="project-overlay">
+                                    <div>
+                                    <span id="grievance" data-imageid="#grievance" data-curr="0" data-max="3"></span>
+                                    <button onclick="prevProjectImage('#grievance')" > <i class="fa-solid fa-angle-left"></i> </button>
+                                    <button onclick="nextProjectImage('#grievance')" > <i class="fa-solid fa-angle-right"></i> </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="center" style="padding-left:70px;">
+                            <div>
+                                <p style="font-size: 40px;">GrievanceForum</p>
+                                <p style="font-size: 30px;color:#313131">
+                                    BIT Grievance Forum is an online platform available to the College Students to lodge their grievances to the college authorities on any subject related to service delivery. It is a single portal connected to all the BIT institute. The BIT Grievance Forum is also accessible to the student through standalone mobile application.
+                                </p>
+                                <div class="links">
+                                    <div class="link-btn" style="width:auto">
+                                        <div> GrievanceForum</div>
+                                        <div> 
+                                            <a href="https://grievanceforum.up.railway.app/" target="_blank">
+                                            <button style="width:50px;height:50px;margin-top:-15px;color:#ececec;">
+                                                <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                            </button>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- BLOG SECTION -->
+        <section>
+            <div>
+                <div class="top-box">
+                    <span class="headerOne">
+                        <span class="wiggle">B</span>
+                        <span class="wiggle">L</span>
+                        <span class="wiggle">O</span>
+                        <span class="wiggle">G</span>
+                    </span>
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="overlay">
+        <button class="hypetext name-content" data-value="ManojTGN">
+            ManojTGN
+        </button>
+        <div class="page-selectors">
+            <div><input class="page-selector" type="radio" name="page-selector" value="0" checked></div>
+            <div><input class="page-selector" type="radio" name="page-selector" value="1"></div>
+            <div><input class="page-selector" type="radio" name="page-selector" value="2"></div>
+        </div>
+    </div>
+    <script src="public/js/portfolio.js"></script>
+</body>
+</html>
