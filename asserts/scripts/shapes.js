@@ -13,11 +13,19 @@ function createShape(){
     shape.style.left = `${Math.floor(Math.random() * 95)}%`;
 
     shape.style.opacity = "0";
+    shape.style.fontSize = "40px";
     shape.style.rotate = `${Math.floor(Math.random() * 360)}deg`;
+    shape.style.color = "rgba(255,255,255,.2)";
 
-    if(Math.floor(Math.random() * 100) < 40)
-        shape.style.borderRadius = "50%";
+    let ran = Math.floor(Math.random() * 5);
+    let icn = document.createElement("i");
 
+    if(0 == ran) icn.className = "fa-regular fa-heart";
+    else if(1 == ran) icn.className = "fa-regular fa-star";
+    else if(2 == ran) icn.className = "fa-regular fa-circle";
+    else if(3 == ran) icn.className = "fa-regular fa-square";
+    else if(4 == ran) icn.className = "fa-regular fa-snowflake";
+    shape.appendChild(icn);
     return shape;
 }
 

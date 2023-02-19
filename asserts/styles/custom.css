@@ -80,7 +80,7 @@
 .shape{
     position:absolute;
     transform: translate(-50%,-50%);
-    border:1px solid white;
+
     background-color: transparent;
     transition: all 10s;
 }

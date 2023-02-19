@@ -3,8 +3,10 @@
     background-color: var(--bodyBg);
 
     opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-/* 
-    display: flex;
-    justify-content: center; */
+    transition: opacity 0.5s ease;
+    overflow-y: scroll;
+}
+
+.about .back, .project .back, .blog .back{
+    cursor: pointer;
 }
