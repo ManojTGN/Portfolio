@@ -5,8 +5,124 @@
     opacity: 0;
     transition: opacity 0.5s ease;
     overflow-y: scroll;
+    width: 100vw;
 }
 
-.about .back, .project .back, .blog .back{
+.back{ padding:50px; }
+.back span{ cursor: pointer; }
+.back span:hover{ color:yellow; }
+
+.img-group:hover .img-toolkit{
+    opacity: 1;
+}
+
+.img-group{
+    width:100%;
+    height:100%;
+    position: relative;
+}
+
+.img-group img{
+    width: 100%;
+}
+
+.img-group img:nth-child(1){
+    opacity: 1;
+}
+
+.img-group img, .img-group .img-toolkit{
+    transition: opacity 0.2s ease-in-out;
+    position:absolute;
+    opacity: 0;
+}
+
+.img-group .img-toolkit{
+    height:60px;
+    width:100%;
+
+    display: flex;
+    align-items: center;
+
+    background-color: rgba( 0,0,0,.5 );
+}
+
+.img-group .img-toolkit div{
+    height:45px;
+    width:45px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     cursor: pointer;
+    border-radius: 10px;
+    border:1px solid rgb(20, 10, 10);
+    background-color: #1d1d1d;
+}
+
+.img-group .img-toolkit div:nth-child(1){ margin-left:5px; }
+.img-group .img-toolkit div:nth-child(2){ margin-left:20px; }
+
+.scroll-down{
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.card{
+    background-color: #1b1b1b;
+    border:1px solid black;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    overflow: hidden;
+}
+
+
+.btn{
+    cursor: pointer;
+    font-family: jbmono_bold;
+    border-radius: 5px;
+    height:35px;
+}
+.btn-primary{
+    background-color: #074D90;
+    color:rgba(255,255,255,.5);
+}
+
+
+
+.accordion-item{
+    transition: all 0.2s ease-in-out;
+    overflow: hidden;
+    
+    height:50px;/*50px;*/
+    padding-left: 5%;
+    padding-right: 5%;
+    cursor:pointer;
+}
+/* .accordion-item:nth-child(1){height: 700px;} */
+
+.accordion-header{
+    height: 50px;
+    margin:0;
+
+    display: flex;
+    align-items: center;
+    cursor:pointer;
+}
+
+.accordion-button{
+    font-size: 20px;
+    text-align: start;
+    font-family: jbmono_bold;
+
+    background-color: transparent;
+    border:none;
+
+    color:white;
+    cursor:pointer;
+    width: 100%;
+}
+
+#project-title, #project-description, #project-resource, #project-features{
+    transition: all 0.2s ease-in-out;
 }
