@@ -30,12 +30,12 @@ t_PROJECT.addEventListener('click', function (event) {
     PROJECT.classList.toggle("z-index-2");
     PROJECT.style.opacity = 1;
 });
-// b_PROJECT.addEventListener('click', function (event) {
-//     CONC.style.filter = "blur(0px)";
-//     PROJECT.classList.toggle("z-index-0");
-//     PROJECT.classList.toggle("z-index-2");
-//     PROJECT.style.opacity = 0;
-// });
+b_PROJECT.addEventListener('click', function (event) {
+    CONC.style.filter = "blur(0px)";
+    PROJECT.classList.toggle("z-index-0");
+    PROJECT.classList.toggle("z-index-2");
+    PROJECT.style.opacity = 0;
+});
 
 t_BLOG.addEventListener('click', function (event) {
     CONC.style.filter = "blur(20px)";
