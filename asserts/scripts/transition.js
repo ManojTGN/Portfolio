@@ -29,6 +29,9 @@ t_PROJECT.addEventListener('click', function (event) {
     PROJECT.classList.toggle("z-index-0");
     PROJECT.classList.toggle("z-index-2");
     PROJECT.style.opacity = 1;
+
+    document.getElementsByClassName('img-selector')[0].style.right="0%";
+    document.documentElement.style.setProperty('--slider-width', '0px');
 });
 b_PROJECT.addEventListener('click', function (event) {
     CONC.style.filter = "blur(0px)";
