@@ -65,6 +65,8 @@ function loadProjectData(project){
     document.getElementById('project-resource').style.opacity = 0;
     document.getElementById('project-features').style.opacity = 0;
     document.getElementById('project-link').style.opacity = 0;
+    document.getElementsByClassName('img-toolkit')[0].style.opacity = 0;
+    document.getElementsByClassName('img-selector')[0].style.opacity = 0;
 
     setTimeout(()=>{
         if(project == 'GrievanceForum'){
@@ -94,6 +96,24 @@ function loadProjectData(project){
             <span class="margin-right-5"><a target="_blank" href="https://grievanceforum.up.railway.app/"><i class="fa-solid fa-globe"></i> Site<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
             <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/GrievanceForum"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
             `;
+
+            document.documentElement.style.setProperty('--slider-width', '0px');
+            document.getElementsByClassName('img-slider')[0].dataset.curr = 0;
+            document.getElementsByClassName('img-slider')[0].dataset.max = 3;
+            document.getElementsByClassName('img-slider')[0].innerHTML = `
+            <div data-right="0" class="img-slider-active"></div>
+            <div data-right="1" ></div>
+            <div data-right="2" ></div>
+            <div data-right="3" ></div>
+            `;
+            document.getElementsByClassName('img-selector')[0].style.width="400%";
+            document.getElementsByClassName('img-selector')[0].style.right="0%";
+            document.getElementsByClassName('img-selector')[0].innerHTML = `
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum0.jpg" class="w-100" draggable="false"/></div>
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum1.jpg" class="w-100" draggable="false"/></div>
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum2.jpg" class="w-100" draggable="false"/></div>
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum3.jpg" class="w-100" draggable="false"/></div>
+            `;
         }else if(project == 'AliveBoard'){
             document.getElementById('project-description').innerHTML = `AliveBoard is a powerful and intuitive web application that allows for real-time collaboration on a shared whiteboard. It is built using Node.js and React, making it fast, reliable, and responsive. The application's clean and modern interface makes it easy for users to get started, with no need for complex installations or plugins.
             <br><br>One of the key features of AliveBoard is its ability to enable real-time collaboration among multiple users. This means that users can invite friends or colleagues to join the whiteboard and work on it together in real-time, with changes and updates immediately visible to all participants. This makes it ideal for remote teams, classrooms, or any other scenario where collaboration is essential.
@@ -119,6 +139,22 @@ function loadProjectData(project){
             document.getElementById('project-link').innerHTML = `
             <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/aliveboard"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
             `;
+
+            document.documentElement.style.setProperty('--slider-width', '0px');
+            document.getElementsByClassName('img-slider')[0].dataset.curr = 0;
+            document.getElementsByClassName('img-slider')[0].dataset.max = 2;
+            document.getElementsByClassName('img-slider')[0].innerHTML = `
+            <div data-right="0" class="img-slider-active"></div>
+            <div data-right="1" ></div>
+            <div data-right="2" ></div>
+            `;
+            document.getElementsByClassName('img-selector')[0].style.width="300%";
+            document.getElementsByClassName('img-selector')[0].style.right="0%";
+            document.getElementsByClassName('img-selector')[0].innerHTML = `
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard0.jpg" class="w-100" draggable="false"/></div>
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard1.jpg" class="w-100" draggable="false"/></div>
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard2.jpg" class="w-100" draggable="false"/></div>
+            `;
         }else if(project == 'AsciiConvertor'){
             document.getElementById('project-description').innerHTML = `The project that you have developed is a Python program that utilizes the Pillow library to create an ASCII art representation of any image or video. The program has the capability to accept input images or videos from internet links, making it a versatile tool for creating ASCII art from a wide range of sources.
             <br><br>The process of creating ASCII art involves converting the original image or video into a text-based representation using ASCII characters, such as letters, numbers, and symbols. This technique has been used for decades as a way to create visual art from digital media, and it has seen a resurgence in popularity in recent years as a nostalgic and creative way to represent images.
@@ -141,6 +177,24 @@ function loadProjectData(project){
             document.getElementById('project-link').innerHTML = `
             <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/Ascii-Converter/releases/tag/v0.1.0"><i class="fa-solid fa-file-arrow-down"></i> Download<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
                 <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/Ascii-Converter"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
+            `;
+
+            document.documentElement.style.setProperty('--slider-width', '0px');
+            document.getElementsByClassName('img-slider')[0].dataset.curr = 0;
+            document.getElementsByClassName('img-slider')[0].dataset.max = 3;
+            document.getElementsByClassName('img-slider')[0].innerHTML = `
+            <div data-right="0" class="img-slider-active"></div>
+            <div data-right="1" ></div>
+            <div data-right="2" ></div>
+            <div data-right="3" ></div>
+            `;
+            document.getElementsByClassName('img-selector')[0].style.width="400%";
+            document.getElementsByClassName('img-selector')[0].style.right="0%";
+            document.getElementsByClassName('img-selector')[0].innerHTML = `
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor0.jpg" class="w-100" draggable="false"/></div>
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor1.jpg" class="w-100" draggable="false"/></div>
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor2.jpg" class="w-100" draggable="false"/></div>
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor3.jpg" class="w-100" draggable="false"/></div>
             `;
         }else if(project == 'ControMouse'){
             document.getElementById('project-description').innerHTML = `ControMouse is an innovative utility that allows couch-oriented PC users to control their computer using an Xbox or PlayStation controller. The utility is built using C programming language and the XInput library is used to enable controller inputs to be translated into traditional keyboard and mouse inputs.
@@ -165,6 +219,17 @@ function loadProjectData(project){
             document.getElementById('project-link').innerHTML = `
             <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/ControMouse"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
             `;
+
+            document.documentElement.style.setProperty('--slider-width', '0px');
+            document.getElementsByClassName('img-slider')[0].dataset.curr = 0;
+            document.getElementsByClassName('img-slider')[0].dataset.max = 0;
+            document.getElementsByClassName('img-slider')[0].innerHTML = `
+            `;
+            document.getElementsByClassName('img-selector')[0].style.width="100%";
+            document.getElementsByClassName('img-selector')[0].style.right="0%";
+            document.getElementsByClassName('img-selector')[0].innerHTML = `
+            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/contromouse0.jpg" class="w-100" draggable="false"/></div>
+            `;
         }
 
         document.getElementById('project-title').innerHTML = project;
@@ -173,6 +238,10 @@ function loadProjectData(project){
         document.getElementById('project-resource').style.opacity = 1;
         document.getElementById('project-features').style.opacity = 1;
         document.getElementById('project-link').style.opacity = 1;
+        setTimeout(()=>{
+            document.getElementsByClassName('img-toolkit')[0].style.opacity = 1;
+            document.getElementsByClassName('img-selector')[0].style.opacity = 1;
+        },150);
     },200);
 }
 
@@ -200,3 +269,19 @@ document.querySelectorAll('.scroll-down').forEach(element =>{
         element.style.marginTop = element.style.marginTop=='10px'?'0px':'10px';
     },500);
 });
+
+document.querySelectorAll('.img-slider-option').forEach((element=>{
+    element.firstElementChild.addEventListener('click',(event)=>{
+        if( parseInt(event.target.dataset.pause) == 0 ){
+            event.target.dataset.pause = 1;
+            event.target.classList.toggle('fa-regular');
+            event.target.classList.toggle('fa-solid');
+            isPaused = true;
+        }else{
+            event.target.dataset.pause = 0;
+            event.target.classList.toggle('fa-regular');
+            event.target.classList.toggle('fa-solid');
+            isPaused = false;
+        }
+    })
+}));

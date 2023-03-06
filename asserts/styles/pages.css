@@ -12,57 +12,6 @@
 .back span{ cursor: pointer; }
 .back span:hover{ color:yellow; }
 
-.img-group:hover .img-toolkit{
-    opacity: 1;
-}
-
-.img-group{
-    width:100%;
-    height:100%;
-    position: relative;
-}
-
-.img-group img{
-    width: 100%;
-}
-
-.img-group img:nth-child(1){
-    opacity: 1;
-}
-
-.img-group img, .img-group .img-toolkit{
-    transition: opacity 0.2s ease-in-out;
-    position:absolute;
-    opacity: 0;
-}
-
-.img-group .img-toolkit{
-    height:60px;
-    width:100%;
-
-    display: flex;
-    align-items: center;
-
-    background-color: rgba( 0,0,0,.5 );
-}
-
-.img-group .img-toolkit div{
-    height:45px;
-    width:45px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-    border-radius: 10px;
-    border:1px solid rgb(20, 10, 10);
-    background-color: #1d1d1d;
-}
-
-.img-group .img-toolkit div:nth-child(1){ margin-left:5px; }
-.img-group .img-toolkit div:nth-child(2){ margin-left:20px; }
-
 .scroll-down{
     cursor: pointer;
     transition: all 0.5s ease-in-out;
@@ -125,4 +74,79 @@
 
 #project-title, #project-description, #project-resource, #project-features{
     transition: all 0.2s ease-in-out;
+}
+
+.img-toolkit{
+    transition: opacity 0.2s ease-in-out;
+}
+
+.img-slider{
+    display: flex;
+}
+
+@keyframes rotation {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(359deg);}
+}
+.img-loader{
+    font-size: 50px;
+    transition: opacity 0.1s ease-in-out;
+    animation: rotation 2s infinite linear;
+}
+
+.img-slider div{
+    height:15px;
+    width:15px;
+    background-color: white;
+
+    border-radius: 50%;
+    margin-top:15px;
+    margin-left:8px;
+    
+
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+}
+
+.img-slider-active{
+    cursor:auto !important;
+    width:100px !important;
+    border-radius: 5px !important;
+    overflow: hidden;
+}
+
+:root{
+    --slider-width:0px;
+}
+
+.img-selector{
+    display: flex;
+    position: relative;
+    right:0%;
+    transition: all 0.2s ease-in-out;
+}
+
+.img-selector div img{
+    object-fit: cover;
+    min-width: 100%;
+    min-height: 100%;
+}
+
+.img-slider-active::after{
+    content:'';
+    display: block;
+    height:15px;
+    width:var(--slider-width);
+    background-color: #b1b1b1;
+    transition: all .2s ease-in;
+}
+
+.img-slider-option{
+    margin-top:6px;
+    margin-left:18px;
+    font-size: 25px;
+
+    cursor:pointer;
+    color:#1d1d1d;
 }

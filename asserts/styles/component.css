@@ -46,9 +46,14 @@
 .position-absolute { position:absolute; }
 
 .top-0{top:0%;}
+.top-50{top:50%;}
+.top-100{top:100%;}
 .left-0{left:0%;}
+.left-50{left:50%;}
 .left-75{left:75%;}
 .left-80{left:80%;}
+.right-100{right:100%;}
+.t-t-50-50{transform: translate(-50%,-50%);}
 
 .z-index-0{ z-index:0;}
 .z-index-1{ z-index:1;}

@@ -1,4 +1,5 @@
 const imageGroup = document.getElementById("image-group");
+let isPaused = false;
 
 setInterval(()=>{
     document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 0;
@@ -9,35 +10,35 @@ setInterval(()=>{
     document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 100;
 },150);
 
-
-// [document.getElementsByClassName("img-toolkit")]
-document.querySelectorAll('.img-toolkit').forEach(element =>{
+document.getElementsByClassName("img-slider")[0].addEventListener("click", event => {
+    if(event.target.dataset.right == undefined || event.target.className == "img-slider-active") return;
     
-    //previous
-    element.firstElementChild.addEventListener("click", event => {
-        let parent = event.target.parentNode;
-        if(parent.dataset.curr == undefined) parent = parent.parentNode;
-        
-        let mainParent = parent.parentNode;
-        mainParent.children[ parseInt(parent.dataset.curr) ].style.opacity = 0;
+    let parent = event.target.parentNode;
+    event.target.classList.toggle("img-slider-active");
+    document.documentElement.style.setProperty('--slider-width', '0px');
 
-        parent.dataset.curr = parseInt(parent.dataset.curr) - 1;
-        if(parent.dataset.curr <= -1) parent.dataset.curr = parent.dataset.max;
+    parent.children[ parseInt(parent.dataset.curr) ].classList.toggle("img-slider-active");
+    parent.dataset.curr = event.target.dataset.right;
 
-        mainParent.children[ parseInt(parent.dataset.curr) ].style.opacity = 1;
-    });
-
-    //next
-    element.lastElementChild.addEventListener("click", event => {
-        let parent = event.target.parentNode;
-        if(parent.dataset.curr == undefined) parent = parent.parentNode;
-        
-        let mainParent = parent.parentNode;
-        mainParent.children[ parseInt(parent.dataset.curr) ].style.opacity = 0;
-
-        parent.dataset.curr = parseInt(parent.dataset.curr) + 1;
-        if(parent.dataset.curr > parseInt(parent.dataset.max)) parent.dataset.curr = 0;
-
-        mainParent.children[ parseInt(parent.dataset.curr) ].style.opacity = 1;
-    });
+    document.getElementsByClassName("img-selector")[0].style.right = `${ parseInt(parent.dataset.curr)*100 }%`;
 });
+
+setInterval(()=>{
+    if(isPaused) return;
+    let nextVal = parseInt(document.documentElement.style.getPropertyValue('--slider-width')) + 2;
+    if(isNaN(nextVal)) nextVal = 0;
+
+    document.documentElement.style.setProperty('--slider-width', `${nextVal}px`);
+    if(nextVal >= 100){
+        let parent = document.getElementsByClassName("img-slider")[0];
+        if(parseInt(parent.dataset.max) == 0) return;
+
+        parent.children[ parseInt(parent.dataset.curr) ].classList.toggle("img-slider-active");
+
+        parent.dataset.curr = ( parseInt(parent.dataset.curr) != parseInt(parent.dataset.max) )?parseInt(parent.dataset.curr)+1:0;
+        parent.children[ parseInt(parent.dataset.curr) ].classList.toggle("img-slider-active");
+
+        document.documentElement.style.setProperty('--slider-width', '0px');
+        document.getElementsByClassName("img-selector")[0].style.right = `${ parseInt(parent.dataset.curr)*100 }%`;
+    }
+},200);

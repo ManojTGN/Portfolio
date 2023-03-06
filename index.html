@@ -132,8 +132,27 @@
         <div class="w-100 vh-100 d-flex align-items-center justify-content-center">
         <div class="w-80 h-80 d-flex">
         <div class="col-8">
-            <div class="card w-100 h-100 d-flex justify-content-center align-items-center">
-                Images Will Be Updated Soon
+            <div class="card w-100 h-100">
+                <div class="img-toolkit position-absolute d-flex z-index-1">
+                    <div data-curr="0" data-max="3" class="img-slider">
+                        <div data-right="0" class="img-slider-active"></div>
+                        <div data-right="1" ></div>
+                        <div data-right="2" ></div>
+                        <div data-right="3" ></div>
+                    </div>
+                    <div class="img-slider-option">
+                        <i class="fa-regular fa-circle-pause" data-pause="0"></i>
+                    </div>
+                </div>
+                <div class="img-selector" style="width:400%">
+                    <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum0.jpg" class="w-100" draggable="false"/></div>
+                    <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum1.jpg" class="w-100" draggable="false"/></div>
+                    <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum2.jpg" class="w-100" draggable="false"/></div>
+                    <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum3.jpg" class="w-100" draggable="false"/></div>
+                </div>
+                <div class="img-loader h-100 w-100 d-flex justify-content-center align-items-center z-index-0">
+                    <i class="fa-solid fa-spinner"></i>
+                </div>
             </div>
             <br>
             <div class="d-flex align-items-center justify-content-center">
@@ -347,8 +366,8 @@
             </span>
         </div>
 
-        <div class="row">
-
+        <div class="row h-100 d-flex justify-content-center align-items-center font-size-30">
+            <i class="fa-solid fa-person-running"></i> Coming Soon
         </div>
     </div>
 </div>
