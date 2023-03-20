@@ -150,3 +150,17 @@
     cursor:pointer;
     color:#1d1d1d;
 }
+
+.resume{
+    height:50px;
+    width: 200px;
+
+    border:3px solid blueviolet;
+    background-color: #1d1d1d;
+    color:white;
+
+    font-family: jbmono_bold;
+    font-size: 20px;
+
+    cursor: pointer;
+}
