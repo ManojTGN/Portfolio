@@ -1,5 +1,4 @@
 const imageGroup = document.getElementById("image-group");
-let isPaused = false;
 
 setInterval(()=>{
     document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 0;
@@ -23,8 +22,7 @@ document.getElementsByClassName("img-slider")[0].addEventListener("click", event
     document.getElementsByClassName("img-selector")[0].style.right = `${ parseInt(parent.dataset.curr)*100 }%`;
 });
 
-setInterval(()=>{
-    if(isPaused) return;
+function image_slide(){
     let nextVal = parseInt(document.documentElement.style.getPropertyValue('--slider-width')) + 2;
     if(isNaN(nextVal)) nextVal = 0;
 
@@ -41,4 +39,6 @@ setInterval(()=>{
         document.documentElement.style.setProperty('--slider-width', '0px');
         document.getElementsByClassName("img-selector")[0].style.right = `${ parseInt(parent.dataset.curr)*100 }%`;
     }
-},200);
+}
+
+var IMAGE_SLIDE = undefined;

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="asserts/images/portfolio.ico">
     <title>Manoj A</title>
 
     <!-- PERSONAL CSS -->
@@ -15,6 +16,7 @@
     <!-- FONTAWESOME -->
     <script src="https://kit.fontawesome.com/08c3f952c9.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+    <script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
 
 </head>
 <body>
@@ -23,14 +25,14 @@
     <!-- ABOUT PAGE -->
     <div class="about z-index-0 w-100 h-100 position-absolute">
 
-        <div class="about-back back position-absolute">
+        <div class="about-back back position-fixed">
             <span>
             <i class="fa-solid fa-caret-left"></i> Back
             </span>
         </div>
         
-        <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-        <div class="col-8 h-60">
+        <div class="w-100 h-100 d-flex justify-content-center margin-top-100px">
+        <div class="col-8">
             <h1 class="font-size-50">What I Do ?</h1>
             <br>
             <div class="row">
@@ -67,12 +69,13 @@
                 <p>I'm a gaming content creator who produces engaging videos that entertain and inform my audience</p>
             </div>
             </div>
-        </div>    
-        </div>
+            <br><br>
+            <hr><br>
 
-        <div class="row">
-            <div class="col-6 padding-5">
-                <h1 class="font-size-50 padding-top-5"><i class="fa-solid fa-brain"></i>Skill Sets</h1>
+            <h1 class="font-size-50">Skill Sets</h1>
+            <br>
+            <div class="row">
+            <div class="col-6">
                 <div class="row">
                     <div class="col padding-5">
                     <div class="cbox">
@@ -135,33 +138,42 @@
                 </div>
             </div>
             <div class="col-4 padding-5 d-flex align-items-center justify-content-center">
-                <img src="asserts/images/pages/about/1.png"/>
+                <img class="w-100" src="asserts/images/pages/about/1.png"/>
             </div>
-        </div>
+            </div>
+            <br><br>
+            <hr><br>
 
-        <div class="row">
-            <div class="col-4 padding-5 d-flex align-items-center justify-content-center">
-                <img src="asserts/images/pages/about/2.png"/>
+            <h1 class="font-size-50">Connections</h1>
+            <br>
+            <div class="row">
+                <div class="col-4 padding-5 d-flex align-items-center justify-content-center">
+                    <img src="asserts/images/pages/about/2.png"/>
+                </div>
+                <div class="col-6 padding-5 font-size-30">
+                    <h1 class="font-size-50 padding-top-5"><i class="fa-solid fa-diagram-project"></i>Conenctions</h1><br>
+                    <a href="https://github.com/ManojTGN" target="_blank"><i class="fa-brands fa-github"></i> Github/ManojTGN</a><br><br>
+                    <a href="https://www.linkedin.com/in/manojbit/" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn/ManojBIT</a><br><br>
+                    <a href="mailto:manojanguraja@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i> Mail/ManojAngurajA</a><br><br>
+                    <a href="http://manojtgn.me/"><i class="fa-solid fa-user"></i> portfolio/ManojTGN.me</a>
+                </div>
             </div>
-            <div class="col-6 padding-5 font-size-30">
-                <h1 class="font-size-50 padding-top-5"><i class="fa-solid fa-diagram-project"></i>Conenctions</h1><br>
-                <a href="https://github.com/ManojTGN" target="_blank"><i class="fa-brands fa-github"></i> Github/ManojTGN</a><br><br>
-                <a href="https://www.linkedin.com/in/manojbit/" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn/ManojBIT</a><br><br>
-                <a href="mailto:manojanguraja@gmail.com" target="_blank"><i class="fa-solid fa-envelope"></i> Mail/ManojAngurajA</a><br><br>
-                <a href="http://manojtgn.me/"><i class="fa-solid fa-user"></i> portfolio/ManojTGN.me</a>
-            </div>
+
+        </div>
         </div>
     </div>
 
     <!-- PROJECT PAGE -->
     <div class="project z-index-0 w-100 h-100 position-absolute">
-        <div class="project-back back position-absolute">
+        <div class="project-back back position-fixed">
             <span>
             <i class="fa-solid fa-caret-left"></i> Back
             </span>
         </div>
 
+        <!-- IMAGE AND SIDEBAR -->
         <div class="w-100 vh-100 d-flex align-items-center justify-content-center">
+        
         <div class="w-80 h-80 d-flex">
         <div class="col-8">
             <div class="card w-100 h-100">
@@ -193,8 +205,10 @@
                 </a>
             </div>
         </div>
-        <div class="col-2 position-fixed left-75">
-            <div class="card w-100 h-100">
+        
+        <!--SIDEBAR -->
+        <div class="col-2 position-fixed left-75 z-index-2">
+            <div class="card w-100 h-100" style="border:2px solid white;background-color: #1d1d1d;">
                 <div class="accordions" data-curr="a1_0">
                 <div class="accordion-item" id="a1_0">
                     <h2 class="accordion-header">
@@ -346,10 +360,12 @@
             </div>
         </div>
         </div>
+
         </div>
 
-        <div id="Project" class="w-100 d-flex justify-content-center"><div class="w-80"><div class="col-8">
-            
+        <!-- PROJECT DETAILED DESCRIPTION -->
+        <div id="Project" data-curr="p1_0" class="w-100 d-flex justify-content-center"><div class="w-80">
+        <div class="opacity-1 position-absolute z-index-1 col-6" id="p1_0">
             <h1 id="project-title" class="text-muted">GrievanceForum</h1>
             <p id="project-description">
             BIT Grievance Forum is a powerful and user-friendly online platform that allows college students to easily lodge their grievances related to service delivery with the college authorities. It is a single portal connected to all the BIT institute campuses, making it easy for students to access the platform from anywhere.
@@ -387,13 +403,121 @@
                 <span class="margin-right-5"><a target="_blank" href="https://grievanceforum.up.railway.app/"><i class="fa-solid fa-globe"></i> Site<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
                 <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/GrievanceForum"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
             </h3>
-        </div></div></div>
+        </div>
+        <div class="opacity-0 position-absolute z-index-0 col-6" id="p1_1">
+            <h1 id="project-title" class="text-muted">AliveBoard</h1>
+            <p id="project-description">
+            AliveBoard is a powerful and intuitive web application that allows for real-time collaboration on a shared whiteboard. It is built using Node.js and React, making it fast, reliable, and responsive. The application's clean and modern interface makes it easy for users to get started, with no need for complex installations or plugins.
+            <br><br>One of the key features of AliveBoard is its ability to enable real-time collaboration among multiple users. This means that users can invite friends or colleagues to join the whiteboard and work on it together in real-time, with changes and updates immediately visible to all participants. This makes it ideal for remote teams, classrooms, or any other scenario where collaboration is essential.
+            <br><br>The application includes a range of powerful drawing tools, such as pens, pencils, shapes, and text, allowing users to express their creativity in a variety of ways. The drawing tools are easy to use and customizable, allowing users to create the exact look and feel they want for their drawings.
+            <br><br>To ensure a safe and productive environment, AliveBoard includes moderation features that allow for easy monitoring of user activity. Moderators can easily remove any inappropriate content or behavior, ensuring a safe and enjoyable experience for all users.
+            <br><br>Overall, AliveBoard is an innovative and versatile web application that provides a powerful and easy-to-use platform for collaborative drawing and brainstorming. With its real-time collaboration features, customizable drawing tools, and moderation features, it is an essential tool for remote teams, classrooms, or any other scenario where collaborative drawing and brainstorming are necessary.
+            </p>
+
+            <br>
+            <h1 class="text-muted">Features</h1>
+            <div class="row font-size-20" id="project-features">
+                <div class="col">
+                    <ul><li class="margin-5"><i class="fa-solid fa-user-check"></i> Moderation System</li></ul>
+                    </div>
+                    <div class="col">
+                    <ul><li class="margin-5"><i class="fa-brands fa-flipboard"></i> Board Room System</li></ul>
+                    </div>
+                    <div class="col">
+                    <ul><li class="margin-5"><i class="fa-regular fa-face-smile-beam"></i> User-Friendly</li></ul>
+                </div>
+            </div>
+
+            <br>
+            <h1 class="text-muted">Resource</h1>
+            <h3 id="project-resource" class="d-flex">
+                <span class="margin-right-5"><i class="fa-brands fa-node font-size-50"></i></span>
+                <span class="margin-right-5 margin-bottom-2"><i class="devicon-express-original-wordmark font-size-100"></i></span>
+                <span class="margin-right-5 margin-bottom-2"><i class="devicon-react-original-wordmark font-size-100"></i></span>
+                <span class="margin-right-5 margin-bottom-3"><i class="devicon-mysql-plain-wordmark font-size-100"></i></span>
+            </h3>
+
+            <h1 class="text-muted">Links</h1>
+            <h3 id="project-link" class="d-flex font-size-20">
+                <span class="margin-right-5">
+                    <a target="_blank" href="https://github.com/ManojTGN/aliveboard"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a>
+                </span>
+            </h3>
+        </div>
+        <div class="opacity-0 position-absolute z-index-0 col-6" id="p1_2">
+            <h1 id="project-title" class="text-muted">AsciiConvertor</h1>
+            <p id="project-description">The project that you have developed is a Python program that utilizes the Pillow library to create an ASCII art representation of any image or video. The program has the capability to accept input images or videos from internet links, making it a versatile tool for creating ASCII art from a wide range of sources.
+                <br><br>The process of creating ASCII art involves converting the original image or video into a text-based representation using ASCII characters, such as letters, numbers, and symbols. This technique has been used for decades as a way to create visual art from digital media, and it has seen a resurgence in popularity in recent years as a nostalgic and creative way to represent images.
+                <br><br>Your program uses the Pillow library to access the pixels of the input image or video and then converts those pixels into ASCII characters based on their brightness and contrast. The resulting ASCII art can be output as a new image or video file, preserving the visual style of the original while providing a unique and interesting representation.
+                <br><br>Overall, The project is a creative and innovative use of Python and the Pillow library to create ASCII art from a wide range of sources. It offers a fun and engaging way to explore the visual potential of digital media, and it has the potential to inspire creativity and experimentation in users of all skill levels.`;
+            </p>
+            <br>
+            <h1 class="text-muted">Features</h1>
+            <div class="row font-size-20" id="project-features">
+                <div class="col">
+                    <ul><li class="margin-5"><i class="fa-solid fa-palette"></i> Fully Customizable</li></ul>
+                    </div>
+                    <div class="col">
+                    <ul><li class="margin-5"><i class="fa-solid fa-layer-group"></i> 3 Ascii Representation</li></ul>
+                    </div>
+                    <div class="col">
+                    <ul><li class="margin-5"><i class="fa-solid fa-globe"></i> Supports Online Image/Video</li></ul>
+                </div>
+            </div>
+
+            <br>
+            <h1 class="text-muted">Resource</h1>
+            <h3 id="project-resource" class="d-flex">
+                <span class="margin-right-5"><i class="devicon-python-plain-wordmark font-size-100"></i></span>
+            </h3>
+
+            <h1 class="text-muted">Links</h1>
+            <h3 id="project-link" class="d-flex font-size-20">
+                <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/Ascii-Converter/releases/tag/v0.1.0"><i class="fa-solid fa-file-arrow-down"></i> Download<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
+                <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/Ascii-Converter"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
+            </h3>
+        </div>
+        <div class="opacity-0 position-absolute z-index-0 col-6" id="p1_3">
+            <h1 id="project-title" class="text-muted">ControMouse</h1>
+            <p id="project-description">
+                ControMouse is an innovative utility that allows couch-oriented PC users to control their computer using an Xbox or PlayStation controller. The utility is built using C programming language and the XInput library is used to enable controller inputs to be translated into traditional keyboard and mouse inputs.
+                <br><br>ControMouse is particularly useful for users who want to sit back and relax on the couch while browsing the web, playing games, or controlling media players. With ControMouse, users can use their controller to interact with most applications and games that require keyboard and mouse input.
+                <br><br>The utility offers a range of customization options, allowing users to adjust the sensitivity of their controller, assign specific keys to different controller buttons, and customize the behavior of the controller's triggers and analog sticks. This means that users can fine-tune their controller settings to suit their specific needs, providing a highly personalized and comfortable user experience.
+                <br><br>One of the key features of ControMouse is its compatibility with most applications and games. The utility can be easily customized to work with any application or game, providing users with a simple and convenient solution for using their controller instead of a keyboard and mouse.
+                <br><br>ControMouse is particularly useful for PC gaming from the couch, as it allows users to play games that require keyboard and mouse input with their controller, providing a more comfortable and relaxing gaming experience. With ControMouse, users can easily customize their controller settings to suit their individual preferences, providing a personalized gaming experience.
+                <br><br>Overall, ControMouse is a powerful and user-friendly utility that provides a simple and convenient solution for couch-oriented PC users who prefer to use a controller rather than a keyboard and mouse. With its compatibility with most applications and games, customization options, and support for Xbox and PlayStation controllers, it is an essential tool for anyone who wants to control their PC from the couch.`;
+            </p>
+            <br>
+            <h1 class="text-muted">Features</h1>
+            <div class="row font-size-20" id="project-features">
+                <div class="col">
+                    <ul><li class="margin-5"><i class="fa-solid fa-gamepad"></i> Support All Controller</li></ul>
+                    </div>
+                    <div class="col">
+                    <ul><li class="margin-5"><i class="fa-solid fa-palette"></i> Customizable</li></ul>
+                    </div>
+                    <div class="col">
+                </div>
+            </div>
+
+            <br>
+            <h1 class="text-muted">Resource</h1>
+            <h3 id="project-resource" class="d-flex">
+                <span class="margin-right-5"><i class="devicon-c-line-wordmark font-size-100"></i></span>
+            </h3>
+
+            <h1 class="text-muted">Links</h1>
+            <h3 id="project-link" class="d-flex font-size-20">
+                <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/ControMouse"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
+            </h3>
+        </div>
+        </div></div>
     </div>
 
     <!-- BLOG PAGE -->
     <div class="blog z-index-0 w-100 h-100 position-absolute">
         
-        <div class="blog-back back position-absolute">
+        <div class="blog-back back position-fixed">
             <span>
             <i class="fa-solid fa-caret-left"></i> Back
             </span>
@@ -405,7 +529,7 @@
     </div>
 </div>
 
-
+<!-- MAIN CONTAINER -->
 <div class="container">
     <div class="main-container z-index-1">
         <div class="box vh-50 w-100">
@@ -436,19 +560,58 @@
         <div class="row">
             <div class="col padding-5">
             <div class="cbox about-trigger">
-                <h1><i class="fa-regular fa-chess-king"></i> About Me</h1>
+                <div class="row">
+                <div class="col-3">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/bhfjfgqz.json"
+                        trigger="loop"
+                        delay="1500"
+                        colors="primary:white"
+                        style="width:50px;height:50px">
+                    </lord-icon>
+                </div>
+                <div class="col-7">
+                    <h1>About Me</h1>
+                </div>
+                </div>
                 <h3 class="text-muted">SkillSets & Connections</h3>
             </div>
             </div>
             <div class="col padding-5">
             <div class="cbox project-trigger">
-                <h1><i class="fa-solid fa-cubes-stacked"></i> Projects</h1>
+                <div class="row">
+                <div class="col-3">
+                    <lord-icon
+                        src="https://cdn.lordicon.com/fpmskzsv.json"
+                        trigger="loop"
+                        delay="1000"
+                        colors="primary:white"
+                        style="width:50px;height:50px">
+                    </lord-icon>
+                </div>
+                <div class="col-7">
+                    <h1>Projects</h1>
+                </div>
+                </div>
                 <h3 class="text-muted">Works, Projects & Collabration</h3>
             </div>
             </div>
             <div class="col padding-5">
             <div class="cbox blog-trigger">
-                <h1><i class="fa-solid fa-street-view"></i> Blog</h1>
+                <div class="row">
+                    <div class="col-3">
+                        <lord-icon
+                            src="https://cdn.lordicon.com/vufjamqa.json"
+                            trigger="loop"
+                            delay="2000"
+                            colors="primary:white"
+                            style="width:50px;height:50px">
+                        </lord-icon>
+                    </div>
+                    <div class="col-7">
+                        <h1>Blog</h1>
+                    </div>
+                    </div>
                 <h3 class="text-muted">Timeline 2018-'22</h3>
             </div>
             </div>
