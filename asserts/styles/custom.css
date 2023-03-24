@@ -55,6 +55,12 @@
     padding:20px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    
+    color:white;
+    background-color: transparent;
+    border:0;
+
+    font-family: jbmono_regular;
 }
 .cbox:hover h1{
     text-decoration: underline;

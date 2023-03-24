@@ -1,7 +1,6 @@
 const shapes = document.getElementById("shapes");
 
 function createShape(){
-    
     let shape =  document.createElement("div");
     shape.className = "shape";
 
@@ -26,6 +25,7 @@ function createShape(){
     else if(3 == ran) icn.className = "fa-regular fa-square";
     else if(4 == ran) icn.className = "fa-regular fa-snowflake";
     shape.appendChild(icn);
+    
     return shape;
 }
 

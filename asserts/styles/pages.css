@@ -8,9 +8,17 @@
     width: 100vw;
 }
 
-.back{ padding:50px; }
-.back span{ cursor: pointer; }
-.back span:hover{ color:yellow; }
+.back{ 
+    padding:50px; 
+    cursor: pointer;
+    border:0;
+
+    color:white;
+    background-color: transparent;
+    font-family: jbmono_regular;
+    font-size: large;
+}
+.back:hover{ color:yellow; }
 
 .scroll-down{
     cursor: pointer;
@@ -23,6 +31,7 @@
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     overflow: hidden;
+    color:white;
 }
 
 
@@ -80,7 +89,7 @@
     transition: opacity 0.2s ease-in-out;
 }
 
-.img-slider{
+.img-slider .project-imageslide{
     display: flex;
 }
 
@@ -94,7 +103,7 @@
     animation: rotation 2s infinite linear;
 }
 
-.img-slider div{
+.img-slider .project-imageslide div{
     height:15px;
     width:15px;
     background-color: white;
@@ -116,18 +125,18 @@
     overflow: hidden;
 }
 
-:root{
+/* :root{
     --slider-width:0px;
-}
+} */
 
-.img-selector{
+.img-selector .project-image{
     display: flex;
     position: relative;
     right:0%;
     transition: all 0.2s ease-in-out;
 }
 
-.img-selector div img{
+.img-selector .project-image div img{
     object-fit: cover;
     min-width: 100%;
     min-height: 100%;
@@ -137,9 +146,21 @@
     content:'';
     display: block;
     height:15px;
-    width:var(--slider-width);
+    width: 0px;/*var(--slider-width);*/
     background-color: #b1b1b1;
-    transition: all .2s ease-in;
+
+    animation-name: imgslider;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes imgslider {
+    from{
+        width:0;
+    }
+    to{
+        width:100px;
+    }
 }
 
 .img-slider-option{
@@ -163,4 +184,47 @@
     font-size: 20px;
 
     cursor: pointer;
+}
+
+.project-selector{
+    background-color: #1d1d1d;
+    color:white;
+
+    font-family: jbmono_bold;
+    font-size: 20px;
+
+    cursor:pointer;
+}
+
+.project-selector option{
+    width:40px;
+}
+
+.project-sidebar, .project-detail, .project-image, .project-imageslide{
+    opacity: 0;
+    visibility: hidden;
+    z-index: 0;
+
+    position: absolute;
+    top:100%;
+
+    transition: opacity 0.2s ease-in-out;
+
+    height:0px;
+}
+
+.project-sidebar-active, .project-detail-active, .project-image-active, .project-imageslide-active{
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+
+    position:static;
+    top:0%;
+
+    transition: opacity 0.2s ease-in-out;
+    height:auto;
+}
+
+.project-imageslide, .project-imageslide-active{
+    transition: all 0s !important;
 }

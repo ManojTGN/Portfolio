@@ -25,10 +25,10 @@
     <!-- ABOUT PAGE -->
     <div class="about z-index-0 w-100 h-100 position-absolute">
 
-        <div class="about-back back position-fixed">
-            <span>
+        <div class="about-back position-fixed">
+            <button class="back" onclick="closePage(0)">
             <i class="fa-solid fa-caret-left"></i> Back
-            </span>
+            </button>
         </div>
         
         <div class="w-100 h-100 d-flex justify-content-center margin-top-100px">
@@ -169,211 +169,267 @@
 
         </div>
         </div>
+
     </div>
 
     <!-- PROJECT PAGE -->
     <div class="project z-index-0 w-100 h-100 position-absolute">
-        <div class="project-back back position-fixed">
-            <span>
+
+        <div class="project-back position-fixed">
+            <button class="back" onclick="closePage(1)">
             <i class="fa-solid fa-caret-left"></i> Back
-            </span>
+            </button>
         </div>
 
         <!-- IMAGE AND SIDEBAR -->
         <div class="w-100 vh-100 d-flex align-items-center justify-content-center">
         
         <div class="w-80 h-80 d-flex">
-        <div class="col-8">
-            <div class="card w-100 h-100">
-                <div class="img-toolkit position-absolute d-flex z-index-1">
-                    <div data-curr="0" data-max="3" class="img-slider">
-                        <div data-right="0" class="img-slider-active"></div>
-                        <div data-right="1" ></div>
-                        <div data-right="2" ></div>
-                        <div data-right="3" ></div>
+            <!-- IMAGES -->
+            <div class="col-8">
+                <div class="card w-100 h-100" style="border:2px solid white">
+                    <div class="img-toolkit position-absolute d-flex z-index-2">
+                        <div data-curr="0" data-max="3" class="img-slider">
+                            <div id="project_imageslide_0" class="project-imageslide project-imageslide-active">
+                                <div data-right="0" class=""></div>
+                                <div data-right="1" ></div>
+                                <div data-right="2" ></div>
+                                <div data-right="3" ></div>
+                            </div>
+                            <div id="project_imageslide_1" class="project-imageslide">
+                                <div data-right="0" ></div>
+                                <div data-right="1" ></div>
+                                <div data-right="2" ></div>
+                            </div>
+                            <div id="project_imageslide_2" class="project-imageslide">
+                                <div data-right="0" ></div>
+                                <div data-right="1" ></div>
+                                <div data-right="2" ></div>
+                                <div data-right="3" ></div>
+                            </div>
+                            <div id="project_imageslide_3" class="project-imageslide">
+
+                            </div>
+                        </div>
+                        <div class="img-slider-option">
+                            <i class="fa-regular fa-circle-pause" data-pause="0"></i>
+                        </div>
                     </div>
-                    <div class="img-slider-option">
-                        <i class="fa-regular fa-circle-pause" data-pause="0"></i>
+                    <div class="img-selector" style="position: relative; width:400%; transition: all 0.2s ease-in-out;">
+                        <div id="project_image_0" class="project-image project-image-active">
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum0.jpg" class="w-100" draggable="false"/></div>
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum1.jpg" class="w-100" draggable="false"/></div>
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum2.jpg" class="w-100" draggable="false"/></div>
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum3.jpg" class="w-100" draggable="false"/></div>
+                        </div>
+                        <div id="project_image_1" class="project-image">
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard0.jpg" class="w-100" draggable="false"/></div>
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard1.jpg" class="w-100" draggable="false"/></div>
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard2.jpg" class="w-100" draggable="false"/></div>
+                        </div>
+                        <div id="project_image_2" class="project-image">
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor0.jpg" class="w-100" draggable="false"/></div>
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor1.jpg" class="w-100" draggable="false"/></div>
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor2.jpg" class="w-100" draggable="false"/></div>
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor3.jpg" class="w-100" draggable="false"/></div>
+                        </div>
+                        <div id="project_image_3" class="project-image">
+                            <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/contromouse0.jpg" class="w-100" draggable="false"/></div>
+                        </div>
                     </div>
+                    <!-- <div class="img-loader h-100 w-100 d-flex justify-content-center align-items-center z-index-0">
+                        <i class="fa-solid fa-spinner"></i>
+                    </div> -->
                 </div>
-                <div class="img-selector" style="width:400%">
-                    <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum0.jpg" class="w-100" draggable="false"/></div>
-                    <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum1.jpg" class="w-100" draggable="false"/></div>
-                    <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum2.jpg" class="w-100" draggable="false"/></div>
-                    <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum3.jpg" class="w-100" draggable="false"/></div>
-                </div>
-                <div class="img-loader h-100 w-100 d-flex justify-content-center align-items-center z-index-0">
-                    <i class="fa-solid fa-spinner"></i>
+                <br>
+
+                <div class="d-flex align-items-center justify-content-center">
+                    <a href="#Project">
+                    <i class="fa-solid fa-angle-down scroll-down"></i>
+                    </a>
                 </div>
             </div>
-            <br>
-            <div class="d-flex align-items-center justify-content-center">
-                <a href="#Project">
-                <i class="fa-solid fa-angle-down scroll-down"></i>
-                </a>
-            </div>
-        </div>
-        
-        <!--SIDEBAR -->
-        <div class="col-2 position-fixed left-75 z-index-2">
-            <div class="card w-100 h-100" style="border:2px solid white;background-color: #1d1d1d;">
-                <div class="accordions" data-curr="a1_0">
-                <div class="accordion-item" id="a1_0">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button">
-                            <i class="fa-solid fa-snowflake"></i> GrievanceForum
-                        </button>
-                    </h2>
-                    <div>
-                        <div class="accordion-body">
-                        <img class="w-100" src="asserts/images/pages/project/grievanceForumSide.jpg" />
-                        <a target="_blank" href="https://grievanceforum.up.railway.app/">
-                        <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Site</button>
-                        </a>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">About</span><br>
-                        <span>
-                        Lodge the grievances to the college authorities on any subject related to service delivery...
-                        </span>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">Resources</span><br>
-                        <span>
-                        <ul>
-                            <li>Node JS</li>
-                            <li>Express</li>
-                            <li>MySQL</li>
-                        </ul>
-                        </span>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">Platform</span><br>
-                        <span>
-                            <ul>
-                                <li>Web App</li>
-                            </ul>
-                        </span>
-                        </div>
+            
+            <!-- SIDEBAR -->
+            <div class="col-2 position-fixed left-75 z-index-2 h-100">
+                
+                <div class="w-100 h-5 d-flex">
+                    <button class="card cursor-pointer w-15 d-flex align-items-center justify-content-center" style="border:2px solid white;" onclick="changeNextProject(-1)">
+                        <i class="fa-solid fa-angle-left"></i>
+                    </button>
+
+                    <span class="w-5"></span>
+                    <div class="card w-60" style="border:2px solid white;" id="project_sidebar" data-curr="0" data-max="3">
+                        <select class="project-selector w-100 h-100" name="projects" onchange="changeProject(this)">
+                            <option value="0">GrievanceForum</option>
+                            <option value="1">AliveBoard</option>
+                            <option value="2">AsciiConvertor</option>
+                            <option value="3">ControMouse</option>
+                        </select>
                     </div>
+                    <span class="w-5"></span>
+
+                    <button class="card cursor-pointer w-15 d-flex align-items-center justify-content-center" style="border:2px solid white;" onclick="changeNextProject(+1)">
+                        <i class="fa-solid fa-angle-right"></i>
+                    </button>
                 </div>
+                <br>
                 <hr>
-                <div class="accordion-item" id="a1_1">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button">
-                            <i class="fa-solid fa-dna"></i> AliveBoard
-                        </button>
-                    </h2>
-                    <div>
-                        <div class="accordion-body">
-                        <img class="w-100" src="asserts/images/pages/project/AliveBoardSide.jpg" />
-                        <a target="_blank" href="https://github.com/ManojTGN/aliveboard">
-                        <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Github</button>
-                        </a>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">About</span><br>
-                        <span>
-                            AliveBoard enables real-time collaboration on a shared whiteboard....
-                        </span>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">Resources</span><br>
-                        <span>
-                        <ul>
-                            <li>Node JS</li>
-                            <li>React JS</li>
-                            <li>SocketIO</li>
-                            <li>Express</li>
-                        </ul>
-                        </span>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">Platform</span><br>
-                        <span>
-                            <ul>
-                                <li>Web App</li>
-                            </ul>
-                        </span>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="accordion-item" id="a1_2">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button">
-                            <i class="fa-solid fa-brush"></i> Ascii Convertor
-                        </button>
-                    </h2>
-                    <div>
-                        <div class="accordion-body">
-                        <img class="w-100" src="asserts/images/pages/project/AsciiConvertorSide.jpg" />
-                        <a target="_blank" href="https://github.com/ManojTGN/Ascii-Converter/releases/tag/v0.1.0">
-                        <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Download</button>
-                        </a>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">About</span><br>
-                        <span>
-                            Convert Your Image (or) Video To An Ascii Art....
-                        </span>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">Resources</span><br>
-                        <span>
-                        <ul>
-                            <li>Python</li>
-                            <li>Pillow</li>
-                        </ul>
-                        </span>
-                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
-                        <span class="text-muted">Platform</span><br>
-                        <span>
-                            <ul>
-                                <li>CLI</li>
-                            </ul>
-                        </span>
-                        </div>
-                    </div>
-                </div>
-                <hr>
-                <div class="accordion-item" id="a1_3">
-                    <h2 class="accordion-header">
-                        <button class="accordion-button" type="button">
-                            <i class="fa-solid fa-gamepad"></i> ControMouse
-                        </button>
-                    </h2>
-                    <div>
-                        <div class="accordion-body">
-                            <img class="w-100" src="asserts/images/pages/project/ControMouseSide.jpg" />
-                            <a target="_blank" href="https://github.com/ManojTGN/ControMouse">
-                            <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Development</button>
+
+                <div>
+                    <div id="project_sidebar_0" class="project-sidebar project-sidebar-active">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button">
+                                <i class="fa-solid fa-snowflake"></i> GrievanceForum
+                            </button>
+                        </h2>
+                        <div>
+                            <div class="accordion-body">
+                            <img class="w-100" src="asserts/images/pages/project/grievanceForumSide.jpg" />
+                            <a target="_blank" href="https://grievanceforum.up.railway.app/">
+                            <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Site</button>
                             </a>
                             <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
                             <span class="text-muted">About</span><br>
                             <span>
-                                ControMouse is a utility that enables users to control their PC entirely using an controller...
+                            Lodge the grievances to the college authorities on any subject related to service delivery...
                             </span>
                             <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
                             <span class="text-muted">Resources</span><br>
                             <span>
                             <ul>
-                                <li>C</li>
-                                <li>XInput</li>
+                                <li>Node JS</li>
+                                <li>Express</li>
+                                <li>MySQL</li>
                             </ul>
                             </span>
                             <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
                             <span class="text-muted">Platform</span><br>
                             <span>
                                 <ul>
-                                    <li>Windows</li>
+                                    <li>Web App</li>
                                 </ul>
                             </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="project_sidebar_1" class="project-sidebar">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button">
+                                <i class="fa-solid fa-dna"></i> AliveBoard
+                            </button>
+                        </h2>
+                        <div>
+                            <div class="accordion-body">
+                            <img class="w-100" src="asserts/images/pages/project/AliveBoardSide.jpg" />
+                            <a target="_blank" href="https://github.com/ManojTGN/aliveboard">
+                            <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Github</button>
+                            </a>
+                            <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                            <span class="text-muted">About</span><br>
+                            <span>
+                                AliveBoard enables real-time collaboration on a shared whiteboard....
+                            </span>
+                            <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                            <span class="text-muted">Resources</span><br>
+                            <span>
+                            <ul>
+                                <li>Node JS</li>
+                                <li>React JS</li>
+                                <li>SocketIO</li>
+                                <li>Express</li>
+                            </ul>
+                            </span>
+                            <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                            <span class="text-muted">Platform</span><br>
+                            <span>
+                                <ul>
+                                    <li>Web App</li>
+                                </ul>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="project_sidebar_2" class="project-sidebar">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button">
+                                <i class="fa-solid fa-brush"></i> Ascii Convertor
+                            </button>
+                        </h2>
+                        <div>
+                            <div class="accordion-body">
+                            <img class="w-100" src="asserts/images/pages/project/AsciiConvertorSide.jpg" />
+                            <a target="_blank" href="https://github.com/ManojTGN/Ascii-Converter/releases/tag/v0.1.0">
+                            <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Download</button>
+                            </a>
+                            <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                            <span class="text-muted">About</span><br>
+                            <span>
+                                Convert Your Image (or) Video To An Ascii Art....
+                            </span>
+                            <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                            <span class="text-muted">Resources</span><br>
+                            <span>
+                            <ul>
+                                <li>Python</li>
+                                <li>Pillow</li>
+                            </ul>
+                            </span>
+                            <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                            <span class="text-muted">Platform</span><br>
+                            <span>
+                                <ul>
+                                    <li>CLI</li>
+                                </ul>
+                            </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="project_sidebar_3" class="project-sidebar">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button">
+                                <i class="fa-solid fa-gamepad"></i> ControMouse
+                            </button>
+                        </h2>
+                        <div>
+                            <div class="accordion-body">
+                                <img class="w-100" src="asserts/images/pages/project/ControMouseSide.jpg" />
+                                <a target="_blank" href="https://github.com/ManojTGN/ControMouse">
+                                <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Development</button>
+                                </a>
+                                <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                                <span class="text-muted">About</span><br>
+                                <span>
+                                    ControMouse is a utility that enables users to control their PC entirely using an controller...
+                                </span>
+                                <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                                <span class="text-muted">Resources</span><br>
+                                <span>
+                                <ul>
+                                    <li>C</li>
+                                    <li>XInput</li>
+                                </ul>
+                                </span>
+                                <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                                <span class="text-muted">Platform</span><br>
+                                <span>
+                                    <ul>
+                                        <li>Windows</li>
+                                    </ul>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
+        
             </div>
-        </div>
         </div>
 
         </div>
 
         <!-- PROJECT DETAILED DESCRIPTION -->
-        <div id="Project" data-curr="p1_0" class="w-100 d-flex justify-content-center"><div class="w-80">
-        <div class="opacity-1 position-absolute z-index-1 col-6" id="p1_0">
+        <div class="w-100 d-flex justify-content-center"><div class="w-80">
+        <div class="project-detail project-detail-active col-6" id="project_detail_0">
             <h1 id="project-title" class="text-muted">GrievanceForum</h1>
             <p id="project-description">
             BIT Grievance Forum is a powerful and user-friendly online platform that allows college students to easily lodge their grievances related to service delivery with the college authorities. It is a single portal connected to all the BIT institute campuses, making it easy for students to access the platform from anywhere.
@@ -411,8 +467,9 @@
                 <span class="margin-right-5"><a target="_blank" href="https://grievanceforum.up.railway.app/"><i class="fa-solid fa-globe"></i> Site<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
                 <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/GrievanceForum"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
             </h3>
+            <br><br>
         </div>
-        <div class="opacity-0 position-absolute z-index-0 col-6" id="p1_1">
+        <div class="project-detail col-6" id="project_detail_1">
             <h1 id="project-title" class="text-muted">AliveBoard</h1>
             <p id="project-description">
             AliveBoard is a powerful and intuitive web application that allows for real-time collaboration on a shared whiteboard. It is built using Node.js and React, making it fast, reliable, and responsive. The application's clean and modern interface makes it easy for users to get started, with no need for complex installations or plugins.
@@ -445,14 +502,16 @@
                 <span class="margin-right-5 margin-bottom-3"><i class="devicon-mysql-plain-wordmark font-size-100"></i></span>
             </h3>
 
+            <br>
             <h1 class="text-muted">Links</h1>
             <h3 id="project-link" class="d-flex font-size-20">
                 <span class="margin-right-5">
                     <a target="_blank" href="https://github.com/ManojTGN/aliveboard"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a>
                 </span>
             </h3>
+            <br><br>
         </div>
-        <div class="opacity-0 position-absolute z-index-0 col-6" id="p1_2">
+        <div class="project-detail col-6" id="project_detail_2">
             <h1 id="project-title" class="text-muted">AsciiConvertor</h1>
             <p id="project-description">The project that you have developed is a Python program that utilizes the Pillow library to create an ASCII art representation of any image or video. The program has the capability to accept input images or videos from internet links, making it a versatile tool for creating ASCII art from a wide range of sources.
                 <br><br>The process of creating ASCII art involves converting the original image or video into a text-based representation using ASCII characters, such as letters, numbers, and symbols. This technique has been used for decades as a way to create visual art from digital media, and it has seen a resurgence in popularity in recent years as a nostalgic and creative way to represent images.
@@ -479,13 +538,15 @@
                 <span class="margin-right-5"><i class="devicon-python-plain-wordmark font-size-100"></i></span>
             </h3>
 
+            <br>
             <h1 class="text-muted">Links</h1>
             <h3 id="project-link" class="d-flex font-size-20">
                 <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/Ascii-Converter/releases/tag/v0.1.0"><i class="fa-solid fa-file-arrow-down"></i> Download<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
                 <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/Ascii-Converter"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
             </h3>
+            <br><br>
         </div>
-        <div class="opacity-0 position-absolute z-index-0 col-6" id="p1_3">
+        <div class="project-detail col-6" id="project_detail_3">
             <h1 id="project-title" class="text-muted">ControMouse</h1>
             <p id="project-description">
                 ControMouse is an innovative utility that allows couch-oriented PC users to control their computer using an Xbox or PlayStation controller. The utility is built using C programming language and the XInput library is used to enable controller inputs to be translated into traditional keyboard and mouse inputs.
@@ -514,26 +575,30 @@
                 <span class="margin-right-5"><i class="devicon-c-line-wordmark font-size-100"></i></span>
             </h3>
 
+            <br>
             <h1 class="text-muted">Links</h1>
             <h3 id="project-link" class="d-flex font-size-20">
                 <span class="margin-right-5"><a target="_blank" href="https://github.com/ManojTGN/ControMouse"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></span>
             </h3>
+            <br><br>
         </div>
         </div></div>
+
     </div>
 
     <!-- BLOG PAGE -->
     <div class="blog z-index-0 w-100 h-100 position-absolute">
         
-        <div class="blog-back back position-fixed">
-            <span>
+        <div class="blog-back position-fixed">
+            <button class="back" onclick="closePage(2)">
             <i class="fa-solid fa-caret-left"></i> Back
-            </span>
+            </button>
         </div>
 
         <div class="row h-100 d-flex justify-content-center align-items-center font-size-30">
             <i class="fa-solid fa-person-running"></i> Coming Soon
         </div>
+        
     </div>
 </div>
 
@@ -567,7 +632,7 @@
         <div class="box w-100">
         <div class="row">
             <div class="col padding-5">
-            <div class="cbox about-trigger">
+            <button class="cbox" onclick="openPage(0)">
                 <div class="row">
                 <div class="col-3">
                     <lord-icon
@@ -583,10 +648,10 @@
                 </div>
                 </div>
                 <h3 class="text-muted">SkillSets & Connections</h3>
-            </div>
+            </button>
             </div>
             <div class="col padding-5">
-            <div class="cbox project-trigger">
+            <button class="cbox" onclick="openPage(1)">
                 <div class="row">
                 <div class="col-3">
                     <lord-icon
@@ -602,10 +667,10 @@
                 </div>
                 </div>
                 <h3 class="text-muted">Works, Projects & Collabration</h3>
-            </div>
+            </button>
             </div>
             <div class="col padding-5">
-            <div class="cbox blog-trigger">
+            <button class="cbox" onclick="openPage(2)">
                 <div class="row">
                     <div class="col-3">
                         <lord-icon
@@ -621,7 +686,7 @@
                     </div>
                     </div>
                 <h3 class="text-muted">Timeline 2018-'22</h3>
-            </div>
+            </button>
             </div>
         </div>
         </div>

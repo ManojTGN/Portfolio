@@ -1,4 +1,6 @@
 const imageGroup = document.getElementById("image-group");
+const imageSlider = document.getElementsByClassName("img-slider")[0];
+var IMAGE_SLIDE = undefined;
 
 setInterval(()=>{
     document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 0;
@@ -12,33 +14,35 @@ setInterval(()=>{
 document.getElementsByClassName("img-slider")[0].addEventListener("click", event => {
     if(event.target.dataset.right == undefined || event.target.className == "img-slider-active") return;
     
+    if( document.getElementsByClassName('img-slider-active').length > 0 ){
+        document.getElementsByClassName("img-slider-active")[0].classList.toggle("img-slider-active");
+    }
+
     let parent = event.target.parentNode;
     event.target.classList.toggle("img-slider-active");
-    document.documentElement.style.setProperty('--slider-width', '0px');
+    
+    parent.parentNode.dataset.curr = event.target.dataset.right;
+    document.getElementsByClassName("img-selector")[0].style.right = `${parseInt(imageSlider.dataset.curr)*100 }%`;
 
-    parent.children[ parseInt(parent.dataset.curr) ].classList.toggle("img-slider-active");
-    parent.dataset.curr = event.target.dataset.right;
+    clearInterval(IMAGE_SLIDE);
+    IMAGE_SLIDE = setInterval(changeNextImage,5000);
 
-    document.getElementsByClassName("img-selector")[0].style.right = `${ parseInt(parent.dataset.curr)*100 }%`;
 });
 
-function image_slide(){
-    let nextVal = parseInt(document.documentElement.style.getPropertyValue('--slider-width')) + 2;
-    if(isNaN(nextVal)) nextVal = 0;
-
-    document.documentElement.style.setProperty('--slider-width', `${nextVal}px`);
-    if(nextVal >= 100){
-        let parent = document.getElementsByClassName("img-slider")[0];
-        if(parseInt(parent.dataset.max) == 0) return;
-
-        parent.children[ parseInt(parent.dataset.curr) ].classList.toggle("img-slider-active");
-
-        parent.dataset.curr = ( parseInt(parent.dataset.curr) != parseInt(parent.dataset.max) )?parseInt(parent.dataset.curr)+1:0;
-        parent.children[ parseInt(parent.dataset.curr) ].classList.toggle("img-slider-active");
-
-        document.documentElement.style.setProperty('--slider-width', '0px');
-        document.getElementsByClassName("img-selector")[0].style.right = `${ parseInt(parent.dataset.curr)*100 }%`;
+function changeNextImage(){
+    if( document.getElementsByClassName('img-slider-active').length > 0 ){
+        document.getElementsByClassName("img-slider-active")[0].classList.toggle("img-slider-active");
     }
-}
+    
+    if(imageSlider.dataset.curr >= imageSlider.dataset.max){
+        imageSlider.dataset.curr = 0;
+        if(document.getElementsByClassName("project-imageslide-active")[0].children.length > 0){
+            document.getElementsByClassName("project-imageslide-active")[0].children.item(0).classList.toggle("img-slider-active");
+        }
+    }else{
+        imageSlider.dataset.curr = parseInt(imageSlider.dataset.curr) + 1;
+        document.getElementsByClassName("project-imageslide-active")[0].children.item(parseInt(imageSlider.dataset.curr)).classList.toggle("img-slider-active");
+    }
 
-var IMAGE_SLIDE = undefined;
+    document.getElementsByClassName("img-selector")[0].style.right = `${parseInt(imageSlider.dataset.curr)*100 }%`;
+}
