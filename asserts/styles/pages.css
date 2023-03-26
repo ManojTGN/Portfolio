@@ -9,7 +9,7 @@
 }
 
 .back{ 
-    padding:50px; 
+    margin:50px; 
     cursor: pointer;
     border:0;
 
@@ -184,6 +184,18 @@
     font-size: 20px;
 
     cursor: pointer;
+}
+
+.updown{
+    animation-name: updown;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes updown {
+    0%   {  margin-top: 0px; }
+    50%  {  margin-top: 10px;}
+    100% {  margin-top: 0px;}
 }
 
 .project-selector{

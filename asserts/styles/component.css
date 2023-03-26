@@ -76,8 +76,9 @@
 .font-size-100{font-size: 100px;}
 
 .bg-transparent{ background-color: transparent;}
-.bg-white{ background-color: white; }
+.bg-white{ background-color: white!important; }
 .bg-black{ background-color: black; }
+.color-black{color:black !important;}
 
 .overflow-hidden{ overflow: hidden; }
 .rotate-180{ rotate: 180deg; }

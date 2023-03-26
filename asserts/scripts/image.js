@@ -1,6 +1,7 @@
 const imageGroup = document.getElementById("image-group");
 const imageSlider = document.getElementsByClassName("img-slider")[0];
 var IMAGE_SLIDE = undefined;
+var ImSl_PAUSED = false;
 
 setInterval(()=>{
     document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 0;
@@ -24,12 +25,17 @@ document.getElementsByClassName("img-slider")[0].addEventListener("click", event
     parent.parentNode.dataset.curr = event.target.dataset.right;
     document.getElementsByClassName("img-selector")[0].style.right = `${parseInt(imageSlider.dataset.curr)*100 }%`;
 
-    clearInterval(IMAGE_SLIDE);
-    IMAGE_SLIDE = setInterval(changeNextImage,5000);
-
+    if(ImSl_PAUSED == false){
+        clearInterval(IMAGE_SLIDE);
+        IMAGE_SLIDE = setInterval(changeNextImage,5000);
+    }
 });
 
 function changeNextImage(){
+    if(ImSl_PAUSED == true){
+        return;
+    }
+
     if( document.getElementsByClassName('img-slider-active').length > 0 ){
         document.getElementsByClassName("img-slider-active")[0].classList.toggle("img-slider-active");
     }
