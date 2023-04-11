@@ -3,15 +3,20 @@ const imageSlider = document.getElementsByClassName("img-slider")[0];
 var IMAGE_SLIDE = undefined;
 var ImSl_PAUSED = false;
 
+
+if(window.location.href.split("/")[3] == 'index.html')
 setInterval(()=>{
     document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 0;
+    document.getElementById("me"+imageGroup.dataset.curr).style.position = 'absolute';
     
     if(imageGroup.dataset.curr+1 > imageGroup.dataset.max) imageGroup.dataset.curr = 0;
     else imageGroup.dataset.curr = parseInt(imageGroup.dataset.curr)+1;
     
-    document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 100;
+    document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 1;
+    document.getElementById("me"+imageGroup.dataset.curr).style.position = 'static';
 },150);
 
+if(window.location.href.split("/")[3] == 'project.html')
 document.getElementsByClassName("img-slider")[0].addEventListener("click", event => {
     if(event.target.dataset.right == undefined || event.target.className == "img-slider-active") return;
     
@@ -30,6 +35,9 @@ document.getElementsByClassName("img-slider")[0].addEventListener("click", event
         IMAGE_SLIDE = setInterval(changeNextImage,5000);
     }
 });
+
+if(window.location.href.split("/")[3] == 'project.html')
+IMAGE_SLIDE = setInterval(changeNextImage,5000);
 
 function changeNextImage(){
     if(ImSl_PAUSED == true){

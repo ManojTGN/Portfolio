@@ -2,17 +2,18 @@ const shapes = document.getElementById("shapes");
 
 function createShape(){
     let shape =  document.createElement("div");
-    shape.className = "shape";
 
     let width = Math.floor(Math.random() * 50);
     shape.style.width = `${width}px`;
     shape.style.height = `${width}px`;
 
+    shape.style.position = `absolute`;
     shape.style.top  = `${Math.floor(Math.random() * 95)}%`;
     shape.style.left = `${Math.floor(Math.random() * 95)}%`;
 
     shape.style.opacity = "0";
     shape.style.fontSize = "40px";
+    shape.style.transition = "all 10s ease";
     shape.style.rotate = `${Math.floor(Math.random() * 360)}deg`;
     shape.style.color = "rgba(255,255,255,.2)";
 
@@ -29,6 +30,7 @@ function createShape(){
     return shape;
 }
 
+if(window.location.href.split("/")[3] == 'index.html')
 setInterval(()=>{
 
     let s = shapes.children[ parseInt(shapes.dataset.now) ];
@@ -44,6 +46,7 @@ setInterval(()=>{
 
 },200);
 
+if(window.location.href.split("/")[3] == 'index.html')
 for(let i = parseInt(shapes.dataset.elements); i  < parseInt(shapes.dataset.maxelements); i++){
     const shape = createShape();
     shapes.appendChild(shape);

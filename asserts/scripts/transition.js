@@ -5,60 +5,19 @@ const BLOG = document.getElementsByClassName('blog')[0];
 
 
 function openPage(page){
-    CONC.style.filter = "blur(20px)";
-    CONC.classList.toggle("container-inactive");
-
-    if(page == '0'){
-        ABOUT.classList.toggle("z-index-0");
-        ABOUT.classList.toggle("z-index-2");
-        setTimeout(()=>{ ABOUT.style.opacity = 1; },250);
-    }else if(page == '1'){
-        PROJECT.classList.toggle("z-index-0");
-        PROJECT.classList.toggle("z-index-2");
-        setTimeout(()=>{ PROJECT.style.opacity = 1; },250);
-        
-        if(ImSl_PAUSED == false){
-            IMAGE_SLIDE = setInterval(changeNextImage,5000);
-        }
-
-        if(document.getElementsByClassName("img-slider-active").length <= 0){
-            document.getElementById("project_imageslide_0").children.item(0).classList.toggle("img-slider-active");
-        }
-    }else{
-        BLOG.classList.toggle("z-index-0");
-        BLOG.classList.toggle("z-index-2");
-        setTimeout(()=>{ BLOG.style.opacity = 1; },250); 
-    }
-
+    CONC.animate( [ { opacity: '1' }, { opacity: '0' } ], { duration: 100, easing: 'ease-in-out', fill: 'both' });
+    setTimeout( ()=>{
+        if(page == '0'){ window.location.href = "../about.html" }
+        else if(page == '1'){ window.location.href = "../project.html" }
+        else{ window.location.href = "../blog.html" }
+    },150);
 }
 
 function closePage(page){
-    CONC.style.filter = "blur(0px)";
-    CONC.classList.toggle("container-inactive");
-
-    if(page == '0'){
-        ABOUT.style.opacity = 0;
-        setTimeout(()=>{
-            ABOUT.classList.toggle("z-index-0");
-            ABOUT.classList.toggle("z-index-2");
-        },250);
-    }else if(page == '1'){
-        PROJECT.style.opacity = 0;
-        setTimeout(()=>{
-            PROJECT.classList.toggle("z-index-0");
-            PROJECT.classList.toggle("z-index-2");
-        },250);
-
-        changeNextProject(1000);
-        clearInterval(IMAGE_SLIDE);
-        document.getElementById("project_imageslide_0").children.item(0).classList.toggle("img-slider-active");
-    }else{
-        BLOG.style.opacity = 0;
-        setTimeout(()=>{
-            BLOG.classList.toggle("z-index-0");
-            BLOG.classList.toggle("z-index-2");
-        },250); 
-    }
+    CONC.animate( [ { opacity: '1' }, { opacity: '0' } ], { duration: 100, easing: 'ease-in-out', fill: 'both' });
+    setTimeout( ()=>{
+        window.location.href = "../index.html";
+    },150);
 }
 
 function changeProject(element) {

@@ -2,7 +2,8 @@
  * Global Variables
  */
 :root{
-    --bodyBg:#1d1d1d;
+    --textBg:white;
+    --bodyBg:#010409;
 }
 
 /*
@@ -17,6 +18,33 @@
     font-family: jbmono_bold;
     src: url("../webfont/JetBrainsMono-Bold.woff2");
 }
+/*
+ * Container Open Animation
+ */
+@keyframes open {
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
+/*
+ * Media Query
+ */
+@media screen and (min-width: 100px){
+    .container{
+        opacity: 0;
+    }
+    .viewport-support{
+        opacity: 1;
+    }
+}
+@media screen and (min-width: 600px){
+    .container{
+        opacity: 1;
+    }
+    .viewport-support{
+        opacity: 0;
+    }
+}
 
 /*
  * Body Style
@@ -30,6 +58,7 @@ body{
     width:100%;
 
     font-family: jbmono_bold;
+    color:var(--textBg);
     background-color: var(--bodyBg);
 }
 
@@ -45,4 +74,30 @@ a{
 }
 a:hover{
     color:cornflowerblue;
+}
+
+.container{
+    height:100vh;
+
+    color:white;
+    background:transparent;
+
+    display: flex;
+    justify-content: center;
+    transition: filter 0.5s ease-in;
+    animation: open .2s forwards .1s ease-in;
+}
+
+.back{ 
+    margin:50px; 
+    cursor: pointer;
+    border:0;
+
+    color:white;
+    background-color: transparent;
+    font-family: jbmono_regular;
+    font-size: large;
+}
+.back:hover{ 
+    color:yellow; 
 }
