@@ -4,7 +4,7 @@ var IMAGE_SLIDE = undefined;
 var ImSl_PAUSED = false;
 
 
-if(window.location.href.split("/")[3] == 'index.html')
+if(window.location.href.split("/")[3] == 'index.html' || window.location.href.split("/")[3] == '')
 setInterval(()=>{
     document.getElementById("me"+imageGroup.dataset.curr).style.opacity = 0;
     document.getElementById("me"+imageGroup.dataset.curr).style.position = 'absolute';

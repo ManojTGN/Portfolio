@@ -30,7 +30,7 @@ function createShape(){
     return shape;
 }
 
-if(window.location.href.split("/")[3] == 'index.html')
+if(window.location.href.split("/")[3] == 'index.html' || window.location.href.split("/")[3] == '')
 setInterval(()=>{
 
     let s = shapes.children[ parseInt(shapes.dataset.now) ];
@@ -46,7 +46,7 @@ setInterval(()=>{
 
 },200);
 
-if(window.location.href.split("/")[3] == 'index.html')
+if(window.location.href.split("/")[3] == 'index.html' || || window.location.href.split("/")[3] == '')
 for(let i = parseInt(shapes.dataset.elements); i  < parseInt(shapes.dataset.maxelements); i++){
     const shape = createShape();
     shapes.appendChild(shape);
