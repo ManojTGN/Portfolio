@@ -44,25 +44,25 @@
         body{font-family: Pixellari;}
     </style>
 </head>
-<body class="m-0 p-0 h-screen w-full flex flex-col items-center justify-center gap-3 bg-[#121212]">
+<body class="m-0 p-0 h-screen w-full flex flex-col items-center sm:justify-center gap-3 bg-[#121212]">
     <canvas id="canvas" class="w-full h-full absolute -z-10 opacity-0 hover:cursor-fancy"></canvas>
     <canvas id="oldcanvas" class="w-full h-full absolute -z-10 opacity-0"></canvas>
 
-    <div class="w-1/2 flex gap-2">
+    <div class="sm:w-1/2 w-5/6 flex gap-2">
         <span class="text-3xl text-yellow-300 hover:cursor-pointer">ManojTGN</span>
         <hr class="w-full my-4 border-solid border-1 border-yellow-300" />
         <span class="text-3xl my-2 text-yellow-300">*</span>
     </div>
 
-    <div class="w-1/2 flex gap-5">
-        <div class="w-1/2 flex items-center justify-end">
+    <div class="sm:w-1/2 w-5/6 flex sm:flex-row flex-col gap-5">
+        <div class="sm:w-1/2 w-full flex items-center justify-end">
             <img src="./asserts/real_me.jpeg" class="w-full rounded" loading="lazy" draggable="false"/>
         </div>
         <div class="w-full flex flex-col">
             <p class="text-2xl text-white text-start">
                 I'm <span class="text-yellow-300 hover:text-yellow-500 hover:cursor-pointer">Manoj</span>, aspiring Coder, interested in rendering engineering (computer graphics) and I'd love to enhance my knowledge about new and emerging trends in Information Technology domain. Thanks for visiting and I'd love to connect!
             </p>
-            <div class="text-6xl text-yellow-300 py-12 flex items-center justify-center gap-5 ">
+            <div class="sm:text-6xl text-5xl text-yellow-300 py-12 flex items-center justify-center gap-5 ">
                 <a class="hover:text-yellow-500" href="https://github.com/manojTGN" target="_blank"><i class="fa-brands fa-github"></i></a>
                 <a class="hover:text-yellow-500" href="https://www.linkedin.com/in/manojbit/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                 <a class="hover:text-yellow-500 flex flex-col" href="https://drive.google.com/file/d/1YkDWnFv27z7AQwdJki7xhn-cPGYZLFox/view" target="_blank"><i class="fa-solid fa-file-lines"></i> <span class="text-base -mx-1">resume</span></a>
@@ -72,28 +72,28 @@
         </div>
     </div>
 
-    <div class="w-1/2 flex gap-2">
+    <div class="sm:w-1/2 w-5/6 flex gap-2">
         <span class="text-3xl text-yellow-300 hover:cursor-pointer">Projects</span>
         <hr class="w-full my-4 border-solid border-1 border-yellow-300" />
         <span class="text-3xl my-2 text-yellow-300">*</span>
     </div>
 
-    <div class="w-1/2 grid grid-cols-3 gap-2">
-        <img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=cgrafix" draggable="false"/>
-        <img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=T-G-N&repo=hashmap.c" draggable="false"/>
-        <img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=asciicam-cmd" draggable="false"/>
-        <img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=collision2djs" draggable="false"/>
-        <img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=GrievanceForum" draggable="false"/>
-        <img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=aliveboard" draggable="false"/>
+    <div class="sm:w-1/2 grid sm:grid-cols-3 grid-cols-1 gap-2">
+        <a href="https://github.com/ManojTGN/cgrafix" target="_blank"><img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=cgrafix" draggable="false"/></a>
+        <a href="https://github.com/T-G-N/hashmap.c" target="_blank"><img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=T-G-N&repo=hashmap.c" draggable="false"/></a>
+        <a href="https://github.com/ManojTGN/asciicam-cmd" target="_blank"><img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=asciicam-cmd" draggable="false"/></a>
+        <a href="https://github.com/ManojTGN/collision2djs" target="_blank"><img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=collision2djs" draggable="false"/></a>
+        <a href="https://github.com/ManojTGN/GrievanceForum" target="_blank"><img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=GrievanceForum" draggable="false"/></a>
+        <a href="https://github.com/ManojTGN/aliveboard" target="_blank"><img class="hover:cursor-pointer" src="https://github-readme-stats.vercel.app/api/pin/?username=manojtgn&repo=aliveboard" draggable="false"/></a>
     </div>
 
-    <div class="w-1/2 flex gap-2">
+    <div class="sm:w-1/2 sm:h-auto flex gap-2 w-0 h-0 overflow-hidden">
         <span class="text-3xl text-yellow-300 hover:cursor-pointer">Artist</span>
         <hr class="w-full my-4 border-solid border-1 border-yellow-300" />
         <span class="text-3xl my-2 text-yellow-300">*</span>
     </div>
 
-    <div class="w-1/2 flex flex-row gap-5 items-center justify-center transition-all">
+    <div class="sm:w-1/2 sm:h-auto w-0 h-0 flex flex-row gap-5 items-center justify-center transition-all sm:overflow-visible overflow-hidden">
         <div class="text-2xl font-semibold bg-clip-text  text-transparent from-pink-500  to-yellow-500
         animate-text" style="background-image: linear-gradient(to top right, var(--tw-gradient-stops)) !important;"> Are You An Artist? </div>
         <button onclick="toggle()" id="toggleButton" class="z-20 px-6 py-1 bg-yellow-300 rounded text-[#121212] font-bold hover:bg-yellow-500 disabled:scale-90 hover:scale-110 transition-all outline outline-solid outline-yellow-300 hover:outline-yellow-500 outline-offset-2 disabled:outline-neutral-500 disabled:bg-neutral-300 disabled:text-neutral-700 disabled:cursor-wait" disabled="true"> <i class="fa-solid fa-circle-notch fa-spin"></i> . . .</button>
