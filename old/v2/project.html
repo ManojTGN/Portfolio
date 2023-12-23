@@ -35,7 +35,7 @@
         <div class="col-8">
             <div class="card w-100 h-100" style="border:5px solid #272d33">
                 <div class="img-toolkit position-absolute d-flex z-index-2">
-                    <div data-curr="0" data-max="3" class="img-slider">
+                    <div data-curr="0" data-max="4" class="img-slider">
                         <div id="project_imageslide_0" class="project-imageslide project-imageslide-active">
                             <div data-right="0" class="img-slider-active"></div>
                             <div data-right="1" ></div>
@@ -46,14 +46,20 @@
                             <div data-right="0" ></div>
                             <div data-right="1" ></div>
                             <div data-right="2" ></div>
+                            <div data-right="3" ></div>
                         </div>
                         <div id="project_imageslide_2" class="project-imageslide">
                             <div data-right="0" ></div>
                             <div data-right="1" ></div>
                             <div data-right="2" ></div>
-                            <div data-right="3" ></div>
                         </div>
                         <div id="project_imageslide_3" class="project-imageslide">
+                            <div data-right="0" ></div>
+                            <div data-right="1" ></div>
+                            <div data-right="2" ></div>
+                            <div data-right="3" ></div>
+                        </div>
+                        <div id="project_imageslide_4" class="project-imageslide">
 
                         </div>
                     </div>
@@ -63,23 +69,29 @@
                 </div>
                 <div class="img-selector" style="position: relative; width:400%; transition: all 0.2s ease-in-out;">
                     <div id="project_image_0" class="project-image project-image-active">
+                        <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/collision2d0.webp" class="w-100" draggable="false"/></div>
+                        <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/collision2d1.webp" class="w-100" draggable="false"/></div>
+                        <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/collision2d2.webp" class="w-100" draggable="false"/></div>
+                        <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum3.jpg" class="w-100" draggable="false"/></div>
+                    </div>
+                    <div id="project_image_1" class="project-image">
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum0.jpg" class="w-100" draggable="false"/></div>
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum1.jpg" class="w-100" draggable="false"/></div>
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum2.jpg" class="w-100" draggable="false"/></div>
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/grievanceforum3.jpg" class="w-100" draggable="false"/></div>
                     </div>
-                    <div id="project_image_1" class="project-image">
+                    <div id="project_image_2" class="project-image">
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard0.jpg" class="w-100" draggable="false"/></div>
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard1.jpg" class="w-100" draggable="false"/></div>
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/aliveboard2.jpg" class="w-100" draggable="false"/></div>
                     </div>
-                    <div id="project_image_2" class="project-image">
+                    <div id="project_image_3" class="project-image">
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor0.jpg" class="w-100" draggable="false"/></div>
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor1.jpg" class="w-100" draggable="false"/></div>
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor2.jpg" class="w-100" draggable="false"/></div>
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/asciiconvertor3.jpg" class="w-100" draggable="false"/></div>
                     </div>
-                    <div id="project_image_3" class="project-image">
+                    <div id="project_image_4" class="project-image">
                         <div class="w-100 d-flex justify-content-center align-items-center overflow-hidden"><img src="asserts/images/projects/contromouse0.jpg" class="w-100" draggable="false"/></div>
                     </div>
                 </div>
@@ -105,12 +117,13 @@
                 </button>
 
                 <span class="w-5"></span>
-                <div class="card w-60" style="border:3px solid #272d33;" id="project_sidebar" data-curr="0" data-max="3">
+                <div class="card w-60" style="border:3px solid #272d33;" id="project_sidebar" data-curr="0" data-max="4">
                     <select class="project-selector w-100 h-100" name="projects" onchange="changeProject(this)">
-                        <option value="0">GrievanceForum</option>
-                        <option value="1">AliveBoard</option>
-                        <option value="2">AsciiConvertor</option>
-                        <option value="3">ControMouse</option>
+                        <option value="0">Collision2D</option>
+                        <option value="1">GrievanceForum</option>
+                        <option value="2">AliveBoard</option>
+                        <option value="3">AsciiConvertor</option>
+                        <option value="4">ControMouse</option>
                     </select>
                 </div>
                 <span class="w-5"></span>
@@ -124,6 +137,41 @@
 
             <div>
                 <div id="project_sidebar_0" class="project-sidebar project-sidebar-active">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button" type="button">
+                            <i class="fa-solid fa-shapes"></i> Collision2D
+                        </button>
+                    </h2>
+                    <div>
+                        <div class="accordion-body">
+                        <img class="w-100" src="asserts/images/pages/project/Collision2DSide.png" />
+                        <a target="_blank" href="https://www.npmjs.com/package/@manojtgn/collision2djs">
+                        <button class="btn btn-primary w-100"><i class="fa-solid fa-arrow-up-right-from-square"></i> Site</button>
+                        </a>
+                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                        <span class="text-muted">About</span><br>
+                        <span>
+                            collision2djs is a lightweight open-source library for 2D collision detection and response handling between multiple shapes with customizable properties and high performance.
+                        </span>
+                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                        <span class="text-muted">Resources</span><br>
+                        <span>
+                        <ul>
+                            <li>Node JS</li>
+                            <li>TypeScript</li>
+                        </ul>
+                        </span>
+                        <hr style="border:1px solid rgba(255, 255, 255, 0.1)">
+                        <span class="text-muted">Platform</span><br>
+                        <span>
+                            <ul>
+                                <li>NPM Package</li>
+                            </ul>
+                        </span>
+                        </div>
+                    </div>
+                </div>
+                <div id="project_sidebar_1" class="project-sidebar">
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button">
                             <i class="fa-solid fa-snowflake"></i> GrievanceForum
@@ -159,7 +207,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="project_sidebar_1" class="project-sidebar">
+                <div id="project_sidebar_2" class="project-sidebar">
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button">
                             <i class="fa-solid fa-dna"></i> AliveBoard
@@ -196,7 +244,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="project_sidebar_2" class="project-sidebar">
+                <div id="project_sidebar_3" class="project-sidebar">
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button">
                             <i class="fa-solid fa-brush"></i> Ascii Convertor
@@ -231,7 +279,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="project_sidebar_3" class="project-sidebar">
+                <div id="project_sidebar_4" class="project-sidebar">
                     <h2 class="accordion-header">
                         <button class="accordion-button" type="button">
                             <i class="fa-solid fa-gamepad"></i> ControMouse
@@ -276,6 +324,50 @@
     <!-- PROJECT DETAILED DESCRIPTION -->
     <div class="w-100 d-flex justify-content-center"><div class="w-80">
     <div class="project-detail project-detail-active col-6" id="project_detail_0">
+        <h1 id="project-title" class="text-muted">Collision2D</h1>
+        <p id="project-description">
+            Collision2djs is a powerful and lightweight 2D collision detection library for JavaScript. It provides an easy-to-use API for detecting collisions between different types of shapes including circles, rectangles, and polygons. With collision2djs, you can quickly add collision detection functionality to your JavaScript games, simulations, or any other application that requires 2D collision detection.
+            <br><br>The library is designed with performance in mind and offers efficient collision detection algorithms that are optimized for speed and accuracy. It uses advanced mathematical formulas and algorithms to provide the best possible performance while maintaining a low memory footprint.
+            <br><br>One of the key features of collision2djs is its flexibility. The library offers a variety of collision detection functions that can be used with different types of shapes, and it also provides options for adjusting the collision detection parameters to fit your specific needs. The library also supports collision detection for moving objects, which makes it suitable for games and simulations where objects are constantly in motion.
+            <br><br>Another important feature of collision2djs is its ease of use. The library comes with comprehensive documentation and a set of examples to help you get started quickly. It also provides detailed error messages and debug information to help you troubleshoot any issues that may arise.
+            <br><br>Overall, collision2djs is a highly versatile and efficient library that can help you add advanced collision detection functionality to your JavaScript applications with ease.
+        </p>
+
+        <br>
+        <h1 class="text-muted">Features</h1>
+        <div class="row font-size-20" id="project-features">
+            <div class="col">
+            <ul><li class="margin-5"><i class="fa-solid fa-shapes"></i> Collision Detection</li><li class="margin-5"><i class="fa-brands fa-elementor"></i> Collision Events</li></ul>
+            </div>
+            <div class="col">
+            <ul><li class="margin-5"><i class="fa-solid fa-vector-square"></i> Intersections Detection</li><li class="margin-5"><i class="fa-brands fa-osi"></i> OpenSource</li></ul>
+            </div>
+            <div class="col">
+            <ul><li class="margin-5"><i class="fa-regular fa-thumbs-up"></i> Customizable</li></ul>
+            </div>
+        </div>
+
+        <br>
+        <h1 class="text-muted">Resource</h1>
+        <h3 id="project-resource" class="d-flex align-items-center">
+            <div><i class="fa-brands fa-node font-size-50"></i></div>
+            <span class="w-5"></span>
+            <div><i class="devicon-typescript-plain font-size-50"></i></div>
+            <span class="w-5"></span>
+            <div><i class="devicon-npm-original-wordmark colored font-size-50"></i></div>
+            <span class="w-5"></span>
+        </h3>
+
+        <br>
+        <h1 class="text-muted">Links</h1><br>
+        <h3 id="project-link" class="d-flex align-items-center font-size-20">
+            <div><a target="_blank" href="https://www.npmjs.com/package/@manojtgn/collision2djs"><i class="fa-solid fa-globe"></i> Site<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></div>
+            <span class="w-5"></span>
+            <div><a target="_blank" href="https://github.com/ManojTGN/collision2djs"><i class="fa-brands fa-github"></i> Github<i class="fa-solid fa-arrow-up-right-from-square font-size-15"></i></a></div>
+        </h3>
+        <br><br>
+    </div>
+    <div class="project-detail col-6" id="project_detail_1">
         <h1 id="project-title" class="text-muted">GrievanceForum</h1>
         <p id="project-description">
         BIT Grievance Forum is a powerful and user-friendly online platform that allows college students to easily lodge their grievances related to service delivery with the college authorities. It is a single portal connected to all the BIT institute campuses, making it easy for students to access the platform from anywhere.
@@ -319,7 +411,7 @@
         </h3>
         <br><br>
     </div>
-    <div class="project-detail col-6" id="project_detail_1">
+    <div class="project-detail col-6" id="project_detail_2">
         <h1 id="project-title" class="text-muted">AliveBoard</h1>
         <p id="project-description">
         AliveBoard is a powerful and intuitive web application that allows for real-time collaboration on a shared whiteboard. It is built using Node.js and React, making it fast, reliable, and responsive. The application's clean and modern interface makes it easy for users to get started, with no need for complex installations or plugins.
@@ -363,7 +455,7 @@
         </h3>
         <br><br>
     </div>
-    <div class="project-detail col-6" id="project_detail_2">
+    <div class="project-detail col-6" id="project_detail_3">
         <h1 id="project-title" class="text-muted">AsciiConvertor</h1>
         <p id="project-description">The project that you have developed is a Python program that utilizes the Pillow library to create an ASCII art representation of any image or video. The program has the capability to accept input images or videos from internet links, making it a versatile tool for creating ASCII art from a wide range of sources.
             <br><br>The process of creating ASCII art involves converting the original image or video into a text-based representation using ASCII characters, such as letters, numbers, and symbols. This technique has been used for decades as a way to create visual art from digital media, and it has seen a resurgence in popularity in recent years as a nostalgic and creative way to represent images.
@@ -401,7 +493,7 @@
         </h3>
         <br><br>
     </div>
-    <div class="project-detail col-6" id="project_detail_3">
+    <div class="project-detail col-6" id="project_detail_4">
         <h1 id="project-title" class="text-muted">ControMouse</h1>
         <p id="project-description">
             ControMouse is an innovative utility that allows couch-oriented PC users to control their computer using an Xbox or PlayStation controller. The utility is built using C programming language and the XInput library is used to enable controller inputs to be translated into traditional keyboard and mouse inputs.
