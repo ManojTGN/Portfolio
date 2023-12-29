@@ -122,6 +122,7 @@
             <input class="peer/orange appearance-none" type="radio" name="color" id="orangeColor" value="rgba(251, 146, 60, 1)"/>
             <label for="orangeColor" class="hover:cursor-pointer rounded-full bg-orange-400 w-5 h-5 peer-checked/orange:outline outline-solid outline-offset-2 outline-orange-400"></label>
         </div>
+        <button onclick="(()=>{window.location.href='../replay'})()" class="z-20 px-6 py-1 bg-blue-300 rounded text-[#121212] font-bold hover:bg-blue-500 disabled:scale-90 hover:scale-110 transition-all outline outline-solid outline-blue-300 hover:outline-blue-500 outline-offset-2 disabled:outline-neutral-500 disabled:bg-neutral-300 disabled:text-neutral-700 disabled:cursor-wait"><i class="fa-solid fa-backward-step"></i> Replay </button>
     </div>
 </div>
 
@@ -185,6 +186,7 @@
     }).catch((error) => { document.getElementById('toggleButton').innerHTML = `<i class="fa-solid fa-square-xmark"></i> Err`;console.error(error); });
 
     async function uploadDrawData(TMP_DRAW_DATA){
+        if(!TMP_DRAW_DATA.points || TMP_DRAW_DATA.points.length === 0) return;
         set(push(reference),{
             color:TMP_DRAW_DATA.color,
             points:TMP_DRAW_DATA.points
@@ -225,7 +227,7 @@
 
     CANVAS.onmousemove = function (event) {
         flipper++;
-        if(!PAINT_MODE || !IS_MOUSE_DOWN || flipper<=2) return;
+        if(!PAINT_MODE || !IS_MOUSE_DOWN || flipper<=1) return;
 
         drawPoint(CONTEXT, event.offsetX, event.offsetY);
         TMP_DRAW_DATA.points.push([event.offsetX, event.offsetY]);
@@ -278,7 +280,7 @@
                 CURSORSCONTEXT.closePath();
                 OLDCONTEXT.closePath();
                 resolve();
-            }, 70))
+            }, 20))
             index++;
         }
 
@@ -317,7 +319,7 @@
                     
                     let index = 0;
                     while(index < DRAWNDATA[key].points.length && PAINT_MODE){
-                        await new Promise(resolve => setTimeout(()=>{drawPoint(OLDCONTEXT, DRAWNDATA[key].points[index][0],DRAWNDATA[key].points[index][1]);resolve();}, 5))
+                        await new Promise(resolve => setTimeout(()=>{drawPoint(OLDCONTEXT, DRAWNDATA[key].points[index][0],DRAWNDATA[key].points[index][1]);resolve();}, 3))
                         index++;
                     }
 

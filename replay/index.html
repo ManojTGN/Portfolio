@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤵 ManojTGN • Portfolio</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme:{
+                extend: {
+                    'animation': {
+                        'text':'text 1s ease infinite',
+                    },
+                    'keyframes': {
+                        'text': {
+                            '0%, 100%': {
+                            'background-size':'200% 200%',
+                                'background-position': 'left center'
+                            },
+                            '50%': {
+                            'background-size':'200% 200%',
+                                'background-position': 'right center'
+                            }
+                        },
+                    },
+                    cursor: {
+                        'fancy': 'url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'48\' viewport=\'0 0 100 100\' style=\'fill:black;font-size:24px;\'><text y=\'50%\'>🍡</text></svg>"), auto',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://kit.fontawesome.com/08c3f952c9.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    
+    <style>
+        @font-face {
+            font-family: Pixellari;
+            src: url(/asserts/Pixellari.ttf);
+        }
+        body{font-family: Pixellari;}
+    </style>
+</head>
+<body class="m-0 p-0 w-screen h-screen flex items-center sm:justify-center gap-3 overflow-hidden bg-[#121212]">
+<iframe id="frame" src="" class="w-[1920px] h-[1080px] z-10"></iframe>
+<canvas id="canvas" class="absolute z-20 border-4 border-solid border-yellow-300"></canvas>
+
+<div id="play_content" class=" fixed top-[90%] w-[960px] h-[80px] rounded-lg bg-neutral-900 flex items-center justify-center gap-2 px-5 z-30">
+    <div id="play_drag" class="w-1/6 text-white text-4xl flex items-center gap-2 group">
+        <i class="fa-solid fa-grip-vertical text-lg text-neutral-400 hover:cursor-move group-hover:scale-150"></i>
+        <button onclick="togglePause()" class="cursor-pointer">
+            <i id="pause_icon" class="fa-solid fa-circle-play"></i>
+        </button>
+        <span id="pause_text" class="text-2xl">Paused</span>
+    </div>
+    <div class="flex items-center w-4/6">
+        <input id="play_range" type="range" class="w-full accent-yellow-300" min="0" max="1" value="0" data-index="0" data-pointIndex="0" data-lineIndex="0" />
+    </div>
+    <div class="w-1/6">
+        <select class="bg-gray-50 border border-gray-300 text-gray-900 text-lg rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="years" id="years">
+            <option value="2023">2023</option>
+            <option value="2024" disabled>2024</option>
+        </select>
+    </div>
+</div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics.js";
+    import { getDatabase, onChildAdded, ref, set, get, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCQ9mTZwMFbRo2n0qz5ywtmreHDQUzdz4k",
+        authDomain: "portfolio-manojtgn.firebaseapp.com",
+        projectId: "portfolio-manojtgn",
+        storageBucket: "portfolio-manojtgn.appspot.com",
+        messagingSenderId: "814984845554",
+        appId: "1:814984845554:web:10d7c36cc7ec4ebf73186b",
+        measurementId: "G-716G5659NM",
+        databaseURL: "https://portfolio-manojtgn-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    };
+    
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const database = getDatabase(app);
+
+    const CANVAS = document.getElementById("canvas");
+    const CONTEXT = CANVAS.getContext('2d');
+
+    let DRAWNDATA = {};
+    let PAUSED = true;
+    let PLAY_ID = 0;
+
+
+    CANVAS.width = 1920;
+    CANVAS.height = 1080;
+
+    function drawPoint(context, x, y) {
+        context.lineTo(x, y);
+        context.stroke();
+    }
+
+    function getData(year){
+        if(DRAWNDATA[year]){ 
+            document.getElementById("play_range").setAttribute("max",DRAWNDATA[year]["gTotal"]);
+            document.getElementById("frame").setAttribute("src",`./${year}.html`);
+            return;
+        }
+
+        get(ref(database, `lines/${year}/`)).then((snapshot) => {
+            DRAWNDATA[year] = {};
+            if (snapshot.exists()) { 
+                DRAWNDATA[year]["gTotal"] = 0;
+                DRAWNDATA[year]["data"] = snapshot.val();
+                DRAWNDATA[year]["keys"] = Object.keys(DRAWNDATA[year]["data"]);
+                for(let i = 0; i < DRAWNDATA[year]["keys"].length; i++){
+                    DRAWNDATA[year]["gTotal"] += DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][i] ]["points"].length;
+                }
+
+                document.getElementById("play_range").setAttribute("max",DRAWNDATA[year]["gTotal"]);
+            }
+
+            document.getElementById("frame").setAttribute("src",`./${year}.html`);
+        }).catch((error) => { console.error(error); });
+    }
+
+    document.getElementById("play_drag").onmousemove = function(event){
+        if(event.which){
+            let content = document.getElementById("play_content");
+            content.style.left = `${event.clientX - 80 }px`;
+            content.style.top = `${event.clientY - 30}px`;
+        }
+    }
+
+    window.togglePause = function(){
+        PAUSED = (!PAUSED);
+        
+        if(PAUSED){
+            document.getElementById("pause_icon").className = document.getElementById("pause_icon").className.replace("fa-regular","fa-solid");
+            document.getElementById("pause_text").innerHTML = "Paused";
+            clearInterval(PLAY_ID);
+        }else{
+            PLAY_ID = setInterval(()=>{
+                document.getElementById("play_range").value = parseInt(document.getElementById("play_range").value)+1;
+                var event = new Event('change');
+                document.getElementById("play_range").dispatchEvent(event);
+
+                if( !PAUSED && parseInt(document.getElementById("play_range").value) >= DRAWNDATA[document.getElementById("years").value]["gTotal"] ){
+                    window.togglePause();
+                }
+            },1);
+            document.getElementById("pause_icon").className = document.getElementById("pause_icon").className.replace("fa-solid","fa-regular");
+            document.getElementById("pause_text").innerHTML = "Playing";
+        }
+    }
+
+    document.getElementById("play_range").onchange = function (event){
+
+        let year = document.getElementById("years").value;
+        if(!DRAWNDATA[year]){event.preventDefault();return;}
+
+        let toindex = parseInt(event.target.value);
+        if(parseInt(event.target.dataset.index) > toindex){
+            CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
+            event.target.dataset.index = 0;
+            event.target.dataset.lineindex = 0;
+            event.target.dataset.pointindex = 0;
+
+            var event = new Event('change');
+            document.getElementById("play_range").dispatchEvent(event);
+            return;
+        }
+
+        let tmpdata = null;
+        CONTEXT.beginPath();
+        CONTEXT.lineCap = "round";
+        CONTEXT.lineJoin = "round";
+        CONTEXT.strokeStyle = DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][parseInt(event.target.dataset.lineindex)] ]["color"];
+        CONTEXT.fillStyle = DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][parseInt(event.target.dataset.lineindex)] ]["color"];
+        CONTEXT.lineWidth = 5;
+
+        if(parseInt(event.target.dataset.pointindex) != 0){
+            tmpdata = DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][parseInt(event.target.dataset.lineindex)] ]["points"][parseInt(event.target.dataset.pointindex)-1];
+            CONTEXT.moveTo(tmpdata[0], tmpdata[1]); 
+        }
+        
+        while( parseInt(event.target.dataset.index) < toindex  ){
+    
+            tmpdata = DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][parseInt(event.target.dataset.lineindex)] ]["points"][parseInt(event.target.dataset.pointindex)]        
+            drawPoint(CONTEXT,tmpdata[0], tmpdata[1]);
+
+            event.target.dataset.pointindex = parseInt(event.target.dataset.pointindex)+1;
+            if(parseInt(event.target.dataset.pointindex) >= DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][parseInt(event.target.dataset.lineindex)] ]["points"].length ){
+                event.target.dataset.lineindex = parseInt(event.target.dataset.lineindex)+1;
+                if(parseInt(event.target.dataset.lineindex) >= DRAWNDATA[year]["keys"].length) break;
+
+                event.target.dataset.pointindex = 0;
+                CONTEXT.closePath();
+
+                CONTEXT.strokeStyle = DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][parseInt(event.target.dataset.lineindex)] ]["color"];
+                CONTEXT.fillStyle = DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][parseInt(event.target.dataset.lineindex)] ]["color"];
+                CONTEXT.beginPath();
+            }
+
+            event.target.dataset.index = parseInt(event.target.dataset.index)+1;
+        }
+        CONTEXT.closePath();
+    }
+
+    document.getElementById("years").onchange = function (event){
+        if(!PAUSED) togglePause();
+        CONTEXT.clearRect(0, 0, CANVAS.width, CANVAS.height);
+        document.getElementById("play_range").dataset.index = 0;
+        document.getElementById("play_range").dataset.pointindex = 0;
+        document.getElementById("play_range").dataset.lineindex = 0;
+        document.getElementById("play_range").value = 0;
+        document.getElementById("play_range").setAttribute("max",0);
+        getData(event.target.value);
+    }
+    getData( document.getElementById("years").value );
+
+</script>
+
+</body>
+</html>
