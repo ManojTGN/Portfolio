@@ -51,7 +51,7 @@
 <div id="play_content" class=" fixed top-[90%] w-[960px] h-[80px] rounded-lg bg-neutral-900 flex items-center justify-center gap-2 px-5 z-30">
     <div id="play_drag" class="w-1/6 text-white text-4xl flex items-center gap-2 group">
         <i class="fa-solid fa-grip-vertical text-lg text-neutral-400 hover:cursor-move group-hover:scale-150"></i>
-        <button onclick="togglePause()" class="cursor-pointer">
+        <button id="pause_button" onclick="togglePause()" class="cursor-pointer disabled:scale-90">
             <i id="pause_icon" class="fa-solid fa-circle-play"></i>
         </button>
         <span id="pause_text" class="text-2xl">Paused</span>
@@ -137,9 +137,19 @@
     window.togglePause = function(){
         PAUSED = (!PAUSED);
         
+        if(document.getElementById("pause_text").innerHTML == "Replay"){
+            document.getElementById("play_range").value = 0;
+            document.getElementById("pause_icon").className = "fa-regular fa-circle-play";
+        }
+
         if(PAUSED){
-            document.getElementById("pause_icon").className = document.getElementById("pause_icon").className.replace("fa-regular","fa-solid");
-            document.getElementById("pause_text").innerHTML = "Paused";
+            if( parseInt(document.getElementById("play_range").value) >= DRAWNDATA[document.getElementById("years").value]["gTotal"]){
+                document.getElementById("pause_icon").className = "fa-solid fa-arrow-rotate-right";
+                document.getElementById("pause_text").innerHTML = "Replay";
+            }else{
+                document.getElementById("pause_icon").className = document.getElementById("pause_icon").className.replace("fa-regular","fa-solid");
+                document.getElementById("pause_text").innerHTML = "Paused";
+            }
             clearInterval(PLAY_ID);
         }else{
             PLAY_ID = setInterval(()=>{
@@ -187,7 +197,6 @@
         }
         
         while( parseInt(event.target.dataset.index) < toindex  ){
-    
             tmpdata = DRAWNDATA[year]["data"][ DRAWNDATA[year]["keys"][parseInt(event.target.dataset.lineindex)] ]["points"][parseInt(event.target.dataset.pointindex)]        
             drawPoint(CONTEXT,tmpdata[0], tmpdata[1]);
 
