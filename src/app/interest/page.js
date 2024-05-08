@@ -35,7 +35,7 @@ export default function Page() {
         <div className="h-full w-9/12 flex flex-col gap-3">
 
             <div className="w-full flex flex-col gap-8 relative">
-                <div className="w-full flex flex-col gap-2 sticky top-1 bg-neutral-950">
+                <div className="w-full flex flex-col gap-2 bg-neutral-950">
 
                     <div className="w-full flex flex-col items-start gap-2 justify-start py-2">
                         <a target="_self" href="../" className="px-3 py-1 text-neutral-300 bg-neutral-900 hover:bg-neutral-700 rounded text-sm">
@@ -72,8 +72,8 @@ export default function Page() {
                     </div>
                 </div>
 
-                <div>
-                    <div className="grid grid-cols-2 grid-flow-row gap-3">
+                <div className="flex justify-center w-full">
+                    <div className="grid grid-cols-2 grid-flow-row gap-3 w-9/12">
                         <div className="flex flex-col gap-4">
                             <BattleContainer className={"col-span-2"} hoveredHeader={"Joe Biden and Zelenskyy"}                header={"Me And My Friend After Finding A Village"}          link={"https://www.reddit.com/r/photoshopbattles/comments/zsf9jw/comment/j18l5b6/"} image={"photoshopbattle/11.jpeg"} hoverImage={"photoshopbattle/_11.jpg"} />
                             <BattleContainer className={"col-span-2"} hoveredHeader={"Guy in the snow"}                        header={"The Exact Same Pose -gta san"}                      link={"https://www.reddit.com/r/photoshopbattles/comments/s5eudi/comment/hsx5jb2/"} image={"photoshopbattle/14.jpeg"} hoverImage={"photoshopbattle/_14.jpg"} />
