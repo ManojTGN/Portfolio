@@ -3,33 +3,6 @@ import BattleContainer from "../components/battleContainerr";
 
 export default function Page() {
 
-
-    /*
-     * 0 - https://www.reddit.com/r/PhotoshopRequest/comments/1ac64sf/comment/kjs8iye/ - Have fun with this one. Tipping the ones that make me laugh the most
-     * 1 - https://www.reddit.com/r/photoshopbattles/comments/153wk4v/comment/jsoxlk9/ - a cat going thru hard times
-     * 2 - https://www.reddit.com/r/photoshopbattles/comments/14ald27/comment/jobclya/ - dog positioned on the back of a couch 
-     * 3 - https://www.reddit.com/r/photoshopbattles/comments/145yn8k/comment/jnnn549/ - Paddy Pimblett exercising 
-     * 4 - https://www.reddit.com/r/photoshopbattles/comments/145km5w/comment/jnnjnin/ - [deleted by user] 
-     * 5 - https://www.reddit.com/r/photoshopbattles/comments/102vln4/comment/j2wnwka/ - This person's view of a famous castle obscured by fog
-     * 6 - https://www.reddit.com/r/photoshopbattles/comments/101b0wv/comment/j2ncy6z/ - Overweight Sphinx
-     * 7 - https://www.reddit.com/r/photoshopbattles/comments/1015m0g/comment/j2mmsg6/ - a cat lying in front of a sunbeam
-     * 8 - https://www.reddit.com/r/photoshopbattles/comments/10009sb/comment/j2gwkam/ - A cat cuddled up in a ball.
-     * 9 - https://www.reddit.com/r/photoshopbattles/comments/zxbvy2/comment/j200smg/  - Cat in a hat in a box of oranges
-     * 10- https://www.reddit.com/r/photoshopbattles/comments/zsmgl4/comment/j18nf4k/ - [deleted by user]
-     * 11- https://www.reddit.com/r/photoshopbattles/comments/zsf9jw/comment/j18l5b6/ - Joe Biden and Zelenskyy
-     * 12- https://www.reddit.com/r/photoshopbattles/comments/zrr5y3/comment/j15hy3g/ - Salt Bae with the World Cup Trophy
-     * 13- https://www.reddit.com/r/PhotoshopRequest/comments/sk3pqd/comment/hvk7kwx/ - Please photoshop different instruments, guns, or other silly things into my 2 week old baby's hands.
-     * 14- https://www.reddit.com/r/photoshopbattles/comments/s5eudi/comment/hsx5jb2/ - Guy in the snow
-     * 15- https://www.reddit.com/r/photoshopbattles/comments/s4o0t4/comment/hss8oxl/ - Half-male/Half-female Cardinal
-     * 16- https://www.reddit.com/r/photoshopbattles/comments/s45ohm/comment/hss5nd6/ - Half awake cat.
-     * 17- https://www.reddit.com/r/photoshopbattles/comments/s40ipf/comment/hss2feo/ - This man with a giant puffball mushroom
-     * 18- https://www.reddit.com/r/photoshopbattles/comments/s15sd4/comment/hsif461/ - This kid with a long stick
-     * 19- https://www.reddit.com/r/photoshopbattles/comments/s2zirz/comment/hsi5m70/ - Chihuahua in pajamas on Range Rover
-     * 20-  - 
-     * 21-  - 
-     * 22-  - 
-     */
-
     return (
     <div className="w-full h-full flex flex-col items-center my-5">
         <div className="h-full w-9/12 flex flex-col gap-3">
@@ -87,7 +60,7 @@ export default function Page() {
                             <BattleContainer className={"col-span-2"} hoveredHeader={"Chihuahua in pajamas on Range Rover"}    header={"https://imgur.com/a/wNGu3dc"}                       link={"https://www.reddit.com/r/photoshopbattles/comments/s2zirz/comment/hsi5m70/"} image={"photoshopbattle/19.jpeg"} hoverImage={"photoshopbattle/_19.jpg"} />
                         </div>
                         <div className="flex flex-col gap-4">
-                            <BattleContainer className={"col-span-2"} hoveredHeader={"Have fun with this one"}                 header={"- Ah Sh*t Here We Go Again..."}                     link={"https://www.reddit.com/r/PhotoshopRequest/comments/1ac64sf/comment/kjs8iye/"} image={"photoshopbattle/0.webp"} hoverImage={null} />
+                            <BattleContainer className={"col-span-2"} hoveredHeader={"Have fun with this one"}                 header={"- Ah Sh*t Here We Go Again..."}                     link={"https://www.reddit.com/r/PhotoshopRequest/comments/1ac64sf/comment/kjs8iye/"} image={"photoshopbattle/0.webp"} hoverImage={"photoshopbattle/0.jpeg"} />
                             <BattleContainer className={"col-span-2"} hoveredHeader={"Overweight Sphinx"}                      header={"character creation *cyberpunk 2077*"}               link={"https://www.reddit.com/r/photoshopbattles/comments/101b0wv/comment/j2ncy6z/"} image={"photoshopbattle/6.jpeg"} hoverImage={"photoshopbattle/_6.jpg"} />
                             <BattleContainer className={"col-span-2"} hoveredHeader={"This kid with a long stick"}             header={"Battling With BabyZombie -Minecraft"}               link={"https://www.reddit.com/r/photoshopbattles/comments/s15sd4/comment/hsif461/"} image={"photoshopbattle/18.jpeg"} hoverImage={"photoshopbattle/_18.jpg"} />
                             <BattleContainer className={"col-span-2"} hoveredHeader={"Paddy Pimblett exercising "}             header={"move it aside"}                                     link={"https://www.reddit.com/r/photoshopbattles/comments/145yn8k/comment/jnnn549/"} image={"photoshopbattle/3.jpeg"} hoverImage={"photoshopbattle/_3.jpg"} />
