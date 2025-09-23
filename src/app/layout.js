@@ -1,4 +1,3 @@
-import { Inter } from 'next/font/google';
 import Script from "next/script";
 
 import "./globals.css";
@@ -9,15 +8,11 @@ export const metadata = {
   description: "Portfolio",
 };
 
-const inter = Inter({
-    subsets:['latin']
-});
-
 export default function RootLayout({ children }) {
     return (
         <html lang="en">
             <Script src="https://kit.fontawesome.com/08c3f952c9.js" crossorigin="anonymous" />
-            <body className={`${inter.className}`}> {children} </body>
+            <body className="m-0 p-0 bg-black h-screen"> {children} </body>
         </html>
     );
 }

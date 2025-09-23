@@ -14,3 +14,5 @@ i18n
     backend:{loadPath:"/locales/{{lng}}.json"},
     debug: true,    //@TODO: Change Back To False On Build
 });
+
+export default i18n;
