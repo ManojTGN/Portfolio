@@ -10,9 +10,10 @@ i18n
 .use(Backend)
 .use(LanguageDetector)
 .use(initReactI18next).init({
-    fallbackLng: "en-US",
+    fallbackLng: "en",
     backend:{loadPath:"/locales/{{lng}}.json"},
-    debug: true,    //@TODO: Change Back To False On Build
+    react: { useSuspense: false },
+    debug: false,    //@TODO: Change Back To False On Build
 });
 
 export default i18n;

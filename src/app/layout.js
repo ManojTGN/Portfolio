@@ -4,15 +4,18 @@ import "./globals.css";
 import "./i18n.js";
 
 export const metadata = {
-  title: "ManojTGN ▪ Portfolio",
-  description: "Portfolio",
+    title: "ManojTGN ▪ Portfolio",
+    description: "Portfolio",
+    icons: {
+        icon: '/favicon.ico',
+    },
 };
 
 export default function RootLayout({ children }) {
     return (
-        <html lang="en">
+        <html lang="en" className="dark">
             <Script src="https://kit.fontawesome.com/08c3f952c9.js" crossorigin="anonymous" />
-            <body className="m-0 p-0 bg-black h-screen"> {children} </body>
+            <body className="m-0 p-0 dark:bg-stone-950 bg-white h-screen"> {children} </body>    
         </html>
     );
 }
