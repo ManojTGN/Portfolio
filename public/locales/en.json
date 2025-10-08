@@ -5,8 +5,11 @@
     "portfolio.top.realname": "Manoj A",
     "portfolio.top.realname.label": "Portfolio Name",
 
-    "portfolio.sidebar.about": "About",
-    "portfolio.sidebar.projects": "Projects",
-    "portfolio.sidebar.contact": "Contact",
-    "portfolio.sidebar.customize": "Customize"
+    "portfolio.topbar.about": "About",
+    "portfolio.topbar.work": "Work",
+    "portfolio.topbar.contact": "Contact",
+    "portfolio.topbar.customize": "Customize",
+
+    "portfolio.about.me":"portfolio.about.me",
+    "portfolio.about.me.desc":"portfolio.about.me.desc"
 }

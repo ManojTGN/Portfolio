@@ -13,6 +13,7 @@ export default function Name() {
     const {t, i18n } = useTranslation();
 
     useGSAP(() => {
+        const fontSize = 2.25;
         gsap.set(textRef.current, { opacity: 1 });
         let isExploding = false;
         let split = SplitText.create(textRef.current, { type: "chars, words"});
@@ -35,7 +36,7 @@ export default function Name() {
                 let weight = 900 - Math.floor(rotation) * 100;
                 if (weight < 100) weight = 100;
 
-                gsap.to(char, { fontWeight: weight, rotate: (_dist) < 0 ? rotation: -rotation,fontSize:`${4.5 - deltaFontSize}rem`, textShadow: "0px 0px 0px black, 2px 2px 8px deeppink", duration: 0.2 });
+                gsap.to(char, { fontWeight: weight, rotate: (_dist) < 0 ? rotation: -rotation,fontSize:`${fontSize - deltaFontSize}rem`, textShadow: "0px 0px 0px black, 2px 2px 8px deeppink", duration: 0.2 });
             });
         });
 
@@ -43,7 +44,7 @@ export default function Name() {
             if(isExploding) return;
             
             split.chars.forEach(char => {
-                gsap.to(char, { fontWeight: 600, rotate:0, duration: 0.2, fontSize:`4.5rem`, textShadow:`` });
+                gsap.to(char, { fontWeight: 600, rotate:0, duration: 0.2, fontSize:`${fontSize}rem`, textShadow:`` });
             });
         });
 
@@ -73,7 +74,7 @@ export default function Name() {
                     y: 0,
                     rotation: 0,
                     fontWeight: 600,
-                    fontSize:`4.5rem`, 
+                    fontSize:`${fontSize}rem`, 
                     textShadow:``,
                     delay: 1.2
                 })
@@ -95,7 +96,7 @@ export default function Name() {
     }, []);
 
     return <>
-        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className="text-end text-7xl cursor-pointer"> 
+        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className="text-4xl w-40 cursor-pointer"> 
             {t("portfolio.top.realname")} 
         </p>
     </>
