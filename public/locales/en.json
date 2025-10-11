@@ -1,7 +1,7 @@
 {
     "portfolio.title": "ManojTGN ▪ Portfolio",
     "portfolio.description": "Portfolio",
-    
+
     "portfolio.top.realname": "Manoj A",
     "portfolio.top.realname.label": "Portfolio Name",
 
@@ -11,5 +11,8 @@
     "portfolio.topbar.customize": "Customize",
 
     "portfolio.about.me":"portfolio.about.me",
-    "portfolio.about.me.desc":"portfolio.about.me.desc"
+    "portfolio.about.me.desc":"portfolio.about.me.desc",
+
+    "portfolio.about.my.secret.sauce": " My Secret Sauce",
+    "portfolio.about.my.journey": "My Journey"
 }
