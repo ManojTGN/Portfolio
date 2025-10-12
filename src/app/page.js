@@ -30,17 +30,17 @@ export default function Home() {
                         <div className="grid grid-cols-4 grid-rows-4 gap-2 h-[500px]">
                             <div className="col-span-2 row-span-2 bg-neutral-900 relative">
                                 <div className="absolute w-full">
-                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4">01</p>
+                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4 select-none">01</p>
                                 </div>
                             </div>
                             <div className="col-span-2 row-span-2 col-start-3 bg-neutral-900 relative">
                                 <div className="absolute w-full">
-                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4">02</p>
+                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4 select-none">02</p>
                                 </div>
                             </div>
                             <div className="col-span-4 row-span-2 row-start-3 bg-neutral-900 relative">
                                 <div className="absolute w-full">
-                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4">03</p>
+                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4 select-none">03</p>
                                 </div>
                             </div>
                         </div>

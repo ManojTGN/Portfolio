@@ -20,7 +20,7 @@ export default function Button({ name, iconClassName }){
 
     return <>
         <button ref={buttonRef} onClick={changePage} tabIndex={0} className="topbar-button hover:border-b-2 border-white p-1 px-3 duration-75 relative">
-            <span className="text-xl"> {name} </span>
+            <span className="text-xl select-none"> {name} </span>
         </button>
     </>
 }
