@@ -15,7 +15,11 @@ module.exports = {
             },
             fontFamily:{
                 portfolio: ['portfolio', 'sans-serif'],
-            }
+            },
+            animation: {
+                'spin-slow': 'spin 20s linear infinite',
+                'spin-fast': 'spin 0.5s linear infinite',
+            },
         },
     },
     plugins: [],

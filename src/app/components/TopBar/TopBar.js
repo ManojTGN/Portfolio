@@ -10,7 +10,9 @@ export default function Sidebar(){
 
     return <>
         <div className="w-full h-16 flex items-center justify-center gap-2">
-            <div className='w-auto flex items-center justify-start'> <Name /> </div>
+            <div className='w-[250px] flex items-center justify-start'>
+                <Name /> 
+            </div>
             <div className="w-full h-[2px] bg-gradient-to-r from-neutral-700 via-neutral-600 to-neutral-700 rounded-md"></div>
             <div className='w-auto flex gap-5 justify-end'>
                 <Button name={t("portfolio.topbar.about")} />
