@@ -17,69 +17,73 @@ export default function Home() {
                         <div className="h-full">
 
                         </div>
-                        <div className="h-full flex flex-col justify-end p-5 gap-2">
-                                <p className="text-end text-5xl font-bold"> {t('portfolio.about.me')}</p>
-                                <p className="text-end text-neutral-600 font-bold"> {t('portfolio.about.me.desc')}</p>
+                        <div className="h-full flex flex-col items-end justify-end p-10 gap-2">
+                            <p className="text-end text-6xl font-bold"> {t('portfolio.about.me')}</p>
+                            <p className="text-end text-3xl text-neutral-600 font-medium w-3/4"> {t('portfolio.about.me.desc')}</p>
                         </div>
                     </div>
                     <hr className="border w-full " />
 
                     <div className="mt-36 w-full" >
-                        <p className="text-start text-6xl font-[600] pb-5">
+                        <p className="text-start text-5xl font-[600] pb-5">
                             {t('portfolio.about.my.secret.sauce')}
                         </p>
                         <div className="grid grid-cols-4 grid-rows-9 gap-2 h-[1200px]">
                             <div className="col-span-2 row-span-5 bg-neutral-900 relative border border-transparent hover:border-white transition-all group">
                                 <div className="absolute w-full">
-                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4 select-none">01</p>
+                                    <p className="text-8xl font-bold text-neutral-800 text-end p-5 select-none">01</p>
                                 </div>
                                 <div className="p-5">
-                                    <p className="text-4xl font-bold text-neutral-800 select-none"> DEVELOPMENT </p>
-                                    <div className="relative inline-block mt-5">
-                                        <Image src={`/images/blue_badge.png`} alt="" width={100} height={100} className="object-cover select-none border-0 outline-none ring-0 bg-transparent group-hover:animate-spin-slow" draggable="false" />
-                                        <i className="fa-solid fa-code-commit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl z-10"></i>
+                                    <div className="flex items-center gap-5">
+                                        <div className="relative inline-block">
+                                            <Image src={`/images/blue_badge.png`} alt="" width={100} height={100} className="object-cover select-none border-0 outline-none ring-0 bg-transparent group-hover:animate-spin-slow" draggable="false" />
+                                            <i className="fa-solid fa-code-commit absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl z-10"></i>
+                                        </div>
+                                        <div>
+                                            <p className="text-6xl font-bold text-neutral-50">Software</p>
+                                            <p className="text-xl font-bold text-neutral-500">Development</p>
+                                        </div>
                                     </div>
-                                    <div className="mt-36">
-                                        <p className="text-6xl font-bold text-neutral-50">Software</p>
-                                        <p className="text-xl font-bold text-neutral-500">Software Development Desc</p>
-                                    </div>
+
                                     <hr className="mt-5"/>
-                                    <p className="text-3xl font-bold text-neutral-800 mt-5"> SKILLS ▪ SAUCE </p>
+                                    <p className="text-2xl font-bold text-neutral-500 mt-5"> SKILLS ▪ SAUCE </p>
                                 </div>
                             </div>
 
                             <div className="col-span-2 row-span-5 col-start-3 bg-neutral-900 relative border border-transparent hover:border-white transition-all group">
                                 <div className="absolute w-full">
-                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4 select-none">02</p>
+                                    <p className="text-8xl font-bold text-neutral-800 text-end p-5 select-none">02</p>
                                 </div>
                                 <div className="p-5">
-                                    <p className="text-4xl font-bold text-neutral-800 select-none"> DEVELOPMENT </p>
-                                    <div className="relative inline-block mt-5">
-                                        <Image src={`/images/purple_badge.png`} alt="" width={100} height={100} className="object-cover select-none border-0 outline-none ring-0 bg-transparent group-hover:animate-spin-slow" draggable="false" />
-                                        <i className="fa-solid fa-globe absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl z-10"></i>
-                                    </div>
-                                    <div className="mt-36">
-                                        <p className="text-6xl font-bold text-neutral-50">Web</p>
-                                        <p className="text-xl font-bold text-neutral-500">Web Development Desc</p>
+                                    <div className="flex items-center gap-5">
+                                        <div className="relative inline-block">
+                                            <Image src={`/images/purple_badge.png`} alt="" width={100} height={100} className="object-cover select-none border-0 outline-none ring-0 bg-transparent group-hover:animate-spin-slow" draggable="false" />
+                                            <i className="fa-solid fa-globe absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl z-10"></i>
+                                        </div>
+                                        <div>
+                                            <p className="text-6xl font-bold text-neutral-50">Web</p>
+                                            <p className="text-xl font-bold text-neutral-500">Development</p>
+                                        </div>
                                     </div>
                                     <hr className="mt-5"/>
-                                    <p className="text-3xl font-bold text-neutral-800 mt-5"> SKILLS ▪ SAUCE </p>
+                                    <p className="text-2xl font-bold text-neutral-500 mt-5"> SKILLS ▪ SAUCE </p>
                                 </div>
                             </div>
 
                             <div className="col-span-4 row-span-4 row-start-6 bg-neutral-900 relative border border-transparent hover:border-white transition-all group">
                                 <div className="absolute w-full">
-                                    <p className="text-8xl font-bold text-neutral-800 text-end p-4 select-none">03</p>
+                                    <p className="text-8xl font-bold text-neutral-800 text-end p-5 select-none">03</p>
                                 </div>
                                 <div className="p-5">
-                                    <p className="text-4xl font-bold text-neutral-800 select-none"> PLAYGROUND </p>
-                                    <div className="relative inline-block mt-5">
-                                        <Image src={`/images/green_badge.png`} alt="" width={100} height={100} className="object-cover select-none border-0 outline-none ring-0 bg-transparent group-hover:animate-spin-slow" draggable="false" />
-                                        <i className="fa-solid fa-heart absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl z-10"></i>
-                                    </div>
-                                    <div className="mt-16">
-                                        <p className="text-6xl font-bold text-neutral-50">Others</p>
-                                        <p className="text-xl font-bold text-neutral-500">Others Desc</p>
+                                    <div className="flex items-center gap-5">
+                                        <div className="relative inline-block">
+                                            <Image src={`/images/green_badge.png`} alt="" width={100} height={100} className="object-cover select-none border-0 outline-none ring-0 bg-transparent group-hover:animate-spin-slow" draggable="false" />
+                                            <i className="fa-solid fa-heart absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-white text-4xl z-10"></i>
+                                        </div>
+                                        <div className="">
+                                            <p className="text-6xl font-bold text-neutral-50">Playground</p>
+                                            <p className="text-xl font-bold text-neutral-500">Others</p>
+                                        </div>
                                     </div>
                                     <hr className="mt-5"/>
                                 </div>
@@ -145,17 +149,43 @@ export default function Home() {
                         </p>
                         <div className="flex flex-row w-full h-[350px] gap-3">
                             <div className="w-3/12 h-full bg-neutral-900">
-                            <div className="h-full w-full flex flex-col items-end justify-end p-4">
-                                <p className="text-neutral-600 text-xl font-bold">Don&apos;t Be Shy</p>
-                                <p className="text-6xl font-bold">Say Hello</p>
-                            </div>
-                            <hr className="border w-full" />
+                                <div className="h-full w-full flex flex-col items-end justify-end p-4">
+                                    <p className="text-neutral-600 text-xl font-bold">Don&apos;t Be Shy</p>
+                                    <p className="text-6xl font-bold">Say Hello</p>
+                                </div>
+                                <hr className="border w-full" />
                             </div>  
                             <div className="w-9/12 h-full bg-neutral-900">
-                            <div className="h-full">
-
-                            </div>
-                            <hr className="border w-full" />
+                                <div className="h-full w-full flex flex-col justify-center items-center">
+                                    <div className="h-full w-3/4 flex items-end justify-center gap-10 text-5xl">
+                                        <a href="https://www.linkedin.com/in/manojbit/" target="_blank">
+                                            <i className="fa-brands fa-linkedin"></i>
+                                        </a>
+                                        <a href="https://github.com/ManojTGN" target="_blank">
+                                            <i className="fa-brands fa-github"></i>
+                                        </a>
+                                        <a href="https://steamcommunity.com/id/ManojTGN/" target="_blank">
+                                            <i className="fa-brands fa-steam"></i>
+                                        </a>
+                                        <a href="https://open.spotify.com/user/31coacig75i7cwnvsalo5yhlmhne" target="_blank">
+                                            <i className="fa-brands fa-spotify"></i>
+                                        </a>
+                                        <a href="https://www.instagram.com/_m4n0j_/" target="_blank">
+                                            <i className="fa-brands fa-instagram"></i>
+                                        </a>
+                                        <a href="https://www.paypal.com/paypalme/manojtgn" target="_blank">
+                                            <i className="fa-brands fa-paypal"></i>
+                                        </a>
+                                        <a href="mailto:manojanguraja@gmail.com">
+                                            <i className="fa-solid fa-at"></i>
+                                        </a>
+                                    </div>
+                                    <div className="w-3/4 h-full flex items-start justify-center gap-5 p-5">
+                                        <input className="w-full h-[50px] border-2 border-neutral-700 bg-neutral-950 px-3" placeholder="Give me your email !" />
+                                        <button className="h-[50px] bg-neutral-950 text-center font-bold px-7 border-2 border-neutral-700">Send</button>
+                                    </div>
+                                </div>
+                                <hr className="border w-full" />
                             </div>
                         </div>
                     </div>

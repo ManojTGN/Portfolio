@@ -18,7 +18,9 @@ export default function RootLayout({ children }) {
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <Script src="https://kit.fontawesome.com/08c3f952c9.js" crossorigin="anonymous" />
             </head>
-            <body className="m-0 p-0 dark:bg-stone-950 bg-white aspect-video"> {children} </body>    
+            <body className="m-0 p-0 dark:bg-stone-950 bg-white aspect-video"> 
+                {children}
+            </body>    
         </html>
     );
 }

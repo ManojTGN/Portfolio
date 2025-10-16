@@ -60,6 +60,12 @@
     background-repeat: no-repeat;
 }
 
+.font-awesome {
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+}
 
 @tailwind base;
 @tailwind components;

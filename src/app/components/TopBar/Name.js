@@ -9,11 +9,11 @@ import { Physics2DPlugin  } from 'gsap/Physics2DPlugin';
 gsap.registerPlugin(Physics2DPlugin);
 
 export default function Name() {
+    const fontSize = 2.25;
     const textRef = useRef(null);
     const {t, i18n } = useTranslation();
 
     useGSAP(() => {
-        const fontSize = 2.25;
         gsap.set(textRef.current, { opacity: 1 });
         let isExploding = false;
         let split = SplitText.create(textRef.current, { type: "chars, words"});
@@ -96,7 +96,7 @@ export default function Name() {
     }, []);
 
     return <>
-        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className="text-4xl cursor-pointer select-none"> 
+        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className={`text-4xl font-bold cursor-pointer select-none`}> 
             {t("portfolio.top.realname")} 
         </p>
     </>

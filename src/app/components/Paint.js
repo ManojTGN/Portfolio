@@ -15,7 +15,7 @@ export default function Paint() {
         console.log(rows)
         const arr = new Array(rows);
         for (let r = 0; r < rows; r++) {
-            arr[r] = new Array(cols).fill(null); // null means transparent/empty
+            arr[r] = new Array(cols).fill(null);
         }
         pixelsRef.current = arr;
 
@@ -24,8 +24,6 @@ export default function Paint() {
         drawGrid(ctx);
     }, []);
 
-
-    // draw the grid lines (subtle)
     function drawGrid(ctx) {
         ctx.save();
         ctx.strokeStyle = "rgba(0,0,0,0.06)";
