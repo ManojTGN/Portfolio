@@ -3,19 +3,65 @@
     "portfolio.description": "Portfolio",
 
     "portfolio.top.realname": "Manoj A",
-    "portfolio.about.me.role": "Software Developer",
     "portfolio.location": "TamilNadu, India",
+    "portfolio.about.me.role": "Software Developer",
     "portfolio.top.realname.label": "Portfolio Name",
+    "portfolio.about.me.email": "manojanguraja@gmail.com",
 
     "portfolio.topbar.home": "Home",
-    "portfolio.topbar.about": "About",
     "portfolio.topbar.work": "Work",
     "portfolio.topbar.contact": "Contact",
-    "portfolio.topbar.customize": "Customize",
 
-    "portfolio.about.me":"MANOJ A",
-    "portfolio.about.me.desc":"I`m a developer who loves the nuts, bolts, and bytes of how things work. Whether it`s systems or web products, I enjoy crafting code that`s efficient, elegant, and a little obsessive.",
 
-    "portfolio.about.my.secret.sauce": "My Secret Sauce",
-    "portfolio.about.my.journey": "My Journey"
+    "portfolio.about.me":"About Me",
+    "portfolio.about.me.fun":"User Manual",
+
+    "portfolio.skills":"Skills",
+    "portfolio.skills.fun": "Secret Sauce",
+    
+    "portfolio.experience":"Experience",
+    "portfolio.experience.fun": "Battle Records",
+
+    "portfolio.education":"Education",
+    "portfolio.education.fun": "Knowledge Cache",
+
+    "portfolio.contact":"Contact",
+    "portfolio.contact.fun": "Send Pigeon",
+
+    
+    "portfolio.about.me.desc.short": "Writes code. Breaks code. Fixes code.",
+    "portfolio.about.me.desc.top":"I'm a software developer who loves building fast, smart, and slightly over-engineered things. Obsessed with low-level logic, clean architecture, and any excuse to optimize performance.",
+    "portfolio.about.me.desc.bottom":"I'm constantly learning, improving, and pushing myself to build software that's reliable, scalable, and genuinely useful. Let's turn ideas into well-crafted solutions.",
+    
+
+    "portfolio.experience.zoho.location": "Chennai, India",
+    "portfolio.experience.zoho.fullname": "Zoho Corporation",
+    "portfolio.experience.zoho.duration": "Feb 2024 - Present",
+    "portfolio.experience.zoho.role": "Software Developer",
+    "portfolio.experience.zoho.desc":"Contributing to the Active Directory Manager Plus (ADMP), working with Java, C++, and C# to develop scalable and reliable enterprise directory solutions. Through this role, I have gained extensive experience in software architecture, system integrations, and collaborative team development, while enhancing my technical skills and understanding of complex enterprise workflows.",
+
+    "portfolio.experience.nit.location": "Coimbatore, India",
+    "portfolio.experience.nit.fullname": "Nandha Info Tech",
+    "portfolio.experience.nit.duration": "Mar - May 2024",
+    "portfolio.experience.nit.role": "Internship",
+    "portfolio.experience.nit.desc":"Worked on SenseLuto, an advanced soil intelligence solution, contributing to features like smart weather alerts, irrigation guidance, productivity analysis, and cloud data storage. Gained experience in software development, system design, and collaborative teamwork.",
+
+
+    "portfolio.contact.time": "Time",
+    "portfolio.contact.email": "Email",
+    "portfolio.contact.socials": "Socials",
+    "portfolio.contact.mail.sent.thank.you": "Mail Sent! Thank You!",
+    "portfolio.contact.mail.send.message": "Send Message",
+    "portfolio.contact.mail.not.sent": "Not Sent!",
+    "portfolio.contact.name.placeholder": "Your Name",
+    "portfolio.contact.email.placeholder": "Your Email",
+    "portfolio.contact.message.placeholder": "Your Message",
+    "portfolio.dont.be.shy": "Don't Be Shy",
+    "portfolio.just.say.hello": "Just Say Hello!!",
+
+
+    "portfolio.footer.copyrights.2025": "copyright 2025",
+    "portfolio.footer.a11y": "A11Y",
+    "portfolio.footer.report": "report"
+
 }
