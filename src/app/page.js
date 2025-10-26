@@ -27,8 +27,58 @@ export default function Home() {
         return () => clearInterval(interval);
     }, []);
 
-    function sendMail(){
-        console.log("SEND_MAIL")
+    function validateInput(){
+        let name = document.getElementById("name").value;
+        let email = document.getElementById("email").value;
+        let message = document.getElementById("message").value;
+        
+        if(name.trim().length != 0 && email.trim().length != 0 && message.trim().length != 0){
+            document.getElementById("sendMail").removeAttribute('disabled');
+            return true;
+        }else{
+            document.getElementById("sendMail").setAttribute('disabled',true);
+        }
+
+        return false;
+    }
+
+    console.log(process.env.PORTFOLIO_MAIL_ADDR)
+    async function sendMail(){
+        if(!validateInput()){
+            return false;
+        }
+
+        let name = document.getElementById("name").value.trim();
+        let email = document.getElementById("email").value.trim();
+        let message = document.getElementById("message").value.trim();
+
+        const payload = {
+            name,
+            email,
+            message,
+        };
+
+        try {
+            const res = await fetch("/api/sendMail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+                alert("Message sent!");
+            } else {
+                console.error("Error:", data);
+                alert("Failed to send message.");
+            }
+        } catch (err) {
+            console.error("Network Error:", err);
+            alert("Network error occurred.");
+        }
     }
 
     return (
@@ -141,10 +191,18 @@ export default function Home() {
                             <p className="text-portfolio-500 font-medium text-lg">{t('portfolio.just.say.hello')}</p>
                         </div>
                         <div className="w-full flex flex-col gap-5 text-portfolio-500">
-                            <input className="border-2 border-portfolio-700 bg-portfolio-950 h-12 p-2" placeholder="Your Name"/>
-                            <input  className="border-2 border-portfolio-700 bg-portfolio-950 h-12 p-2" placeholder="Your Email"/>
-                            <textarea className="h-56 min-h-32 max-h-56 border-2 border-portfolio-700 bg-portfolio-950 p-2" placeholder="Your Message"></textarea>
-                            <button onClick={sendMail} className="w-full font-medium text-start text-portfolio-950 border-portfolio-950 bg-portfolio-500 hover:border-white hover:text-white border-2 p-2">Send Message</button>
+                            <input onInput={validateInput} type="text" className="border-2 border-portfolio-700 bg-portfolio-950 h-12 p-2" placeholder="Your Name" id="name"/>
+                            <input onInput={validateInput} type="email" className="border-2 border-portfolio-700 bg-portfolio-950 h-12 p-2" placeholder="Your Email" id="email"/>
+                            <textarea onInput={validateInput} className="h-56 min-h-32 max-h-56 border-2 border-portfolio-700 bg-portfolio-950 p-2" placeholder="Your Message" id="message"></textarea>
+                            <button onClick={sendMail} id="sendMail" className="group disabled:cursor-not-allowed disabled:hover:border-portfolio-950 disabled:hover:text-portfolio-950 disabled:bg-portfolio-700 w-full flex font-medium text-start text-portfolio-950 border-portfolio-950 bg-portfolio-400 hover:border-white hover:text-white border-2 p-2 " disabled>
+                                <p className="w-full"> Send Message </p>
+                                <span className="group-disabled:w-0 text-end w-full opacity-100 group-disabled:opacity-0">
+                                    <i className="fa-solid fa-dove"></i>
+                                </span>
+                                <span className="group-disabled:w-full text-end w-0 opacity-0 group-disabled:opacity-100">
+                                    <i className="fa-solid fa-lock"></i>
+                                </span>
+                            </button>
                         </div>
                     </div>
 
