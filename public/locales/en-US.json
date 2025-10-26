@@ -34,6 +34,10 @@
     "portfolio.about.me.desc.bottom":"I'm constantly learning, improving, and pushing myself to build software that's reliable, scalable, and genuinely useful. Let's turn ideas into well-crafted solutions.",
     
 
+    "portfolio.skills.stats.info": "*All Statistics Are From The Github. View All My Works In The",
+    "portfolio.skills.stats.work.page": "Work Page",
+
+
     "portfolio.experience.zoho.location": "Chennai, India",
     "portfolio.experience.zoho.fullname": "Zoho Corporation",
     "portfolio.experience.zoho.duration": "Feb 2024 - Present",

@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react"
+import { useTranslation } from "react-i18next";
 
 export default function Skills(){
+    const {t, i18n, ready } = useTranslation();    
     const [languages, setLanguages] = useState({});
     const [totalBytes, setTotalBytes] = useState(0);
+    if (!ready) return <></>;
+
 
     useEffect(()=>{
         async function getSkills(){
@@ -57,7 +61,7 @@ export default function Skills(){
     </div>
     <div className="w-full mt-10">
         <p className="text-portfolio-500 font-medium text-base">
-            *All Statistics Are From The Github. View All My Works In The <a href="/work" className="underline text-portfolio-300 cursor-pointer">Work</a> Page.
+            {t('portfolio.skills.stats.info')} <a href="/work" className="underline text-portfolio-300 cursor-pointer">{t('portfolio.skills.stats.work.page')}</a>.
         </p>
     </div>
     </>
