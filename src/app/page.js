@@ -10,6 +10,8 @@ import Name from "./components/Name";
 export default function Home() {
     const {t, i18n } = useTranslation();
     const [time, setTime] = useState("");
+    const [token, setToken] = useState("");
+
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
@@ -22,40 +24,73 @@ export default function Home() {
         };
 
         updateTime();
+        validateInput();
         const interval = setInterval(updateTime, 1000 * 60);
+
+        window.reCaptchaOnloadCallback = () => {
+            document.getElementById('recaptcha').classList.remove('hidden');
+            grecaptcha.enterprise.render('recaptcha', {
+                'sitekey' : process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
+                'theme' : 'dark',
+                'callback':setReCaptcha,
+                'expired-callback':removeReCaptcha
+            });
+        };
 
         return () => clearInterval(interval);
     }, []);
+
+    function setReCaptcha(token){
+        setToken(token);
+        validateInput();
+    }
+
+    function removeReCaptcha(){
+        setToken('');
+        validateInput();
+    }
+
 
     function validateInput(){
         let name = document.getElementById("name").value;
         let email = document.getElementById("email").value;
         let message = document.getElementById("message").value;
-        
-        if(name.trim().length != 0 && email.trim().length != 0 && message.trim().length != 0){
-            document.getElementById("sendMail").removeAttribute('disabled');
+
+        if(name.trim().length != 0 && email.trim().length != 0 && message.trim().length != 0 && token.length != 0){
+            document.getElementById("sendMailButton").removeAttribute('disabled');
             return true;
         }else{
-            document.getElementById("sendMail").setAttribute('disabled',true);
+            document.getElementById("sendMailButton").setAttribute('disabled',true);
         }
 
         return false;
     }
 
-    console.log(process.env.PORTFOLIO_MAIL_ADDR)
-    async function sendMail(){
+    const sendMail = async() => {
         if(!validateInput()){
             return false;
         }
 
-        let name = document.getElementById("name").value.trim();
-        let email = document.getElementById("email").value.trim();
-        let message = document.getElementById("message").value.trim();
+        let nameInput = document.getElementById("name");
+        let emailInput = document.getElementById("email");
+        let messageInput = document.getElementById("message");
+        let sendMailBtn = document.getElementById("sendMailButton");
+        let reCaptchaDiv = document.getElementById("recaptcha");
+
+        let name = nameInput.value.trim();
+        let email = emailInput.value.trim();
+        let message = messageInput.value.trim();
+
+        nameInput.setAttribute('disabled',true);
+        emailInput.setAttribute('disabled',true);
+        messageInput.setAttribute('disabled',true);
+        sendMailBtn.setAttribute('disabled',true);
 
         const payload = {
             name,
             email,
             message,
+            token:token
         };
 
         try {
@@ -70,14 +105,32 @@ export default function Home() {
             const data = await res.json();
 
             if (res.ok) {
-                alert("Message sent!");
+                nameInput.value = emailInput.value = messageInput.value = '';
+                reCaptchaDiv.classList.add('hidden');
+                sendMailBtn.querySelector('p').innerHTML = 'Mail Sent! Thank You!';
             } else {
                 console.error("Error:", data);
-                alert("Failed to send message.");
+                nameInput.removeAttribute('disabled');
+                emailInput.removeAttribute('disabled');
+                messageInput.removeAttribute('disabled');
+                sendMailBtn.querySelector('p').innerHTML = 'Not Sent!';
+                setTimeout(()=>{
+                    sendMailBtn.querySelector('p').innerHTML = 'Send Message';
+                    sendMailBtn.removeAttribute('disabled');
+                },2000);
             }
         } catch (err) {
             console.error("Network Error:", err);
             alert("Network error occurred.");
+
+            nameInput.removeAttribute('disabled');
+            emailInput.removeAttribute('disabled');
+            messageInput.removeAttribute('disabled');
+            sendMailBtn.querySelector('p').innerHTML = 'Not Sent';
+            setTimeout(()=>{
+                sendMailBtn.querySelector('p').innerHTML = 'Send Message';
+                sendMailBtn.removeAttribute('disabled');
+            },2000)
         }
     }
 
@@ -154,7 +207,7 @@ export default function Home() {
                         <p className="w-full text-end text-portfolio-700 text-3xl font-medium">{t('portfolio.contact.fun')}</p>
                     </div>
                     <div className="mt-5 border-l pl-5 border-portfolio-500 flex">
-                        <div className="w-full">
+                        <div className="w-full h-full">
                             <div className="flex items-center gap-2">
                                 <p className="text-portfolio-50 text-xl font-medium">Time:</p>
                                 <p className="text-portfolio-500 text-xl font-medium">{time}</p>
@@ -186,15 +239,16 @@ export default function Home() {
                                     <i className="fa-solid fa-at"></i>
                                 </a>
                             </div>
-
+                                 
                             <p className="mt-5 text-portfolio-50 font-medium text-xl">{t('portfolio.dont.be.shy')}</p>
                             <p className="text-portfolio-500 font-medium text-lg">{t('portfolio.just.say.hello')}</p>
                         </div>
                         <div className="w-full flex flex-col gap-5 text-portfolio-500">
-                            <input onInput={validateInput} type="text" className="border-2 border-portfolio-700 bg-portfolio-950 h-12 p-2" placeholder="Your Name" id="name"/>
-                            <input onInput={validateInput} type="email" className="border-2 border-portfolio-700 bg-portfolio-950 h-12 p-2" placeholder="Your Email" id="email"/>
-                            <textarea onInput={validateInput} className="h-56 min-h-32 max-h-56 border-2 border-portfolio-700 bg-portfolio-950 p-2" placeholder="Your Message" id="message"></textarea>
-                            <button onClick={sendMail} id="sendMail" className="group disabled:cursor-not-allowed disabled:hover:border-portfolio-950 disabled:hover:text-portfolio-950 disabled:bg-portfolio-700 w-full flex font-medium text-start text-portfolio-950 border-portfolio-950 bg-portfolio-400 hover:border-white hover:text-white border-2 p-2 " disabled>
+                            <input onInput={validateInput} maxLength={30} type="text" className="disabled:cursor-not-allowed border-2 border-portfolio-700 bg-portfolio-950 h-12 p-2" placeholder="Your Name" id="name"/>
+                            <input onInput={validateInput} maxLength={40} type="email" className="disabled:cursor-not-allowed border-2 border-portfolio-700 bg-portfolio-950 h-12 p-2" placeholder="Your Email" id="email"/>
+                            <textarea onInput={validateInput} maxLength={500} className="disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 border-portfolio-700 bg-portfolio-950 p-2" placeholder="Your Message" id="message"></textarea>
+                            <div id="recaptcha" className="w-full hidden"></div>
+                            <button onClick={sendMail} id="sendMailButton" className="group disabled:cursor-not-allowed disabled:hover:border-portfolio-950 disabled:hover:text-portfolio-950 disabled:bg-portfolio-700 w-full flex font-medium text-start text-portfolio-950 border-portfolio-950 bg-portfolio-400 hover:border-white hover:text-white border-2 p-2 ">
                                 <p className="w-full"> Send Message </p>
                                 <span className="group-disabled:w-0 text-end w-full opacity-100 group-disabled:opacity-0">
                                     <i className="fa-solid fa-dove"></i>
