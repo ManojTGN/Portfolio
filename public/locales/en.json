@@ -3,8 +3,11 @@
     "portfolio.description": "Portfolio",
 
     "portfolio.top.realname": "Manoj A",
+    "portfolio.about.me.role": "Software Developer",
+    "portfolio.location": "TamilNadu, India",
     "portfolio.top.realname.label": "Portfolio Name",
 
+    "portfolio.topbar.home": "Home",
     "portfolio.topbar.about": "About",
     "portfolio.topbar.work": "Work",
     "portfolio.topbar.contact": "Contact",

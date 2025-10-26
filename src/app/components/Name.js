@@ -9,7 +9,7 @@ import { Physics2DPlugin  } from 'gsap/Physics2DPlugin';
 gsap.registerPlugin(Physics2DPlugin);
 
 export default function Name() {
-    const fontSize = 2.25;
+    const fontSize = 3.75;
     const textRef = useRef(null);
     const {t, i18n } = useTranslation();
 
@@ -96,7 +96,7 @@ export default function Name() {
     }, []);
 
     return <>
-        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className={`text-4xl font-bold cursor-pointer select-none`}> 
+        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className={`text-6xl text-white font-bold flex-none cursor-pointer select-none`}> 
             {t("portfolio.top.realname")} 
         </p>
     </>

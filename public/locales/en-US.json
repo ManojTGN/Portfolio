@@ -1,12 +1,36 @@
 {
     "portfolio.title": "ManojTGN ▪ Portfolio",
     "portfolio.description": "Portfolio",
-    
+
     "portfolio.top.realname": "Manoj A",
+    "portfolio.about.me.role": "Software Developer",
+    "portfolio.location": "TamilNadu, India",
     "portfolio.top.realname.label": "Portfolio Name",
 
-    "portfolio.sidebar.about": "About",
-    "portfolio.sidebar.projects": "Projects",
-    "portfolio.sidebar.contact": "Contact",
-    "portfolio.sidebar.customize": "Customize"
+    "portfolio.topbar.home": "Home",
+    "portfolio.topbar.about": "About",
+    "portfolio.topbar.work": "Work",
+    "portfolio.topbar.contact": "Contact",
+    "portfolio.topbar.customize": "Customize",
+
+    "portfolio.about.me":"About Me",
+    "portfolio.about.me.fun":"User Manual",
+    "portfolio.about.me.desc.short": "Writes code. Breaks code. Fixes code.",
+    "portfolio.about.me.desc.top":"I'm a software developer who loves building fast, smart, and slightly over-engineered things. Obsessed with low-level logic, clean architecture, and any excuse to optimize performance.",
+    "portfolio.about.me.desc.bottom":"I'm constantly learning, improving, and pushing myself to build software that's reliable, scalable, and genuinely useful. Let's turn ideas into well-crafted solutions.",
+    
+    "portfolio.skills":"Skill Tree",
+    "portfolio.skills.fun": "Secret Sauce",
+    
+    "portfolio.experience":"Experience",
+    "portfolio.experience.fun": "Battle Records",
+
+    "portfolio.education":"Education",
+    "portfolio.education.fun": "Knowledge Cache",
+
+    "portfolio.contact":"Contact",
+    "portfolio.contact.fun": "Send Pigeon",
+
+    "portfolio.dont.be.shy": "Don't Be Shy",
+    "portfolio.just.say.hello": "Just Say Hello!!"
 }

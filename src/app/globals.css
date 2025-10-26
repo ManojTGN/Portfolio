@@ -46,27 +46,6 @@
     font-style: normal;
 }
 
-
-.text-underline::after{
-    content: "";
-    display: inline-block;
-    position: absolute;
-    right: 0;
-    bottom: -2px;
-    left: 0;
-    height: 8px;
-    background-image: url("/images/underline.png");
-    background-size: contain;
-    background-repeat: no-repeat;
-}
-
-.font-awesome {
-    font-family: FontAwesome;
-    font-style: normal;
-    font-weight: normal;
-    text-decoration: inherit;
-}
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
