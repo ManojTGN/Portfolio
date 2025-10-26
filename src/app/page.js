@@ -94,7 +94,7 @@ export default function Home() {
                         <p className="w-full text-end text-portfolio-700 text-3xl font-medium">{t('portfolio.education.fun')}</p>
                     </div>
                     <div className="mt-5 border-l pl-5 border-portfolio-500">
-                        <p className="text-white font-medium text-lg">Bachelor's Of Information Science & Engineering</p>
+                        <p className="text-white font-medium text-lg">Bachelor&apos;s Of Information Science & Engineering</p>
                         <p className="text-portfolio-500 font-medium">2020 - 2024</p>
                         <p className="text-portfolio-500">Bannari Amman Institute Of Technology</p>
                     </div>
