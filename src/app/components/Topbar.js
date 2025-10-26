@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 export default function Topbar(){
     const {t, i18n, ready } = useTranslation();
     const [pathName, setPathName] = useState("");
-    if (!ready) return <></>;
 
     useEffect(() => {
         setPathName(window.location.pathname);

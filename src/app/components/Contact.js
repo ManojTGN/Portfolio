@@ -5,10 +5,8 @@ import { useTranslation } from "react-i18next";
 
 export default function Contact(){
     const {t, i18n, ready } = useTranslation();
-    
     const [time, setTime] = useState("");
     const [token, setToken] = useState("");
-    if (!ready) return <></>;
 
     useEffect(() => {
         const updateTime = () => {

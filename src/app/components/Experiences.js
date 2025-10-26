@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 export default function Experiences(){
     const {t, i18n, ready } = useTranslation();
-    if (!ready) return <></>;
 
     return <>
         <div className="mt-5 border-l pl-5 border-portfolio-500">

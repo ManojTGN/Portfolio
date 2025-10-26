@@ -4,7 +4,6 @@ import { useTranslation } from "react-i18next";
 
 export default function Footer(){
     const {t, i18n, ready } = useTranslation();
-    if (!ready) return <></>;
 
     return <>
     <footer>

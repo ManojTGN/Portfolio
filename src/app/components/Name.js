@@ -10,7 +10,6 @@ gsap.registerPlugin(Physics2DPlugin);
 
 export default function Name() {
     const {t, i18n, ready } = useTranslation();
-    if (!ready) return <></>;
     
     const fontSize = 3.75;
     const textRef = useRef(null);

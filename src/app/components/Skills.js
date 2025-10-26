@@ -5,8 +5,6 @@ export default function Skills(){
     const {t, i18n, ready } = useTranslation();    
     const [languages, setLanguages] = useState({});
     const [totalBytes, setTotalBytes] = useState(0);
-    if (!ready) return <></>;
-
 
     useEffect(()=>{
         async function getSkills(){
