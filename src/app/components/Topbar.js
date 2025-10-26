@@ -1,7 +1,11 @@
+import { useEffect, useState } from "react";
 
 
 export default function Topbar(){
-    let pathName = window.location.pathname;
+    const [pathName, setPathName] = useState("");
+    useEffect(() => {
+        setPathName(window.location.pathname);
+    }, []);
 
     return <>
         <div className="w-full flex items-center justify-end gap-5 pt-2">
