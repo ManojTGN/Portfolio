@@ -16,5 +16,5 @@ A clean and fast personal portfolio built with **Next.js** and **TailwindCSS**, 
 - Vercel
 
 ### 📫 Contact
-- [Portfolio](https://manojtgn.vercel.app) 
-- [LinkedIn](https://linkedin.com/in/manojtgn)
+- [Portfolio]() 
+- [LinkedIn]()
