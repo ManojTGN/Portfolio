@@ -46,6 +46,14 @@
     font-style: normal;
 }
 
+:root {
+    --base-font-size: 15px;
+}
+
+html {
+    font-size: var(--base-font-size);
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

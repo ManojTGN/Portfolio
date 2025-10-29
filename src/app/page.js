@@ -1,6 +1,7 @@
 'use client'
 
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 
 import Topbar from "./components/Topbar";
 import Name from "./components/Name";
@@ -11,8 +12,21 @@ import Footer from "./components/Footer";
 
 export default function Home() {
     const {t, i18n, ready } = useTranslation();
-    if (!ready) return <></>;
+    
+    useEffect(() => {
+        const scrollToHash = () => {
+            const hash = window.location.hash;
+            if (hash) {
+                const el = document.getElementById(hash.substring(1));
+                if (el) el.scrollIntoView({ behavior: "smooth" });
+            }
+        };
+        
+        if(ready) scrollToHash()
+    }, [ready]);
 
+    if (!ready) return <></>;
+    
     return (
         <>
             <div className="w-full flex flex-col items-center justify-center">

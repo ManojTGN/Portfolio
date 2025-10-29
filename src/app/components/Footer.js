@@ -4,6 +4,9 @@ import { useTranslation } from "react-i18next";
 
 export default function Footer(){
     const {t, i18n, ready } = useTranslation();
+    if(!ready) <></>;
+
+    const languageName = new Intl.DisplayNames(["en"], { type: "language" }).of(i18n.language);
 
     return <>
     <footer>
@@ -14,6 +17,7 @@ export default function Footer(){
                 <p>{t('portfolio.footer.copyrights.2025')}</p>
             </div>
             <div className="w-full flex items-center justify-end gap-2">
+                <a href="/accessibility#language" className="underline hover:text-white"> {languageName}</a>
                 <a href="/accessibility" className="underline hover:text-white">{t('portfolio.footer.a11y')}</a>
                 <a href="https://github.com/ManojTGN/Portfolio/issues/new" target="_blank" className="underline hover:text-white">{t('portfolio.footer.report')}</a>
             </div>

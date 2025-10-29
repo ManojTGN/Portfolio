@@ -11,6 +11,7 @@ i18n
 .use(LanguageDetector)
 .use(initReactI18next).init({
     fallbackLng: "en",
+    load: "languageOnly",
     backend:{loadPath:"/locales/{{lng}}.json"},
     react: { useSuspense: false },
     debug: false,    //@TODO: Change Back To False On Build

@@ -11,6 +11,7 @@
     "portfolio.topbar.home": "Home",
     "portfolio.topbar.work": "Work",
     "portfolio.topbar.contact": "Contact",
+    "portfolio.topbar.accessibility":"Accessibility",
 
 
     "portfolio.about.me":"About Me",
@@ -62,6 +63,15 @@
 
     "portfolio.footer.copyrights.2025": "copyright 2025",
     "portfolio.footer.a11y": "A11Y",
-    "portfolio.footer.report": "report"
+    "portfolio.footer.report": "Report",
+    "portfolio.footer.language": "Language:",
 
+
+    "portfolio.a11y.language":"Language",
+    "portfolio.a11y.language.desc": "Choose your preferred language to view the site in the way you’re most comfortable.",
+    "portfolio.a11y.font.size":"Font Size",
+    "portfolio.a11y.font.size.desc": "Adjust the font size for a more comfortable reading experience.",
+    "portfolio.a11y.font.size.small":"Small",
+    "portfolio.a11y.font.size.medium":"Medium",
+    "portfolio.a11y.font.size.large":"Large"
 }
