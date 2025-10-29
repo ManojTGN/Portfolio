@@ -10,14 +10,14 @@ export default function Home() {
 
     return (
         <>
-            <div className="w-full h-full flex flex-col items-center justify-start">
-                <div className="w-6/12 h-full flex flex-col">
+            <div className="w-full flex flex-col items-center justify-start">
+                <div className="w-6/12 flex flex-col">
                     <Topbar />
                     <hr className="w-full mt-5 border-portfolio-500" />
                     <div className="w-full flex items-center justify-center mt-10">
                         <p className="text-white font-medium"><span className="text-yellow-500">@todo:</span> work page</p>
                     </div>
-                    <div className="h-full"></div>
+                    <div className="mt-20"></div>
                     <Footer />
                 </div>
             </div>

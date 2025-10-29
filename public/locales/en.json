@@ -73,5 +73,9 @@
     "portfolio.a11y.font.size.desc": "Adjust the font size for a more comfortable reading experience.",
     "portfolio.a11y.font.size.small":"Small",
     "portfolio.a11y.font.size.medium":"Medium",
-    "portfolio.a11y.font.size.large":"Large"
+    "portfolio.a11y.font.size.large":"Large",
+    "portfolio.a11y.color.theme":"Color Theme",
+    "portfolio.a11y.color.theme.desc": "Choose the theme that suits your eyes best.",
+    "portfolio.a11y.color.theme.dark":"Dark",
+    "portfolio.a11y.color.theme.light":"Light"
 }

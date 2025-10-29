@@ -8,10 +8,13 @@ import { useEffect, useState } from "react";
 export default function Home() {
     const {t, i18n, ready } = useTranslation();
 
+    //Change Language ----------------------------------------------------------------------------------
     function changeLanguage(event){
         i18n.changeLanguage(event.target.value);
     }
 
+
+    //Change Font Size ----------------------------------------------------------------------------------
     const [fontSize, setFontSize] = useState('medium');
     const sizeMap = {
         small: '11px',
@@ -34,6 +37,11 @@ export default function Home() {
             document.documentElement.style.setProperty('--base-font-size', sizeMap['medium']);
         }
     }, []);
+
+    //Change Theme ------------------------------------------------------------------------------------
+    function changeTheme(theme){
+        console.log(theme)
+    }
 
     if (!ready) return <></>;
     return (
@@ -90,7 +98,21 @@ export default function Home() {
                             </ul>
                         </div>
                     </div>
-                    <div className="h-full mt-20"></div>
+
+                    <div className="flex items-center w-full mt-10 gap-2" id="theme">
+                        <div className="w-full">
+                            <a href="#theme" className="w-full font-medium text-2xl text-white">{t('portfolio.a11y.color.theme')} <span className="text-xs p-1 bg-yellow-600 text-black font-medium">In Development</span></a>
+                            <p className="w-full text-lg text-portfolio-500">{t('portfolio.a11y.color.theme.desc')}</p>
+                        </div>
+                        <div className="ml-auto w-2/6 p-2">
+                           <select onChange={changeTheme} value={i18n.language} className="bg-portfolio-900 border border-portfolio-600 text-white text-sm block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
+                                <option value={"dark"}>{t('portfolio.a11y.color.theme.dark')}</option>
+                                <option value={"light"}>{t('portfolio.a11y.color.theme.light')}</option>
+                           </select>
+                        </div>
+                    </div>
+
+                    <div className="mt-20"></div>
                     <Footer />
                 </div>
             </div>
