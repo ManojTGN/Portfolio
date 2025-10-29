@@ -12,6 +12,7 @@ i18n
 .use(initReactI18next).init({
     fallbackLng: "en",
     load: "languageOnly",
+    supportedLngs: ["en", "fr", "zh", "es", "ta"],
     backend:{loadPath:"/locales/{{lng}}.json"},
     react: { useSuspense: false },
     debug: false,    //@TODO: Change Back To False On Build

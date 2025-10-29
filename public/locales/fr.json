@@ -1,0 +1,77 @@
+{
+    "portfolio.title": "ManojTGN ▪ Portefeuille",
+    "portfolio.description": "Portefeuille",
+
+    "portfolio.top.realname": "Manoj A",
+    "portfolio.location": "Tamil Nadu, Inde",
+    "portfolio.about.me.role": "Développeur logiciel",
+    "portfolio.top.realname.label": "Nom du portefeuille",
+    "portfolio.about.me.email": "manojanguraja@gmail.com",
+
+    "portfolio.topbar.home": "Accueil",
+    "portfolio.topbar.work": "Travail",
+    "portfolio.topbar.contact": "Contact",
+    "portfolio.topbar.accessibility": "Accessibilité",
+
+
+    "portfolio.about.me": "À propos de moi",
+    "portfolio.about.me.fun": "Manuel d’utilisation",
+
+    "portfolio.skills": "Compétences",
+    "portfolio.skills.fun": "Ingrédient secret",
+    
+    "portfolio.experience": "Expérience",
+    "portfolio.experience.fun": "Dossiers de bataille",
+
+    "portfolio.education": "Éducation",
+    "portfolio.education.fun": "Cache de connaissances",
+
+    "portfolio.contact": "Contact",
+    "portfolio.contact.fun": "Envoyer un pigeon",
+
+
+    "portfolio.about.me.desc.short": "Écrit du code. Casse du code. Répare du code.",
+    "portfolio.about.me.desc.top": "Je suis un développeur passionné par la création de solutions rapides, intelligentes et un peu trop perfectionnées. Obsédé par la logique bas niveau, les architectures propres et toute occasion d’optimiser les performances.",
+    "portfolio.about.me.desc.bottom": "J’apprends et je m’améliore constamment pour créer des logiciels fiables, évolutifs et réellement utiles. Transformons vos idées en solutions bien conçues.",
+
+
+    "portfolio.experience.zoho.location": "Chennai, Inde",
+    "portfolio.experience.zoho.fullname": "Zoho Corporation",
+    "portfolio.experience.zoho.duration": "Fév 2024 - Présent",
+    "portfolio.experience.zoho.role": "Développeur logiciel",
+    "portfolio.experience.zoho.desc": "Je contribue au projet Active Directory Manager Plus (ADMP), en travaillant avec Java, C++ et C# pour développer des solutions d’annuaire d’entreprise fiables et évolutives. Ce rôle m’a permis d’acquérir une solide expérience en architecture logicielle, intégration système et travail d’équipe collaboratif, tout en renforçant mes compétences techniques et ma compréhension des flux de travail complexes.",
+
+    "portfolio.experience.nit.location": "Coimbatore, Inde",
+    "portfolio.experience.nit.fullname": "Nandha Info Tech",
+    "portfolio.experience.nit.duration": "Mars - Mai 2024",
+    "portfolio.experience.nit.role": "Stage",
+    "portfolio.experience.nit.desc": "J’ai travaillé sur SenseLuto, une solution intelligente pour l’analyse des sols, contribuant à des fonctionnalités telles que les alertes météorologiques, les conseils d’irrigation, l’analyse de productivité et le stockage de données dans le cloud. Cette expérience m’a permis de développer mes compétences en conception logicielle et en travail d’équipe.",
+
+
+    "portfolio.contact.time": "Heure",
+    "portfolio.contact.email": "E-mail",
+    "portfolio.contact.socials": "Réseaux sociaux",
+    "portfolio.contact.mail.sent.thank.you": "E-mail envoyé ! Merci !",
+    "portfolio.contact.mail.send.message": "Envoyer le message",
+    "portfolio.contact.mail.not.sent": "Non envoyé !",
+    "portfolio.contact.name.placeholder": "Votre nom",
+    "portfolio.contact.email.placeholder": "Votre e-mail",
+    "portfolio.contact.message.placeholder": "Votre message",
+    "portfolio.dont.be.shy": "Ne soyez pas timide",
+    "portfolio.just.say.hello": "Dites simplement bonjour !!",
+
+
+    "portfolio.footer.copyrights.2025": "droit d’auteur 2025",
+    "portfolio.footer.a11y": "A11Y",
+    "portfolio.footer.report": "Signaler",
+    "portfolio.footer.language": "Langue :",
+
+
+    "portfolio.a11y.language": "Langue",
+    "portfolio.a11y.language.desc": "Choisissez la langue dans laquelle vous souhaitez afficher le site, selon votre confort.",
+    "portfolio.a11y.font.size": "Taille de la police",
+    "portfolio.a11y.font.size.desc": "Ajustez la taille du texte pour un confort de lecture optimal.",
+    "portfolio.a11y.font.size.small": "Petite",
+    "portfolio.a11y.font.size.medium": "Moyenne",
+    "portfolio.a11y.font.size.large": "Grande"
+}

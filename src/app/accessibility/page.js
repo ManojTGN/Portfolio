@@ -53,8 +53,10 @@ export default function Home() {
                         </div>
                         <div className="ml-auto w-2/6 p-2">
                            <select onChange={changeLanguage} value={i18n.language} className="bg-portfolio-900 border border-portfolio-600 text-white text-sm block w-full p-2.5 placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
-                                {i18n.languages.map((language)=>{
-                                    return <option key={language}>{language}</option>
+                                {i18n.options.supportedLngs.map((language)=>{
+                                    if(language === 'cimode') return;
+                                    const languageName = new Intl.DisplayNames(["en"], { type: "language" }).of(language);
+                                    return <option key={language} value={language}>{languageName} ({language})</option>
                                 })}
                            </select>
                         </div>
