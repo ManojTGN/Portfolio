@@ -12,6 +12,7 @@ export default function Blogs() {
         <>
             <div className="w-full flex flex-col items-center justify-start">
                 <div className="w-6/12 flex flex-col">
+                    <span className="text-xs px-2 bg-yellow-700 text-black font-bold">In Development</span>
                     <Topbar />
                     <hr className="w-full mt-5 border-portfolio-500" />
                     <p className="text-center text-lg font-medium text-yellow-600 mt-5"> Blogs Are Coming Soon!</p>

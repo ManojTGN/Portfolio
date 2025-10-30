@@ -26,7 +26,7 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/Gsap.png" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/gsap.png" alt="" width={30} height={30} draggable={false} /> 
                     Gsap (Basic)
                 </p>
             </div>
@@ -70,13 +70,13 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/python.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/Python.svg" alt="" width={30} height={30} draggable={false} />
                     Python
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/git.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/Git.svg" alt="" width={30} height={30} draggable={false} />
                     Git
                 </p>
             </div>
@@ -87,7 +87,7 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/mysql.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/MySQL.svg" alt="" width={30} height={30} draggable={false} /> 
                     MySQL
                 </p>
             </div>
