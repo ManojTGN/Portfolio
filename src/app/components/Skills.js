@@ -6,7 +6,7 @@ export default function Skills(){
     const {t, i18n, ready } = useTranslation();
 
     return <>
-        <p className="text-xl text-white font-medium mt-5">Frontend Development</p>
+        <p className="text-xl text-white font-medium mt-5">{t('portfolio.skills.frontend.development')}</p>
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 font-medium text-xl">
@@ -43,7 +43,7 @@ export default function Skills(){
             </div>
         </div>
 
-        <p className="text-xl text-white font-medium mt-5">Backend & Systems</p>
+        <p className="text-xl text-white font-medium mt-5">{t('portfolio.skills.backend.systems')}</p>
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 font-medium text-xl flex gap-1">
@@ -99,7 +99,7 @@ export default function Skills(){
             </div>
         </div>
 
-        <p className="text-xl text-white font-medium mt-5">Design & Creative Tools</p>
+        <p className="text-xl text-white font-medium mt-5">{t('portfolio.skills.frontend.design.creative.tools')}</p>
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 font-medium text-xl flex gap-1">

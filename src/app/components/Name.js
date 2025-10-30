@@ -16,6 +16,7 @@ export default function Name() {
 
     useGSAP(() => {
         gsap.set(textRef.current, { opacity: 1 });
+
         let isExploding = false;
         let split = SplitText.create(textRef.current, { type: "chars, words"});
 
@@ -31,7 +32,7 @@ export default function Name() {
 
                 const _dist = mouseX - charX;
                 const distance = Math.abs(_dist);
-                const rotation = distance/10;
+                const rotation = distance / 10;
                 const deltaFontSize = 0.1 + ((rotation - 1) * (0.7 - 0.1)) / (10 - 1);
 
                 let weight = 900 - Math.floor(rotation) * 100;

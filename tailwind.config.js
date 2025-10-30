@@ -20,7 +20,6 @@ module.exports = {
                 'spin-fast': 'spin 0.5s linear infinite',
             },
             colors:{
-                /* portfolio-surface */
                 portfolio:{ 
                     50: "white",
                     100: "#c1c1c1",

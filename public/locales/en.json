@@ -12,6 +12,7 @@
     "portfolio.topbar.work": "Work",
     "portfolio.topbar.contact": "Contact",
     "portfolio.topbar.accessibility":"Accessibility",
+    "portfolio.topbar.blogs": "Blogs",
 
 
     "portfolio.about.me":"About Me",
@@ -33,7 +34,12 @@
     "portfolio.about.me.desc.short": "Writes code. Breaks code. Fixes code.",
     "portfolio.about.me.desc.top":"I'm a software developer who loves building fast, smart, and slightly over-engineered things. Obsessed with low-level logic, clean architecture, and any excuse to optimize performance.",
     "portfolio.about.me.desc.bottom":"I'm constantly learning, improving, and pushing myself to build software that's reliable, scalable, and genuinely useful. Let's turn ideas into well-crafted solutions.",
-    
+
+
+    "portfolio.skills.frontend.development": "Frontend Development",
+    "portfolio.skills.backend.systems": "Backend & Systems",
+    "portfolio.skills.frontend.design.creative.tools": "Design & Creative Tools",
+
 
     "portfolio.experience.zoho.location": "Chennai, India",
     "portfolio.experience.zoho.fullname": "Zoho Corporation",
@@ -77,5 +83,13 @@
     "portfolio.a11y.color.theme":"Color Theme",
     "portfolio.a11y.color.theme.desc": "Choose the theme that suits your eyes best.",
     "portfolio.a11y.color.theme.dark":"Dark",
-    "portfolio.a11y.color.theme.light":"Light"
+    "portfolio.a11y.color.theme.light":"Light",
+    "portfolio.a11y.cursor.size":"Cursor Size",
+    "portfolio.a11y.cursor.size.desc": "Adjust the Cursor size for a more comfortable experience.",
+    "portfolio.a11y.cursor.size.default":"Default",
+    "portfolio.a11y.cursor.size.small":"Small",
+    "portfolio.a11y.cursor.size.medium":"Medium",
+    "portfolio.a11y.cursor.size.large":"Large",
+
+    "portfolio.notfound.desc": "The Page You Are Looking For Is Unavailable!"
 }

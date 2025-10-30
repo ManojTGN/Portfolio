@@ -14,6 +14,8 @@ export default function Topbar(){
             <a href="/" className={"text-portfolio-500 hover:text-portfolio-50 hover:underline p-1 " + (pathName==='/'?" text-white font-medium underline cursor-default":" cursor-pointer")}>{t('portfolio.topbar.home')}</a>
             <a href="/work" className={"text-portfolio-500 hover:text-portfolio-50 hover:underline p-1" + (pathName==='/work'?" text-white font-medium underline cursor-default":" cursor-pointer")}>{t('portfolio.topbar.work')}</a>
             <a href="/#contact" className={"text-portfolio-500 hover:text-portfolio-50 hover:underline p-1"}>{t('portfolio.topbar.contact')}</a>
+            <div className="w-[1px] border-2 rounded-full border-portfolio-500"></div>
+            <a href="/blogs" className={"text-portfolio-500 hover:text-portfolio-50 hover:underline p-1" + (pathName==='/blogs'?" text-white font-medium underline cursor-default":" cursor-pointer")}>{t('portfolio.topbar.blogs')}</a>
         </div>
     </>
 }
