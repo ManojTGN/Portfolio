@@ -98,7 +98,7 @@ export default function Name() {
     }, []);
 
     return <>
-        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className={`text-6xl text-white font-bold flex-none cursor-pointer select-none`}> 
+        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className={`text-6xl text-portfolio-950 dark:text-white font-bold flex-none cursor-pointer select-none`}> 
             {t("portfolio.top.realname")} 
         </p>
     </>

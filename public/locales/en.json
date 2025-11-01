@@ -69,7 +69,7 @@
 
     "portfolio.footer.copyrights.2025": "copyright 2025",
     "portfolio.footer.a11y": "A11Y",
-    "portfolio.footer.report": "Report",
+    "portfolio.footer.report": "Report An Issue",
     "portfolio.footer.language": "Language:",
 
 
@@ -84,6 +84,7 @@
     "portfolio.a11y.color.theme.desc": "Choose the theme that suits your eyes best.",
     "portfolio.a11y.color.theme.dark":"Dark",
     "portfolio.a11y.color.theme.light":"Light",
+    "portfolio.a11y.color.theme.system": "System",
     "portfolio.a11y.cursor.size":"Cursor Size",
     "portfolio.a11y.cursor.size.desc": "Adjust the Cursor size for a more comfortable experience.",
     "portfolio.a11y.cursor.size.default":"Default",
