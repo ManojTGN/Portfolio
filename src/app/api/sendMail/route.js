@@ -6,26 +6,24 @@ export async function POST(request) {
         const { name, email, message, token } = body;
 
         if (!name || !email || !message) {
-            return new Response(JSON.stringify({ error: "Missing fields" }), {
-                status: 400,
-            });
+            return new Response(JSON.stringify({ errCode:1, error: "Missing fields", success:false, message:null }), { status: 400 });
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            return new Response(JSON.stringify({ error: "Invalid email" }), { status: 400 });
+            return new Response(JSON.stringify({ errCode:2, error: "Invalid email", success:false, message:null }), { status: 400 });
         }
 
         if (name.length > 30) {
-            return new Response(JSON.stringify({ error: "Name too long" }), { status: 400 });
+            return new Response(JSON.stringify({ errCode:3, error: "Name too long", success:false, message:null }), { status: 400 });
         }
 
         if (email.length > 40) {
-            return new Response(JSON.stringify({ error: "Email too long" }), { status: 400 });
+            return new Response(JSON.stringify({ errCode:4, error: "Email too long", success:false, message:null }), { status: 400 });
         }
 
         if (message.length > 500) {
-            return new Response(JSON.stringify({ error: "Message too long" }), { status: 400 });
+            return new Response(JSON.stringify({ errCode:5, error: "Message too long", success:false, message:null }), { status: 400 });
         }
 
         const res = await fetch(
@@ -39,7 +37,7 @@ export async function POST(request) {
         const data = await res.json();
         
         if(!data.success){
-            return new Response(JSON.stringify({ error: "Invalid reCaptcha" }), { status: 400 });
+            return new Response(JSON.stringify({ errCode:6, error: "Invalid reCaptcha", success:false, message:null }), { status: 400 });
         }
 
         const transporter = nodemailer.createTransport({
@@ -57,13 +55,9 @@ export async function POST(request) {
             text: `from:${email}\nmessage:${message}`,
         });
 
-        return new Response(JSON.stringify({ message: "Email sent successfully!" }), {
-            status: 200,
-        });
+        return new Response(JSON.stringify({ errCode:null, error:null, success:true, message: "Email sent successfully!" }), { status: 200 });
     } catch (err) {
         console.error(err);
-        return new Response(JSON.stringify({ error: "Failed to send email" }), {
-            status: 500,
-        });
+        return new Response(JSON.stringify({ errCode:7, error: "Failed to send email", success:false, message:null }), { status: 500 });
     }
 }

@@ -26,9 +26,9 @@ export default function Footer(){
             </div>
             <div className="w-full flex items-center justify-end gap-2">
                 <button onClick={toggleTheme}><i className={`fa-solid fa-circle-half-stroke ${theme==='dark'?'fa-flip-horizontal':''}`}></i></button>
-                <a href="/accessibility#language" className="underline hover:text-portfolio-950 hover:text-white"> {languageName}</a>
+                <a href="/accessibility#language" className="underline hover:text-portfolio-950 dark:hover:text-white"> {languageName}</a>
                 <a href="/accessibility" className="underline hover:text-portfolio-950 dark:hover:text-white">{t('portfolio.footer.a11y')}</a>
-                <a href="https://github.com/ManojTGN/Portfolio/issues/new" target="_blank" className="underline hover:text-portfolio-950 hover:text-white">{t('portfolio.footer.report')}</a>
+                <a href="https://github.com/ManojTGN/Portfolio/issues/new" target="_blank" className="underline hover:text-portfolio-950 dark:hover:text-white">{t('portfolio.footer.report')}</a>
             </div>
         </div>
     </footer>

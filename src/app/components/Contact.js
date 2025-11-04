@@ -33,6 +33,7 @@ export default function Contact(){
             grecaptcha.enterprise.render('recaptcha', {
                 'sitekey' : process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY,
                 'theme' : theme === 'dark' ? 'dark' : 'light',
+                'lang': i18n.language,
                 'callback':(token)=>setToken(token),
                 'expired-callback':()=>setToken('')
             });
@@ -153,7 +154,9 @@ export default function Contact(){
                         </a>
                     </div>
 
-                    <p className="mt-5 text-portfolio-950 dark:text-portfolio-50 font-medium text-xl">{t('portfolio.dont.be.shy')}</p>
+                    <p className="mt-5 text-portfolio-950 dark:text-portfolio-50 font-medium text-2xl">{t('portfolio.contact.lets.work.together')}</p>
+
+                    <p className="mt-14 text-portfolio-950 dark:text-portfolio-50 font-medium text-xl">{t('portfolio.dont.be.shy')}</p>
                     <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-lg">{t('portfolio.just.say.hello')}</p>
                 </div>
                 <div className="w-full flex flex-col gap-5 text-portfolio-500 dark:text-portfolio-500">

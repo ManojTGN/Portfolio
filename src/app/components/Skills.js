@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next";
 import Image from 'next/image';
+import { useTheme } from "next-themes";
 
 export default function Skills(){
     const {t, i18n, ready } = useTranslation();
+    const {theme, setTheme} = useTheme();
+
 
     return <>
         <p className="text-xl text-portfolio-950 dark:text-white font-medium mt-5">{t('portfolio.skills.frontend.development')}</p>
@@ -15,7 +18,7 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/Next.js.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/Next.js.svg" alt="" width={30} height={30} draggable={false} className={theme==='dark'?"invert":""} />
                     NextJs
                 </p>
             </div>

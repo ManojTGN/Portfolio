@@ -20,6 +20,9 @@
 
     "portfolio.skills":"Skills",
     "portfolio.skills.fun": "Secret Sauce",
+
+    "portfolio.featured": "Featured Projects",
+    "portfolio.featured.fun": "Magic Picks",
     
     "portfolio.experience":"Experience",
     "portfolio.experience.fun": "Battle Records",
@@ -34,6 +37,9 @@
     "portfolio.about.me.desc.short": "Writes code. Breaks code. Fixes code.",
     "portfolio.about.me.desc.top":"I'm a software developer who loves building fast, smart, and slightly over-engineered things. Obsessed with low-level logic, clean architecture, and any excuse to optimize performance.",
     "portfolio.about.me.desc.bottom":"I'm constantly learning, improving, and pushing myself to build software that's reliable, scalable, and genuinely useful. Let's turn ideas into well-crafted solutions.",
+
+
+
 
 
     "portfolio.skills.frontend.development": "Frontend Development",
@@ -57,6 +63,7 @@
     "portfolio.contact.time": "Time",
     "portfolio.contact.email": "Email",
     "portfolio.contact.socials": "Socials",
+    "portfolio.contact.lets.work.together": "Let's Work Together!",
     "portfolio.contact.mail.sent.thank.you": "Mail Sent! Thank You!",
     "portfolio.contact.mail.send.message": "Send Message",
     "portfolio.contact.mail.not.sent": "Not Sent!",
