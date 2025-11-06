@@ -1,0 +1,77 @@
+{
+    "portfolio.title": "ManojTGN ▪ போர்ட்ஃபோலியோ",
+    "portfolio.description": "போர்ட்ஃபோலியோ",
+
+    "portfolio.top.realname": "மனோஜ் A",
+    "portfolio.location": "தமிழ்நாடு, இந்தியா",
+    "portfolio.about.me.role": "மென்பொருள் உருவாக்குநர்",
+    "portfolio.top.realname.label": "போர்ட்ஃபோலியோ பெயர்",
+    "portfolio.about.me.email": "manojanguraja@gmail.com",
+
+    "portfolio.topbar.home": "முகப்பு",
+    "portfolio.topbar.work": "பணி",
+    "portfolio.topbar.contact": "தொடர்பு",
+    "portfolio.topbar.accessibility": "அணுகல் வசதி",
+
+
+    "portfolio.about.me": "என்னைப் பற்றி",
+    "portfolio.about.me.fun": "பயனர் கையேடு",
+
+    "portfolio.skills": "திறன்கள்",
+    "portfolio.skills.fun": "இரகசிய மூலப்பொருள்",
+    
+    "portfolio.experience": "அனுபவம்",
+    "portfolio.experience.fun": "போராட்ட பதிவுகள்",
+
+    "portfolio.education": "கல்வி",
+    "portfolio.education.fun": "அறிவு சேமிப்பு",
+
+    "portfolio.contact": "தொடர்பு",
+    "portfolio.contact.fun": "புறாவை அனுப்பு",
+
+
+    "portfolio.about.me.desc.short": "கோடு எழுதுவேன். கோடு உடைப்பேன். கோடு சரிசெய்வேன்.",
+    "portfolio.about.me.desc.top": "வேகமான, புத்திசாலியான மற்றும் சிறிது கூடுதல் பொறியியல் திறனுடன் கூடிய தீர்வுகளை உருவாக்குவதில் ஆர்வமுள்ள மென்பொருள் உருவாக்குநர் நான். குறைந்த நிலைத் தார்மீகங்கள், சுத்தமான கட்டமைப்பு, மற்றும் செயல்திறன் மேம்பாட்டில் தீவிரம் கொண்டவன்.",
+    "portfolio.about.me.desc.bottom": "நம்பகமான, விரிவாக்கக்கூடிய மற்றும் உண்மையில் பயனுள்ள மென்பொருட்களை உருவாக்கும் நோக்கத்தில் தொடர்ந்து கற்றுக் கொண்டு முன்னேறுகிறேன். உங்கள் எண்ணங்களை நன்கு வடிவமைக்கப்பட்ட தீர்வுகளாக மாற்றுவோம்.",
+
+
+    "portfolio.experience.zoho.location": "சென்னை, இந்தியா",
+    "portfolio.experience.zoho.fullname": "Zoho Corporation",
+    "portfolio.experience.zoho.duration": "பிப் 2024 - தற்போதும்",
+    "portfolio.experience.zoho.role": "மென்பொருள் உருவாக்குநர்",
+    "portfolio.experience.zoho.desc": "Active Directory Manager Plus (ADMP) திட்டத்தில் பங்களித்து, Java, C++, மற்றும் C# ஆகியவற்றுடன் நிறுவன மட்ட தீர்வுகளை உருவாக்குகிறேன். இந்தப் பணி மூலம் மென்பொருள் கட்டமைப்பு, அமைப்பு ஒருங்கிணைப்பு மற்றும் குழு ஒத்துழைப்பு ஆகியவற்றில் அனுபவத்தைப் பெற்றேன்.",
+
+    "portfolio.experience.nit.location": "கோயம்புத்தூர், இந்தியா",
+    "portfolio.experience.nit.fullname": "Nandha Info Tech",
+    "portfolio.experience.nit.duration": "மார் - மே 2024",
+    "portfolio.experience.nit.role": "பயிற்சி",
+    "portfolio.experience.nit.desc": "SenseLuto என்ற மண் நுண்ணறிவு தீர்வில் பணியாற்றி, வானிலை எச்சரிக்கைகள், பாசன வழிகாட்டல், விளைச்சல் பகுப்பாய்வு மற்றும் மேகத் தரவு சேமிப்பு போன்ற அம்சங்களில் பங்களித்தேன். இதன் மூலம் மென்பொருள் வடிவமைப்பு மற்றும் குழு பணியில் அனுபவம் பெற்றேன்.",
+
+
+    "portfolio.contact.time": "நேரம்",
+    "portfolio.contact.email": "மின்னஞ்சல்",
+    "portfolio.contact.socials": "சமூகங்கள்",
+    "portfolio.contact.mail.sent.thank.you": "மின்னஞ்சல் அனுப்பப்பட்டது! நன்றி!",
+    "portfolio.contact.mail.send.message": "செய்தி அனுப்பு",
+    "portfolio.contact.mail.not.sent": "அனுப்பப்படவில்லை!",
+    "portfolio.contact.name.placeholder": "உங்கள் பெயர்",
+    "portfolio.contact.email.placeholder": "உங்கள் மின்னஞ்சல்",
+    "portfolio.contact.message.placeholder": "உங்கள் செய்தி",
+    "portfolio.dont.be.shy": "வெட்கப்படாதீர்கள்",
+    "portfolio.just.say.hello": "வணக்கம் சொல்லுங்கள்!!",
+
+
+    "portfolio.footer.copyrights.2025": "பதிப்புரிமை 2025",
+    "portfolio.footer.a11y": "A11Y",
+    "portfolio.footer.report": "அறிக்கை",
+    "portfolio.footer.language": "மொழி:",
+
+
+    "portfolio.a11y.language": "மொழி",
+    "portfolio.a11y.language.desc": "உங்களுக்கு வசதியான மொழியில் தளத்தைப் பார்க்க விருப்பமான மொழியைத் தேர்ந்தெடுக்கவும்.",
+    "portfolio.a11y.font.size": "எழுத்துரு அளவு",
+    "portfolio.a11y.font.size.desc": "உங்கள் வாசிப்பை வசதியாக்க எழுத்துரு அளவை மாற்றுங்கள்.",
+    "portfolio.a11y.font.size.small": "சிறியது",
+    "portfolio.a11y.font.size.medium": "நடுத்தரம்",
+    "portfolio.a11y.font.size.large": "பெரியது"
+}

@@ -1,0 +1,77 @@
+{
+    "portfolio.title": "ManojTGN ▪ 作品集",
+    "portfolio.description": "作品集",
+
+    "portfolio.top.realname": "Manoj A",
+    "portfolio.location": "印度泰米尔纳德邦",
+    "portfolio.about.me.role": "软件开发工程师",
+    "portfolio.top.realname.label": "作品集名称",
+    "portfolio.about.me.email": "manojanguraja@gmail.com",
+
+    "portfolio.topbar.home": "首页",
+    "portfolio.topbar.work": "工作",
+    "portfolio.topbar.contact": "联系",
+    "portfolio.topbar.accessibility": "无障碍",
+
+
+    "portfolio.about.me": "关于我",
+    "portfolio.about.me.fun": "用户手册",
+
+    "portfolio.skills": "技能",
+    "portfolio.skills.fun": "秘密配方",
+    
+    "portfolio.experience": "经验",
+    "portfolio.experience.fun": "战斗记录",
+
+    "portfolio.education": "教育",
+    "portfolio.education.fun": "知识库",
+
+    "portfolio.contact": "联系",
+    "portfolio.contact.fun": "信鸽传书",
+
+
+    "portfolio.about.me.desc.short": "写代码。毁代码。修代码。",
+    "portfolio.about.me.desc.top": "我是一名热爱构建快速、智能、略带“过度工程化”项目的软件开发者。痴迷于底层逻辑、干净的架构，以及任何可以提升性能的机会。",
+    "portfolio.about.me.desc.bottom": "我不断学习和提升自己，致力于构建可靠、可扩展、真正有用的软件。让我们一起把想法变成精心打造的解决方案。",
+
+
+    "portfolio.experience.zoho.location": "印度金奈",
+    "portfolio.experience.zoho.fullname": "Zoho 公司",
+    "portfolio.experience.zoho.duration": "2024年2月 - 至今",
+    "portfolio.experience.zoho.role": "软件开发工程师",
+    "portfolio.experience.zoho.desc": "参与 Active Directory Manager Plus (ADMP) 的开发，使用 Java、C++ 和 C# 构建可扩展且可靠的企业目录解决方案。该职位让我积累了软件架构、系统集成和团队协作的经验，并提升了我的技术能力与企业系统理解。",
+
+    "portfolio.experience.nit.location": "印度哥印拜陀",
+    "portfolio.experience.nit.fullname": "Nandha Info Tech",
+    "portfolio.experience.nit.duration": "2024年3月 - 5月",
+    "portfolio.experience.nit.role": "实习生",
+    "portfolio.experience.nit.desc": "参与 SenseLuto 智能土壤分析系统的开发，负责天气预警、灌溉指导、生产力分析和云端数据存储等功能。在此期间积累了软件开发、系统设计和团队协作的经验。",
+
+
+    "portfolio.contact.time": "时间",
+    "portfolio.contact.email": "邮箱",
+    "portfolio.contact.socials": "社交平台",
+    "portfolio.contact.mail.sent.thank.you": "邮件已发送！谢谢！",
+    "portfolio.contact.mail.send.message": "发送消息",
+    "portfolio.contact.mail.not.sent": "发送失败！",
+    "portfolio.contact.name.placeholder": "你的名字",
+    "portfolio.contact.email.placeholder": "你的邮箱",
+    "portfolio.contact.message.placeholder": "你的留言",
+    "portfolio.dont.be.shy": "别害羞",
+    "portfolio.just.say.hello": "打个招呼吧！！",
+
+
+    "portfolio.footer.copyrights.2025": "版权所有 2025",
+    "portfolio.footer.a11y": "A11Y",
+    "portfolio.footer.report": "报告",
+    "portfolio.footer.language": "语言：",
+
+
+    "portfolio.a11y.language": "语言",
+    "portfolio.a11y.language.desc": "选择你喜欢的语言，以最舒适的方式浏览网站。",
+    "portfolio.a11y.font.size": "字体大小",
+    "portfolio.a11y.font.size.desc": "调整字体大小，让阅读更轻松。",
+    "portfolio.a11y.font.size.small": "小",
+    "portfolio.a11y.font.size.medium": "中",
+    "portfolio.a11y.font.size.large": "大"
+}

@@ -1,0 +1,116 @@
+{
+    "portfolio.title": "ManojTGN ▪ Portfolio",
+    "portfolio.description": "Portfolio",
+
+    "portfolio.top.realname": "Manoj A",
+    "portfolio.location": "TamilNadu, India",
+    "portfolio.about.me.role": "Software Developer",
+    "portfolio.top.realname.label": "Portfolio Name",
+    "portfolio.about.me.email": "manojanguraja@gmail.com",
+
+    "portfolio.topbar.home": "Home",
+    "portfolio.topbar.work": "Work",
+    "portfolio.topbar.contact": "Contact",
+    "portfolio.topbar.accessibility":"Accessibility",
+    "portfolio.topbar.blogs": "Blogs",
+
+
+    "portfolio.about.me":"About Me",
+    "portfolio.about.me.fun":"User Manual",
+
+    "portfolio.skills":"Skills",
+    "portfolio.skills.fun": "Secret Sauce",
+
+    "portfolio.featured": "Featured Projects",
+    "portfolio.featured.fun": "Magic Picks",
+    
+    "portfolio.experience":"Experience",
+    "portfolio.experience.fun": "Battle Records",
+
+    "portfolio.education":"Education",
+    "portfolio.education.fun": "Knowledge Cache",
+
+    "portfolio.contact":"Contact",
+    "portfolio.contact.fun": "Send Pigeon",
+
+    
+    "portfolio.about.me.desc.short": "Writes code. Breaks code. Fixes code.",
+    "portfolio.about.me.desc.top":"I'm a software developer who loves building fast, smart, and slightly over-engineered things. Obsessed with low-level logic, clean architecture, and any excuse to optimize performance.",
+    "portfolio.about.me.desc.bottom":"I'm constantly learning, improving, and pushing myself to build software that's reliable, scalable, and genuinely useful. Let's turn ideas into well-crafted solutions.",
+    "portfolio.about.me.years": "2+ Years",
+    "portfolio.about.me.experience": "Experience",
+    "portfolio.about.me.projects": "7+ Projects",
+    "portfolio.about.me.worked": "Worked",
+    "portfolio.about.me.tools": "20+ Tools",
+    "portfolio.about.me.tools.coding.language": "Tools & Coding Language",
+    
+    
+    "portfolio.featured.cgrafix": "cgrafix",
+    "portfolio.featured.cgrafix.desc": "Cgrafix is a simple window-platform development library designed to provide low level access to graphics.It can be used to create simple games and physics visualization.",
+    "portfolio.featured.grievanceforum": "GrievanceForum",
+    "portfolio.featured.grievanceforum.desc": "BIT Grievance Forum is an online platform available to the College Students to lodge their grievances to the college authorities on any subject related to service delivery. It is a single portal connected to all the BIT institute. The BIT Grievance Forum is also accessible to the student through standalone mobile application.",
+    "portfolio.featured.readmore":"ReadMore",
+    "portfolio.featured.view.all.my.works": "*To View All My Works, Go To The",
+    "portfolio.featured.work": "Work",
+    "portfolio.featured.page": "page",
+    
+
+    "portfolio.skills.frontend.development": "Frontend Development",
+    "portfolio.skills.backend.systems": "Backend & Systems",
+    "portfolio.skills.frontend.design.creative.tools": "Design & Creative Tools",
+
+
+    "portfolio.experience.zoho.location": "Chennai, India",
+    "portfolio.experience.zoho.fullname": "Zoho Corporation",
+    "portfolio.experience.zoho.duration": "Feb 2024 - Present",
+    "portfolio.experience.zoho.role": "Software Developer",
+    "portfolio.experience.zoho.desc":"Contributing to the Active Directory Manager Plus (ADMP), working with Java, C++, and C# to develop scalable and reliable enterprise directory solutions. Through this role, I have gained extensive experience in software architecture, system integrations, and collaborative team development, while enhancing my technical skills and understanding of complex enterprise workflows.",
+
+    "portfolio.experience.nit.location": "Coimbatore, India",
+    "portfolio.experience.nit.fullname": "Nandha Info Tech",
+    "portfolio.experience.nit.duration": "Mar - May 2024",
+    "portfolio.experience.nit.role": "Internship",
+    "portfolio.experience.nit.desc":"Worked on SenseLuto, an advanced soil intelligence solution, contributing to features like smart weather alerts, irrigation guidance, productivity analysis, and cloud data storage. Gained experience in software development, system design, and collaborative teamwork.",
+
+
+    "portfolio.contact.time": "Time",
+    "portfolio.contact.email": "Email",
+    "portfolio.contact.socials": "Socials",
+    "portfolio.contact.lets.work.together": "Let's Work Together!",
+    "portfolio.contact.mail.sent.thank.you": "Mail Sent! Thank You!",
+    "portfolio.contact.mail.send.message": "Send Message",
+    "portfolio.contact.mail.not.sent": "Not Sent!",
+    "portfolio.contact.name.placeholder": "Your Name",
+    "portfolio.contact.email.placeholder": "Your Email",
+    "portfolio.contact.message.placeholder": "Your Message",
+    "portfolio.dont.be.shy": "Don't Be Shy",
+    "portfolio.just.say.hello": "Just Say Hello!!",
+
+
+    "portfolio.footer.copyrights.2025": "copyright 2025",
+    "portfolio.footer.a11y": "A11Y",
+    "portfolio.footer.report": "Report An Issue",
+    "portfolio.footer.language": "Language:",
+
+
+    "portfolio.a11y.language":"Language",
+    "portfolio.a11y.language.desc": "Choose your preferred language to view the site in the way you’re most comfortable.",
+    "portfolio.a11y.font.size":"Font Size",
+    "portfolio.a11y.font.size.desc": "Adjust the font size for a more comfortable reading experience.",
+    "portfolio.a11y.font.size.small":"Small",
+    "portfolio.a11y.font.size.medium":"Medium",
+    "portfolio.a11y.font.size.large":"Large",
+    "portfolio.a11y.color.theme":"Color Theme",
+    "portfolio.a11y.color.theme.desc": "Choose the theme that suits your eyes best.",
+    "portfolio.a11y.color.theme.dark":"Dark",
+    "portfolio.a11y.color.theme.light":"Light",
+    "portfolio.a11y.color.theme.system": "System",
+    "portfolio.a11y.cursor.size":"Cursor Size",
+    "portfolio.a11y.cursor.size.desc": "Adjust the Cursor size for a more comfortable experience.",
+    "portfolio.a11y.cursor.size.default":"Default",
+    "portfolio.a11y.cursor.size.small":"Small",
+    "portfolio.a11y.cursor.size.medium":"Medium",
+    "portfolio.a11y.cursor.size.large":"Large",
+
+    "portfolio.notfound.desc": "The Page You Are Looking For Is Unavailable!"
+}
