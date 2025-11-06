@@ -14,7 +14,7 @@ export default function Blogs() {
                 <div className="w-6/12 flex flex-col">
                     <Topbar />
                     <hr className="w-full mt-5 border-portfolio-500" />
-                    <span className="text-xs text-center mt-20 p-1 bg-yellow-700 text-black font-bold">No Blogs Right Now!</span>
+                    <span className="text-xs text-center mt-20 p-1 text-portfolio-100 font-bold">No Blogs Right Now!</span>
                     <div className="mt-20"></div>
                     <Footer />
                 </div>

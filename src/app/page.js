@@ -9,6 +9,8 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Experiences from "./components/Experiences";
 import Footer from "./components/Footer";
+
+
 import Featured from "./components/Featured";
 import Carousel from "./components/Carousel";
 
@@ -74,20 +76,20 @@ export default function Home() {
 
                     <div className="mt-5 grid grid-cols-3 grid-rows-1">
                         <div className="border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500">
-                            <p className="text-2xl font-medium">2+ Years</p>
-                            <p className="text-portfolio-500">Experience</p>
+                            <p className="text-2xl font-medium">{t('portfolio.about.me.years')}</p>
+                            <p className="text-portfolio-500">{t('portfolio.about.me.experience')}</p>
                         </div>
                         <div className="border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500">
-                            <p className="text-2xl font-medium">7+ Projects</p>
-                            <p className="text-portfolio-500">Worked</p>
+                            <p className="text-2xl font-medium">{t('portfolio.about.me.projects')}</p>
+                            <p className="text-portfolio-500">{t('portfolio.about.me.worked')}</p>
                         </div>
                         <div className="border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500">
-                            <p className="text-2xl font-medium">20+ Tools</p>
-                            <p className="text-portfolio-500">Tools & Coding Language</p>
+                            <p className="text-2xl font-medium">{t('portfolio.about.me.tools')}</p>
+                            <p className="text-portfolio-500">{t('portfolio.about.me.tools.coding.language')}</p>
                         </div>
                     </div>
     
-                    <div className="grid grid-cols-3 grid-rows-1 gap-2 mt-10 h-[600px]">
+                    {/* <div className="grid grid-cols-3 grid-rows-1 gap-2 mt-10 h-[600px]">
                         <div className="w-full h-full flex flex-col gap-2 justify-end">
                             <p className="font-bold text-7xl">Random</p>
                             <div className="w-full h-[300px]">
@@ -106,13 +108,13 @@ export default function Home() {
                                 <Carousel showArrow={false} images={bikesImages} />
                             </div>
                         </div>
-                    </div>
+                    </div> */}
 
-                    <div className="flex items-center w-full mt-32 gap-2" id="featured">
+                    {/* <div className="flex items-center w-full mt-32 gap-2" id="featured">
                         <a href="#featured" className="w-full font-medium text-4xl text-portfolio-950 dark:text-white">{t('portfolio.featured')}</a>
                         <p className="w-full text-end text-portfolio-500 dark:text-portfolio-700 text-3xl font-medium">{t('portfolio.featured.fun')}</p>
                     </div>
-                    <Featured />
+                    <Featured /> */}
 
                     <div className="flex items-center w-full mt-32 gap-2" id="skillTree">
                         <a href="#skillTree" className="w-full font-medium text-4xl text-portfolio-950 dark:text-white">{t('portfolio.skills')}</a>

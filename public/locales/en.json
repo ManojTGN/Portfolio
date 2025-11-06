@@ -37,10 +37,23 @@
     "portfolio.about.me.desc.short": "Writes code. Breaks code. Fixes code.",
     "portfolio.about.me.desc.top":"I'm a software developer who loves building fast, smart, and slightly over-engineered things. Obsessed with low-level logic, clean architecture, and any excuse to optimize performance.",
     "portfolio.about.me.desc.bottom":"I'm constantly learning, improving, and pushing myself to build software that's reliable, scalable, and genuinely useful. Let's turn ideas into well-crafted solutions.",
-
-
-
-
+    "portfolio.about.me.years": "2+ Years",
+    "portfolio.about.me.experience": "Experience",
+    "portfolio.about.me.projects": "7+ Projects",
+    "portfolio.about.me.worked": "Worked",
+    "portfolio.about.me.tools": "20+ Tools",
+    "portfolio.about.me.tools.coding.language": "Tools & Coding Language",
+    
+    
+    "portfolio.featured.cgrafix": "cgrafix",
+    "portfolio.featured.cgrafix.desc": "Cgrafix is a simple window-platform development library designed to provide low level access to graphics.It can be used to create simple games and physics visualization.",
+    "portfolio.featured.grievanceforum": "GrievanceForum",
+    "portfolio.featured.grievanceforum.desc": "BIT Grievance Forum is an online platform available to the College Students to lodge their grievances to the college authorities on any subject related to service delivery. It is a single portal connected to all the BIT institute. The BIT Grievance Forum is also accessible to the student through standalone mobile application.",
+    "portfolio.featured.readmore":"ReadMore",
+    "portfolio.featured.view.all.my.works": "*To View All My Works, Go To The",
+    "portfolio.featured.work": "Work",
+    "portfolio.featured.page": "page",
+    
 
     "portfolio.skills.frontend.development": "Frontend Development",
     "portfolio.skills.backend.systems": "Backend & Systems",
