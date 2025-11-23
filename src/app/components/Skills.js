@@ -18,7 +18,7 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/Next.js.svg" alt="" width={30} height={30} draggable={false} className={theme==='dark'?"invert":""} />
+                    <Image src="/images/work/Next.js.svg" alt="" width={30} height={30} draggable={false} className={theme==='dark'?"invert":""} />
                     NextJs
                 </p>
             </div>
@@ -29,13 +29,13 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/gsap.png" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/gsap.png" alt="" width={30} height={30} draggable={false} /> 
                     Gsap (Basic)
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/tailwind.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/tailwind.svg" alt="" width={30} height={30} draggable={false} /> 
                     Tailwind Css
                 </p>
             </div>
@@ -50,13 +50,13 @@ export default function Skills(){
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/C.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/C.svg" alt="" width={30} height={30} draggable={false} /> 
                     C
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/C++.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/C++.svg" alt="" width={30} height={30} draggable={false} /> 
                     C++
                 </p>
             </div>
@@ -67,19 +67,19 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/java.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/java.svg" alt="" width={30} height={30} draggable={false} />
                     Java
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/Python.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/Python.svg" alt="" width={30} height={30} draggable={false} />
                     Python
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/Git.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/Git.svg" alt="" width={30} height={30} draggable={false} />
                     Git
                 </p>
             </div>
@@ -90,13 +90,13 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/MySQL.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/MySQL.svg" alt="" width={30} height={30} draggable={false} /> 
                     MySQL
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/PostgresSQL.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/PostgresSQL.svg" alt="" width={30} height={30} draggable={false} /> 
                     PostgresSQL
                 </p>
             </div>
@@ -106,19 +106,19 @@ export default function Skills(){
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/AdobePhotoshop.svg" alt="" width={20} height={20} draggable={false} /> 
+                    <Image src="/images/work/AdobePhotoshop.svg" alt="" width={20} height={20} draggable={false} /> 
                     Adobe Photoshop
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/AdobePremierePro.svg" alt="" width={20} height={20} draggable={false} /> 
+                    <Image src="/images/work/AdobePremierePro.svg" alt="" width={20} height={20} draggable={false} /> 
                     Adobe Premiere Pro
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/Figma.svg" alt="" width={20} height={20} draggable={false} /> 
+                    <Image src="/images/work/Figma.svg" alt="" width={20} height={20} draggable={false} /> 
                     Figma
                 </p>
             </div>
