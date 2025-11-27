@@ -5,7 +5,7 @@ import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
 
 export default function Blogs() {
-    const {t, i18n, ready } = useTranslation();
+    const { t, i18n, ready } = useTranslation();
     if (!ready) return <></>;
 
     return (
@@ -13,33 +13,8 @@ export default function Blogs() {
             <div className="w-full flex flex-col items-center justify-start">
                 <div className="w-6/12 flex flex-col">
                     <Topbar />
-                    <hr className="w-full mt-5 border-portfolio-500"/>
-                    <marquee className="mt-20 bg-yellow-300">
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                        <span className="text-xs text-yellow-700 font-bold">Blogs Coming Soon! </span>
-                        <span className="text-xs text-black font-bold">No Blogs Right Now! </span>
-                    </marquee>
+                    <hr className="w-full mt-5 border-portfolio-500" />
+                    <p className="text-base text-yellow-700 font-bold mt-20 text-center">Blogs Coming Soon! </p>    
                     <div className="mt-20"></div>
                     <Footer />
                 </div>

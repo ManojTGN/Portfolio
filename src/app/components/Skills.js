@@ -18,7 +18,7 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/Next.js.svg" alt="" width={30} height={30} draggable={false} className={theme==='dark'?"invert":""} />
+                    <Image src="/images/work/brand/Next.js.svg" alt="" width={30} height={30} draggable={false} className={theme==='dark'?"invert":""} />
                     NextJs
                 </p>
             </div>
@@ -29,13 +29,13 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/gsap.png" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/brand/gsap.png" alt="" width={30} height={30} draggable={false} /> 
                     Gsap (Basic)
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/tailwind.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/brand/tailwind.svg" alt="" width={30} height={30} draggable={false} /> 
                     Tailwind Css
                 </p>
             </div>
@@ -50,13 +50,13 @@ export default function Skills(){
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/C.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/brand/C.svg" alt="" width={30} height={30} draggable={false} /> 
                     C
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/C++.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/brand/C++.svg" alt="" width={30} height={30} draggable={false} /> 
                     C++
                 </p>
             </div>
@@ -67,19 +67,19 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/java.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/java.svg" alt="" width={30} height={30} draggable={false} />
                     Java
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/Python.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/Python.svg" alt="" width={30} height={30} draggable={false} />
                     Python
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/Git.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/Git.svg" alt="" width={30} height={30} draggable={false} />
                     Git
                 </p>
             </div>
@@ -90,13 +90,13 @@ export default function Skills(){
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/MySQL.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/brand/MySQL.svg" alt="" width={30} height={30} draggable={false} /> 
                     MySQL
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/PostgresSQL.svg" alt="" width={30} height={30} draggable={false} /> 
+                    <Image src="/images/work/brand/PostgresSQL.svg" alt="" width={30} height={30} draggable={false} /> 
                     PostgresSQL
                 </p>
             </div>
@@ -106,19 +106,19 @@ export default function Skills(){
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/AdobePhotoshop.svg" alt="" width={20} height={20} draggable={false} /> 
+                    <Image src="/images/work/brand/AdobePhotoshop.svg" alt="" width={20} height={20} draggable={false} /> 
                     Adobe Photoshop
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/AdobePremierePro.svg" alt="" width={20} height={20} draggable={false} /> 
+                    <Image src="/images/work/brand/AdobePremierePro.svg" alt="" width={20} height={20} draggable={false} /> 
                     Adobe Premiere Pro
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/Figma.svg" alt="" width={20} height={20} draggable={false} /> 
+                    <Image src="/images/work/brand/Figma.svg" alt="" width={20} height={20} draggable={false} /> 
                     Figma
                 </p>
             </div>
@@ -129,64 +129,4 @@ export default function Skills(){
             </div>
         </div>
     </>
-
-    // const [languages, setLanguages] = useState({});
-    // const [totalBytes, setTotalBytes] = useState(0);
-
-    // useEffect(()=>{
-    //     async function getSkills(){
-    //         try {
-    //             const res = await fetch("/api/getSkills", {method: "GET"});
-    //             const data = await res.json();
-
-    //             if (res.ok) {
-    //                 setLanguages(data);
-
-    //                 const total = Object.values(data).reduce((acc, val) => acc + val, 0);
-    //                 setTotalBytes(total);
-    //             } else {
-    //                 console.error("Error:", data);
-    //             }
-    //         } catch (err) {
-    //             console.error("Network Error:", err);
-    //         }
-    //     }
-    //     getSkills();
-    // },[])
-
-    // return <>
-    // <div className="grid grid-cols-3 grid-rows-1 gap-5">
-    //     {Object.entries(languages).map(([lang, bytes]) => {
-    //         const percent = totalBytes ? (bytes / totalBytes) * 100 : 0;
-    //         return (
-    //         <div key={lang} className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
-    //             <p className="text-portfolio-500 font-bold text-xl">{lang}</p>
-    //             <span className="text-portfolio-500 font-medium">{Math.round(percent)}%</span>
-    //         </div>
-    //         )
-    //     })}
-    // </div>
-    // <div className="grid grid-cols-3 grid-rows-1 gap-5 mt-5">
-    //     <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
-    //         <p className="text-portfolio-500 font-medium text-xl">Adobe Photoshop</p>
-    //     </div>
-    //     <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
-    //         <p className="text-portfolio-500 font-medium text-xl">Adobe Premiere Pro</p>
-    //     </div>
-    //     <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
-    //         <p className="text-portfolio-500 font-medium text-xl">Figma</p>
-    //     </div>
-    //     <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
-    //         <p className="text-portfolio-500 font-medium text-xl">Steam Game Guide</p>
-    //     </div>
-    //     <div className="w-full border-l-2 pl-5 border-portfolio-500 mt-5">
-    //         <p className="text-portfolio-500 font-medium text-xl">Open Source Contrib</p>
-    //     </div>
-    // </div>
-    // <div className="w-full mt-10">
-    //     <p className="text-portfolio-500 font-medium text-base">
-    //         {t('portfolio.skills.stats.info')} <a href="/work" className="underline text-portfolio-300 cursor-pointer">{t('portfolio.skills.stats.work.page')}</a>.
-    //     </p>
-    // </div>
-    // </>
 }

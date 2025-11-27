@@ -86,7 +86,7 @@ export default function Work() {
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={true} images={["/images/GrievanceForum1.jpg", "/images/GrievanceForum2.jpg", "/images/GrievanceForum3.jpg", "/images/GrievanceForum4.jpg", "/images/GrievanceForum5.jpg", "/images/GrievanceForum6.jpg"]} />
+                                <Carousel showArrow={true} images={["/images/work/project/grievanceForum/preview_0.jpg", "/images/work/project/grievanceForum/preview_1.jpg", "/images/work/project/grievanceForum/preview_2.jpg", "/images/work/project/grievanceForum/preview_3.jpg", "/images/work/project/grievanceForum/preview_4.jpg", "/images/work/project/grievanceForum/preview_5.jpg"]} />
                             </div>
                             <a href="/work/grievanceForum">
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
@@ -105,7 +105,7 @@ export default function Work() {
                             <>
                                 <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
                                     <div className="w-full aspect-video">
-                                        <Carousel showArrow={true} images={["/images/GrievanceForum1.jpg", "/images/GrievanceForum2.jpg", "/images/GrievanceForum3.jpg", "/images/GrievanceForum4.jpg", "/images/GrievanceForum5.jpg", "/images/GrievanceForum6.jpg"]} />
+                                        <Carousel showArrow={true} images={["/images/work/project/grievanceForum/preview_0.jpg", "/images/work/project/grievanceForum/preview_1.jpg", "/images/work/project/grievanceForum/preview_2.jpg", "/images/work/project/grievanceForum/preview_3.jpg", "/images/work/project/grievanceForum/preview_4.jpg", "/images/work/project/grievanceForum/preview_5.jpg"]} />
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/grievanceForum">
@@ -144,7 +144,7 @@ export default function Work() {
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={true} images={["/images/cGrafix1.jpg", "/images/cGrafix2.jpg", "/images/cGrafix3.jpg"]} />
+                                <Carousel showArrow={true} images={["/images/work/project/cGrafix/preview_0.jpg", "/images/work/project/cGrafix/preview_1.jpg", "/images/work/project/cGrafix/preview_2.jpg"]} />
                             </div>
                             <a href="/work/cGrafix">
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
@@ -160,7 +160,7 @@ export default function Work() {
                             <>
                                 <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
                                     <div className="w-full aspect-video">
-                                        <Carousel showArrow={true} images={["/images/cGrafix1.jpg", "/images/cGrafix2.jpg", "/images/cGrafix3.jpg"]} />
+                                        <Carousel showArrow={true} images={["/images/work/project/cGrafix/preview_0.jpg", "/images/work/project/cGrafix/preview_1.jpg", "/images/work/project/cGrafix/preview_2.jpg"]} />
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/cGrafix">
@@ -246,7 +246,7 @@ export default function Work() {
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={false} images={["/images/noPreview.jpg"]} />
+                                <Carousel images={["/images/work/project/collision2Djs/preview_0.jpg", "/images/work/project/collision2Djs/preview_1.jpg", "/images/work/project/collision2Djs/preview_2.jpg"]} />
                             </div>
                             <a href="/work/collision2Djs">
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
@@ -262,7 +262,7 @@ export default function Work() {
                             <>
                                 <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
                                     <div className="w-full aspect-video">
-                                        <Carousel showArrow={false} images={["/images/noPreview.jpg"]} />
+                                        <Carousel images={["/images/work/project/collision2Djs/preview_0.jpg", "/images/work/project/collision2Djs/preview_1.jpg", "/images/work/project/collision2Djs/preview_2.jpg"]} />
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/collision2Djs">
@@ -297,7 +297,7 @@ export default function Work() {
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={true} images={["/images/asciiTable1.jpg", "/images/asciiTable2.jpg", "/images/asciiTable3.jpg"]} />
+                                <Carousel showArrow={true} images={["/images/work/project/asciiTable/preview_0.jpg", "/images/work/project/asciiTable/preview_1.jpg", "/images/work/project/asciiTable/preview_2.jpg"]} />
                             </div>
                             <a href="/work/asciiTable">
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
@@ -313,7 +313,7 @@ export default function Work() {
                             <>
                                 <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
                                     <div className="w-full aspect-video">
-                                        <Carousel showArrow={true} images={["/images/asciiTable1.jpg", "/images/asciiTable2.jpg", "/images/asciiTable3.jpg"]} />
+                                        <Carousel showArrow={true} images={["/images/work/project/asciiTable/preview_0.jpg", "/images/work/project/asciiTable/preview_1.jpg", "/images/work/project/asciiTable/preview_2.jpg"]} />
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/asciiTable">
