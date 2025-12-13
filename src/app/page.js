@@ -1,5 +1,8 @@
 'use client'
 
+
+
+import './i18n';
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 

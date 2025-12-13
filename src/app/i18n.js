@@ -9,7 +9,8 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 i18n
 .use(Backend)
 .use(LanguageDetector)
-.use(initReactI18next).init({
+.use(initReactI18next)
+.init({
     fallbackLng: "en",
     load: "languageOnly",
     supportedLngs: ["en", "fr", "zh", "es", "ta"],
