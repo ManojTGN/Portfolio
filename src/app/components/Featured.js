@@ -6,13 +6,13 @@ export default function Featured() {
 
     return <>
         <div className="mt-5">
-            <div className="flex border-l-2 pl-4 border-portfolio-500 dark:border-portfolio-500">
+            <div className="flex flex-col md:flex-row border-l-2 pl-4 border-portfolio-500 dark:border-portfolio-500">
                 <div className="w-full p-2">
                     <Carousel images={["/images/cube.gif", "/images/snake.gif", "/images/image.png"]} />
                 </div>
-                <div className="w-full h-96 p-2 flex flex-col justify-end">
-                    <p className="text-6xl font-medium">{t('portfolio.featured.cgrafix')}</p>
-                    <p className="text-portfolio-500 pt-10">{t('portfolio.featured.cgrafix.desc')}</p>
+                <div className="w-full h-auto md:h-96 p-2 flex flex-col justify-end">
+                    <p className="text-4xl md:text-6xl font-medium">{t('portfolio.featured.cgrafix')}</p>
+                    <p className="text-portfolio-500 pt-5 md:pt-10">{t('portfolio.featured.cgrafix.desc')}</p>
 
                     <div className="flex gap-5">
                         <div className="w-full border-l-2 pl-4 border-portfolio-500 dark:border-portfolio-500 mt-5 font-medium">{t('portfolio.featured.tags.purec')}</div>
@@ -23,10 +23,10 @@ export default function Featured() {
                     </div>
                 </div>
             </div>
-            <div className="flex border-l-2 pl-4 border-portfolio-500 dark:border-portfolio-500 mt-16">
-                <div className="w-full h-96 p-2 flex flex-col justify-end">
-                    <p className="text-6xl font-medium">{t('portfolio.featured.grievanceforum')}</p>
-                    <p className="text-portfolio-500 pt-10">{t('portfolio.featured.grievanceforum.desc')}</p>
+            <div className="flex flex-col-reverse md:flex-row border-l-2 pl-4 border-portfolio-500 dark:border-portfolio-500 mt-16">
+                <div className="w-full h-auto md:h-96 p-2 flex flex-col justify-end">
+                    <p className="text-4xl md:text-6xl font-medium">{t('portfolio.featured.grievanceforum')}</p>
+                    <p className="text-portfolio-500 pt-5 md:pt-10">{t('portfolio.featured.grievanceforum.desc')}</p>
 
                     <div className="flex gap-5">
                         <div className="w-full border-l-2 pl-4 border-portfolio-500 dark:border-portfolio-500 mt-5 font-medium">{t('portfolio.skills.nodejs')}</div>

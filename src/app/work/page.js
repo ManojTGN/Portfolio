@@ -64,7 +64,7 @@ export default function Work() {
     return (
         <>
             <div className="w-full flex flex-col items-center justify-start">
-                <div className="w-6/12 flex flex-col">
+                <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                     <Topbar />
                     <hr className="w-full mt-5 border-portfolio-500" />
 
@@ -76,7 +76,7 @@ export default function Work() {
                         </div>
                     </div>
 
-                    <a href="#product" className="text-5xl font-medium" id="product">{t('portfolio.work.project.package')}</a>
+                    <a href="#product" className="text-3xl md:text-5xl font-medium" id="product">{t('portfolio.work.project.package')}</a>
                     {view === "LARGE" ?
                         <>
                             <a href="/work/grievanceForum">
@@ -103,7 +103,7 @@ export default function Work() {
                         </>
                         : view === "MEDIUM" ?
                             <>
-                                <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
+                                <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
                                     <div className="w-full aspect-video">
                                         <Carousel showArrow={true} images={["/images/work/project/grievanceForum/preview_0.jpg", "/images/work/project/grievanceForum/preview_1.jpg", "/images/work/project/grievanceForum/preview_2.jpg", "/images/work/project/grievanceForum/preview_3.jpg", "/images/work/project/grievanceForum/preview_4.jpg", "/images/work/project/grievanceForum/preview_5.jpg"]} />
                                     </div>
@@ -158,7 +158,7 @@ export default function Work() {
                         </>
                         : view === "MEDIUM" ?
                             <>
-                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
+                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
                                     <div className="w-full aspect-video">
                                         <Carousel showArrow={true} images={["/images/work/project/cGrafix/preview_0.jpg", "/images/work/project/cGrafix/preview_1.jpg", "/images/work/project/cGrafix/preview_2.jpg"]} />
                                     </div>
@@ -209,7 +209,7 @@ export default function Work() {
                         </>
                         : view === "MEDIUM" ?
                             <>
-                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
+                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
                                     <div className="w-full aspect-video">
                                         <Carousel showArrow={false} images={["/images/work/noPreview.jpg"]} />
                                     </div>
@@ -260,7 +260,7 @@ export default function Work() {
                         </>
                         : view === "MEDIUM" ?
                             <>
-                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
+                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
                                     <div className="w-full aspect-video">
                                         <Carousel images={["/images/work/project/collision2Djs/preview_0.jpg", "/images/work/project/collision2Djs/preview_1.jpg", "/images/work/project/collision2Djs/preview_2.jpg"]} />
                                     </div>
@@ -311,7 +311,7 @@ export default function Work() {
                         </>
                         : view === "MEDIUM" ?
                             <>
-                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
+                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
                                     <div className="w-full aspect-video">
                                         <Carousel showArrow={true} images={["/images/work/project/asciiTable/preview_0.jpg", "/images/work/project/asciiTable/preview_1.jpg", "/images/work/project/asciiTable/preview_2.jpg"]} />
                                     </div>
@@ -345,10 +345,10 @@ export default function Work() {
                         <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.contact')}  <a className="underline text-yellow-700 font-semibold" href="/#contact">{t('portfolio.work.help.come.say.hi')}</a></p>
                     </div>
 
-                    <a href="#contentCreator" className="text-5xl font-medium mt-16" id="contentCreator">{t('portfolio.work.content.creator')}</a>
+                    <a href="#contentCreator" className="text-3xl md:text-5xl font-medium mt-16" id="contentCreator">{t('portfolio.work.content.creator')}</a>
                     <div className="w-full">
                         <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500 flex flex-col gap-5">
-                            <div className="w-full flex gap-4">
+                            <div className="w-full flex flex-col md:flex-row gap-4">
                                 <div className="w-auto">
                                     <Image src={"/images/work/tamilgamersnetwork.jpg"} alt={""} draggable="false" width={"100"} height={"100"} />
                                 </div>
@@ -385,7 +385,7 @@ export default function Work() {
                         </div>
                     </div>
 
-                    <a href="#others" className="text-5xl font-medium mt-16" id="others">{t('portfolio.work.others')}</a>
+                    <a href="#others" className="text-3xl md:text-5xl font-medium mt-16" id="others">{t('portfolio.work.others')}</a>
                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
                         <p className="text-3xl font-semibold">{t('portfolio.work.photoshop.battle')}</p>
                         <p className="text-portfolio-500 text-lg">{t('portfolio.work.photoshop.battle.desc')}</p>

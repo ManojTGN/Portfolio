@@ -53,7 +53,7 @@ export default function Home() {
     return (
         <>
             <div className="w-full flex flex-col items-center justify-center">
-                <div className="w-6/12 flex flex-col justify-center">
+                <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col justify-center">
                     <Topbar />
 
                     <div className="mt-5 flex flex-col items-start">
@@ -63,9 +63,9 @@ export default function Home() {
                     </div>
 
                     <hr className="w-full mt-5 border-portfolio-950 dark:border-portfolio-500" />
-                    <div className="flex items-center w-full mt-16 gap-2" id="aboutMe">
-                        <a href="#aboutMe" className="w-full font-medium text-4xl text-portfolio-950 dark:text-white">{t('portfolio.about.me')}</a>
-                        <p className="w-full text-end text-portfolio-500 dark:text-portfolio-700 text-3xl font-medium">{t('portfolio.about.me.fun')}</p>
+                    <div className="flex flex-col md:flex-row items-start md:items-center w-full mt-16 gap-2" id="aboutMe">
+                        <a href="#aboutMe" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.about.me')}</a>
+                        <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.about.me.fun')}</p>
                     </div>
                     <p className="text-portfolio-500 dark:text-portfolio-500 text-lg italic">
                         {t('portfolio.about.me.desc.short')}
@@ -74,7 +74,7 @@ export default function Home() {
                         {t('portfolio.about.me.desc.top')} {t('portfolio.about.me.desc.bottom')}
                     </p>
 
-                    <div className="mt-5 grid grid-cols-3 grid-rows-1">
+                    <div className="mt-5 grid grid-cols-1 md:grid-cols-3 grid-rows-1 gap-5 md:gap-0">
                         <div className="border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500">
                             <p className="text-2xl font-medium">{t('portfolio.about.me.years')}</p>
                             <p className="text-portfolio-500">{t('portfolio.about.me.experience')}</p>
@@ -116,21 +116,21 @@ export default function Home() {
                     </div>
                     <Featured /> */}
 
-                    <div className="flex items-center w-full mt-32 gap-2" id="skillTree">
-                        <a href="#skillTree" className="w-full font-medium text-4xl text-portfolio-950 dark:text-white">{t('portfolio.skills')}</a>
-                        <p className="w-full text-end text-portfolio-500 dark:text-portfolio-700 text-3xl font-medium">{t('portfolio.skills.fun')}</p>
+                    <div className="flex flex-col md:flex-row items-start md:items-center w-full mt-16 md:mt-32 gap-2" id="skillTree">
+                        <a href="#skillTree" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.skills')}</a>
+                        <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.skills.fun')}</p>
                     </div>
                     <Skills />
 
-                    <div className="flex items-center w-full mt-32 gap-2" id="experience">
-                        <a href="#experience" className="w-full font-medium text-4xl text-portfolio-950 dark:text-white">{t('portfolio.experience')}</a>
-                        <p className="w-full text-end text-portfolio-500 dark:text-portfolio-700 text-3xl font-medium">{t('portfolio.experience.fun')}</p>
+                    <div className="flex flex-col md:flex-row items-start md:items-center w-full mt-16 md:mt-32 gap-2" id="experience">
+                        <a href="#experience" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.experience')}</a>
+                        <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.experience.fun')}</p>
                     </div>
                     <Experiences />
 
-                    <div className="flex items-center w-full mt-32 gap-2" id="education">
-                        <a href="#education" className="w-full font-medium text-4xl text-portfolio-950 dark:text-white">{t('portfolio.education')}</a>
-                        <p className="w-full text-end text-portfolio-500 dark:text-portfolio-700 text-3xl font-medium">{t('portfolio.education.fun')}</p>
+                    <div className="flex flex-col md:flex-row items-start md:items-center w-full mt-16 md:mt-32 gap-2" id="education">
+                        <a href="#education" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.education')}</a>
+                        <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.education.fun')}</p>
                     </div>
                     <div className="mt-5 border-l pl-5 border-portfolio-500 dark:border-portfolio-500">
                         <p className="dark:text-white font-medium text-lg">{t('portfolio.education.bachelors')}</p>
@@ -138,9 +138,9 @@ export default function Home() {
                         <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.education.college')}</p>
                     </div>
 
-                    <div className="flex items-center w-full mt-32 gap-2" id="contact">
-                        <a href="#contact" className="w-full font-medium text-4xl text-portfolio-950 dark:text-white">{t('portfolio.contact')}</a>
-                        <p className="w-full text-end text-portfolio-500 dark:text-portfolio-700 text-3xl font-medium">{t('portfolio.contact.fun')}</p>
+                    <div className="flex flex-col md:flex-row items-start md:items-center w-full mt-16 md:mt-32 gap-2" id="contact">
+                        <a href="#contact" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.contact')}</a>
+                        <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.contact.fun')}</p>
                     </div>
                     <Contact />
 
