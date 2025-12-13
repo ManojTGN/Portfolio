@@ -1,10 +1,11 @@
 'use client'
 
 import Topbar from "@/app/components/Topbar";
+import '../../i18n';
 import { useTranslation } from "react-i18next";
 
 export default function AsciiTable() {
-    const {t, i18n, ready } = useTranslation();    
+    const { t, i18n, ready } = useTranslation();
     if (!ready) return <></>;
 
     return (

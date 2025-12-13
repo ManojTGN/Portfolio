@@ -1,5 +1,6 @@
 'use client'
 
+import '../i18n';
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useTheme } from 'next-themes';
@@ -8,10 +9,10 @@ import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
 
 export default function Accessibility() {
-    const {t, i18n, ready } = useTranslation();
+    const { t, i18n, ready } = useTranslation();
 
     //Change Language ----------------------------------------------------------------------------------
-    function changeLanguage(event){
+    function changeLanguage(event) {
         i18n.changeLanguage(event.target.value);
     }
 
@@ -42,13 +43,13 @@ export default function Accessibility() {
 
     //Change Theme ------------------------------------------------------------------------------------
     const { theme, setTheme } = useTheme();
-    function changeTheme(event){
+    function changeTheme(event) {
         setTheme(event.target.value)
     }
 
     //Change Cursor Size ------------------------------------------------------------------------------------
     const [cursorSize, setCursorSize] = useState('default');
-    
+
     const handleCursorSizeChange = (size) => {
         setCursorSize(size);
         // document.cookie = `cursorSize=${size}; path=/; SameSite=Lax`;
@@ -71,13 +72,13 @@ export default function Accessibility() {
                             <p className="w-full text-lg text-portfolio-500 dark:text-portfolio-500">{t('portfolio.a11y.language.desc')}</p>
                         </div>
                         <div className="ml-auto w-2/6 p-2">
-                           <select onChange={changeLanguage} value={i18n.language} className="dark:bg-portfolio-900 border dark:border-portfolio-600 dark:text-white text-sm block w-full p-2.5 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
-                                {i18n.options.supportedLngs.map((language)=>{
-                                    if(language === 'cimode') return;
+                            <select onChange={changeLanguage} value={i18n.language} className="dark:bg-portfolio-900 border dark:border-portfolio-600 dark:text-white text-sm block w-full p-2.5 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
+                                {i18n.options.supportedLngs.map((language) => {
+                                    if (language === 'cimode') return;
                                     const languageName = new Intl.DisplayNames(["en"], { type: "language" }).of(language);
                                     return <option key={language} value={language}>{languageName} ({language})</option>
                                 })}
-                           </select>
+                            </select>
                         </div>
                     </div>
 
@@ -89,19 +90,19 @@ export default function Accessibility() {
                         <div className="ml-auto w-full p-2">
                             <ul className="grid w-full gap-6 md:grid-cols-3">
                                 <li>
-                                    <input onChange={() => handleFontSizeChange('small')} type="radio" id="smallFont" name="fontSize" value="small" className="hidden peer" checked={fontSize==='small'}/>
+                                    <input onChange={() => handleFontSizeChange('small')} type="radio" id="smallFont" name="fontSize" value="small" className="hidden peer" checked={fontSize === 'small'} />
                                     <label htmlFor="smallFont" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
                                         {t('portfolio.a11y.font.size.small')}
                                     </label>
                                 </li>
                                 <li>
-                                    <input onChange={() => handleFontSizeChange('medium')} type="radio" id="mediumFont" name="fontSize" value="medium" className="hidden peer" checked={fontSize==='medium'}/>
+                                    <input onChange={() => handleFontSizeChange('medium')} type="radio" id="mediumFont" name="fontSize" value="medium" className="hidden peer" checked={fontSize === 'medium'} />
                                     <label htmlFor="mediumFont" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
                                         {t('portfolio.a11y.font.size.medium')}
                                     </label>
                                 </li>
                                 <li>
-                                    <input onChange={() => handleFontSizeChange('large')} type="radio" id="largeFont" name="fontSize" value="large" className="hidden peer" checked={fontSize==='large'}/>
+                                    <input onChange={() => handleFontSizeChange('large')} type="radio" id="largeFont" name="fontSize" value="large" className="hidden peer" checked={fontSize === 'large'} />
                                     <label htmlFor="largeFont" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
                                         {t('portfolio.a11y.font.size.large')}
                                     </label>
@@ -116,11 +117,11 @@ export default function Accessibility() {
                             <p className="w-full text-lg text-portfolio-500 dark:text-portfolio-500">{t('portfolio.a11y.color.theme.desc')}</p>
                         </div>
                         <div className="ml-auto w-2/6 p-2">
-                           <select onChange={changeTheme} value={theme} className="dark:bg-portfolio-900 border dark:border-portfolio-600 dark:text-white text-sm block w-full p-2.5 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
+                            <select onChange={changeTheme} value={theme} className="dark:bg-portfolio-900 border dark:border-portfolio-600 dark:text-white text-sm block w-full p-2.5 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
                                 <option value={"system"}>{t('portfolio.a11y.color.theme.system')}</option>
                                 <option value={"dark"}>{t('portfolio.a11y.color.theme.dark')}</option>
                                 <option value={"light"}>{t('portfolio.a11y.color.theme.light')}</option>
-                           </select>
+                            </select>
                         </div>
                     </div>
 
@@ -132,25 +133,25 @@ export default function Accessibility() {
                         <div className="ml-auto w-full p-2">
                             <ul className="grid w-full gap-6 md:grid-cols-2">
                                 <li>
-                                    <input onChange={() => handleCursorSizeChange('default')} type="radio" id="defaultCursor" name="cursorSize" value="small" className="hidden peer" checked={cursorSize==='default'}/>
+                                    <input onChange={() => handleCursorSizeChange('default')} type="radio" id="defaultCursor" name="cursorSize" value="small" className="hidden peer" checked={cursorSize === 'default'} />
                                     <label htmlFor="defaultCursor" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
                                         {t('portfolio.a11y.cursor.size.default')}
                                     </label>
                                 </li>
                                 <li>
-                                    <input onChange={() => handleCursorSizeChange('small')} type="radio" id="smallCursor" name="cursorSize" value="small" className="hidden peer" checked={cursorSize==='small'}/>
+                                    <input onChange={() => handleCursorSizeChange('small')} type="radio" id="smallCursor" name="cursorSize" value="small" className="hidden peer" checked={cursorSize === 'small'} />
                                     <label htmlFor="smallCursor" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
                                         {t('portfolio.a11y.cursor.size.small')}
                                     </label>
                                 </li>
                                 <li>
-                                    <input onChange={() => handleCursorSizeChange('medium')} type="radio" id="mediumCursor" name="cursorSize" value="medium" className="hidden peer" checked={cursorSize==='medium'}/>
+                                    <input onChange={() => handleCursorSizeChange('medium')} type="radio" id="mediumCursor" name="cursorSize" value="medium" className="hidden peer" checked={cursorSize === 'medium'} />
                                     <label htmlFor="mediumCursor" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
                                         {t('portfolio.a11y.cursor.size.medium')}
                                     </label>
                                 </li>
                                 <li>
-                                    <input onChange={() => handleCursorSizeChange('large')} type="radio" id="largeCursor" name="cursorSize" value="large" className="hidden peer" checked={cursorSize==='large'}/>
+                                    <input onChange={() => handleCursorSizeChange('large')} type="radio" id="largeCursor" name="cursorSize" value="large" className="hidden peer" checked={cursorSize === 'large'} />
                                     <label htmlFor="largeCursor" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
                                         {t('portfolio.a11y.cursor.size.large')}
                                     </label>

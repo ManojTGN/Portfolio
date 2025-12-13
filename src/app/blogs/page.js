@@ -1,5 +1,6 @@
 'use client'
 
+import '../i18n';
 import { useTranslation } from "react-i18next";
 import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
