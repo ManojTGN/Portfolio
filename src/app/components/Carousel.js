@@ -7,7 +7,7 @@ import Image from "next/image";
 
 gsap.registerPlugin(Draggable);
 
-export default function Carousel({ showArrow = true, autoScroll=true, images = [] }) {
+export default function Carousel({ showArrow = true, autoScroll = true, images = [] }) {
     const containerRef = useRef(null);
     const draggableRef = useRef(null);
     const activeIndexRef = useRef(0);
@@ -43,7 +43,7 @@ export default function Carousel({ showArrow = true, autoScroll=true, images = [
                 const progress = -this.x / slideWidthRef.current;
                 const nearestIndex = Math.round(progress);
                 moveToIndex(nearestIndex);
-                startAutoScroll();
+                if (autoScroll) startAutoScroll();
             },
         })[0];
 
@@ -78,6 +78,7 @@ export default function Carousel({ showArrow = true, autoScroll=true, images = [
     const nextSlide = () => {
         const container = containerRef.current;
         if (!container) return;
+
         const slideCount = images.length;
         const nextIndex = Math.min(activeIndexRef.current + 1, slideCount - 1);
         gsap.to(container, {
@@ -91,6 +92,7 @@ export default function Carousel({ showArrow = true, autoScroll=true, images = [
     const prevSlide = () => {
         const container = containerRef.current;
         if (!container) return;
+
         const prevIndex = Math.max(activeIndexRef.current - 1, 0);
         gsap.to(container, {
             x: -prevIndex * slideWidthRef.current,
@@ -105,26 +107,26 @@ export default function Carousel({ showArrow = true, autoScroll=true, images = [
         return <></>;
     }
 
-  return (
-    <div className="relative overflow-hidden w-full h-full select-none">
-      <div ref={containerRef} className="flex w-full h-full cursor-grab active:cursor-grabbing touch-none">
-        {images.map((src, i) => (
-          <div key={i} className="relative flex-shrink-0 w-full h-full">
-            <Image
-                src={src} alt="" fill
-                className="object-cover" draggable="false"
-            />
-          </div>
-        ))}
-      </div>
-        {showArrow?<>
-        <button onClick={prevSlide} className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
-            <i className="fa-solid fa-caret-left"></i>
-        </button>
-        <button onClick={nextSlide} className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
-            <i className="fa-solid fa-caret-right"></i>
-        </button></>
-        :<></>}
-    </div>
-  );
+    return (
+        <div className="relative overflow-hidden w-full h-full select-none">
+            <div ref={containerRef} className="flex w-full h-full cursor-grab active:cursor-grabbing touch-none">
+                {images.map((src, i) => (
+                    <div key={i} className="relative flex-shrink-0 w-full h-full">
+                        <Image
+                            src={src} alt="" fill
+                            className="object-cover" draggable="false"
+                        />
+                    </div>
+                ))}
+            </div>
+            {showArrow ? <>
+                <button onClick={prevSlide} className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
+                    <i className="fa-solid fa-caret-left"></i>
+                </button>
+                <button onClick={nextSlide} className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
+                    <i className="fa-solid fa-caret-right"></i>
+                </button></>
+                : <></>}
+        </div>
+    );
 }

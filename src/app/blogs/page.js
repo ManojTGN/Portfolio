@@ -5,16 +5,16 @@ import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
 
 export default function Blogs() {
-    const {t, i18n, ready } = useTranslation();
+    const { t, i18n, ready } = useTranslation();
     if (!ready) return <></>;
 
     return (
         <>
             <div className="w-full flex flex-col items-center justify-start">
-                <div className="w-6/12 flex flex-col">
+                <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                     <Topbar />
                     <hr className="w-full mt-5 border-portfolio-500" />
-                    <span className="text-xs text-center mt-20 p-1 text-portfolio-100 font-bold">No Blogs Right Now!</span>
+                    <p className="text-base text-yellow-700 font-bold mt-20 text-center">{t('portfolio.blogs.coming.soon')}</p>
                     <div className="mt-20"></div>
                     <Footer />
                 </div>

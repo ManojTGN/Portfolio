@@ -2,15 +2,15 @@
 
 import { useTranslation } from "react-i18next";
 
-export default function Experiences(){
-    const {t, i18n, ready } = useTranslation();
+export default function Experiences() {
+    const { t, i18n, ready } = useTranslation();
 
     return <>
         <div className="mt-5 border-l pl-5 border-portfolio-500 dark:border-portfolio-500">
             <p className="text-portfolio-500 dark:text-portfolio-500">
                 <i className="fa-solid fa-location-dot"></i> {t('portfolio.experience.zoho.location')}
             </p>
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row">
                 <p className="w-full dark:text-white font-medium text-xl">{t('portfolio.experience.zoho.fullname')}</p>
                 <p className="w-full text-portfolio-500 dark:text-portfolio-500 font-medium text-end">{t('portfolio.experience.zoho.duration')}</p>
             </div>
@@ -25,7 +25,7 @@ export default function Experiences(){
             <p className="text-portfolio-500 dark:text-portfolio-500">
                 <i className="fa-solid fa-location-dot"></i> {t('portfolio.experience.nit.location')}
             </p>
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row">
                 <p className="w-full dark:text-white font-medium text-xl">{t('portfolio.experience.nit.fullname')}</p>
                 <p className="w-full text-portfolio-500 dark:text-portfolio-500 font-medium text-end">{t('portfolio.experience.nit.duration')}</p>
             </div>
