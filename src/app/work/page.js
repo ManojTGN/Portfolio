@@ -13,7 +13,7 @@ export default function Work() {
     const { t, i18n, ready } = useTranslation();
     const [view, setView] = useState(`MEDIUM`);
     const [videos, setVideos] = useState([]);
-    const [subscriberCount, setSubscriberCount] = useState("Subscribers");
+    const [subscriberCount, setSubscriberCount] = useState(null);
 
     useEffect(() => {
         const fetchYouTubeData = async () => {
@@ -34,7 +34,7 @@ export default function Work() {
                         } else if (subs >= 1000) {
                             subs = (subs / 1000).toFixed(1) + 'K';
                         }
-                        setSubscriberCount(`${subs} Subscribers`);
+                        setSubscriberCount(subs);
                     }
 
                     const uploadsPlaylistId = item.contentDetails.relatedPlaylists.uploads;
@@ -76,13 +76,13 @@ export default function Work() {
                         </div>
                     </div>
 
-                    <a href="#product" className="text-5xl font-medium" id="product">Project & Package</a>
+                    <a href="#product" className="text-5xl font-medium" id="product">{t('portfolio.work.project.package')}</a>
                     {view === "LARGE" ?
                         <>
                             <a href="/work/grievanceForum">
                                 <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/GrievanceForum.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">A digital platform built to streamline how students and faculty raise, track, and resolve grievances within our college. It bridges communication gaps, ensures transparency, and empowers both students and administrators to act efficiently.</p>
+                                    <Image src={"/images/work/project/grievanceForum/GrievanceForum.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.short')}</p>
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
@@ -90,13 +90,13 @@ export default function Work() {
                             </div>
                             <a href="/work/grievanceForum">
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                    <p className="text-portfolio-500 text-lg">Grievance Forum is a web-based system that allows students to submit issues and suggestions, while admins can review, categorize, and resolve them with proper tracking. This project was developed as part of our college initiative to promote a transparent and responsive grievance-handling system.</p>
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.long')}</p>
                                     <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
                                         <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>Web Product</span>
-                                        <span>Mobile Compatibility</span>
-                                        <span>NodeJS</span>
-                                        <span>ExpressJS</span>
+                                        <span>{t('portfolio.work.tags.web_product')}</span>
+                                        <span>{t('portfolio.work.tags.mobile_compatibility')}</span>
+                                        <span>{t('portfolio.work.tags.nodejs')}</span>
+                                        <span>{t('portfolio.work.tags.expressjs')}</span>
                                     </div>
                                 </div>
                             </a>
@@ -109,16 +109,16 @@ export default function Work() {
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/grievanceForum">
-                                            <Image src={"/images/GrievanceForum.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">A digital platform built to streamline how students and faculty raise, track, and resolve grievances within our college. It bridges communication gaps, ensures transparency, and empowers both students and administrators to act efficiently.</p>
+                                            <Image src={"/images/work/project/grievanceForum/GrievanceForum.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
+                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.short')}</p>
 
-                                            <p className="text-portfolio-500 text-lg">Grievance Forum is a web-based system that allows students to submit issues and suggestions, while admins can review, categorize, and resolve them with proper tracking. This project was developed as part of our college initiative to promote a transparent and responsive grievance-handling system.</p>
+                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.long')}</p>
                                             <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
                                                 <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>Web Product</span>
-                                                <span>Mobile Compatibility</span>
-                                                <span>NodeJS</span>
-                                                <span>ExpressJS</span>
+                                                <span>{t('portfolio.work.tags.web_product')}</span>
+                                                <span>{t('portfolio.work.tags.mobile_compatibility')}</span>
+                                                <span>{t('portfolio.work.tags.nodejs')}</span>
+                                                <span>{t('portfolio.work.tags.expressjs')}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -128,8 +128,8 @@ export default function Work() {
                             <>
                                 <a href="/work/grievanceForum">
                                     <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/GrievanceForum.png"} alt={""} draggable="false" width={"600"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">A digital platform built to streamline how students and faculty raise, track, and resolve grievances within our college. It bridges communication gaps, ensures transparency, and empowers both students and administrators to act efficiently.</p>
+                                        <Image src={"/images/work/project/grievanceForum/GrievanceForum.png"} alt={""} draggable="false" width={"600"} height={"200"} />
+                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.short')}</p>
                                     </div>
                                 </a>
                             </>
@@ -139,8 +139,8 @@ export default function Work() {
                         <>
                             <a href="/work/cGrafix">
                                 <div className="border-l-2 pl-5 mt-32 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/cGrafix.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">Cgrafix is a lightweight C graphics library that works only on Windows. It uses the native Windows API to render shapes, text, and visuals directly on the screen. No extra dependencies needed.</p>
+                                    <Image src={"/images/work/project/cGrafix/cGrafix.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.cgrafix.desc')}</p>
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
@@ -150,8 +150,8 @@ export default function Work() {
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
                                     <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
                                         <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>Library</span>
-                                        <span>Pure C Programming</span>
+                                        <span>{t('portfolio.work.tags.library')}</span>
+                                        <span>{t('portfolio.work.tags.pure_c')}</span>
                                     </div>
                                 </div>
                             </a>
@@ -164,12 +164,12 @@ export default function Work() {
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/cGrafix">
-                                            <Image src={"/images/cGrafix.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">Cgrafix is a lightweight C graphics library that works only on Windows. It uses the native Windows API to render shapes, text, and visuals directly on the screen. No extra dependencies needed.</p>
+                                            <Image src={"/images/work/project/cGrafix/cGrafix.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
+                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.cgrafix.desc')}</p>
                                             <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
                                                 <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>Library</span>
-                                                <span>Pure C Programming</span>
+                                                <span>{t('portfolio.work.tags.library')}</span>
+                                                <span>{t('portfolio.work.tags.pure_c')}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -179,8 +179,8 @@ export default function Work() {
                             <>
                                 <a href="/work/cGrafix">
                                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/cGrafix.png"} alt={""} draggable="false" width={"600"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">Cgrafix is a lightweight C graphics library that works only on Windows. It uses the native Windows API to render shapes, text, and visuals directly on the screen. No extra dependencies needed.</p>
+                                        <Image src={"/images/work/project/cGrafix/cGrafix.png"} alt={""} draggable="false" width={"600"} height={"200"} />
+                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.cgrafix.desc')}</p>
                                     </div>
                                 </a>
                             </>
@@ -190,19 +190,19 @@ export default function Work() {
                         <>
                             <a href="/work/asciiCam">
                                 <div className="border-l-2 pl-5 mt-32 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/asciiCam.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">This C++ program captures frames from your webcam and converts them into ASCII art in real-time. and it will produce the output ascii art in the terminal. You can customize the output, change cameras, add your own ASCII characters, and more.</p>
+                                    <Image src={"/images/work/project/asciiCam/asciicam.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciicam.desc')}</p>
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={false} images={["/images/noPreview.jpg"]} />
+                                <Carousel showArrow={false} images={["/images/work/noPreview.jpg"]} />
                             </div>
                             <a href="/work/asciiCam">
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
                                     <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
                                         <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>OpenCV</span>
-                                        <span>C++ Programming</span>
+                                        <span>{t('portfolio.work.tags.opencv')}</span>
+                                        <span>{t('portfolio.work.tags.cpp')}</span>
                                     </div>
                                 </div>
                             </a>
@@ -211,16 +211,16 @@ export default function Work() {
                             <>
                                 <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex gap-5">
                                     <div className="w-full aspect-video">
-                                        <Carousel showArrow={false} images={["/images/noPreview.jpg"]} />
+                                        <Carousel showArrow={false} images={["/images/work/noPreview.jpg"]} />
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/asciiCam">
-                                            <Image src={"/images/asciicam.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">This C++ program captures frames from your webcam and converts them into ASCII art in real-time. and it will produce the output ascii art in the terminal. You can customize the output, change cameras, add your own ASCII characters, and more.</p>
+                                            <Image src={"/images/work/project/asciiCam/asciicam.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
+                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciicam.desc')}</p>
                                             <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
                                                 <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>OpenCV</span>
-                                                <span>C++ Programming</span>
+                                                <span>{t('portfolio.work.tags.opencv')}</span>
+                                                <span>{t('portfolio.work.tags.cpp')}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -230,8 +230,8 @@ export default function Work() {
                             <>
                                 <a href="/work/asciiCam">
                                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/asciicam.png"} alt={""} draggable="false" width={"600"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">This C++ program captures frames from your webcam and converts them into ASCII art in real-time. and it will produce the output ascii art in the terminal. You can customize the output, change cameras, add your own ASCII characters, and more.</p>
+                                        <Image src={"/images/work/project/asciiCam/asciicam.png"} alt={""} draggable="false" width={"600"} height={"200"} />
+                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciicam.desc')}</p>
                                     </div>
                                 </a>
                             </>
@@ -241,8 +241,8 @@ export default function Work() {
                         <>
                             <a href="/work/collision2Djs">
                                 <div className="border-l-2 pl-5 mt-32 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/collision2Djs.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">Collision2djs is a JavaScript library for efficient 2D collision detection. It supports common geometric shapes and offers both broad-phase and narrow-phase collision detection, making it ideal for building physics simulations, games, or interactive visualizations.</p>
+                                    <Image src={"/images/work/project/collision2Djs/collision2Djs.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.collision2djs.desc')}</p>
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
@@ -252,8 +252,8 @@ export default function Work() {
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
                                     <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
                                         <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>JavaScript</span>
-                                        <span>NodeJS</span>
+                                        <span>{t('portfolio.work.tags.javascript')}</span>
+                                        <span>{t('portfolio.work.tags.nodejs')}</span>
                                     </div>
                                 </div>
                             </a>
@@ -266,12 +266,12 @@ export default function Work() {
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/collision2Djs">
-                                            <Image src={"/images/collision2Djs.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">Collision2djs is a JavaScript library for efficient 2D collision detection. It supports common geometric shapes and offers both broad-phase and narrow-phase collision detection, making it ideal for building physics simulations, games, or interactive visualizations.</p>
+                                            <Image src={"/images/work/project/collision2Djs/collision2Djs.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
+                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.collision2djs.desc')}</p>
                                             <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
                                                 <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>JavaScript</span>
-                                                <span>NodeJS</span>
+                                                <span>{t('portfolio.work.tags.javascript')}</span>
+                                                <span>{t('portfolio.work.tags.nodejs')}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -281,8 +281,8 @@ export default function Work() {
                             <>
                                 <a href="/work/collision2Djs">
                                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/collision2Djs.png"} alt={""} draggable="false" width={"600"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">Collision2djs is a JavaScript library for efficient 2D collision detection. It supports common geometric shapes and offers both broad-phase and narrow-phase collision detection, making it ideal for building physics simulations, games, or interactive visualizations.</p>
+                                        <Image src={"/images/work/project/collision2Djs/collision2Djs.png"} alt={""} draggable="false" width={"600"} height={"200"} />
+                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.collision2djs.desc')}</p>
                                     </div>
                                 </a>
                             </>
@@ -292,8 +292,8 @@ export default function Work() {
                         <>
                             <a href="/work/asciiTable">
                                 <div className="border-l-2 pl-5 mt-32 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/asciitable.png"} alt={""} draggable="false" width={"480"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">AsciiTable is a lightweight C/C++ command-line tool that displays ASCII characters along with their decimal, hex, octal, and binary values. It supports filtering character groups, sorting output, colorized VT100 mode, and accepting inputs in multiple formats, making it a quick and customizable reference for developers working with ASCII and low-level text data.</p>
+                                    <Image src={"/images/work/project/asciiTable/asciitable.png"} alt={""} draggable="false" width={"480"} height={"200"} />
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciitable.desc')}</p>
                                 </div>
                             </a>
                             <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
@@ -303,8 +303,8 @@ export default function Work() {
                                 <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
                                     <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
                                         <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>Terminal</span>
-                                        <span>Pure C Programming</span>
+                                        <span>{t('portfolio.work.tags.terminal')}</span>
+                                        <span>{t('portfolio.work.tags.pure_c')}</span>
                                     </div>
                                 </div>
                             </a>
@@ -317,12 +317,12 @@ export default function Work() {
                                     </div>
                                     <div className="w-full">
                                         <a href="/work/asciiTable">
-                                            <Image src={"/images/asciitable.png"} alt={""} draggable="false" width={"280"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">AsciiTable is a lightweight C/C++ command-line tool that displays ASCII characters along with their decimal, hex, octal, and binary values. It supports filtering character groups, sorting output, colorized VT100 mode, and accepting inputs in multiple formats, making it a quick and customizable reference for developers working with ASCII and low-level text data.</p>
+                                            <Image src={"/images/work/project/asciiTable/asciitable.png"} alt={""} draggable="false" width={"280"} height={"200"} />
+                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciitable.desc')}</p>
                                             <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
                                                 <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>Terminal</span>
-                                                <span>Pure C Programming</span>
+                                                <span>{t('portfolio.work.tags.terminal')}</span>
+                                                <span>{t('portfolio.work.tags.pure_c')}</span>
                                             </div>
                                         </a>
                                     </div>
@@ -332,33 +332,33 @@ export default function Work() {
                             <>
                                 <a href="/work/asciiTable">
                                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/asciitable.png"} alt={""} draggable="false" width={"280"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">AsciiTable shows octal, hexadecimal, decimal and binary representations of ascii characters. It supports all 8-bit(256) ASCII characters. But 7-bit(128) ASCII characters are prefered to be processed.</p>
+                                        <Image src={"/images/work/project/asciiTable/asciitable.png"} alt={""} draggable="false" width={"280"} height={"200"} />
+                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciitable.desc.short')}</p>
                                     </div>
                                 </a>
                             </>
                     }
 
                     <div className="mt-8 pl-5 border-dashed border-l-2 border-portfolio-500 dark:border-portfolio-500">
-                        <p className="dark:text-white font-medium text-lg">Help Me Fill Up This Page! </p>
-                        <p className="text-portfolio-500 dark:text-portfolio-500">This page is still growing. Got an idea, a spark, or a challenge? Lets build something that deserves a spot here. ⚡</p>
-                        <p className="text-portfolio-500 dark:text-portfolio-500">The next big thing starts with a message  <a className="underline text-yellow-700 font-semibold" href="/#contact">Come Say Hi.</a></p>
+                        <p className="dark:text-white font-medium text-lg">{t('portfolio.work.help.title')} </p>
+                        <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.desc')}</p>
+                        <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.contact')}  <a className="underline text-yellow-700 font-semibold" href="/#contact">{t('portfolio.work.help.come.say.hi')}</a></p>
                     </div>
 
-                    <a href="#contentCreator" className="text-5xl font-medium mt-16" id="contentCreator">Content Creator</a>
+                    <a href="#contentCreator" className="text-5xl font-medium mt-16" id="contentCreator">{t('portfolio.work.content.creator')}</a>
                     <div className="w-full">
                         <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500 flex flex-col gap-5">
                             <div className="w-full flex gap-4">
                                 <div className="w-auto">
-                                    <Image src={"/images/tamilgamersnetwork.jpg"} alt={""} draggable="false" width={"100"} height={"100"} />
+                                    <Image src={"/images/work/tamilgamersnetwork.jpg"} alt={""} draggable="false" width={"100"} height={"100"} />
                                 </div>
                                 <div className="w-auto text-start">
-                                    <p className="text-portfolio-50 text-2xl font-medium">Tamil Gamers Network</p>
-                                    <a href="https://www.youtube.com/@TamilGamersNetworks/videos" target="_blank" className="text-red-500 text-lg"><i className="fa-brands fa-youtube text-red-500 text-lg"></i> Content Creation <i class="fa-solid fa-up-right-from-square text-sm"></i></a>
-                                    <p className="text-portfolio-500 text-lg">{subscriberCount}</p>
+                                    <p className="text-portfolio-50 text-2xl font-medium">{t('portfolio.work.tgn.name')}</p>
+                                    <a href="https://www.youtube.com/@TamilGamersNetworks/videos" target="_blank" className="text-red-500 text-lg"><i className="fa-brands fa-youtube text-red-500 text-lg"></i> {t('portfolio.work.tgn.content_creation')} <i className="fa-solid fa-up-right-from-square text-sm"></i></a>
+                                    <p className="text-portfolio-500 text-lg">{subscriberCount ? `${subscriberCount} ${t('portfolio.work.subscribers')}` : t('portfolio.work.subscribers')}</p>
                                 </div>
                                 <div className="w-3/6">
-                                    <p className="text-portfolio-500 text-lg">Tamil Gamers Networks is a Tamil-language gaming channel that features entertaining gameplay videos, fun commentary, and creative story-style series especially Minecraft making it a friendly and engaging space for Tamil gaming fans.</p>
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.tgn.desc')}</p>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -385,10 +385,10 @@ export default function Work() {
                         </div>
                     </div>
 
-                    <a href="#others" className="text-5xl font-medium mt-16" id="others">Others</a>
+                    <a href="#others" className="text-5xl font-medium mt-16" id="others">{t('portfolio.work.others')}</a>
                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                        <p className="text-3xl font-semibold">Photoshop Battle</p>
-                        <p className="text-portfolio-500 text-lg">Photoshop Battles are creative online contests where users transform images in unique, humorous, or artistic ways. As an active participant in Reddit Photoshop Battles, I’ve earned multiple high-upvoted entries. I’m skilled in advanced photo manipulation, compositing, visual storytelling, and delivering fast, high-quality edits that stand out in competitive creative spaces.</p>
+                        <p className="text-3xl font-semibold">{t('portfolio.work.photoshop.battle')}</p>
+                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.photoshop.battle.desc')}</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
                             <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
                                 <ImageDiff leftImageSrc="/images/photoshopBattle/_11.jpg" rightImageSrc="/images/photoshopBattle/11.jpeg" />
@@ -421,28 +421,28 @@ export default function Work() {
                         </div>
                     </div>
                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                        <p className="text-3xl font-semibold">Steam Game Guide</p>
-                        <p className="text-portfolio-500 text-lg">A Steam Guide is a community-created walkthrough or reference that helps players understand a game, mechanic, or strategy through clear explanations, visuals, and tips. I create detailed Steam Guides that break down complex concepts in a simple, beginner-friendly way, focusing on clarity, usefulness, and good presentation. My guides are well-received in the community and reflect my ability to teach, simplify, and visually communicate information effectively.</p>
+                        <p className="text-3xl font-semibold">{t('portfolio.work.steam.guide')}</p>
+                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.desc')}</p>
                         <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2732039208" target="_blank" rel="noopener noreferrer">
-                        <div className="flex gap-2 mt-5">
-                            <Image src="/images/work/gameguide1.jpg" alt=""  height={125} width={125}/>
-                            <div>
-                                <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad"></i> The Elder Scrolls V: Skyrim Special Edition</p>
-                                <p className="text-2xl font-semibold">Get Unlimited Gold Goldenhills Plantation</p>
-                                <p className="text-portfolio-500 text-lg">💰Getting Unlimited Gold With Goldenhills Plantation Farm</p>
-                                <p className="text-portfolio-500 text-lg">🏺Alchemy Level To 100</p>
+                            <div className="flex gap-2 mt-5">
+                                <Image src="/images/work/gameguide1.jpg" alt="" height={125} width={125} />
+                                <div>
+                                    <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad"></i> {t('portfolio.work.steam.guide.skyrim.game')}</p>
+                                    <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.skyrim.title')}</p>
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.skyrim.desc1')}</p>
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.skyrim.desc2')}</p>
+                                </div>
                             </div>
-                        </div>
                         </a>
                         <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3326170636" target="_blank" rel="noopener noreferrer">
-                        <div className="flex gap-2 mt-5">
-                            <Image src="/images/work/gameguide2.jpg" alt=""  height={125} width={125}/>
-                            <div>
-                                <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad"></i> Kingdom Come Deliverance</p>
-                                <p className="text-2xl font-semibold">How To Get Out of Castle Talmberg With Horse</p>
-                                <p className="text-portfolio-500 text-lg">A lot of new players are dropping out before they even get the game going, so here's a quick guide on how to escape Talmberg Castle with a horse—no consequences, no hassle.</p>
+                            <div className="flex gap-2 mt-5">
+                                <Image src="/images/work/gameguide2.jpg" alt="" height={125} width={125} />
+                                <div>
+                                    <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad"></i> {t('portfolio.work.steam.guide.kcd.game')}</p>
+                                    <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.kcd.title')}</p>
+                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.kcd.desc')}</p>
+                                </div>
                             </div>
-                        </div>
                         </a>
                     </div>
                     <Footer />

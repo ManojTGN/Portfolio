@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import Image from 'next/image';
 import { useTheme } from "next-themes";
 
-export default function Skills(){
-    const {t, i18n, ready } = useTranslation();
-    const {theme, setTheme} = useTheme();
+export default function Skills() {
+    const { t, i18n, ready } = useTranslation();
+    const { theme, setTheme } = useTheme();
 
 
     return <>
@@ -13,35 +13,35 @@ export default function Skills(){
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl">
-                    <i className="fa-brands fa-js text-yellow-500"></i> Vanila JavaScript
+                    <i className="fa-brands fa-js text-yellow-500"></i> {t('portfolio.skills.js')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Next.js.svg" alt="" width={30} height={30} draggable={false} className={theme==='dark'?"invert":""} />
-                    NextJs
+                    <Image src="/images/work/brand/Next.js.svg" alt="" width={30} height={30} draggable={false} className={theme === 'dark' ? "invert" : ""} />
+                    {t('portfolio.skills.nextjs')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl">
-                    <i className="fa-brands fa-react text-blue-500"></i> React
+                    <i className="fa-brands fa-react text-blue-500"></i> {t('portfolio.skills.react')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/gsap.png" alt="" width={30} height={30} draggable={false} /> 
-                    Gsap (Basic)
+                    <Image src="/images/work/brand/gsap.png" alt="" width={30} height={30} draggable={false} />
+                    {t('portfolio.skills.gsap')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/tailwind.svg" alt="" width={30} height={30} draggable={false} /> 
-                    Tailwind Css
+                    <Image src="/images/work/brand/tailwind.svg" alt="" width={30} height={30} draggable={false} />
+                    {t('portfolio.skills.tailwind')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl">
-                    <i className="fa-brands fa-bootstrap text-pink-500"></i> Bootstrap
+                    <i className="fa-brands fa-bootstrap text-pink-500"></i> {t('portfolio.skills.bootstrap')}
                 </p>
             </div>
         </div>
@@ -50,54 +50,54 @@ export default function Skills(){
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/C.svg" alt="" width={30} height={30} draggable={false} /> 
-                    C
+                    <Image src="/images/work/brand/C.svg" alt="" width={30} height={30} draggable={false} />
+                    {t('portfolio.skills.c')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/C++.svg" alt="" width={30} height={30} draggable={false} /> 
-                    C++
+                    <Image src="/images/work/brand/C++.svg" alt="" width={30} height={30} draggable={false} />
+                    {t('portfolio.skills.cpp')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl">
-                    <i className="fa-brands fa-node-js text-lime-500"></i> Node JS
+                    <i className="fa-brands fa-node-js text-lime-500"></i> {t('portfolio.skills.nodejs')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
                     <Image src="/images/work/brand/java.svg" alt="" width={30} height={30} draggable={false} />
-                    Java
+                    {t('portfolio.skills.java')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
                     <Image src="/images/work/brand/Python.svg" alt="" width={30} height={30} draggable={false} />
-                    Python
+                    {t('portfolio.skills.python')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
                     <Image src="/images/work/brand/Git.svg" alt="" width={30} height={30} draggable={false} />
-                    Git
+                    {t('portfolio.skills.git')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl">
-                    <i className="fa-brands fa-docker text-blue-500"></i> Docker
+                    <i className="fa-brands fa-docker text-blue-500"></i> {t('portfolio.skills.docker')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/MySQL.svg" alt="" width={30} height={30} draggable={false} /> 
-                    MySQL
+                    <Image src="/images/work/brand/MySQL.svg" alt="" width={30} height={30} draggable={false} />
+                    {t('portfolio.skills.mysql')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/PostgresSQL.svg" alt="" width={30} height={30} draggable={false} /> 
-                    PostgresSQL
+                    <Image src="/images/work/brand/PostgresSQL.svg" alt="" width={30} height={30} draggable={false} />
+                    {t('portfolio.skills.postgres')}
                 </p>
             </div>
         </div>
@@ -106,25 +106,25 @@ export default function Skills(){
         <div className="grid grid-cols-3 grid-rows-1">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/AdobePhotoshop.svg" alt="" width={20} height={20} draggable={false} /> 
-                    Adobe Photoshop
+                    <Image src="/images/work/brand/AdobePhotoshop.svg" alt="" width={20} height={20} draggable={false} />
+                    {t('portfolio.skills.photoshop')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/AdobePremierePro.svg" alt="" width={20} height={20} draggable={false} /> 
-                    Adobe Premiere Pro
+                    <Image src="/images/work/brand/AdobePremierePro.svg" alt="" width={20} height={20} draggable={false} />
+                    {t('portfolio.skills.premiere')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Figma.svg" alt="" width={20} height={20} draggable={false} /> 
-                    Figma
+                    <Image src="/images/work/brand/Figma.svg" alt="" width={20} height={20} draggable={false} />
+                    {t('portfolio.skills.figma')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl">
-                    <i className="fa-brands fa-square-steam text-blue-900"></i> Steam Guide
+                    <i className="fa-brands fa-square-steam text-blue-900"></i> {t('portfolio.skills.steamguide')}
                 </p>
             </div>
         </div>

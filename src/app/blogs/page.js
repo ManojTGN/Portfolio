@@ -14,7 +14,7 @@ export default function Blogs() {
                 <div className="w-6/12 flex flex-col">
                     <Topbar />
                     <hr className="w-full mt-5 border-portfolio-500" />
-                    <p className="text-base text-yellow-700 font-bold mt-20 text-center">Blogs Coming Soon! </p>    
+                    <p className="text-base text-yellow-700 font-bold mt-20 text-center">{t('portfolio.blogs.coming.soon')}</p>
                     <div className="mt-20"></div>
                     <Footer />
                 </div>

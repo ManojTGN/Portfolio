@@ -1,11 +1,16 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { useTranslation } from "react-i18next";
 
-export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel = "Original", rightLabel = "Modified" }) {
+export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, rightLabel }) {
+    const { t } = useTranslation();
     const [sliderPosition, setSliderPosition] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
     const containerRef = useRef(null);
+
+    const finalLeftLabel = leftLabel || t('portfolio.image.diff.original');
+    const finalRightLabel = rightLabel || t('portfolio.image.diff.modified');
 
     const handleMouseDown = () => setIsDragging(true);
     const handleMouseUp = () => setIsDragging(false);
@@ -52,14 +57,14 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel = "Or
                 <div className="absolute inset-0 w-full h-full">
                     <Image
                         src={rightImageSrc}
-                        alt="Right Image"
+                        alt={t('portfolio.image.diff.right.image')}
                         fill
                         className="object-cover"
                         draggable={false}
                     />
-                    {rightLabel && (
+                    {finalRightLabel && (
                         <span className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded z-10">
-                            {rightLabel}
+                            {finalRightLabel}
                         </span>
                     )}
                 </div>
@@ -69,14 +74,14 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel = "Or
                 <div className="absolute inset-0 w-full h-full" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
                     <Image
                         src={leftImageSrc}
-                        alt="Left Image"
+                        alt={t('portfolio.image.diff.left.image')}
                         fill
                         className="object-cover"
                         draggable={false}
                     />
-                    {leftLabel && (
+                    {finalLeftLabel && (
                         <span className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded z-10">
-                            {leftLabel}
+                            {finalLeftLabel}
                         </span>
                     )}
                 </div>
