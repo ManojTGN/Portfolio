@@ -108,7 +108,7 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
     }
 
     return (
-        <div className="relative overflow-hidden w-full h-full select-none">
+        <div className="relative overflow-hidden w-full aspect-video select-none">
             <div ref={containerRef} className="flex w-full h-full cursor-grab active:cursor-grabbing touch-none">
                 {images.map((src, i) => (
                     <div key={i} className="relative flex-shrink-0 w-full h-full">

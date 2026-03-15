@@ -54,9 +54,7 @@ html {
   font-size: var(--base-font-size);
 }
 
-/* iframe[src*="recaptcha"] {
-    background-color: inherit;
-} */
+
 
 @tailwind base;
 @tailwind components;
