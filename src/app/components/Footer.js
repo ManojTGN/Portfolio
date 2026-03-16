@@ -22,7 +22,7 @@ export default function Footer(){
         <div className="w-full text-portfolio-900 dark:text-portfolio-500 flex items-center gap-2">
             <div className="w-full flex items-center gap-1">
                 <i className="fa-regular fa-copyright mt-1"></i> 
-                <p>{t('portfolio.footer.copyrights.2025')}</p>
+                <p>{t('portfolio.footer.copyrights.2026')}</p>
             </div>
             <div className="w-full flex items-center justify-end gap-2">
                 <button onClick={toggleTheme}><i className={`fa-solid fa-circle-half-stroke ${theme==='dark'?'fa-flip-horizontal':''}`}></i></button>

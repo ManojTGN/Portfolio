@@ -3,6 +3,7 @@ import { ThemeProvider } from "next-themes";
 
 import "./globals.css";
 import "./i18n.js";
+import AccessibilityInit from "./components/AccessibilityInit";
 
 export const metadata = {
     title: "ManojTGN ▪ Portfolio",
@@ -22,6 +23,7 @@ export default function RootLayout({ children }) {
             </head>
             <body className="m-0 p-0 w-full h-screen dark:bg-portfolio-950 bg-portfolio-50">
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                    <AccessibilityInit />
                     {children}
                 </ThemeProvider>
             </body>    

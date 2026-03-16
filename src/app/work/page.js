@@ -2,19 +2,136 @@
 
 import '../i18n';
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
-import Carousel from "../components/Carousel";
 import Image from "next/image";
 import ImageDiff from "../components/ImageDiff";
+import ProjectCard from "../components/ProjectCard";
+
+const PHOTOSHOP_BATTLES = [
+    { left: '/images/photoshopBattle/_11.jpg', right: '/images/photoshopBattle/11.jpeg' },
+    { left: '/images/photoshopBattle/_7.jpg', right: '/images/photoshopBattle/7.jpeg' },
+    { left: '/images/photoshopBattle/_5.jpg', right: '/images/photoshopBattle/5.jpeg' },
+    { left: '/images/photoshopBattle/_9.jpg', right: '/images/photoshopBattle/9.jpeg' },
+    { left: '/images/photoshopBattle/_14.jpg', right: '/images/photoshopBattle/14.jpeg' },
+    { left: '/images/photoshopBattle/_1.jpg', right: '/images/photoshopBattle/1.jpeg' },
+    { left: '/images/photoshopBattle/_15.jpg', right: '/images/photoshopBattle/15.jpeg' },
+    { left: '/images/photoshopBattle/_12.jpg', right: '/images/photoshopBattle/12.jpeg' },
+    { left: '/images/photoshopBattle/_18.jpg', right: '/images/photoshopBattle/18.jpeg' },
+];
+
+const PROJECTS = [
+    {
+        slug: 'grievanceForum',
+        logoSrc: '/images/work/project/grievanceForum/GrievanceForum.png',
+        logoWidth: { LARGE: 1080, MEDIUM: 1080, COMPACT: 600 },
+        desc: 'portfolio.work.grievanceforum.desc.short',
+        longDesc: 'portfolio.work.grievanceforum.desc.long',
+        previewImages: [
+            '/images/work/project/grievanceForum/preview_0.jpg',
+            '/images/work/project/grievanceForum/preview_1.jpg',
+            '/images/work/project/grievanceForum/preview_2.jpg',
+            '/images/work/project/grievanceForum/preview_3.jpg',
+            '/images/work/project/grievanceForum/preview_4.jpg',
+            '/images/work/project/grievanceForum/preview_5.jpg',
+        ],
+        showArrow: true,
+        tags: [
+            'portfolio.work.tags.web_product',
+            'portfolio.work.tags.mobile_compatibility',
+            'portfolio.work.tags.nodejs',
+            'portfolio.work.tags.expressjs',
+        ],
+    },
+    {
+        slug: 'cGrafix',
+        logoSrc: '/images/work/project/cGrafix/cGrafix.png',
+        logoWidth: { LARGE: 1080, MEDIUM: 1080, COMPACT: 600 },
+        desc: 'portfolio.work.cgrafix.desc',
+        previewImages: [
+            '/images/work/project/cGrafix/preview_0.jpg',
+            '/images/work/project/cGrafix/preview_1.jpg',
+            '/images/work/project/cGrafix/preview_2.jpg',
+        ],
+        showArrow: true,
+        tags: [
+            'portfolio.work.tags.library',
+            'portfolio.work.tags.pure_c',
+        ],
+    },
+    {
+        slug: 'asciiCam',
+        logoSrc: '/images/work/project/asciiCam/asciicam.png',
+        logoWidth: { LARGE: 1080, MEDIUM: 1080, COMPACT: 600 },
+        desc: 'portfolio.work.asciicam.desc',
+        previewImages: ['/images/work/noPreview.jpg'],
+        showArrow: false,
+        tags: [
+            'portfolio.work.tags.opencv',
+            'portfolio.work.tags.cpp',
+        ],
+    },
+    {
+        slug: 'collision2Djs',
+        logoSrc: '/images/work/project/collision2Djs/collision2Djs.png',
+        logoWidth: { LARGE: 1080, MEDIUM: 1080, COMPACT: 600 },
+        desc: 'portfolio.work.collision2djs.desc',
+        previewImages: [
+            '/images/work/project/collision2Djs/preview_0.jpg',
+            '/images/work/project/collision2Djs/preview_1.jpg',
+            '/images/work/project/collision2Djs/preview_2.jpg',
+        ],
+        tags: [
+            'portfolio.work.tags.javascript',
+            'portfolio.work.tags.nodejs',
+        ],
+    },
+    {
+        slug: 'asciiTable',
+        logoSrc: '/images/work/project/asciiTable/asciitable.png',
+        logoWidth: { LARGE: 480, MEDIUM: 280, COMPACT: 280 },
+        desc: 'portfolio.work.asciitable.desc',
+        compactDesc: 'portfolio.work.asciitable.desc.short',
+        previewImages: [
+            '/images/work/project/asciiTable/preview_0.jpg',
+            '/images/work/project/asciiTable/preview_1.jpg',
+            '/images/work/project/asciiTable/preview_2.jpg',
+        ],
+        showArrow: true,
+        tags: [
+            'portfolio.work.tags.terminal',
+            'portfolio.work.tags.pure_c',
+        ],
+    },
+];
 
 export default function Work() {
     const { t, i18n, ready } = useTranslation();
     const [view, setView] = useState(`MEDIUM`);
     const [videos, setVideos] = useState([]);
     const [subscriberCount, setSubscriberCount] = useState(null);
+    const [previewIndex, setPreviewIndex] = useState(null);
+
+    const closePreview = useCallback(() => setPreviewIndex(null), []);
+    const prevPreview = useCallback(() => setPreviewIndex(i => (i - 1 + PHOTOSHOP_BATTLES.length) % PHOTOSHOP_BATTLES.length), []);
+    const nextPreview = useCallback(() => setPreviewIndex(i => (i + 1) % PHOTOSHOP_BATTLES.length), []);
+
+    useEffect(() => {
+        if (previewIndex === null) return;
+        const handleKey = (e) => {
+            if (e.key === 'Escape') closePreview();
+            if (e.key === 'ArrowLeft') prevPreview();
+            if (e.key === 'ArrowRight') nextPreview();
+        };
+        window.addEventListener('keydown', handleKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            window.removeEventListener('keydown', handleKey);
+            document.body.style.overflow = '';
+        };
+    }, [previewIndex, closePreview, prevPreview, nextPreview]);
 
     useEffect(() => {
         const fetchYouTubeData = async () => {
@@ -69,282 +186,32 @@ export default function Work() {
                     <Topbar />
                     <hr className="w-full mt-5 border-portfolio-500" />
 
-                    <div className="relative w-full flex items-center justify-end mt-12 z-10">
-                        <div className="h-12 text-2xl text-portfolio-500 flex items-center justify-end gap-5 fixed bg-portfolio-950 px-5 rounded-lg">
-                            <i tabIndex={0} className={`fa-solid fa-table-cells ${view === 'LARGE' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('LARGE')}></i>
-                            <i tabIndex={0} className={`fa-solid fa-grip-vertical ${view === 'MEDIUM' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('MEDIUM')}></i>
-                            <i tabIndex={0} className={`fa-solid fa-bars ${view === 'COMPACT' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('COMPACT')}></i>
+                    <section>
+                        <div id="modeSelector" className="sticky top-4 z-10 w-full flex items-center justify-end mt-12">
+                            <div className="h-12 text-2xl text-portfolio-500 flex items-center justify-end gap-5 bg-portfolio-950 px-5 rounded-lg">
+                                <i tabIndex={0} className={`fa-solid fa-table-cells ${view === 'LARGE' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('LARGE')}></i>
+                                <i tabIndex={0} className={`fa-solid fa-grip-vertical ${view === 'MEDIUM' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('MEDIUM')}></i>
+                                <i tabIndex={0} className={`fa-solid fa-bars ${view === 'COMPACT' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('COMPACT')}></i>
+                            </div>
                         </div>
-                    </div>
 
-                    <a href="#product" className="text-3xl md:text-5xl font-medium" id="product">{t('portfolio.work.project.package')}</a>
-                    {view === "LARGE" ?
-                        <>
-                            <a href="/work/grievanceForum">
-                                <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/work/project/grievanceForum/GrievanceForum.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.short')}</p>
-                                </div>
-                            </a>
-                            <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={true} images={["/images/work/project/grievanceForum/preview_0.jpg", "/images/work/project/grievanceForum/preview_1.jpg", "/images/work/project/grievanceForum/preview_2.jpg", "/images/work/project/grievanceForum/preview_3.jpg", "/images/work/project/grievanceForum/preview_4.jpg", "/images/work/project/grievanceForum/preview_5.jpg"]} />
-                            </div>
-                            <a href="/work/grievanceForum">
-                                <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.long')}</p>
-                                    <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
-                                        <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>{t('portfolio.work.tags.web_product')}</span>
-                                        <span>{t('portfolio.work.tags.mobile_compatibility')}</span>
-                                        <span>{t('portfolio.work.tags.nodejs')}</span>
-                                        <span>{t('portfolio.work.tags.expressjs')}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </>
-                        : view === "MEDIUM" ?
-                            <>
-                                <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
-                                    <div className="w-full aspect-video">
-                                        <Carousel showArrow={true} images={["/images/work/project/grievanceForum/preview_0.jpg", "/images/work/project/grievanceForum/preview_1.jpg", "/images/work/project/grievanceForum/preview_2.jpg", "/images/work/project/grievanceForum/preview_3.jpg", "/images/work/project/grievanceForum/preview_4.jpg", "/images/work/project/grievanceForum/preview_5.jpg"]} />
-                                    </div>
-                                    <div className="w-full">
-                                        <a href="/work/grievanceForum">
-                                            <Image src={"/images/work/project/grievanceForum/GrievanceForum.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.short')}</p>
+                        <a href="#product" className="text-3xl md:text-5xl font-medium" id="product">{t('portfolio.work.project.package')}</a>
 
-                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.long')}</p>
-                                            <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
-                                                <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>{t('portfolio.work.tags.web_product')}</span>
-                                                <span>{t('portfolio.work.tags.mobile_compatibility')}</span>
-                                                <span>{t('portfolio.work.tags.nodejs')}</span>
-                                                <span>{t('portfolio.work.tags.expressjs')}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </>
-                            :
-                            <>
-                                <a href="/work/grievanceForum">
-                                    <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/work/project/grievanceForum/GrievanceForum.png"} alt={""} draggable="false" width={"600"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.grievanceforum.desc.short')}</p>
-                                    </div>
-                                </a>
-                            </>
-                    }
+                        {PROJECTS.map((project, index) => (
+                            <ProjectCard
+                                key={project.slug}
+                                project={project}
+                                mode={view}
+                                isFirst={index === 0}
+                            />
+                        ))}
 
-                    {view === "LARGE" ?
-                        <>
-                            <a href="/work/cGrafix">
-                                <div className="border-l-2 pl-5 mt-32 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/work/project/cGrafix/cGrafix.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.cgrafix.desc')}</p>
-                                </div>
-                            </a>
-                            <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={true} images={["/images/work/project/cGrafix/preview_0.jpg", "/images/work/project/cGrafix/preview_1.jpg", "/images/work/project/cGrafix/preview_2.jpg"]} />
-                            </div>
-                            <a href="/work/cGrafix">
-                                <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                    <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
-                                        <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>{t('portfolio.work.tags.library')}</span>
-                                        <span>{t('portfolio.work.tags.pure_c')}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </>
-                        : view === "MEDIUM" ?
-                            <>
-                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
-                                    <div className="w-full aspect-video">
-                                        <Carousel showArrow={true} images={["/images/work/project/cGrafix/preview_0.jpg", "/images/work/project/cGrafix/preview_1.jpg", "/images/work/project/cGrafix/preview_2.jpg"]} />
-                                    </div>
-                                    <div className="w-full">
-                                        <a href="/work/cGrafix">
-                                            <Image src={"/images/work/project/cGrafix/cGrafix.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.cgrafix.desc')}</p>
-                                            <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
-                                                <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>{t('portfolio.work.tags.library')}</span>
-                                                <span>{t('portfolio.work.tags.pure_c')}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </>
-                            :
-                            <>
-                                <a href="/work/cGrafix">
-                                    <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/work/project/cGrafix/cGrafix.png"} alt={""} draggable="false" width={"600"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.cgrafix.desc')}</p>
-                                    </div>
-                                </a>
-                            </>
-                    }
-
-                    {view === "LARGE" ?
-                        <>
-                            <a href="/work/asciiCam">
-                                <div className="border-l-2 pl-5 mt-32 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/work/project/asciiCam/asciicam.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciicam.desc')}</p>
-                                </div>
-                            </a>
-                            <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={false} images={["/images/work/noPreview.jpg"]} />
-                            </div>
-                            <a href="/work/asciiCam">
-                                <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                    <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
-                                        <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>{t('portfolio.work.tags.opencv')}</span>
-                                        <span>{t('portfolio.work.tags.cpp')}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </>
-                        : view === "MEDIUM" ?
-                            <>
-                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
-                                    <div className="w-full aspect-video">
-                                        <Carousel showArrow={false} images={["/images/work/noPreview.jpg"]} />
-                                    </div>
-                                    <div className="w-full">
-                                        <a href="/work/asciiCam">
-                                            <Image src={"/images/work/project/asciiCam/asciicam.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciicam.desc')}</p>
-                                            <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
-                                                <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>{t('portfolio.work.tags.opencv')}</span>
-                                                <span>{t('portfolio.work.tags.cpp')}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </>
-                            :
-                            <>
-                                <a href="/work/asciiCam">
-                                    <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/work/project/asciiCam/asciicam.png"} alt={""} draggable="false" width={"600"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciicam.desc')}</p>
-                                    </div>
-                                </a>
-                            </>
-                    }
-
-                    {view === "LARGE" ?
-                        <>
-                            <a href="/work/collision2Djs">
-                                <div className="border-l-2 pl-5 mt-32 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/work/project/collision2Djs/collision2Djs.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.collision2djs.desc')}</p>
-                                </div>
-                            </a>
-                            <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel images={["/images/work/project/collision2Djs/preview_0.jpg", "/images/work/project/collision2Djs/preview_1.jpg", "/images/work/project/collision2Djs/preview_2.jpg"]} />
-                            </div>
-                            <a href="/work/collision2Djs">
-                                <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                    <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
-                                        <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>{t('portfolio.work.tags.javascript')}</span>
-                                        <span>{t('portfolio.work.tags.nodejs')}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </>
-                        : view === "MEDIUM" ?
-                            <>
-                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
-                                    <div className="w-full aspect-video">
-                                        <Carousel images={["/images/work/project/collision2Djs/preview_0.jpg", "/images/work/project/collision2Djs/preview_1.jpg", "/images/work/project/collision2Djs/preview_2.jpg"]} />
-                                    </div>
-                                    <div className="w-full">
-                                        <a href="/work/collision2Djs">
-                                            <Image src={"/images/work/project/collision2Djs/collision2Djs.png"} alt={""} draggable="false" width={"1080"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.collision2djs.desc')}</p>
-                                            <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
-                                                <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>{t('portfolio.work.tags.javascript')}</span>
-                                                <span>{t('portfolio.work.tags.nodejs')}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </>
-                            :
-                            <>
-                                <a href="/work/collision2Djs">
-                                    <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/work/project/collision2Djs/collision2Djs.png"} alt={""} draggable="false" width={"600"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.collision2djs.desc')}</p>
-                                    </div>
-                                </a>
-                            </>
-                    }
-
-                    {view === "LARGE" ?
-                        <>
-                            <a href="/work/asciiTable">
-                                <div className="border-l-2 pl-5 mt-32 border-portfolio-500 dark:border-portfolio-500">
-                                    <Image src={"/images/work/project/asciiTable/asciitable.png"} alt={""} draggable="false" width={"480"} height={"200"} />
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciitable.desc')}</p>
-                                </div>
-                            </a>
-                            <div className="aspect-video border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                <Carousel showArrow={true} images={["/images/work/project/asciiTable/preview_0.jpg", "/images/work/project/asciiTable/preview_1.jpg", "/images/work/project/asciiTable/preview_2.jpg"]} />
-                            </div>
-                            <a href="/work/asciiTable">
-                                <div className="border-l-2 pl-5 pt-3 border-portfolio-500 dark:border-portfolio-500">
-                                    <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
-                                        <span className="text-portfolio-50 font-medium">Tags:</span>
-                                        <span>{t('portfolio.work.tags.terminal')}</span>
-                                        <span>{t('portfolio.work.tags.pure_c')}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        </>
-                        : view === "MEDIUM" ?
-                            <>
-                                <div className="border-l-2 pl-5 mt-16 border-portfolio-500 dark:border-portfolio-500 flex flex-col xl:flex-row gap-5">
-                                    <div className="w-full aspect-video">
-                                        <Carousel showArrow={true} images={["/images/work/project/asciiTable/preview_0.jpg", "/images/work/project/asciiTable/preview_1.jpg", "/images/work/project/asciiTable/preview_2.jpg"]} />
-                                    </div>
-                                    <div className="w-full">
-                                        <a href="/work/asciiTable">
-                                            <Image src={"/images/work/project/asciiTable/asciitable.png"} alt={""} draggable="false" width={"280"} height={"200"} />
-                                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciitable.desc')}</p>
-                                            <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
-                                                <span className="text-portfolio-50 font-medium">Tags:</span>
-                                                <span>{t('portfolio.work.tags.terminal')}</span>
-                                                <span>{t('portfolio.work.tags.pure_c')}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </div>
-                            </>
-                            :
-                            <>
-                                <a href="/work/asciiTable">
-                                    <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                                        <Image src={"/images/work/project/asciiTable/asciitable.png"} alt={""} draggable="false" width={"280"} height={"200"} />
-                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.asciitable.desc.short')}</p>
-                                    </div>
-                                </a>
-                            </>
-                    }
-
-                    <div className="mt-8 pl-5 border-dashed border-l-2 border-portfolio-500 dark:border-portfolio-500">
-                        <p className="dark:text-white font-medium text-lg">{t('portfolio.work.help.title')} </p>
-                        <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.desc')}</p>
-                        <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.contact')}  <a className="underline text-yellow-700 font-semibold" href="/#contact">{t('portfolio.work.help.come.say.hi')}</a></p>
-                    </div>
+                        <div className="mt-8 pl-5 border-dashed border-l-2 border-portfolio-500 dark:border-portfolio-500">
+                            <p className="dark:text-white font-medium text-lg">{t('portfolio.work.help.title')} </p>
+                            <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.desc')}</p>
+                            <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.contact')}  <a className="underline text-yellow-700 font-semibold" href="/#contact">{t('portfolio.work.help.come.say.hi')}</a></p>
+                        </div>
+                    </section>
 
                     <a href="#contentCreator" className="text-3xl md:text-5xl font-medium mt-16" id="contentCreator">{t('portfolio.work.content.creator')}</a>
                     <div className="w-full">
@@ -359,7 +226,7 @@ export default function Work() {
                                     <p className="text-portfolio-500 text-lg">{subscriberCount ? `${subscriberCount} ${t('portfolio.work.subscribers')}` : t('portfolio.work.subscribers')}</p>
                                 </div>
                                 <div className="w-3/6">
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.tgn.desc')}</p>
+                                    <p className="text-portfolio-500 text-lg line-clamp-4">{t('portfolio.work.tgn.desc')}</p>
                                 </div>
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -391,34 +258,14 @@ export default function Work() {
                         <p className="text-3xl font-semibold">{t('portfolio.work.photoshop.battle')}</p>
                         <p className="text-portfolio-500 text-lg">{t('portfolio.work.photoshop.battle.desc')}</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_11.jpg" rightImageSrc="/images/photoshopBattle/11.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_7.jpg" rightImageSrc="/images/photoshopBattle/7.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_5.jpg" rightImageSrc="/images/photoshopBattle/5.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_9.jpg" rightImageSrc="/images/photoshopBattle/9.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_14.jpg" rightImageSrc="/images/photoshopBattle/14.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_1.jpg" rightImageSrc="/images/photoshopBattle/1.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_15.jpg" rightImageSrc="/images/photoshopBattle/15.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_12.jpg" rightImageSrc="/images/photoshopBattle/12.jpeg" />
-                            </div>
-
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_18.jpg" rightImageSrc="/images/photoshopBattle/18.jpeg" />
-                            </div>
+                            {PHOTOSHOP_BATTLES.map((battle, index) => (
+                                <div key={index} className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30 group" onClick={() => setPreviewIndex(index)}>
+                                    <ImageDiff leftImageSrc={battle.left} rightImageSrc={battle.right} />
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-200 pointer-events-none flex items-center justify-center">
+                                        <i className="fa-solid fa-expand text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg"></i>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
@@ -426,7 +273,7 @@ export default function Work() {
                         <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.desc')}</p>
                         <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2732039208" target="_blank" rel="noopener noreferrer">
                             <div className="flex gap-2 mt-5">
-                                <Image src="/images/work/gameguide1.jpg" alt="" height={125} width={125} />
+                                <Image src="/images/work/gameguide1.jpg" alt="" height={125} width={125} className="shrink-0" />
                                 <div>
                                     <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad"></i> {t('portfolio.work.steam.guide.skyrim.game')}</p>
                                     <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.skyrim.title')}</p>
@@ -437,7 +284,7 @@ export default function Work() {
                         </a>
                         <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3326170636" target="_blank" rel="noopener noreferrer">
                             <div className="flex gap-2 mt-5">
-                                <Image src="/images/work/gameguide2.jpg" alt="" height={125} width={125} />
+                                <Image src="/images/work/gameguide2.jpg" alt="" height={125} width={125} className="shrink-0" />
                                 <div>
                                     <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad"></i> {t('portfolio.work.steam.guide.kcd.game')}</p>
                                     <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.kcd.title')}</p>
@@ -449,6 +296,33 @@ export default function Work() {
                     <Footer />
                 </div>
             </div>
+
+            {previewIndex !== null && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80" onClick={closePreview}>
+                    <div className="relative w-[90vw] max-w-5xl aspect-video" onClick={(e) => e.stopPropagation()}>
+                        <ImageDiff
+                            leftImageSrc={PHOTOSHOP_BATTLES[previewIndex].left}
+                            rightImageSrc={PHOTOSHOP_BATTLES[previewIndex].right}
+                        />
+                    </div>
+
+                    <button onClick={closePreview} className="absolute top-6 right-6 text-white text-3xl hover:text-portfolio-300 transition-colors" aria-label="Close preview">
+                        <i className="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <button onClick={(e) => { e.stopPropagation(); prevPreview(); }} className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl hover:text-portfolio-300 transition-colors w-12 h-12 flex items-center justify-center" aria-label="Previous image">
+                        <i className="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button onClick={(e) => { e.stopPropagation(); nextPreview(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl hover:text-portfolio-300 transition-colors w-12 h-12 flex items-center justify-center" aria-label="Next image">
+                        <i className="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-sm">
+                        {previewIndex + 1} / {PHOTOSHOP_BATTLES.length}
+                    </div>
+                </div>
+            )}
         </>
     );
 }

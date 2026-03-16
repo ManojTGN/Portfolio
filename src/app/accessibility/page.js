@@ -28,16 +28,64 @@ export default function Accessibility() {
     const handleFontSizeChange = (size) => {
         setFontSize(size);
         document.documentElement.style.setProperty('--base-font-size', sizeMap[size]);
-        document.cookie = `fontSize=${size}; path=/; SameSite=Lax`;
+        localStorage.setItem('fontSize', size);
+    };
+
+    //Change Word Spacing ----------------------------------------------------------------------------------
+    const [wordSpacing, setWordSpacing] = useState('normal');
+    const wordSpacingMap = {
+        normal: 'normal',
+        medium: '0.15em',
+        large: '0.3em'
+    };
+
+    const handleWordSpacingChange = (size) => {
+        setWordSpacing(size);
+        document.documentElement.style.setProperty('--word-spacing', wordSpacingMap[size]);
+        localStorage.setItem('wordSpacing', size);
+    };
+
+    //Change Letter Spacing ----------------------------------------------------------------------------------
+    const [letterSpacing, setLetterSpacing] = useState('normal');
+    const letterSpacingMap = {
+        normal: 'normal',
+        medium: '0.05em',
+        large: '0.1em'
+    };
+
+    const handleLetterSpacingChange = (size) => {
+        setLetterSpacing(size);
+        document.documentElement.style.setProperty('--letter-spacing', letterSpacingMap[size]);
+        localStorage.setItem('letterSpacing', size);
     };
 
     useEffect(() => {
-        const match = document.cookie.match(/fontSize=([^;]+)/);
-        if (match) {
-            setFontSize(match[1]);
-            document.documentElement.style.setProperty('--base-font-size', sizeMap[match[1]]);
+        const savedFontSize = localStorage.getItem('fontSize');
+        if (savedFontSize && sizeMap[savedFontSize]) {
+            setFontSize(savedFontSize);
+            document.documentElement.style.setProperty('--base-font-size', sizeMap[savedFontSize]);
         } else {
             document.documentElement.style.setProperty('--base-font-size', sizeMap['medium']);
+        }
+
+        const savedWordSpacing = localStorage.getItem('wordSpacing');
+        if (savedWordSpacing && wordSpacingMap[savedWordSpacing]) {
+            setWordSpacing(savedWordSpacing);
+            document.documentElement.style.setProperty('--word-spacing', wordSpacingMap[savedWordSpacing]);
+        }
+
+        const savedLetterSpacing = localStorage.getItem('letterSpacing');
+        if (savedLetterSpacing && letterSpacingMap[savedLetterSpacing]) {
+            setLetterSpacing(savedLetterSpacing);
+            document.documentElement.style.setProperty('--letter-spacing', letterSpacingMap[savedLetterSpacing]);
+        }
+
+        const savedCursorSize = localStorage.getItem('cursorSize');
+        if (savedCursorSize) {
+            setCursorSize(savedCursorSize);
+            if (savedCursorSize !== 'default') {
+                document.documentElement.setAttribute('data-cursor-size', savedCursorSize);
+            }
         }
     }, []);
 
@@ -52,7 +100,12 @@ export default function Accessibility() {
 
     const handleCursorSizeChange = (size) => {
         setCursorSize(size);
-        // document.cookie = `cursorSize=${size}; path=/; SameSite=Lax`;
+        if (size === 'default') {
+            document.documentElement.removeAttribute('data-cursor-size');
+        } else {
+            document.documentElement.setAttribute('data-cursor-size', size);
+        }
+        localStorage.setItem('cursorSize', size);
     };
 
     if (!ready) return <></>;
@@ -111,6 +164,64 @@ export default function Accessibility() {
                         </div>
                     </div>
 
+                    <div className="flex items-center w-full mt-10 gap-2" id="wordSpacing">
+                        <div className="w-full">
+                            <a href="#wordSpacing" className="w-full font-medium text-2xl dark:text-white">{t('portfolio.a11y.word.spacing')}</a>
+                            <p className="w-full text-lg text-portfolio-500 dark:text-portfolio-500">{t('portfolio.a11y.word.spacing.desc')}</p>
+                        </div>
+                        <div className="ml-auto w-full p-2">
+                            <ul className="grid w-full gap-6 md:grid-cols-3">
+                                <li>
+                                    <input onChange={() => handleWordSpacingChange('normal')} type="radio" id="normalWordSpacing" name="wordSpacing" value="normal" className="hidden peer" checked={wordSpacing === 'normal'} />
+                                    <label htmlFor="normalWordSpacing" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
+                                        {t('portfolio.a11y.spacing.normal')}
+                                    </label>
+                                </li>
+                                <li>
+                                    <input onChange={() => handleWordSpacingChange('medium')} type="radio" id="mediumWordSpacing" name="wordSpacing" value="medium" className="hidden peer" checked={wordSpacing === 'medium'} />
+                                    <label htmlFor="mediumWordSpacing" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
+                                        {t('portfolio.a11y.font.size.medium')}
+                                    </label>
+                                </li>
+                                <li>
+                                    <input onChange={() => handleWordSpacingChange('large')} type="radio" id="largeWordSpacing" name="wordSpacing" value="large" className="hidden peer" checked={wordSpacing === 'large'} />
+                                    <label htmlFor="largeWordSpacing" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
+                                        {t('portfolio.a11y.font.size.large')}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="flex items-center w-full mt-10 gap-2" id="letterSpacing">
+                        <div className="w-full">
+                            <a href="#letterSpacing" className="w-full font-medium text-2xl dark:text-white">{t('portfolio.a11y.letter.spacing')}</a>
+                            <p className="w-full text-lg text-portfolio-500 dark:text-portfolio-500">{t('portfolio.a11y.letter.spacing.desc')}</p>
+                        </div>
+                        <div className="ml-auto w-full p-2">
+                            <ul className="grid w-full gap-6 md:grid-cols-3">
+                                <li>
+                                    <input onChange={() => handleLetterSpacingChange('normal')} type="radio" id="normalLetterSpacing" name="letterSpacing" value="normal" className="hidden peer" checked={letterSpacing === 'normal'} />
+                                    <label htmlFor="normalLetterSpacing" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
+                                        {t('portfolio.a11y.spacing.normal')}
+                                    </label>
+                                </li>
+                                <li>
+                                    <input onChange={() => handleLetterSpacingChange('medium')} type="radio" id="mediumLetterSpacing" name="letterSpacing" value="medium" className="hidden peer" checked={letterSpacing === 'medium'} />
+                                    <label htmlFor="mediumLetterSpacing" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
+                                        {t('portfolio.a11y.font.size.medium')}
+                                    </label>
+                                </li>
+                                <li>
+                                    <input onChange={() => handleLetterSpacingChange('large')} type="radio" id="largeLetterSpacing" name="letterSpacing" value="large" className="hidden peer" checked={letterSpacing === 'large'} />
+                                    <label htmlFor="largeLetterSpacing" className="inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
+                                        {t('portfolio.a11y.font.size.large')}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                     <div className="flex items-center w-full mt-10 gap-2" id="theme">
                         <div className="w-full">
                             <a href="#theme" className="w-full font-medium text-2xl dark:text-white">{t('portfolio.a11y.color.theme')} </a>
@@ -127,7 +238,7 @@ export default function Accessibility() {
 
                     <div className="flex items-center w-full mt-10 gap-2" id="cursorSize">
                         <div className="w-full">
-                            <a href="#cursorSize" className="w-full font-medium text-2xl dark:text-white">{t('portfolio.a11y.cursor.size')} <span className="text-xs px-2 bg-yellow-600 text-black font-bold">In Development</span></a>
+                            <a href="#cursorSize" className="w-full font-medium text-2xl dark:text-white">{t('portfolio.a11y.cursor.size')}</a>
                             <p className="w-full text-lg text-portfolio-500 dark:text-portfolio-500">{t('portfolio.a11y.cursor.size.desc')}</p>
                         </div>
                         <div className="ml-auto w-full p-2">
