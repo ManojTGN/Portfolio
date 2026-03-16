@@ -2,13 +2,25 @@
 
 import '../i18n';
 import { useTranslation } from "react-i18next";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import ImageDiff from "../components/ImageDiff";
 import ProjectCard from "../components/ProjectCard";
+
+const PHOTOSHOP_BATTLES = [
+    { left: '/images/photoshopBattle/_11.jpg', right: '/images/photoshopBattle/11.jpeg' },
+    { left: '/images/photoshopBattle/_7.jpg', right: '/images/photoshopBattle/7.jpeg' },
+    { left: '/images/photoshopBattle/_5.jpg', right: '/images/photoshopBattle/5.jpeg' },
+    { left: '/images/photoshopBattle/_9.jpg', right: '/images/photoshopBattle/9.jpeg' },
+    { left: '/images/photoshopBattle/_14.jpg', right: '/images/photoshopBattle/14.jpeg' },
+    { left: '/images/photoshopBattle/_1.jpg', right: '/images/photoshopBattle/1.jpeg' },
+    { left: '/images/photoshopBattle/_15.jpg', right: '/images/photoshopBattle/15.jpeg' },
+    { left: '/images/photoshopBattle/_12.jpg', right: '/images/photoshopBattle/12.jpeg' },
+    { left: '/images/photoshopBattle/_18.jpg', right: '/images/photoshopBattle/18.jpeg' },
+];
 
 const PROJECTS = [
     {
@@ -100,6 +112,26 @@ export default function Work() {
     const [view, setView] = useState(`MEDIUM`);
     const [videos, setVideos] = useState([]);
     const [subscriberCount, setSubscriberCount] = useState(null);
+    const [previewIndex, setPreviewIndex] = useState(null);
+
+    const closePreview = useCallback(() => setPreviewIndex(null), []);
+    const prevPreview = useCallback(() => setPreviewIndex(i => (i - 1 + PHOTOSHOP_BATTLES.length) % PHOTOSHOP_BATTLES.length), []);
+    const nextPreview = useCallback(() => setPreviewIndex(i => (i + 1) % PHOTOSHOP_BATTLES.length), []);
+
+    useEffect(() => {
+        if (previewIndex === null) return;
+        const handleKey = (e) => {
+            if (e.key === 'Escape') closePreview();
+            if (e.key === 'ArrowLeft') prevPreview();
+            if (e.key === 'ArrowRight') nextPreview();
+        };
+        window.addEventListener('keydown', handleKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            window.removeEventListener('keydown', handleKey);
+            document.body.style.overflow = '';
+        };
+    }, [previewIndex, closePreview, prevPreview, nextPreview]);
 
     useEffect(() => {
         const fetchYouTubeData = async () => {
@@ -226,34 +258,14 @@ export default function Work() {
                         <p className="text-3xl font-semibold">{t('portfolio.work.photoshop.battle')}</p>
                         <p className="text-portfolio-500 text-lg">{t('portfolio.work.photoshop.battle.desc')}</p>
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_11.jpg" rightImageSrc="/images/photoshopBattle/11.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_7.jpg" rightImageSrc="/images/photoshopBattle/7.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_5.jpg" rightImageSrc="/images/photoshopBattle/5.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_9.jpg" rightImageSrc="/images/photoshopBattle/9.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_14.jpg" rightImageSrc="/images/photoshopBattle/14.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_1.jpg" rightImageSrc="/images/photoshopBattle/1.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_15.jpg" rightImageSrc="/images/photoshopBattle/15.jpeg" />
-                            </div>
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_12.jpg" rightImageSrc="/images/photoshopBattle/12.jpeg" />
-                            </div>
-
-                            <div className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30">
-                                <ImageDiff leftImageSrc="/images/photoshopBattle/_18.jpg" rightImageSrc="/images/photoshopBattle/18.jpeg" />
-                            </div>
+                            {PHOTOSHOP_BATTLES.map((battle, index) => (
+                                <div key={index} className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30 group" onClick={() => setPreviewIndex(index)}>
+                                    <ImageDiff leftImageSrc={battle.left} rightImageSrc={battle.right} />
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-200 pointer-events-none flex items-center justify-center">
+                                        <i className="fa-solid fa-expand text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg"></i>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     </div>
                     <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
@@ -284,6 +296,33 @@ export default function Work() {
                     <Footer />
                 </div>
             </div>
+
+            {previewIndex !== null && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80" onClick={closePreview}>
+                    <div className="relative w-[90vw] max-w-5xl aspect-video" onClick={(e) => e.stopPropagation()}>
+                        <ImageDiff
+                            leftImageSrc={PHOTOSHOP_BATTLES[previewIndex].left}
+                            rightImageSrc={PHOTOSHOP_BATTLES[previewIndex].right}
+                        />
+                    </div>
+
+                    <button onClick={closePreview} className="absolute top-6 right-6 text-white text-3xl hover:text-portfolio-300 transition-colors" aria-label="Close preview">
+                        <i className="fa-solid fa-xmark"></i>
+                    </button>
+
+                    <button onClick={(e) => { e.stopPropagation(); prevPreview(); }} className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl hover:text-portfolio-300 transition-colors w-12 h-12 flex items-center justify-center" aria-label="Previous image">
+                        <i className="fa-solid fa-chevron-left"></i>
+                    </button>
+
+                    <button onClick={(e) => { e.stopPropagation(); nextPreview(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl hover:text-portfolio-300 transition-colors w-12 h-12 flex items-center justify-center" aria-label="Next image">
+                        <i className="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-sm">
+                        {previewIndex + 1} / {PHOTOSHOP_BATTLES.length}
+                    </div>
+                </div>
+            )}
         </>
     );
 }
