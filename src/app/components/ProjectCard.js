@@ -32,9 +32,12 @@ export default function ProjectCard({ project, mode, isFirst }) {
                         {project.longDesc && (
                             <p className="text-portfolio-500 text-lg">{t(project.longDesc)}</p>
                         )}
-                        <div className="flex gap-5 text-portfolio-500 pt-3 font-semibold text-lg">
-                            <span className="text-portfolio-50 font-medium">Tags:</span>
-                            {project.tags.map(tag => <span key={tag}>{t(tag)}</span>)}
+                        <div className="flex flex-wrap gap-2 pt-3">
+                            {project.tags.map(tag => (
+                                <span key={tag} className="px-3 py-1 text-sm font-medium rounded-md bg-portfolio-500/10 text-portfolio-300 border border-portfolio-500/20">
+                                    {t(tag)}
+                                </span>
+                            ))}
                         </div>
                     </div>
                 </a>
@@ -57,9 +60,12 @@ export default function ProjectCard({ project, mode, isFirst }) {
                         {project.longDesc && (
                             <p className="text-portfolio-500 text-lg line-clamp-2">{t(project.longDesc)}</p>
                         )}
-                        <div className="flex gap-3 text-portfolio-500 pt-3 font-semibold text-lg">
-                            <span className="text-portfolio-50 font-medium">Tags:</span>
-                            {project.tags.map(tag => <span key={tag}>{t(tag)}</span>)}
+                        <div className="flex flex-wrap gap-2 pt-3">
+                            {project.tags.map(tag => (
+                                <span key={tag} className="px-3 py-1 text-sm font-medium rounded-md bg-portfolio-500/10 text-portfolio-300 border border-portfolio-500/20">
+                                    {t(tag)}
+                                </span>
+                            ))}
                         </div>
                     </a>
                 </div>
