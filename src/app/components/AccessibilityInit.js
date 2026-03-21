@@ -1,24 +1,7 @@
 'use client'
 
 import { useEffect } from 'react';
-
-const sizeMap = {
-    small: '11px',
-    medium: '15px',
-    large: '19px'
-};
-
-const wordSpacingMap = {
-    normal: 'normal',
-    medium: '0.15em',
-    large: '0.3em'
-};
-
-const letterSpacingMap = {
-    normal: 'normal',
-    medium: '0.05em',
-    large: '0.1em'
-};
+import { sizeMap, wordSpacingMap, letterSpacingMap } from '@/app/lib/accessibility';
 
 export default function AccessibilityInit() {
     useEffect(() => {

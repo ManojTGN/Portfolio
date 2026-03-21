@@ -9,7 +9,6 @@ gsap.registerPlugin(Draggable);
 
 export default function Carousel({ showArrow = true, autoScroll = true, images = [] }) {
     const containerRef = useRef(null);
-    const draggableRef = useRef(null);
     const activeIndexRef = useRef(0);
     const slideWidthRef = useRef(0);
     const intervalRef = useRef(null);
@@ -47,8 +46,6 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
             },
         })[0];
 
-        draggableRef.current = draggable;
-
         const handleResize = () => {
             slideWidthRef.current = container.offsetWidth;
             moveToIndex(activeIndexRef.current);
@@ -70,6 +67,7 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
         if (autoScroll) startAutoScroll();
 
         return () => {
+            clearInterval(intervalRef.current);
             draggable.kill();
             window.removeEventListener("resize", handleResize);
         };
@@ -102,16 +100,13 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
         });
     };
 
-
-    if (images.length === 0) {
-        return <></>;
-    }
+    if (images.length === 0) return null;
 
     return (
-        <div className="relative overflow-hidden w-full aspect-video select-none">
+        <div className="relative overflow-hidden w-full aspect-video select-none" role="region" aria-roledescription="carousel" aria-label="Image carousel">
             <div ref={containerRef} className="flex w-full h-full cursor-grab active:cursor-grabbing touch-none">
-                {images.map((src, i) => (
-                    <div key={i} className="relative flex-shrink-0 w-full h-full">
+                {images.map((src) => (
+                    <div key={src} className="relative flex-shrink-0 w-full h-full">
                         <Image
                             src={src} alt="" fill
                             className="object-cover" draggable="false"
@@ -119,14 +114,16 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
                     </div>
                 ))}
             </div>
-            {showArrow ? <>
-                <button onClick={prevSlide} className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
-                    <i className="fa-solid fa-caret-left"></i>
-                </button>
-                <button onClick={nextSlide} className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
-                    <i className="fa-solid fa-caret-right"></i>
-                </button></>
-                : <></>}
+            {showArrow && (
+                <>
+                    <button onClick={prevSlide} aria-label="Previous slide" className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
+                        <i className="fa-solid fa-caret-left" aria-hidden="true"></i>
+                    </button>
+                    <button onClick={nextSlide} aria-label="Next slide" className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
+                        <i className="fa-solid fa-caret-right" aria-hidden="true"></i>
+                    </button>
+                </>
+            )}
         </div>
     );
 }

@@ -1,14 +1,15 @@
 'use client'
 
-import '../i18n';
 import { useTranslation } from "react-i18next";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
+import Link from "next/link";
 
 import Topbar from "../components/Topbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import ImageDiff from "../components/ImageDiff";
 import ProjectCard from "../components/ProjectCard";
+import { PROJECTS } from "@/app/lib/projects";
 
 const PHOTOSHOP_BATTLES = [
     { left: '/images/photoshopBattle/_11.jpg', right: '/images/photoshopBattle/11.jpeg' },
@@ -22,108 +23,62 @@ const PHOTOSHOP_BATTLES = [
     { left: '/images/photoshopBattle/_18.jpg', right: '/images/photoshopBattle/18.jpeg' },
 ];
 
-const PROJECTS = [
-    {
-        slug: 'grievanceForum',
-        logoSrc: '/images/work/project/grievanceForum/GrievanceForum.png',
-        logoWidth: { LARGE: 1080, MEDIUM: 1080, COMPACT: 600 },
-        desc: 'portfolio.work.grievanceforum.desc.short',
-        longDesc: 'portfolio.work.grievanceforum.desc.long',
-        previewImages: [
-            '/images/work/project/grievanceForum/preview_0.jpg',
-            '/images/work/project/grievanceForum/preview_1.jpg',
-            '/images/work/project/grievanceForum/preview_2.jpg',
-            '/images/work/project/grievanceForum/preview_3.jpg',
-            '/images/work/project/grievanceForum/preview_4.jpg',
-            '/images/work/project/grievanceForum/preview_5.jpg',
-        ],
-        showArrow: true,
-        tags: [
-            'portfolio.work.tags.web_product',
-            'portfolio.work.tags.mobile_compatibility',
-            'portfolio.work.tags.nodejs',
-            'portfolio.work.tags.expressjs',
-        ],
-    },
-    {
-        slug: 'cGrafix',
-        logoSrc: '/images/work/project/cGrafix/cGrafix.png',
-        logoWidth: { LARGE: 1080, MEDIUM: 1080, COMPACT: 600 },
-        desc: 'portfolio.work.cgrafix.desc',
-        previewImages: [
-            '/images/work/project/cGrafix/preview_0.jpg',
-            '/images/work/project/cGrafix/preview_1.jpg',
-            '/images/work/project/cGrafix/preview_2.jpg',
-        ],
-        showArrow: true,
-        tags: [
-            'portfolio.work.tags.library',
-            'portfolio.work.tags.pure_c',
-        ],
-    },
-    {
-        slug: 'asciiCam',
-        logoSrc: '/images/work/project/asciiCam/asciicam.png',
-        logoWidth: { LARGE: 1080, MEDIUM: 1080, COMPACT: 600 },
-        desc: 'portfolio.work.asciicam.desc',
-        previewImages: ['/images/work/noPreview.jpg'],
-        showArrow: false,
-        tags: [
-            'portfolio.work.tags.opencv',
-            'portfolio.work.tags.cpp',
-        ],
-    },
-    {
-        slug: 'collision2Djs',
-        logoSrc: '/images/work/project/collision2Djs/collision2Djs.png',
-        logoWidth: { LARGE: 1080, MEDIUM: 1080, COMPACT: 600 },
-        desc: 'portfolio.work.collision2djs.desc',
-        previewImages: [
-            '/images/work/project/collision2Djs/preview_0.jpg',
-            '/images/work/project/collision2Djs/preview_1.jpg',
-            '/images/work/project/collision2Djs/preview_2.jpg',
-        ],
-        tags: [
-            'portfolio.work.tags.javascript',
-            'portfolio.work.tags.nodejs',
-        ],
-    },
-    {
-        slug: 'asciiTable',
-        logoSrc: '/images/work/project/asciiTable/asciitable.png',
-        logoWidth: { LARGE: 480, MEDIUM: 280, COMPACT: 280 },
-        desc: 'portfolio.work.asciitable.desc',
-        compactDesc: 'portfolio.work.asciitable.desc.short',
-        previewImages: [
-            '/images/work/project/asciiTable/preview_0.jpg',
-            '/images/work/project/asciiTable/preview_1.jpg',
-            '/images/work/project/asciiTable/preview_2.jpg',
-        ],
-        showArrow: true,
-        tags: [
-            'portfolio.work.tags.terminal',
-            'portfolio.work.tags.pure_c',
-        ],
-    },
-];
-
 export default function Work() {
-    const { t, i18n, ready } = useTranslation();
-    const [view, setView] = useState(`MEDIUM`);
+    const { t, ready } = useTranslation();
+    const [view, setView] = useState('MEDIUM');
     const [videos, setVideos] = useState([]);
     const [subscriberCount, setSubscriberCount] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
 
-    const closePreview = useCallback(() => setPreviewIndex(null), []);
+    const battleButtonRefs = useRef([]);
+    const closeButtonRef = useRef(null);
+    const lastOpenedIndexRef = useRef(null);
+
+    const openPreview = useCallback((index) => {
+        lastOpenedIndexRef.current = index;
+        setPreviewIndex(index);
+    }, []);
+
+    const closePreview = useCallback(() => {
+        setPreviewIndex(null);
+    }, []);
+
     const prevPreview = useCallback(() => setPreviewIndex(i => (i - 1 + PHOTOSHOP_BATTLES.length) % PHOTOSHOP_BATTLES.length), []);
     const nextPreview = useCallback(() => setPreviewIndex(i => (i + 1) % PHOTOSHOP_BATTLES.length), []);
 
     useEffect(() => {
-        if (previewIndex === null) return;
+        if (previewIndex === null) {
+            if (lastOpenedIndexRef.current !== null) {
+                const btn = battleButtonRefs.current[lastOpenedIndexRef.current];
+                if (btn) btn.focus();
+            }
+            return;
+        }
+
+        if (closeButtonRef.current) closeButtonRef.current.focus();
+
         const handleKey = (e) => {
             if (e.key === 'Escape') closePreview();
             if (e.key === 'ArrowLeft') prevPreview();
             if (e.key === 'ArrowRight') nextPreview();
+
+            if (e.key === 'Tab') {
+                const dialog = document.getElementById('preview-dialog');
+                if (!dialog) return;
+
+                const focusable = dialog.querySelectorAll('button, [tabindex="0"]');
+                if (focusable.length === 0) return;
+
+                const first = focusable[0];
+                const last = focusable[focusable.length - 1];
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
         };
         window.addEventListener('keydown', handleKey);
         document.body.style.overflow = 'hidden';
@@ -135,41 +90,13 @@ export default function Work() {
 
     useEffect(() => {
         const fetchYouTubeData = async () => {
-            const API_KEY = process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
-            const CHANNEL_ID = 'UCIpx-ZquNHFjjODgW5_yroQ';
-            if (!API_KEY) return;
-
             try {
-                const channelResponse = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${CHANNEL_ID}&key=${API_KEY}`);
-                const channelData = await channelResponse.json();
+                const res = await fetch('/api/youtube');
+                if (!res.ok) return;
 
-                if (channelData.items && channelData.items.length > 0) {
-                    const item = channelData.items[0];
-                    let subs = item.statistics.subscriberCount;
-                    if (subs) {
-                        if (subs >= 1000000) {
-                            subs = (subs / 1000000).toFixed(1) + 'M';
-                        } else if (subs >= 1000) {
-                            subs = (subs / 1000).toFixed(1) + 'K';
-                        }
-                        setSubscriberCount(subs);
-                    }
-
-                    const uploadsPlaylistId = item.contentDetails.relatedPlaylists.uploads;
-                    const videosResponse = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=${uploadsPlaylistId}&maxResults=6&key=${API_KEY}`);
-                    const videosData = await videosResponse.json();
-
-                    if (videosData.items) {
-                        const fetchedVideos = videosData.items.map(videoItem => ({
-                            id: videoItem.snippet.resourceId.videoId,
-                            title: videoItem.snippet.title,
-                            link: `https://www.youtube.com/watch?v=${videoItem.snippet.resourceId.videoId}`,
-                            thumbnail: videoItem.snippet.thumbnails.high?.url || videoItem.snippet.thumbnails.medium?.url,
-                            published: videoItem.snippet.publishedAt
-                        }));
-                        setVideos(fetchedVideos);
-                    }
-                }
+                const data = await res.json();
+                if (data.videos) setVideos(data.videos);
+                if (data.subscriberCount) setSubscriberCount(data.subscriberCount);
             } catch (error) {
                 console.error("Error fetching YouTube data:", error);
             }
@@ -178,24 +105,32 @@ export default function Work() {
         fetchYouTubeData();
     }, []);
 
-    if (!ready) return <></>;
+    if (!ready) return null;
+
     return (
         <>
             <div className="w-full flex flex-col items-center justify-start">
                 <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                     <Topbar />
-                    <hr className="w-full mt-5 border-portfolio-500" />
+                    <hr className="w-full mt-5 border-portfolio-500" aria-hidden="true" />
+                    <main id="main-content">
 
-                    <section>
+                    <section aria-labelledby="product-heading">
                         <div id="modeSelector" className="sticky top-4 z-10 w-full flex items-center justify-end mt-12">
-                            <div className="h-12 text-2xl text-portfolio-500 flex items-center justify-end gap-5 bg-portfolio-950 px-5 rounded-lg">
-                                <i tabIndex={0} className={`fa-solid fa-table-cells ${view === 'LARGE' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('LARGE')}></i>
-                                <i tabIndex={0} className={`fa-solid fa-grip-vertical ${view === 'MEDIUM' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('MEDIUM')}></i>
-                                <i tabIndex={0} className={`fa-solid fa-bars ${view === 'COMPACT' ? 'text-portfolio-50' : 'cursor-pointer'}`} onClick={() => setView('COMPACT')}></i>
+                            <div className="h-12 text-2xl text-portfolio-500 flex items-center justify-end gap-5 bg-portfolio-950 px-5 rounded-lg" role="toolbar" aria-label="View mode">
+                                <button onClick={() => setView('LARGE')} aria-label="Large view" aria-pressed={view === 'LARGE'} className={view === 'LARGE' ? 'text-portfolio-50' : 'cursor-pointer'}>
+                                    <i className="fa-solid fa-table-cells" aria-hidden="true"></i>
+                                </button>
+                                <button onClick={() => setView('MEDIUM')} aria-label="Medium view" aria-pressed={view === 'MEDIUM'} className={view === 'MEDIUM' ? 'text-portfolio-50' : 'cursor-pointer'}>
+                                    <i className="fa-solid fa-grip-vertical" aria-hidden="true"></i>
+                                </button>
+                                <button onClick={() => setView('COMPACT')} aria-label="Compact view" aria-pressed={view === 'COMPACT'} className={view === 'COMPACT' ? 'text-portfolio-50' : 'cursor-pointer'}>
+                                    <i className="fa-solid fa-bars" aria-hidden="true"></i>
+                                </button>
                             </div>
                         </div>
 
-                        <a href="#product" className="text-3xl md:text-5xl font-medium" id="product">{t('portfolio.work.project.package')}</a>
+                        <h2 id="product-heading" className="text-3xl md:text-5xl font-medium">{t('portfolio.work.project.package')}</h2>
 
                         {PROJECTS.map((project, index) => (
                             <ProjectCard
@@ -206,99 +141,112 @@ export default function Work() {
                             />
                         ))}
 
-                        <div className="mt-8 pl-5 border-dashed border-l-2 border-portfolio-500 dark:border-portfolio-500">
+                        <div className="mt-8 pl-5 border-dashed border-l-2 border-portfolio-500">
                             <p className="dark:text-white font-medium text-lg">{t('portfolio.work.help.title')} </p>
-                            <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.desc')}</p>
-                            <p className="text-portfolio-500 dark:text-portfolio-500">{t('portfolio.work.help.contact')}  <a className="underline text-yellow-700 font-semibold" href="/#contact">{t('portfolio.work.help.come.say.hi')}</a></p>
+                            <p className="text-portfolio-500">{t('portfolio.work.help.desc')}</p>
+                            <p className="text-portfolio-500">{t('portfolio.work.help.contact')}  <Link className="underline text-yellow-700 font-semibold" href="/contact">{t('portfolio.work.help.come.say.hi')}</Link></p>
                         </div>
                     </section>
 
-                    <a href="#contentCreator" className="text-3xl md:text-5xl font-medium mt-16" id="contentCreator">{t('portfolio.work.content.creator')}</a>
-                    <div className="w-full">
-                        <div className="border-l-2 pl-5 mt-5 border-portfolio-500 dark:border-portfolio-500 flex flex-col gap-5">
-                            <div className="w-full flex flex-col md:flex-row gap-4">
-                                <div className="w-auto">
-                                    <Image src={"/images/work/tamilgamersnetwork.jpg"} alt={""} draggable="false" width={"100"} height={"100"} />
+                    <section aria-labelledby="content-creator-heading" className="mt-16">
+                        <h2 id="content-creator-heading" className="text-3xl md:text-5xl font-medium">{t('portfolio.work.content.creator')}</h2>
+                        <div className="w-full">
+                            <div className="border-l-2 pl-5 mt-5 border-portfolio-500 flex flex-col gap-5">
+                                <div className="w-full flex flex-col md:flex-row gap-4">
+                                    <div className="w-auto">
+                                        <Image src="/images/work/tamilgamersnetwork.jpg" alt="Tamil Gamers Network logo" draggable="false" width={100} height={100} />
+                                    </div>
+                                    <div className="w-auto text-start">
+                                        <p className="text-portfolio-50 text-2xl font-medium">{t('portfolio.work.tgn.name')}</p>
+                                        <a href="https://www.youtube.com/@TamilGamersNetworks/videos" target="_blank" rel="noopener noreferrer" className="text-red-500 text-lg"><i className="fa-brands fa-youtube text-red-500 text-lg" aria-hidden="true"></i> {t('portfolio.work.tgn.content_creation')} <i className="fa-solid fa-up-right-from-square text-sm" aria-hidden="true"></i></a>
+                                        <p className="text-portfolio-500 text-lg">{subscriberCount ? `${subscriberCount} ${t('portfolio.work.subscribers')}` : t('portfolio.work.subscribers')}</p>
+                                    </div>
+                                    <div className="w-3/6">
+                                        <p className="text-portfolio-500 text-lg line-clamp-4">{t('portfolio.work.tgn.desc')}</p>
+                                    </div>
                                 </div>
-                                <div className="w-auto text-start">
-                                    <p className="text-portfolio-50 text-2xl font-medium">{t('portfolio.work.tgn.name')}</p>
-                                    <a href="https://www.youtube.com/@TamilGamersNetworks/videos" target="_blank" className="text-red-500 text-lg"><i className="fa-brands fa-youtube text-red-500 text-lg"></i> {t('portfolio.work.tgn.content_creation')} <i className="fa-solid fa-up-right-from-square text-sm"></i></a>
-                                    <p className="text-portfolio-500 text-lg">{subscriberCount ? `${subscriberCount} ${t('portfolio.work.subscribers')}` : t('portfolio.work.subscribers')}</p>
-                                </div>
-                                <div className="w-3/6">
-                                    <p className="text-portfolio-500 text-lg line-clamp-4">{t('portfolio.work.tgn.desc')}</p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                                    {videos.map((video) => (
+                                        <a key={video.id} href={video.link} target="_blank" rel="noopener noreferrer" className="block group">
+                                            <div className="relative aspect-video w-full overflow-hidden border border-portfolio-500/30">
+                                                <Image
+                                                    src={video.thumbnail}
+                                                    alt={video.title}
+                                                    fill
+                                                    className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                                />
+                                                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
+                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                    <i className="fa-brands fa-youtube text-red-600 text-4xl drop-shadow-lg" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                            <p className="mt-2 text-portfolio-500 text-sm font-medium line-clamp-2 group-hover:text-portfolio-900 dark:group-hover:text-portfolio-100 transition-colors">
+                                                {video.title}
+                                            </p>
+                                        </a>
+                                    ))}
                                 </div>
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-                                {videos.map((video) => (
-                                    <a key={video.id} href={video.link} target="_blank" rel="noopener noreferrer" className="block group">
-                                        <div className="relative aspect-video w-full overflow-hidden border border-portfolio-500/30">
-                                            <Image
-                                                src={video.thumbnail}
-                                                alt={video.title}
-                                                fill
-                                                className="object-cover transition-transform duration-300 group-hover:scale-105"
-                                            />
-                                            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
-                                            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                <i className="fa-brands fa-youtube text-red-600 text-4xl drop-shadow-lg"></i>
-                                            </div>
+                        </div>
+                    </section>
+
+                    <section aria-labelledby="others-heading" className="mt-16">
+                        <h2 id="others-heading" className="text-3xl md:text-5xl font-medium">{t('portfolio.work.others')}</h2>
+                        <div className="border-l-2 pl-5 mt-8 border-portfolio-500">
+                            <h3 className="text-3xl font-semibold">{t('portfolio.work.photoshop.battle')}</h3>
+                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.photoshop.battle.desc')}</p>
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
+                                {PHOTOSHOP_BATTLES.map((battle, index) => (
+                                    <button
+                                        key={index}
+                                        ref={el => battleButtonRefs.current[index] = el}
+                                        type="button"
+                                        className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30 group text-left"
+                                        onClick={() => openPreview(index)}
+                                        aria-label={`View photoshop battle ${index + 1} fullscreen`}
+                                    >
+                                        <ImageDiff leftImageSrc={battle.left} rightImageSrc={battle.right} />
+                                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-200 pointer-events-none flex items-center justify-center">
+                                            <i className="fa-solid fa-expand text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg" aria-hidden="true"></i>
                                         </div>
-                                        <p className="mt-2 text-portfolio-500 text-sm font-medium line-clamp-2 group-hover:text-portfolio-900 dark:group-hover:text-portfolio-100 transition-colors">
-                                            {video.title}
-                                        </p>
-                                    </a>
+                                    </button>
                                 ))}
                             </div>
                         </div>
-                    </div>
-
-                    <a href="#others" className="text-3xl md:text-5xl font-medium mt-16" id="others">{t('portfolio.work.others')}</a>
-                    <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                        <p className="text-3xl font-semibold">{t('portfolio.work.photoshop.battle')}</p>
-                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.photoshop.battle.desc')}</p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-                            {PHOTOSHOP_BATTLES.map((battle, index) => (
-                                <div key={index} className="relative aspect-video w-full overflow-hidden rounded-lg border border-portfolio-500/30 group" onClick={() => setPreviewIndex(index)}>
-                                    <ImageDiff leftImageSrc={battle.left} rightImageSrc={battle.right} />
-                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-200 pointer-events-none flex items-center justify-center">
-                                        <i className="fa-solid fa-expand text-white text-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-200 drop-shadow-lg"></i>
+                        <div className="border-l-2 pl-5 mt-8 border-portfolio-500">
+                            <h3 className="text-3xl font-semibold">{t('portfolio.work.steam.guide')}</h3>
+                            <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.desc')}</p>
+                            <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2732039208"  tabIndex={-1} target="_blank" rel="noopener noreferrer">
+                                <div className="flex gap-2 mt-5" tabIndex={0}>
+                                    <Image src="/images/work/gameguide1.jpg" alt="" height={125} width={125} className="shrink-0" />
+                                    <div>
+                                        <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad" aria-hidden="true"></i> {t('portfolio.work.steam.guide.skyrim.game')}</p>
+                                        <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.skyrim.title')}</p>
+                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.skyrim.desc1')}</p>
+                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.skyrim.desc2')}</p>
                                     </div>
                                 </div>
-                            ))}
+                            </a>
+                            <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3326170636" tabIndex={-1} target="_blank" rel="noopener noreferrer">
+                                <div className="flex gap-2 mt-5" tabIndex={0}>
+                                    <Image src="/images/work/gameguide2.jpg" alt="" height={125} width={125} className="shrink-0" />
+                                    <div>
+                                        <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad" aria-hidden="true"></i> {t('portfolio.work.steam.guide.kcd.game')}</p>
+                                        <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.kcd.title')}</p>
+                                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.kcd.desc')}</p>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
-                    </div>
-                    <div className="border-l-2 pl-5 mt-8 border-portfolio-500 dark:border-portfolio-500">
-                        <p className="text-3xl font-semibold">{t('portfolio.work.steam.guide')}</p>
-                        <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.desc')}</p>
-                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2732039208" target="_blank" rel="noopener noreferrer">
-                            <div className="flex gap-2 mt-5">
-                                <Image src="/images/work/gameguide1.jpg" alt="" height={125} width={125} className="shrink-0" />
-                                <div>
-                                    <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad"></i> {t('portfolio.work.steam.guide.skyrim.game')}</p>
-                                    <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.skyrim.title')}</p>
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.skyrim.desc1')}</p>
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.skyrim.desc2')}</p>
-                                </div>
-                            </div>
-                        </a>
-                        <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3326170636" target="_blank" rel="noopener noreferrer">
-                            <div className="flex gap-2 mt-5">
-                                <Image src="/images/work/gameguide2.jpg" alt="" height={125} width={125} className="shrink-0" />
-                                <div>
-                                    <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad"></i> {t('portfolio.work.steam.guide.kcd.game')}</p>
-                                    <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.kcd.title')}</p>
-                                    <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.kcd.desc')}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    </section>
+
+                    </main>
                     <Footer />
                 </div>
             </div>
 
             {previewIndex !== null && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80" onClick={closePreview}>
+                <div id="preview-dialog" className="fixed inset-0 z-50 flex items-center justify-center bg-black/80" role="dialog" aria-modal="true" aria-label={`Photoshop battle ${previewIndex + 1} of ${PHOTOSHOP_BATTLES.length}`} onClick={closePreview}>
                     <div className="relative w-[90vw] max-w-5xl aspect-video" onClick={(e) => e.stopPropagation()}>
                         <ImageDiff
                             leftImageSrc={PHOTOSHOP_BATTLES[previewIndex].left}
@@ -306,19 +254,19 @@ export default function Work() {
                         />
                     </div>
 
-                    <button onClick={closePreview} className="absolute top-6 right-6 text-white text-3xl hover:text-portfolio-300 transition-colors" aria-label="Close preview">
-                        <i className="fa-solid fa-xmark"></i>
+                    <button ref={closeButtonRef} onClick={closePreview} className="absolute top-6 right-6 text-white text-3xl hover:text-portfolio-300 transition-colors" aria-label="Close preview">
+                        <i className="fa-solid fa-xmark" aria-hidden="true"></i>
                     </button>
 
                     <button onClick={(e) => { e.stopPropagation(); prevPreview(); }} className="absolute left-4 top-1/2 -translate-y-1/2 text-white text-3xl hover:text-portfolio-300 transition-colors w-12 h-12 flex items-center justify-center" aria-label="Previous image">
-                        <i className="fa-solid fa-chevron-left"></i>
+                        <i className="fa-solid fa-chevron-left" aria-hidden="true"></i>
                     </button>
 
                     <button onClick={(e) => { e.stopPropagation(); nextPreview(); }} className="absolute right-4 top-1/2 -translate-y-1/2 text-white text-3xl hover:text-portfolio-300 transition-colors w-12 h-12 flex items-center justify-center" aria-label="Next image">
-                        <i className="fa-solid fa-chevron-right"></i>
+                        <i className="fa-solid fa-chevron-right" aria-hidden="true"></i>
                     </button>
 
-                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-sm">
+                    <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-white text-sm" aria-live="polite">
                         {previewIndex + 1} / {PHOTOSHOP_BATTLES.length}
                     </div>
                 </div>

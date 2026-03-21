@@ -1,10 +1,13 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-    darkMode:"class",
+    darkMode: "class",
     content: [
         "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    ],
+    safelist: [
+        { pattern: /text-purple-(50|100|200|300|400|500|600|700|800|900|950)/ },
     ],
     theme: {
         extend: {
@@ -12,15 +15,15 @@ module.exports = {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
                 "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
-            fontFamily:{
+            fontFamily: {
                 portfolio: ['portfolio', 'sans-serif'],
             },
             animation: {
                 'spin-slow': 'spin 20s linear infinite',
                 'spin-fast': 'spin 0.5s linear infinite',
             },
-            colors:{
-                portfolio:{ 
+            colors: {
+                portfolio: {
                     50: "white",
                     100: "#c1c1c1",
                     300: "#a3a3a3",
