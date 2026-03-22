@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 
-const RATE_LIMIT_WINDOW = 60 * 1000;
 const MAX_REQUESTS = 3;
+const RATE_LIMIT_WINDOW = 60 * 1000;
 const requestLog = new Map();
 
 function isRateLimited(ip) {
