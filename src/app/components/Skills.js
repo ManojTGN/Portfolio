@@ -1,14 +1,13 @@
-import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next";
 import Image from 'next/image';
 import { useTheme } from "next-themes";
 
 export default function Skills() {
-    const { t, i18n, ready } = useTranslation();
-    const { theme, setTheme } = useTheme();
+    const { t } = useTranslation();
+    const { theme } = useTheme();
 
-
-    return <>
+    return (
+        <>
         <p className="text-xl text-portfolio-950 dark:text-white font-medium mt-5">{t('portfolio.skills.frontend.development')}</p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-1 gap-5 md:gap-0">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
@@ -128,5 +127,6 @@ export default function Skills() {
                 </p>
             </div>
         </div>
-    </>
+        </>
+    );
 }

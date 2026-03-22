@@ -1,5 +1,6 @@
 'use client'
 
+import Link from "next/link";
 import { useTranslation } from "react-i18next";
 import Image from "next/image";
 import Carousel from "./Carousel";
@@ -9,25 +10,23 @@ const BORDER = "border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500";
 export default function ProjectCard({ project, mode, isFirst }) {
     const { t } = useTranslation();
 
-    const marginTop = isFirst
-        ? 'mt-5'
-        : mode === 'LARGE' ? 'mt-32' : mode === 'MEDIUM' ? 'mt-16' : 'mt-8';
-
     const logoWidth = project.logoWidth?.[mode] ?? 1080;
+    const marginTop = isFirst ? 'mt-5'
+                    : mode === 'LARGE' ? 'mt-32' : mode === 'MEDIUM' ? 'mt-16' : 'mt-8';
 
     if (mode === 'LARGE') {
         return (
             <>
-                <a href={`/work/${project.slug}`}>
+                <Link href={`/work/${project.slug}`} className="inline-block px-2 py-1">
                     <div className={`${BORDER} ${marginTop}`}>
                         <Image src={project.logoSrc} alt="" draggable="false" width={logoWidth} height={200} />
                         <p className="text-portfolio-500 text-lg">{t(project.desc)}</p>
                     </div>
-                </a>
+                </Link>
                 <div className={`aspect-video ${BORDER} pt-3`}>
                     <Carousel showArrow={project.showArrow} images={project.previewImages} />
                 </div>
-                <a href={`/work/${project.slug}`}>
+                <Link href={`/work/${project.slug}`} className="inline-block px-2 py-1">
                     <div className={`${BORDER} pt-3`}>
                         {project.longDesc && (
                             <p className="text-portfolio-500 text-lg">{t(project.longDesc)}</p>
@@ -40,7 +39,7 @@ export default function ProjectCard({ project, mode, isFirst }) {
                             ))}
                         </div>
                     </div>
-                </a>
+                </Link>
             </>
         );
     }
@@ -52,7 +51,7 @@ export default function ProjectCard({ project, mode, isFirst }) {
                     <Carousel showArrow={project.showArrow} images={project.previewImages} />
                 </div>
                 <div className="w-full">
-                    <a href={`/work/${project.slug}`}>
+                    <Link href={`/work/${project.slug}`} className="inline-block px-2 py-1">
                         <Image src={project.logoSrc} alt="" draggable="false" width={logoWidth} height={200} />
                         <p className={`text-portfolio-500 text-lg ${project.longDesc ? 'line-clamp-2' : 'line-clamp-3'}`}>
                             {t(project.desc)}
@@ -67,18 +66,18 @@ export default function ProjectCard({ project, mode, isFirst }) {
                                 </span>
                             ))}
                         </div>
-                    </a>
+                    </Link>
                 </div>
             </div>
         );
     }
 
     return (
-        <a href={`/work/${project.slug}`}>
+        <Link href={`/work/${project.slug}`} className="inline-block px-2 py-1">
             <div className={`${BORDER} ${marginTop}`}>
                 <Image src={project.logoSrc} alt="" draggable="false" width={logoWidth} height={200} />
                 <p className="text-portfolio-500 text-lg">{t(project.compactDesc || project.desc)}</p>
             </div>
-        </a>
+        </Link>
     );
 }

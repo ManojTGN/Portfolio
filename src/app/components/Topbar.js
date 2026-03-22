@@ -1,22 +1,33 @@
-import { useEffect, useState } from "react";
+'use client'
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useTranslation } from "react-i18next";
 
+const BASE_STYLE = "dark:hover:text-portfolio-50 hover:underline p-1";
+const ACTIVE_STYLE = "text-portfolio-950 dark:text-white font-medium underline cursor-default";
+const INACTIVE_STYLE = "dark:text-portfolio-500 cursor-pointer";
+
+function NavLink({ href, isActive, children }) {
+    return (
+        <Link href={href} className={`${BASE_STYLE} ${isActive ? ACTIVE_STYLE : INACTIVE_STYLE}`}>
+            {children}
+        </Link>
+    );
+}
+
 export default function Topbar() {
-    const { t, i18n, ready } = useTranslation();
-    const [pathName, setPathName] = useState("");
+    const { t } = useTranslation();
+    const pathName = usePathname();
 
-    useEffect(() => {
-        setPathName(window.location.pathname);
-    }, []);
-
-    return <>
-        <div className="w-full flex items-center justify-end gap-2 md:gap-5 pt-2 text-sm md:text-base">
-            <a href="/" className={"dark:hover:text-portfolio-50 hover:underline p-1" + (pathName === '/' ? " text-portfolio-950 dark:text-white font-medium underline cursor-default" : " dark:text-portfolio-500 cursor-pointer")}>{t('portfolio.topbar.home')}</a>
-            <a href="/work" className={"dark:hover:text-portfolio-50 hover:underline p-1" + (pathName === '/work' ? " text-portfolio-950 dark:text-white font-medium underline cursor-default" : " dark:text-portfolio-500 cursor-pointer")}>{t('portfolio.topbar.work')}</a>
-            <a href="/#contact" className={"text-portfolio-950 dark:text-portfolio-500 dark:hover:text-portfolio-50 hover:underline p-1"}>{t('portfolio.topbar.contact')}</a>
-            <div className="w-[1px] border-2 rounded-full dark:border-portfolio-500"></div>
-            <a href="/blogs" className={"dark:hover:text-portfolio-50 hover:underline p-1" + (pathName === '/blogs' ? " text-portfolio-950 dark:text-white font-medium underline cursor-default" : " dark:text-portfolio-500 cursor-pointer")}>{t('portfolio.topbar.blogs')}</a>
-            <a href="/accessibility" className={"dark:hover:text-portfolio-50 hover:underline p-1" + (pathName === '/accessibility' ? " text-portfolio-950 dark:text-white font-medium underline cursor-default" : " dark:text-portfolio-500 cursor-pointer")}>{t('portfolio.footer.a11y')}</a>
-        </div>
-    </>
+    return (
+        <nav className="w-full flex items-center justify-end gap-2 md:gap-5 pt-2 text-sm md:text-base">
+            <NavLink href="/" isActive={pathName === '/'}>{t('portfolio.topbar.home')}</NavLink>
+            <NavLink href="/work" isActive={pathName.startsWith('/work')}>{t('portfolio.topbar.work')}</NavLink>
+            <NavLink href="/contact" isActive={pathName === '/contact'}>{t('portfolio.topbar.contact')}</NavLink>
+            <div className="w-[1px] border-2 rounded-full dark:border-portfolio-500" aria-hidden="true"></div>
+            <NavLink href="/blogs" isActive={pathName === '/blogs'}>{t('portfolio.topbar.blogs')}</NavLink>
+            <NavLink href="/accessibility" isActive={pathName === '/accessibility'}>{t('portfolio.footer.a11y')}</NavLink>
+        </nav>
+    );
 }

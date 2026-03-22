@@ -3,12 +3,13 @@
 import { useTranslation } from "react-i18next";
 
 export default function Experiences() {
-    const { t, i18n, ready } = useTranslation();
+    const { t } = useTranslation();
 
-    return <>
-        <div className="mt-5 border-l pl-5 border-portfolio-500 dark:border-portfolio-500">
+    return (
+        <>
+        <div className="mt-5 border-l pl-5 border-portfolio-500">
             <p className="text-portfolio-500 dark:text-portfolio-500">
-                <i className="fa-solid fa-location-dot"></i> {t('portfolio.experience.zoho.location')}
+                <i className="fa-solid fa-location-dot" aria-hidden="true"></i> {t('portfolio.experience.zoho.location')}
             </p>
             <div className="flex flex-col sm:flex-row">
                 <p className="w-full dark:text-white font-medium text-xl">{t('portfolio.experience.zoho.fullname')}</p>
@@ -21,9 +22,9 @@ export default function Experiences() {
                 {t('portfolio.experience.zoho.desc')}
             </p>
         </div>
-        <div className="mt-10 border-l pl-5 border-portfolio-500 dark:border-portfolio-500">
+        <div className="mt-10 border-l pl-5 border-portfolio-500">
             <p className="text-portfolio-500 dark:text-portfolio-500">
-                <i className="fa-solid fa-location-dot"></i> {t('portfolio.experience.nit.location')}
+                <i className="fa-solid fa-location-dot" aria-hidden="true"></i> {t('portfolio.experience.nit.location')}
             </p>
             <div className="flex flex-col sm:flex-row">
                 <p className="w-full dark:text-white font-medium text-xl">{t('portfolio.experience.nit.fullname')}</p>
@@ -37,4 +38,5 @@ export default function Experiences() {
             </p>
         </div>
     </>
+    );
 }
