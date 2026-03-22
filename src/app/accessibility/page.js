@@ -261,6 +261,14 @@ export default function Accessibility() {
                         </div>
                     </div>
 
+                    <div className="flex flex-col md:flex-row items-start w-full mt-10 gap-2" id="mobileViewport">
+                        <div className="w-full">
+                            <h2 className="w-full font-medium text-2xl dark:text-white">{t('portfolio.a11y.mobile.viewport')}</h2>
+                            <p className="w-full text-lg text-portfolio-500 mt-2">{t('portfolio.a11y.mobile.viewport.desc')}</p>
+                            <p className="w-full text-sm text-portfolio-400 mt-3 italic">{t('portfolio.a11y.mobile.viewport.note')}</p>
+                        </div>
+                    </div>
+
                     </main>
                     <div className="mt-20">
                         <Footer />
