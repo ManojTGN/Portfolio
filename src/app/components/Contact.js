@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 
 export default function Contact() {
     const { t, i18n } = useTranslation();
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
     const router = useRouter();
 
     const [name, setName] = useState('');
@@ -237,7 +237,7 @@ export default function Contact() {
                             onChange={onReCAPTCHAChange}
                             onExpired={onReCAPTCHAExpired}
                             hl={i18n.language}
-                            theme={theme === 'dark' ? 'dark' : 'light'}
+                            theme={resolvedTheme}
                         />
                     </div>
 

@@ -15,8 +15,8 @@ export default function ContactPage() {
         <div className="w-full flex flex-col items-center justify-start">
             <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                 <Topbar />
-                <hr className="w-full mt-5 border-portfolio-500" aria-hidden="true" />
                 <main id="main-content">
+                <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
                     <section className="mt-16" aria-labelledby="contact-heading">
                         <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-2">
                             <h2 id="contact-heading" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.contact')}</h2>

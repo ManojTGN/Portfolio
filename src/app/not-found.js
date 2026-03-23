@@ -40,8 +40,8 @@ export default function NotFound() {
                 <span aria-hidden="true">4</span>
             </h1>
             <p className="text-xl font-medium text-portfolio-700">{t('portfolio.notfound.desc')}</p>
-            <hr className="w-1/2 mt-2 border-portfolio-500" aria-hidden="true" />
-            <Topbar />
+            <div className="wavy-line w-1/2 mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
+            <div> <Topbar /> </div>
         </main>
     );
 }

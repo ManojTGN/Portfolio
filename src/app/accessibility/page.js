@@ -12,7 +12,6 @@ const displayNames = new Intl.DisplayNames(["en"], { type: "language" });
 
 export default function Accessibility() {
     const { t, i18n, ready } = useTranslation();
-
     function changeLanguage(event) {
         i18n.changeLanguage(event.target.value);
     }
@@ -45,6 +44,13 @@ export default function Accessibility() {
     function changeTheme(event) {
         setTheme(event.target.value);
     }
+
+    const [pageTransition, setPageTransition] = useState('on');
+
+    const handlePageTransitionChange = (value) => {
+        setPageTransition(value);
+        localStorage.setItem('pageTransition', value);
+    };
 
     const [cursorSize, setCursorSize] = useState('default');
 
@@ -86,6 +92,11 @@ export default function Accessibility() {
                 document.documentElement.setAttribute('data-cursor-size', savedCursorSize);
             }
         }
+
+        const savedPageTransition = localStorage.getItem('pageTransition');
+        if (savedPageTransition) {
+            setPageTransition(savedPageTransition);
+        }
     }, []);
 
     if (!ready) return null;
@@ -94,8 +105,8 @@ export default function Accessibility() {
         <div className="w-full flex flex-col items-center justify-center">
             <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col justify-center">
                     <Topbar />
-                    <hr className="w-full mt-5 dark:border-portfolio-500" aria-hidden="true" />
                     <main id="main-content">
+                    <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
                     <div className="flex items-center w-full mt-16 gap-2" id="accessibility">
                         <h1 className="w-full font-medium text-4xl dark:text-white">{t('portfolio.topbar.accessibility')}</h1>
                     </div>
@@ -247,6 +258,29 @@ export default function Accessibility() {
                                     <input onChange={() => handleCursorSizeChange('large')} type="radio" id="largeCursor" name="cursorSize" value="large" className="sr-only peer" checked={cursorSize === 'large'} />
                                     <label htmlFor="largeCursor" className="peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500 peer-focus-visible:ring-offset-2 inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
                                         {t('portfolio.a11y.cursor.size.large')}
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div className="flex flex-col md:flex-row items-start md:items-center w-full mt-10 gap-2" id="pageTransition">
+                        <div className="w-full">
+                            <h2 className="w-full font-medium text-2xl dark:text-white">{t('portfolio.a11y.page.transition')}</h2>
+                            <p className="w-full text-lg text-portfolio-500">{t('portfolio.a11y.page.transition.desc')}</p>
+                        </div>
+                        <div className="ml-auto w-full p-2">
+                            <ul className="grid w-full gap-6 md:grid-cols-2" role="radiogroup" aria-label={t('portfolio.a11y.page.transition')}>
+                                <li>
+                                    <input onChange={() => handlePageTransitionChange('on')} type="radio" id="transitionOn" name="pageTransition" value="on" className="sr-only peer" checked={pageTransition === 'on'} />
+                                    <label htmlFor="transitionOn" className="peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500 peer-focus-visible:ring-offset-2 inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
+                                        {t('portfolio.a11y.page.transition.on')}
+                                    </label>
+                                </li>
+                                <li>
+                                    <input onChange={() => handlePageTransitionChange('off')} type="radio" id="transitionOff" name="pageTransition" value="off" className="sr-only peer" checked={pageTransition === 'off'} />
+                                    <label htmlFor="transitionOff" className="peer-focus-visible:ring-2 peer-focus-visible:ring-blue-500 peer-focus-visible:ring-offset-2 inline-flex items-center justify-between w-full p-2 dark:text-portfolio-500 dark:bg-portfolio-900 border dark:border-gray-200 cursor-pointer peer-checked:border-blue-600 peer-checked:border-2 peer-checked:text-blue-600 dark:hover:bg-gray-700">
+                                        {t('portfolio.a11y.page.transition.off')}
                                     </label>
                                 </li>
                             </ul>

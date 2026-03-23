@@ -4,7 +4,7 @@ import { useTheme } from "next-themes";
 
 export default function Skills() {
     const { t } = useTranslation();
-    const { theme } = useTheme();
+    const { resolvedTheme } = useTheme();
 
     return (
         <>
@@ -17,7 +17,7 @@ export default function Skills() {
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Next.js.svg" alt="" width={30} height={30} draggable={false} className={theme === 'dark' ? "invert" : ""} />
+                    <Image src="/images/work/brand/Next.js.svg" alt="" width={30} height={30} draggable={false} className={resolvedTheme === 'dark' ? "invert" : ""} />
                     {t('portfolio.skills.nextjs')}
                 </p>
             </div>

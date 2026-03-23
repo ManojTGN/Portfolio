@@ -112,19 +112,19 @@ export default function Work() {
             <div className="w-full flex flex-col items-center justify-start">
                 <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                     <Topbar />
-                    <hr className="w-full mt-5 border-portfolio-500" aria-hidden="true" />
                     <main id="main-content">
+                    <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
 
                     <section aria-labelledby="product-heading">
                         <div id="modeSelector" className="sticky top-4 z-10 w-full flex items-center justify-end mt-12">
-                            <div className="h-12 text-2xl text-portfolio-500 flex items-center justify-end gap-5 bg-portfolio-950 px-5 rounded-lg" role="toolbar" aria-label="View mode">
-                                <button onClick={() => setView('LARGE')} aria-label="Large view" aria-pressed={view === 'LARGE'} className={view === 'LARGE' ? 'text-portfolio-50' : 'cursor-pointer'}>
+                            <div className="h-12 text-2xl text-portfolio-500 flex items-center justify-end gap-5 dark:bg-portfolio-950 bg-portfolio-50 px-5 rounded-lg" role="toolbar" aria-label="View mode">
+                                <button onClick={() => setView('LARGE')} aria-label="Large view" aria-pressed={view === 'LARGE'} className={view === 'LARGE' ? 'dark:text-portfolio-50 text-portfolio-950' : ' dark:text-portfolio-500 text-portfolio-800 cursor-pointer'}>
                                     <i className="fa-solid fa-table-cells" aria-hidden="true"></i>
                                 </button>
-                                <button onClick={() => setView('MEDIUM')} aria-label="Medium view" aria-pressed={view === 'MEDIUM'} className={view === 'MEDIUM' ? 'text-portfolio-50' : 'cursor-pointer'}>
+                                <button onClick={() => setView('MEDIUM')} aria-label="Medium view" aria-pressed={view === 'MEDIUM'} className={view === 'MEDIUM' ? 'dark:text-portfolio-50 text-portfolio-950' : ' dark:text-portfolio-500 text-portfolio-800 cursor-pointer'}>
                                     <i className="fa-solid fa-grip-vertical" aria-hidden="true"></i>
                                 </button>
-                                <button onClick={() => setView('COMPACT')} aria-label="Compact view" aria-pressed={view === 'COMPACT'} className={view === 'COMPACT' ? 'text-portfolio-50' : 'cursor-pointer'}>
+                                <button onClick={() => setView('COMPACT')} aria-label="Compact view" aria-pressed={view === 'COMPACT'} className={view === 'COMPACT' ? 'dark:text-portfolio-50 text-portfolio-950' : ' dark:text-portfolio-500 text-portfolio-800 cursor-pointer'}>
                                     <i className="fa-solid fa-bars" aria-hidden="true"></i>
                                 </button>
                             </div>
