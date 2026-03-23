@@ -26,9 +26,9 @@ export default function ProjectPage({ params }) {
         <div className="w-full flex flex-col items-center justify-start">
             <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                 <Topbar />
-                <hr className="w-full mt-5 border-portfolio-500" aria-hidden="true" />
 
                 <main id="main-content">
+                <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
                 <div className="flex items-center justify-between mt-6">
                     <Link href="/work" className="flex items-center gap-2 text-portfolio-500 hover:text-portfolio-300 transition-colors w-fit">
                         <i className="fa-solid fa-arrow-left text-sm" aria-hidden="true"></i>

@@ -20,7 +20,7 @@ export default function Footer() {
 
     return (
         <footer>
-            <hr className="w-full mt-5 border-portfolio-500 dark:border-portfolio-500" />
+            <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
             <div className="w-full text-portfolio-900 dark:text-portfolio-500 flex items-center gap-2">
                 <div className="w-full flex items-center gap-1">
                     <i className="fa-regular fa-copyright mt-1" aria-hidden="true"></i>

@@ -10,6 +10,7 @@ import Skills from "./components/Skills";
 import Experiences from "./components/Experiences";
 import Footer from "./components/Footer";
 import Contact from "./components/Contact";
+import Timeline from "./components/TimeLine";
 
 export default function Home() {
     const { t, ready } = useTranslation();
@@ -38,7 +39,7 @@ export default function Home() {
                         <span className="text-portfolio-950 dark:text-portfolio-500 font-medium"><i className="fa-solid fa-location-dot" aria-hidden="true"></i> {t('portfolio.location')}</span>
                     </div>
 
-                    <hr className="w-full mt-5 border-portfolio-950 dark:border-portfolio-500" aria-hidden="true" />
+                    <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
 
                     <section id="aboutMe" className="mt-16" aria-labelledby="aboutMe-heading">
                         <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-2">
@@ -81,6 +82,7 @@ export default function Home() {
                             <h2 id="experience-heading" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.experience')}</h2>
                             <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.experience.fun')}</p>
                         </div>
+                        <Timeline />
                         <Experiences />
                     </section>
 

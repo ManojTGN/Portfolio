@@ -105,8 +105,8 @@ export default function Accessibility() {
         <div className="w-full flex flex-col items-center justify-center">
             <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col justify-center">
                     <Topbar />
-                    <hr className="w-full mt-5 dark:border-portfolio-500" aria-hidden="true" />
                     <main id="main-content">
+                    <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
                     <div className="flex items-center w-full mt-16 gap-2" id="accessibility">
                         <h1 className="w-full font-medium text-4xl dark:text-white">{t('portfolio.topbar.accessibility')}</h1>
                     </div>
