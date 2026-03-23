@@ -25,7 +25,7 @@ export default function Topbar() {
             <NavLink href="/" isActive={pathName === '/'}>{t('portfolio.topbar.home')}</NavLink>
             <NavLink href="/work" isActive={pathName.startsWith('/work')}>{t('portfolio.topbar.work')}</NavLink>
             <NavLink href="/contact" isActive={pathName === '/contact'}>{t('portfolio.topbar.contact')}</NavLink>
-            <div className="w-[1px] border-2 rounded-full dark:border-portfolio-500" aria-hidden="true"></div>
+            <div className="w-[1px] border-2 rounded-full dark:border-portfolio-500 border-portfolio-950" aria-hidden="true"></div>
             <NavLink href="/blogs" isActive={pathName === '/blogs'}>{t('portfolio.topbar.blogs')}</NavLink>
             <NavLink href="/accessibility" isActive={pathName === '/accessibility'}>{t('portfolio.footer.a11y')}</NavLink>
         </nav>
