@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import Image from "next/image";
@@ -12,6 +12,8 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
     const activeIndexRef = useRef(0);
     const slideWidthRef = useRef(0);
     const intervalRef = useRef(null);
+    const autoScrollControls = useRef({ start: () => {}, stop: () => {} });
+    const [activeIndex, setActiveIndex] = useState(0);
 
     useEffect(() => {
         if (!containerRef.current || images.length === 0) return;
@@ -23,9 +25,11 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
         slideWidthRef.current = container.offsetWidth;
 
         const moveToIndex = (index) => {
-            activeIndexRef.current = gsap.utils.wrap(0, slideCount)(index);
+            const next = gsap.utils.wrap(0, slideCount)(index);
+            activeIndexRef.current = next;
+            setActiveIndex(next);
             gsap.to(container, {
-                x: -activeIndexRef.current * slideWidthRef.current,
+                x: -next * slideWidthRef.current,
                 duration: 0.5,
                 ease: "power3.out",
             });
@@ -64,6 +68,8 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
             clearInterval(intervalRef.current);
         };
 
+        autoScrollControls.current = { start: startAutoScroll, stop: stopAutoScroll };
+
         if (autoScroll) startAutoScroll();
 
         return () => {
@@ -79,6 +85,7 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
 
         const wrapped = gsap.utils.wrap(0, images.length)(nextIndex);
         activeIndexRef.current = wrapped;
+        setActiveIndex(wrapped);
         gsap.to(container, {
             x: -wrapped * slideWidthRef.current,
             duration: 0.2,
@@ -91,8 +98,22 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
 
     if (images.length === 0) return null;
 
+    const pauseAutoScroll = () => autoScrollControls.current.stop();
+    const resumeAutoScroll = () => {
+        if (autoScroll) autoScrollControls.current.start();
+    };
+
     return (
-        <div className="relative overflow-hidden w-full aspect-video select-none" role="region" aria-roledescription="carousel" aria-label="Image carousel">
+        <div
+            className="relative overflow-hidden w-full aspect-video select-none"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Image carousel"
+            onMouseEnter={pauseAutoScroll}
+            onMouseLeave={resumeAutoScroll}
+            onFocus={pauseAutoScroll}
+            onBlur={resumeAutoScroll}
+        >
             <div ref={containerRef} className="flex w-full h-full cursor-grab active:cursor-grabbing touch-none">
                 {images.map((src) => (
                     <div key={src} className="relative flex-shrink-0 w-full h-full">
@@ -113,6 +134,12 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
                     </button>
                 </>
             )}
+            <div
+                className="absolute bottom-3 right-3 bg-black/50 text-white text-xs font-medium px-2 py-1 tabular-nums pointer-events-none"
+                aria-live="polite"
+            >
+                {String(activeIndex + 1).padStart(2, "0")}/{String(images.length).padStart(2, "0")}
+            </div>
         </div>
     );
 }
