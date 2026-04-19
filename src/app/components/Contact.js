@@ -2,14 +2,17 @@
 
 import ReCAPTCHA from "react-google-recaptcha";
 import { useTheme } from "next-themes";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export default function Contact() {
     const { t, i18n } = useTranslation();
     const { resolvedTheme } = useTheme();
-    const router = useRouter();
+
+    const goToContact = () => {
+        window.dispatchEvent(new CustomEvent('page-transition', { detail: '/contact' }));
+    };
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -18,6 +21,7 @@ export default function Contact() {
     const [time, setTime] = useState('');
     const [inputDisable, setInputDisable] = useState(false);
     const [buttonText, setButtonText] = useState(null);
+    const [recaptchaFailed, setRecaptchaFailed] = useState(false);
 
     const pathName = usePathname();
     const recaptchaRef = useRef(null);
@@ -30,6 +34,10 @@ export default function Contact() {
 
     function onReCAPTCHAExpired() {
         setToken('');
+    }
+
+    function onReCAPTCHAErrored() {
+        setRecaptchaFailed(true);
     }
 
     useEffect(() => {
@@ -140,19 +148,19 @@ export default function Contact() {
             <form className="w-full flex flex-col gap-5 text-portfolio-500" aria-label="Contact form">
                 <div>
                     <label htmlFor="contact-name" className="sr-only">{t('portfolio.contact.name.placeholder')}</label>
-                    <input onClick={()=>{router.push('/contact')}} id="contact-name" type="text" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2" placeholder={t('portfolio.contact.name.placeholder')} />
+                    <input onClick={goToContact} id="contact-name" type="text" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2" placeholder={t('portfolio.contact.name.placeholder')} />
                 </div>
                 <div>
                     <label htmlFor="contact-email" className="sr-only">{t('portfolio.contact.email.placeholder')}</label>
-                    <input onClick={()=>{router.push('/contact')}} id="contact-email" type="email" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2" placeholder={t('portfolio.contact.email.placeholder')} />
+                    <input onClick={goToContact} id="contact-email" type="email" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2" placeholder={t('portfolio.contact.email.placeholder')} />
                 </div>
                 <div>
                     <label htmlFor="contact-message" className="sr-only">{t('portfolio.contact.message.placeholder')}</label>
-                    <textarea onClick={()=>{router.push('/contact')}} id="contact-message" className="w-full disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 dark:border-portfolio-700 dark:bg-portfolio-950 p-2" placeholder={t('portfolio.contact.message.placeholder')}></textarea>
+                    <textarea onClick={goToContact} id="contact-message" className="w-full disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 dark:border-portfolio-700 dark:bg-portfolio-950 p-2" placeholder={t('portfolio.contact.message.placeholder')}></textarea>
                 </div>
 
                 <div className="captcha-wrapper w-full border-2 dark:border-portfolio-700 border-portfolio-300 dark:bg-portfolio-950 bg-white p-3">
-                    <div onClick={()=>{router.push('/contact')}} className="flex items-center gap-3 g-recaptcha" data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} data-action="FORM_SUBMIT" aria-hidden="true">
+                    <div onClick={goToContact} className="flex items-center gap-3 g-recaptcha" data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} data-action="FORM_SUBMIT" aria-hidden="true">
                         <div className={`w-6 h-6 border-2 rounded flex items-center justify-center shrink-0 transition-all duration-300 border-portfolio-400 dark:border-portfolio-500`}></div>
                         <span className={`text-sm font-medium select-none transition-colors text-portfolio-500 dark:text-portfolio-400`}> {t('portfolio.contact.captcha.label')} </span>
                         
@@ -160,7 +168,7 @@ export default function Contact() {
                     </div>
                 </div>
 
-                <button onClick={()=>{router.push('/contact')}} className="group disabled:cursor-not-allowed dark:disabled:hover:border-portfolio-950 dark:disabled:hover:text-portfolio-950 disabled:bg-portfolio-100 dark:disabled:bg-portfolio-700 w-full flex font-medium text-start text-portfolio-950 dark:text-portfolio-950 dark:border-portfolio-950 dark:bg-portfolio-400 dark:hover:border-white dark:hover:text-white border-2 p-2" disabled={true}>
+                <button onClick={goToContact} className="group disabled:cursor-not-allowed dark:disabled:hover:border-portfolio-950 dark:disabled:hover:text-portfolio-950 disabled:bg-portfolio-100 dark:disabled:bg-portfolio-700 w-full flex font-medium text-start text-portfolio-950 dark:text-portfolio-950 dark:border-portfolio-950 dark:bg-portfolio-400 dark:hover:border-white dark:hover:text-white border-2 p-2" disabled={true}>
                     <span className="w-full">{t('portfolio.contact.mail.send.message')}</span>
                     <span className="group-disabled:w-0 text-end w-full opacity-100 group-disabled:opacity-0" aria-hidden="true">
                         <i className="fa-solid fa-dove"></i>
@@ -236,16 +244,17 @@ export default function Contact() {
                             sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
                             onChange={onReCAPTCHAChange}
                             onExpired={onReCAPTCHAExpired}
+                            onErrored={onReCAPTCHAErrored}
                             hl={i18n.language}
                             theme={resolvedTheme}
                         />
                     </div>
 
-                    {recaptchaRef.current === null?<span className="w-full" data-name="recaptcha-failed-status">
-                        <i className="fa-solid fa-xmark text-red-900"></i>
+                    {recaptchaFailed ? <span className="w-full" data-name="recaptcha-failed-status">
+                        <i className="fa-solid fa-xmark text-red-900" aria-hidden="true"></i>
                         <span className="px-1 text-red-950">{t('portfolio.contact.captcha.failed')}</span>
                         <span className="float-end">Google reCAPTCHA</span>
-                    </span>:null}
+                    </span> : null}
                 </div>
 
                 <button type="submit" className="group disabled:cursor-not-allowed dark:disabled:hover:border-portfolio-950 dark:disabled:hover:text-portfolio-950 disabled:bg-portfolio-100 dark:disabled:bg-portfolio-700 w-full flex font-medium text-start text-portfolio-950 dark:text-portfolio-950 dark:border-portfolio-950 dark:bg-portfolio-400 dark:hover:border-white dark:hover:text-white border-2 p-2" disabled={sendDisable}>

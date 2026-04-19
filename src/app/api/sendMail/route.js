@@ -24,11 +24,19 @@ export async function POST(request) {
         const body = await request.json();
         const { name, email, message, token } = body;
 
+        if (typeof name !== 'string' || typeof email !== 'string' || typeof message !== 'string' || typeof token !== 'string') {
+            return Response.json({ errCode: 1, error: "Missing fields", success: false, message: null }, { status: 400 });
+        }
+
         if (!name || !email || !message) {
             return Response.json({ errCode: 1, error: "Missing fields", success: false, message: null }, { status: 400 });
         }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (/[\r\n]/.test(name) || /[\r\n]/.test(email)) {
+            return Response.json({ errCode: 2, error: "Invalid input", success: false, message: null }, { status: 400 });
+        }
+
+        const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
         if (!emailRegex.test(email)) {
             return Response.json({ errCode: 2, error: "Invalid email", success: false, message: null }, { status: 400 });
         }

@@ -2,7 +2,7 @@
 
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
-import Link from "next/link";
+import Image from "next/image";
 
 import Topbar from "./components/Topbar";
 import Name from "./components/Name";
@@ -10,7 +10,6 @@ import Skills from "./components/Skills";
 import Experiences from "./components/Experiences";
 import Footer from "./components/Footer";
 import Contact from "./components/Contact";
-import Timeline from "./components/TimeLine";
 
 export default function Home() {
     const { t, ready } = useTranslation();
@@ -46,25 +45,64 @@ export default function Home() {
                             <h2 id="aboutMe-heading" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.about.me')}</h2>
                             <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.about.me.fun')}</p>
                         </div>
-                        <p className="text-portfolio-500 text-lg italic">
-                            {t('portfolio.about.me.desc.short')}
-                        </p>
-                        <p className="text-portfolio-500 text-base mt-5 font-normal">
-                            {t('portfolio.about.me.desc.top')} {t('portfolio.about.me.desc.bottom')}
-                        </p>
+                        <div className="flex flex-col md:flex-row items-start gap-5 md:gap-8">
+                            <div className="flex-1">
+                                <p className="text-portfolio-500 text-lg italic">
+                                    {t('portfolio.about.me.desc.short')}
+                                </p>
+                                <br/>
+                                <p className="text-portfolio-500 text-5xl font-bold italic mt-2">
+                                    {t('portfolio.about.me.tagline')}
+                                </p>
+                                <br/>
+                                <p className="text-portfolio-500 text-base mt-5 font-normal">
+                                    {t('portfolio.about.me.desc')}
+                                </p>
+                            </div>
+                            <div className="shrink-0 flex flex-col items-center md:items-stretch gap-4 self-center md:self-start">
+                                <Image
+                                    src="/images/personal/stamp.png"
+                                    alt={t('portfolio.about.me.stamp.alt')}
+                                    width={600}
+                                    height={700}
+                                    className="w-56 md:w-72 lg:w-80 h-auto rotate-3 drop-shadow-xl"
+                                    priority
+                                />
+                                <a
+                                    href="https://drive.google.com/file/d/1YkDWnFv27z7AQwdJki7xhn-cPGYZLFox/view?usp=sharing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="group w-56 md:w-72 lg:w-80 flex items-center font-medium text-portfolio-950 dark:text-portfolio-950 dark:border-portfolio-950 dark:bg-portfolio-400 dark:hover:border-white dark:hover:text-white border-2 p-2"
+                                >
+                                    <span className="w-full">{t('portfolio.about.me.download.resume')}</span>
+                                    <span className="text-end" aria-hidden="true">
+                                        <i className="fa-solid fa-download"></i>
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
 
                         <div className="mt-5 grid grid-cols-1 md:grid-cols-3 grid-rows-1 gap-5 md:gap-0">
-                            <div className="border-l-2 pl-5 border-portfolio-500">
-                                <p className="text-2xl font-medium">{t('portfolio.about.me.years')}</p>
-                                <p className="text-portfolio-500">{t('portfolio.about.me.experience')}</p>
+                            <div className="border-l-2 pl-3 border-portfolio-500 flex gap-4 items-center">
+                                <i className="fa-regular fa-calendar text-4xl text-portfolio-500" aria-hidden="true"></i>
+                                <div>
+                                    <p className="text-2xl font-medium">{t('portfolio.about.me.years')}</p>
+                                    <p className="text-portfolio-500">{t('portfolio.about.me.experience')}</p>
+                                </div>
                             </div>
-                            <div className="border-l-2 pl-5 border-portfolio-500">
-                                <p className="text-2xl font-medium">{t('portfolio.about.me.projects')}</p>
-                                <p className="text-portfolio-500">{t('portfolio.about.me.worked')}</p>
+                            <div className="border-l-2 pl-5 border-portfolio-500 flex gap-4 items-center">
+                                <i className="fa-solid fa-kaaba text-4xl text-portfolio-500" aria-hidden="true"></i>
+                                <div>
+                                    <p className="text-2xl font-medium">{t('portfolio.about.me.projects')}</p>
+                                    <p className="text-portfolio-500">{t('portfolio.about.me.worked')}</p>
+                                </div>
                             </div>
-                            <div className="border-l-2 pl-5 border-portfolio-500">
-                                <p className="text-2xl font-medium">{t('portfolio.about.me.tools')}</p>
-                                <p className="text-portfolio-500">{t('portfolio.about.me.tools.coding.language')}</p>
+                            <div className="border-l-2 pl-5 border-portfolio-500 flex gap-4 items-center">
+                                <i className="fa-solid fa-toolbox text-4xl text-portfolio-500" aria-hidden="true"></i>
+                                <div>
+                                    <p className="text-2xl font-medium">{t('portfolio.about.me.tools')}</p>
+                                    <p className="text-portfolio-500">{t('portfolio.about.me.tools.coding.language')}</p>
+                                </div>
                             </div>
                         </div>
                     </section>
@@ -82,7 +120,6 @@ export default function Home() {
                             <h2 id="experience-heading" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.experience')}</h2>
                             <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.experience.fun')}</p>
                         </div>
-                        <Timeline />
                         <Experiences />
                     </section>
 

@@ -1,7 +1,7 @@
 const CHANNEL_ID = 'UCIpx-ZquNHFjjODgW5_yroQ';
 
 export async function GET() {
-    const API_KEY = process.env.YOUTUBE_API_KEY || process.env.NEXT_PUBLIC_YOUTUBE_API_KEY;
+    const API_KEY = process.env.YOUTUBE_API_KEY;
     if (!API_KEY) {
         return Response.json({ videos: [], subscriberCount: null });
     }

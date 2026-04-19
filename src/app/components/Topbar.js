@@ -25,7 +25,6 @@ export default function Topbar() {
             <NavLink href="/" isActive={pathName === '/'}>{t('portfolio.topbar.home')}</NavLink>
             <NavLink href="/work" isActive={pathName.startsWith('/work')}>{t('portfolio.topbar.work')}</NavLink>
             <NavLink href="/contact" isActive={pathName === '/contact'}>{t('portfolio.topbar.contact')}</NavLink>
-            <NavLink href="/blogs" isActive={pathName === '/blogs'}>{t('portfolio.topbar.blogs')}</NavLink>
             <div className="w-[1px] border-2 rounded-full dark:border-portfolio-500 border-portfolio-950" aria-hidden="true"></div>
             {/* <a href="https://drive.google.com/file/d/1YkDWnFv27z7AQwdJki7xhn-cPGYZLFox/view?usp=sharing" className={`${BASE_STYLE} ${INACTIVE_STYLE}`} target="_blank" rel="noopener noreferrer">{t('portfolio.topbar.resume')}</a> */}
             <NavLink href="/accessibility" isActive={pathName === '/accessibility'}>{t('portfolio.footer.a11y')}</NavLink>

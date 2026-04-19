@@ -19,6 +19,10 @@ export default function PageTransition({ children }) {
         try { return localStorage.getItem('pageTransition') !== 'off'; } catch { return true; }
     };
 
+    const isSafeInternalPath = (url) => {
+        return typeof url === 'string' && url.startsWith('/') && !url.startsWith('//');
+    };
+
     useEffect(() => {
         const handleRouteChange = (url) => {
             if(isTransitionRef.current) return;
@@ -39,22 +43,34 @@ export default function PageTransition({ children }) {
             isTransitionRef.current = false;
         }
 
+        const linkHandlers = [];
         const links = document.querySelectorAll('a[href^="/"]');
         links.forEach(link => {
-            link.addEventListener("click", (e) => {
-                e.preventDefault();
+            const handler = (e) => {
                 const href = e.currentTarget.getAttribute("href");
+                if (!isSafeInternalPath(href)) return;
+                e.preventDefault();
                 const url = new URL(href, window.location.origin).pathname;
                 if(url !== pathName){
                     handleRouteChange(url);
                 }
-            });
+            };
+            link.addEventListener("click", handler);
+            linkHandlers.push({ link, handler });
         });
 
+        const onCustomTransition = (e) => {
+            const url = e?.detail;
+            if(!isSafeInternalPath(url) || url === pathName) return;
+            handleRouteChange(url);
+        };
+        window.addEventListener("page-transition", onCustomTransition);
+
         return () => {
-            links.forEach(link => {
-                link.removeEventListener("click", handleRouteChange);
+            linkHandlers.forEach(({ link, handler }) => {
+                link.removeEventListener("click", handler);
             });
+            window.removeEventListener("page-transition", onCustomTransition);
         };
     },[router, pathName]);
 
