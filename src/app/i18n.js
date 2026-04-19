@@ -12,6 +12,8 @@ if (!i18n.isInitialized) {
         fallbackLng: "en",
         load: "languageOnly",
         supportedLngs: ["en", "fr", "zh", "es", "ta"],
+        keySeparator: false,
+        nsSeparator: false,
         interpolation: {
             escapeValue: false,
         },

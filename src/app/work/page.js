@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 
 import Topbar from "../components/Topbar";
+import FixedTopbar from "../components/FixedTopbar";
 import Footer from "../components/Footer";
 import Image from "next/image";
 import ImageDiff from "../components/ImageDiff";
@@ -25,7 +26,7 @@ const PHOTOSHOP_BATTLES = [
 
 export default function Work() {
     const { t, ready } = useTranslation();
-    const [view, setView] = useState('MEDIUM');
+    const [view, setView] = useState('COMPACT');
     const [videos, setVideos] = useState([]);
     const [subscriberCount, setSubscriberCount] = useState(null);
     const [previewIndex, setPreviewIndex] = useState(null);
@@ -110,13 +111,14 @@ export default function Work() {
     return (
         <>
             <div className="w-full flex flex-col items-center justify-start">
+                <FixedTopbar triggerOffset={100} />
                 <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                     <Topbar />
                     <main id="main-content">
                     <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
 
                     <section aria-labelledby="product-heading">
-                        <div id="modeSelector" className="sticky top-4 z-10 w-full flex items-center justify-end mt-12">
+                        <div id="modeSelector" className="sticky top-24 md:top-28 z-50 w-full flex items-center justify-end mt-12">
                             <div className="h-12 text-2xl text-portfolio-500 flex items-center justify-end gap-5 dark:bg-portfolio-950 bg-portfolio-50 px-5 rounded-lg" role="toolbar" aria-label="View mode">
                                 <button onClick={() => setView('LARGE')} aria-label="Large view" aria-pressed={view === 'LARGE'} className={view === 'LARGE' ? 'dark:text-portfolio-50 text-portfolio-950' : ' dark:text-portfolio-500 text-portfolio-800 cursor-pointer'}>
                                     <i className="fa-solid fa-table-cells" aria-hidden="true"></i>
@@ -174,6 +176,7 @@ export default function Work() {
                                                     alt={video.title}
                                                     fill
                                                     className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                                    draggable={false}
                                                 />
                                                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
                                                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -218,7 +221,7 @@ export default function Work() {
                             <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.desc')}</p>
                             <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2732039208"  tabIndex={-1} target="_blank" rel="noopener noreferrer">
                                 <div className="flex gap-2 mt-5" tabIndex={0}>
-                                    <Image src="/images/work/gameguide1.jpg" alt="" height={125} width={125} className="shrink-0" />
+                                    <Image src="/images/work/gameguide1.jpg" alt="" height={125} width={125} className="shrink-0" draggable={false} />
                                     <div>
                                         <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad" aria-hidden="true"></i> {t('portfolio.work.steam.guide.skyrim.game')}</p>
                                         <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.skyrim.title')}</p>
@@ -229,7 +232,7 @@ export default function Work() {
                             </a>
                             <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3326170636" tabIndex={-1} target="_blank" rel="noopener noreferrer">
                                 <div className="flex gap-2 mt-5" tabIndex={0}>
-                                    <Image src="/images/work/gameguide2.jpg" alt="" height={125} width={125} className="shrink-0" />
+                                    <Image src="/images/work/gameguide2.jpg" alt="" height={125} width={125} className="shrink-0" draggable={false} />
                                     <div>
                                         <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad" aria-hidden="true"></i> {t('portfolio.work.steam.guide.kcd.game')}</p>
                                         <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.kcd.title')}</p>

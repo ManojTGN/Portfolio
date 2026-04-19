@@ -117,7 +117,7 @@ export default function PageTransition({ children }) {
 
     return (
         <>
-            <div ref={overlayRef} className="fixed top-0 left-0 w-screen h-screen flex z-50 pointer-events-none"></div>
+            <div ref={overlayRef} className="fixed top-0 left-0 w-screen h-screen flex z-[60] pointer-events-none"></div>
             {children}
         </>
     );

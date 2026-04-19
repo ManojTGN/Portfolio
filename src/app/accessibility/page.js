@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from 'next-themes';
 
 import Topbar from "../components/Topbar";
+import FixedTopbar from "../components/FixedTopbar";
 import Footer from "../components/Footer";
 import { sizeMap, wordSpacingMap, letterSpacingMap } from '@/app/lib/accessibility';
 
@@ -111,6 +112,7 @@ export default function Accessibility() {
 
     return (
         <div className="w-full flex flex-col items-center justify-center">
+            <FixedTopbar triggerOffset={100} />
             <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col justify-center">
                     <Topbar />
                     <main id="main-content">

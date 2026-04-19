@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { notFound } from 'next/navigation';
 
 import Topbar from '@/app/components/Topbar';
+import FixedTopbar from '@/app/components/FixedTopbar';
 import Footer from '@/app/components/Footer';
 import Carousel from '@/app/components/Carousel';
 import { getProjectBySlug } from '@/app/lib/projects';
@@ -24,6 +25,7 @@ export default function ProjectPage({ params }) {
 
     return (
         <div className="w-full flex flex-col items-center justify-start">
+            <FixedTopbar triggerOffset={100} />
             <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                 <Topbar />
 

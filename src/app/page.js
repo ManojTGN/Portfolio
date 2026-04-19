@@ -5,8 +5,10 @@ import { useEffect } from "react";
 import Image from "next/image";
 
 import Topbar from "./components/Topbar";
+import FixedTopbar from "./components/FixedTopbar";
 import Name from "./components/Name";
 import Skills from "./components/Skills";
+import Toolsets from "./components/Toolsets";
 import Experiences from "./components/Experiences";
 import Footer from "./components/Footer";
 import Contact from "./components/Contact";
@@ -28,6 +30,7 @@ export default function Home() {
 
     return (
         <div className="w-full flex flex-col items-center justify-center">
+            <FixedTopbar />
             <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col justify-center">
                 <Topbar />
 
@@ -67,6 +70,7 @@ export default function Home() {
                                     height={700}
                                     className="w-56 md:w-72 lg:w-80 h-auto rotate-3 drop-shadow-xl"
                                     priority
+                                    draggable={false}
                                 />
                                 <a
                                     href="https://drive.google.com/file/d/1YkDWnFv27z7AQwdJki7xhn-cPGYZLFox/view?usp=sharing"
@@ -115,6 +119,14 @@ export default function Home() {
                         <Skills />
                     </section>
 
+                    <section id="skillTree" className="mt-16 md:mt-32" aria-labelledby="skills-heading">
+                        <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-2">
+                            <h2 id="skills-heading" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.toolset')}</h2>
+                            <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.toolset.fun')}</p>
+                        </div>
+                        <Toolsets />
+                    </section>
+
                     <section id="experience" className="mt-16 md:mt-32" aria-labelledby="experience-heading">
                         <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-2">
                             <h2 id="experience-heading" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.experience')}</h2>
@@ -123,7 +135,7 @@ export default function Home() {
                         <Experiences />
                     </section>
 
-                    <section id="education" className="mt-16 md:mt-32" aria-labelledby="education-heading">
+                    {/* <section id="education" className="mt-16 md:mt-32" aria-labelledby="education-heading">
                         <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-2">
                             <h2 id="education-heading" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.education')}</h2>
                             <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.education.fun')}</p>
@@ -133,7 +145,7 @@ export default function Home() {
                             <p className="text-portfolio-500 font-medium">2020 - 2024</p>
                             <p className="text-portfolio-500">{t('portfolio.education.college')}</p>
                         </div>
-                    </section>
+                    </section> */}
 
                     <section id="contact" className="mt-16 md:mt-32" aria-labelledby="contact-heading">
                         <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-2">

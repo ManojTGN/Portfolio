@@ -5,6 +5,7 @@ import "./globals.css";
 import AccessibilityInit from "./components/AccessibilityInit";
 import I18nProvider from "./providers/I18nProvider";
 import PageTransition from "./components/PageTransition";
+import SkipNav from "./components/SkipNav";
 
 export const metadata = {
     title: "ManojTGN \u25aa Portfolio",
@@ -49,8 +50,8 @@ export default function RootLayout({ children }) {
                 <Script src="https://kit.fontawesome.com/08c3f952c9.js" crossOrigin="anonymous" />
             </head>
             <body className="m-0 p-0 w-full h-screen dark:bg-portfolio-950 bg-portfolio-50">
-                    <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:top-2 focus:left-2 focus:bg-portfolio-950 focus:text-white focus:px-4 focus:py-2 focus:rounded"> Skip Navigation </a>
                     <I18nProvider>
+                        <SkipNav />
                         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                             <AccessibilityInit />
                             <PageTransition>

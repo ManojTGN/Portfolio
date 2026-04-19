@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 
 import Topbar from "../components/Topbar";
+import FixedTopbar from "../components/FixedTopbar";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
 
@@ -13,6 +14,7 @@ export default function ContactPage() {
 
     return (
         <div className="w-full flex flex-col items-center justify-start">
+            <FixedTopbar triggerOffset={100} />
             <div className="w-11/12 md:w-9/12 lg:w-6/12 flex flex-col">
                 <Topbar />
                 <main id="main-content">

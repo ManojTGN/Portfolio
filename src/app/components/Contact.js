@@ -22,6 +22,17 @@ export default function Contact() {
     const [inputDisable, setInputDisable] = useState(false);
     const [buttonText, setButtonText] = useState(null);
     const [recaptchaFailed, setRecaptchaFailed] = useState(false);
+    const [emailCopied, setEmailCopied] = useState(false);
+
+    const copyEmail = async (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        try {
+            await navigator.clipboard.writeText(t('portfolio.about.me.email'));
+            setEmailCopied(true);
+            setTimeout(() => setEmailCopied(false), 2000);
+        } catch {}
+    };
 
     const pathName = usePathname();
     const recaptchaRef = useRef(null);
@@ -108,15 +119,27 @@ export default function Contact() {
         return (
           <div className="mt-5 border-l pl-5 border-portfolio-500 flex flex-col lg:flex-row gap-8 lg:gap-0">
             <div className="w-full h-full">
-                <div className="flex items-center gap-2">
-                    <p className="text-portfolio-950 dark:text-portfolio-50 text-xl font-medium">{t('portfolio.contact.time')}:</p>
-                    <p className="text-portfolio-500 text-xl font-medium" aria-label={`Current time in Chennai: ${time}`}>{time}</p>
+                <div className="w-full flex">
+                    <div className="w-full flex items-center gap-4 text-portfolio-500 text-2xl mt-2" role="list" aria-label={t('portfolio.contact.socials.aria')}>
+                        <a href="mailto:manojanguraja@gmail.com" className="peer dark:hover:text-white flex items-center gap-2" aria-label="Email" role="listitem">
+                            <i className="fa-solid fa-at" aria-hidden="true"></i>
+                            <span className="text-lg font-medium underline">manojAngurajA@gmail.com</span>
+                        </a>
+                        <button onClick={copyEmail} className={`text-base dark:hover:text-white transition-opacity ${emailCopied ? 'opacity-100' : 'opacity-0 peer-hover:opacity-100 hover:opacity-100 focus-visible:opacity-100'}`} aria-label={t(emailCopied ? 'portfolio.contact.email.copied' : 'portfolio.contact.email.copy')}>
+                            <i className={`fa-solid ${emailCopied ? 'fa-check' : 'fa-copy'}`} aria-hidden="true"></i>
+                        </button>
+                    </div>
+                    <button onClick={goToContact} className="group h-14 w-10/12 items-center justify-center disabled:cursor-not-allowed dark:disabled:hover:border-portfolio-950 dark:disabled:hover:text-portfolio-950 disabled:bg-portfolio-100 dark:disabled:bg-portfolio-700 flex font-medium text-start text-portfolio-950 dark:text-portfolio-950 dark:border-portfolio-950 dark:bg-portfolio-400 dark:hover:border-white dark:hover:text-white border-2 p-2">
+                        <span className="w-full">{t('portfolio.contact.mail.send.message')}</span>
+                        <span className="group-disabled:w-0 text-end w-full opacity-100 group-disabled:opacity-0" aria-hidden="true">
+                            <i className="fa-solid fa-dove"></i>
+                        </span>
+                        <span className="group-disabled:w-full text-end w-0 opacity-0 group-disabled:opacity-100" aria-hidden="true">
+                            <i className="fa-solid fa-lock"></i>
+                        </span>
+                    </button>
                 </div>
-                <p className="text-portfolio-950 dark:text-portfolio-50 text-xl font-medium mt-5">{t('portfolio.contact.email')}:</p>
-                <a href="mailto:manojanguraja@gmail.com" className="mt-2 text-portfolio-500 font-medium hover:underline">{t('portfolio.about.me.email')}</a>
-
-                <p className="text-portfolio-950 dark:text-portfolio-50 text-xl font-medium mt-5">{t('portfolio.contact.socials')}:</p>
-                <div className="w-full flex items-center gap-4 text-portfolio-500 text-2xl mt-2" role="list" aria-label="Social media links">
+                <div className="w-full flex items-center gap-4 text-portfolio-500 text-2xl mt-2" role="list" aria-label={t('portfolio.contact.socials.aria')}>
                     <a href="https://www.linkedin.com/in/manojbit/" target="_blank" rel="noopener noreferrer" className="dark:hover:text-white" aria-label="LinkedIn" role="listitem">
                         <i className="fa-brands fa-linkedin" aria-hidden="true"></i>
                     </a>
@@ -135,49 +158,16 @@ export default function Contact() {
                     <a href="https://www.paypal.com/paypalme/manojtgn" target="_blank" rel="noopener noreferrer" className="dark:hover:text-white" aria-label="PayPal" role="listitem">
                         <i className="fa-brands fa-paypal" aria-hidden="true"></i>
                     </a>
-                    <a href="mailto:manojanguraja@gmail.com" className="dark:hover:text-white" aria-label="Email" role="listitem">
-                        <i className="fa-solid fa-at" aria-hidden="true"></i>
+                    <a href="https://stackoverflow.com/users/9558827/manoj-a" target="_blank" rel="noopener noreferrer" className="dark:hover:text-white" aria-label="PayPal" role="listitem">
+                        <i className="fa-brands fa-stack-overflow" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@TamilGamersNetworks/videos" target="_blank" rel="noopener noreferrer" className="dark:hover:text-white" aria-label="PayPal" role="listitem">
+                        <i className="fa-brands fa-youtube" aria-hidden="true"></i>
                     </a>
                 </div>
-
                 <p className="mt-5 text-portfolio-950 dark:text-portfolio-50 font-medium text-2xl">{t('portfolio.contact.lets.work.together')}</p>
-
-                <p className="mt-14 text-portfolio-950 dark:text-portfolio-50 font-medium text-xl">{t('portfolio.dont.be.shy')}</p>
-                <p className="text-portfolio-500 font-medium text-lg">{t('portfolio.just.say.hello')}</p>
+                <p className="text-portfolio-500 font-medium text-lg">{t('portfolio.contact.fit.tagline')} {t('portfolio.dont.be.shy')} {t('portfolio.just.say.hello')}</p>
             </div>
-            <form className="w-full flex flex-col gap-5 text-portfolio-500" aria-label="Contact form">
-                <div>
-                    <label htmlFor="contact-name" className="sr-only">{t('portfolio.contact.name.placeholder')}</label>
-                    <input onClick={goToContact} id="contact-name" type="text" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2" placeholder={t('portfolio.contact.name.placeholder')} />
-                </div>
-                <div>
-                    <label htmlFor="contact-email" className="sr-only">{t('portfolio.contact.email.placeholder')}</label>
-                    <input onClick={goToContact} id="contact-email" type="email" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2" placeholder={t('portfolio.contact.email.placeholder')} />
-                </div>
-                <div>
-                    <label htmlFor="contact-message" className="sr-only">{t('portfolio.contact.message.placeholder')}</label>
-                    <textarea onClick={goToContact} id="contact-message" className="w-full disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 dark:border-portfolio-700 dark:bg-portfolio-950 p-2" placeholder={t('portfolio.contact.message.placeholder')}></textarea>
-                </div>
-
-                <div className="captcha-wrapper w-full border-2 dark:border-portfolio-700 border-portfolio-300 dark:bg-portfolio-950 bg-white p-3">
-                    <div onClick={goToContact} className="flex items-center gap-3 g-recaptcha" data-sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY} data-action="FORM_SUBMIT" aria-hidden="true">
-                        <div className={`w-6 h-6 border-2 rounded flex items-center justify-center shrink-0 transition-all duration-300 border-portfolio-400 dark:border-portfolio-500`}></div>
-                        <span className={`text-sm font-medium select-none transition-colors text-portfolio-500 dark:text-portfolio-400`}> {t('portfolio.contact.captcha.label')} </span>
-                        
-                        <span className="ml-auto text-xs text-portfolio-400 dark:text-portfolio-600 select-none"><i className="fa-brands fa-google"></i> reCAPTCHA</span>
-                    </div>
-                </div>
-
-                <button onClick={goToContact} className="group disabled:cursor-not-allowed dark:disabled:hover:border-portfolio-950 dark:disabled:hover:text-portfolio-950 disabled:bg-portfolio-100 dark:disabled:bg-portfolio-700 w-full flex font-medium text-start text-portfolio-950 dark:text-portfolio-950 dark:border-portfolio-950 dark:bg-portfolio-400 dark:hover:border-white dark:hover:text-white border-2 p-2" disabled={true}>
-                    <span className="w-full">{t('portfolio.contact.mail.send.message')}</span>
-                    <span className="group-disabled:w-0 text-end w-full opacity-100 group-disabled:opacity-0" aria-hidden="true">
-                        <i className="fa-solid fa-dove"></i>
-                    </span>
-                    <span className="group-disabled:w-full text-end w-0 opacity-0 group-disabled:opacity-100" aria-hidden="true">
-                        <i className="fa-solid fa-lock"></i>
-                    </span>
-                </button>
-            </form>
         </div>  
         );
     }
@@ -188,13 +178,18 @@ export default function Contact() {
             <div className="w-full h-full">
                 <div className="flex items-center gap-2">
                     <p className="text-portfolio-950 dark:text-portfolio-50 text-xl font-medium">{t('portfolio.contact.time')}:</p>
-                    <p className="text-portfolio-500 text-xl font-medium" aria-label={`Current time in Chennai: ${time}`}>{time}</p>
+                    <p className="text-portfolio-500 text-xl font-medium" aria-label={t('portfolio.contact.time.aria', { time })}>{time}</p>
                 </div>
                 <p className="text-portfolio-950 dark:text-portfolio-50 text-xl font-medium mt-5">{t('portfolio.contact.email')}:</p>
-                <a href="mailto:manojanguraja@gmail.com" className="mt-2 text-portfolio-500 font-medium hover:underline">{t('portfolio.about.me.email')}</a>
+                <div className="mt-2 flex items-center gap-2">
+                    <a href="mailto:manojanguraja@gmail.com" className="peer text-portfolio-500 font-medium hover:underline">{t('portfolio.about.me.email')}</a>
+                    <button onClick={copyEmail} className={`text-portfolio-500 text-sm dark:hover:text-white hover:text-portfolio-950 transition-opacity ${emailCopied ? 'opacity-100' : 'opacity-0 peer-hover:opacity-100 hover:opacity-100 focus-visible:opacity-100'}`} aria-label={t(emailCopied ? 'portfolio.contact.email.copied' : 'portfolio.contact.email.copy')}>
+                        <i className={`fa-solid ${emailCopied ? 'fa-check' : 'fa-copy'}`} aria-hidden="true"></i>
+                    </button>
+                </div>
 
                 <p className="text-portfolio-950 dark:text-portfolio-50 text-xl font-medium mt-5">{t('portfolio.contact.socials')}:</p>
-                <div className="w-full flex items-center gap-4 text-portfolio-500 text-2xl mt-2" role="list" aria-label="Social media links">
+                <div className="w-full flex items-center gap-4 text-portfolio-500 text-2xl mt-2" role="list" aria-label={t('portfolio.contact.socials.aria')}>
                     <a href="https://www.linkedin.com/in/manojbit/" target="_blank" rel="noopener noreferrer" className="dark:hover:text-white" aria-label="LinkedIn" role="listitem">
                         <i className="fa-brands fa-linkedin" aria-hidden="true"></i>
                     </a>
@@ -223,7 +218,7 @@ export default function Contact() {
                 <p className="mt-14 text-portfolio-950 dark:text-portfolio-50 font-medium text-xl">{t('portfolio.dont.be.shy')}</p>
                 <p className="text-portfolio-500 font-medium text-lg">{t('portfolio.just.say.hello')}</p>
             </div>
-            <form onSubmit={sendMail} className="w-full flex flex-col gap-5 text-portfolio-500" aria-label="Contact form">
+            <form onSubmit={sendMail} className="w-full flex flex-col gap-5 text-portfolio-500" aria-label={t('portfolio.contact.form.aria')}>
                 <div>
                     <label htmlFor="contact-name" className="sr-only">{t('portfolio.contact.name.placeholder')}</label>
                     <input id="contact-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={30} type="text" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.name.placeholder') + ' *'} disabled={inputDisable} autoComplete="name" pattern="^[a-zA-Z]+([ \-'][a-zA-Z]+)*$" required={true} />
