@@ -28,7 +28,11 @@ export async function POST(request) {
             return Response.json({ errCode: 1, error: "Missing fields", success: false, message: null }, { status: 400 });
         }
 
-        if (!name || !email || !message) {
+        const nameTrim = name.trim();
+        const emailTrim = email.trim();
+        const messageTrim = message.trim();
+
+        if (!nameTrim || !emailTrim || !messageTrim) {
             return Response.json({ errCode: 1, error: "Missing fields", success: false, message: null }, { status: 400 });
         }
 
@@ -37,8 +41,16 @@ export async function POST(request) {
         }
 
         const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-        if (!emailRegex.test(email)) {
+        if (!emailRegex.test(emailTrim)) {
             return Response.json({ errCode: 2, error: "Invalid email", success: false, message: null }, { status: 400 });
+        }
+
+        if (nameTrim.length < 3) {
+            return Response.json({ errCode: 3, error: "Name too short", success: false, message: null }, { status: 400 });
+        }
+
+        if (messageTrim.split(/\s+/).length < 3) {
+            return Response.json({ errCode: 5, error: "Message too short", success: false, message: null }, { status: 400 });
         }
 
         if (name.length > 30) {

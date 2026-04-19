@@ -36,7 +36,8 @@ export default function Contact() {
 
     const pathName = usePathname();
     const recaptchaRef = useRef(null);
-    const isFormValid = name.trim().length > 0 && email.trim().length > 0 && message.trim().length > 0 && token.length > 0;
+    const messageWordCount = message.trim() ? message.trim().split(/\s+/).length : 0;
+    const isFormValid = name.trim().length >= 3 && email.trim().length > 0 && messageWordCount >= 3 && token.length > 0;
     const sendDisable = !isFormValid || inputDisable;
 
     function onReCAPTCHAChange(value) {
@@ -221,7 +222,7 @@ export default function Contact() {
             <form onSubmit={sendMail} className="w-full flex flex-col gap-5 text-portfolio-500" aria-label={t('portfolio.contact.form.aria')}>
                 <div>
                     <label htmlFor="contact-name" className="sr-only">{t('portfolio.contact.name.placeholder')}</label>
-                    <input id="contact-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={30} type="text" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.name.placeholder') + ' *'} disabled={inputDisable} autoComplete="name" pattern="^[a-zA-Z]+([ \-'][a-zA-Z]+)*$" required={true} />
+                    <input id="contact-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={30} minLength={3} type="text" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.name.placeholder') + ' *'} disabled={inputDisable} autoComplete="name" pattern="^[a-zA-Z]{3,}([ \-'][a-zA-Z]+)*$" required={true} />
                 </div>
                 <div>
                     <label htmlFor="contact-email" className="sr-only">{t('portfolio.contact.email.placeholder')}</label>
@@ -229,7 +230,12 @@ export default function Contact() {
                 </div>
                 <div>
                     <label htmlFor="contact-message" className="sr-only">{t('portfolio.contact.message.placeholder')}</label>
-                    <textarea id="contact-message" value={message} onChange={(e) => setMessage(e.target.value)} maxLength={500} className="w-full disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 dark:border-portfolio-700 dark:bg-portfolio-950 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.message.placeholder') + ' *'} disabled={inputDisable} required={true}></textarea>
+                    <textarea id="contact-message" value={message} onChange={(e) => {
+                        const val = e.target.value;
+                        setMessage(val);
+                        const words = val.trim() ? val.trim().split(/\s+/).length : 0;
+                        e.target.setCustomValidity(words >= 3 ? '' : 'Please enter at least 3 words.');
+                    }} maxLength={500} className="w-full disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 dark:border-portfolio-700 dark:bg-portfolio-950 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.message.placeholder') + ' *'} disabled={inputDisable} required={true}></textarea>
                 </div>
 
                 <div className={"captcha-wrapper w-full border-2 dark:border-portfolio-700 border-portfolio-300 dark:bg-portfolio-950 bg-white p-3 " + (!token ? ' !border-red-500' : '')}>
