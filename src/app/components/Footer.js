@@ -8,14 +8,22 @@ const displayNames = new Intl.DisplayNames(["en"], { type: "language" });
 
 export default function Footer() {
     const { t, i18n, ready } = useTranslation();
-    const { theme, setTheme, resolvedTheme } = useTheme();
+    const { setTheme, resolvedTheme } = useTheme();
 
     if (!ready) return null;
 
     const languageName = displayNames.of(i18n.language);
 
     function toggleTheme() {
-        setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
+        const selectedTheme = resolvedTheme === 'dark' ? 'light' : 'dark';
+        if(!document.startViewTransition) {
+            setTheme(selectedTheme);
+            return;
+        }
+        
+        document.startViewTransition(() => {
+            setTheme(selectedTheme);
+        });
     }
 
     return (

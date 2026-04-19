@@ -63,7 +63,6 @@ Follow these steps to run the project locally:
 ```bash
 src/
 ├── app/                  # App Router pages and layouts
-│   ├── blogs/            # Blog section
 │   ├── work/             # Projects showcase
 │   ├── components/       # Reusable UI components
 │   └── accessibility/    # Accessibility settings page

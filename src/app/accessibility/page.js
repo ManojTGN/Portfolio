@@ -42,7 +42,15 @@ export default function Accessibility() {
 
     const { theme, setTheme } = useTheme();
     function changeTheme(event) {
-        setTheme(event.target.value);
+        const selectedTheme = event.target.value;
+        if(!document.startViewTransition) {
+            setTheme(selectedTheme);
+            return;
+        }
+        
+        document.startViewTransition(() => {
+            setTheme(selectedTheme);
+        });
     }
 
     const [pageTransition, setPageTransition] = useState('on');

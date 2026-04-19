@@ -112,6 +112,7 @@ export default function Name() {
             el.removeEventListener('mousemove', onMouseMove);
             el.removeEventListener('mouseleave', onMouseLeave);
             el.removeEventListener('click', onClick);
+            split.revert();
         };
     }, []);
 

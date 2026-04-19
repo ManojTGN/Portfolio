@@ -73,32 +73,21 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
         };
     }, [images, autoScroll]);
 
-    const nextSlide = () => {
+    const slideTo = (nextIndex) => {
         const container = containerRef.current;
-        if (!container) return;
+        if (!container || images.length === 0) return;
 
-        const slideCount = images.length;
-        const nextIndex = Math.min(activeIndexRef.current + 1, slideCount - 1);
+        const wrapped = gsap.utils.wrap(0, images.length)(nextIndex);
+        activeIndexRef.current = wrapped;
         gsap.to(container, {
-            x: -nextIndex * slideWidthRef.current,
+            x: -wrapped * slideWidthRef.current,
             duration: 0.2,
             ease: "power3.out",
-            onComplete: () => (activeIndexRef.current = nextIndex),
         });
     };
 
-    const prevSlide = () => {
-        const container = containerRef.current;
-        if (!container) return;
-
-        const prevIndex = Math.max(activeIndexRef.current - 1, 0);
-        gsap.to(container, {
-            x: -prevIndex * slideWidthRef.current,
-            duration: 0.2,
-            ease: "power3.out",
-            onComplete: () => (activeIndexRef.current = prevIndex),
-        });
-    };
+    const nextSlide = () => slideTo(activeIndexRef.current + 1);
+    const prevSlide = () => slideTo(activeIndexRef.current - 1);
 
     if (images.length === 0) return null;
 
