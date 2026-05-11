@@ -83,6 +83,15 @@ export async function POST(request) {
             return Response.json({ errCode: 6, error: "Invalid reCaptcha", success: false, message: null }, { status: 400 });
         }
 
+        const expectedHost = process.env.RECAPTCHA_EXPECTED_HOSTNAME;
+        if (expectedHost && data.hostname && data.hostname !== expectedHost) {
+            return Response.json({ errCode: 6, error: "Invalid reCaptcha", success: false, message: null }, { status: 400 });
+        }
+
+        if (typeof data.score === 'number' && data.score < 0.5) {
+            return Response.json({ errCode: 6, error: "Invalid reCaptcha", success: false, message: null }, { status: 400 });
+        }
+
         const transporter = nodemailer.createTransport({
             service: "gmail",
             auth: {
@@ -93,10 +102,10 @@ export async function POST(request) {
 
         await transporter.sendMail({
             from: process.env.PORTFOLIO_MAIL_ADDR,
-            replyTo: email,
+            replyTo: emailTrim,
             to: process.env.PORTFOLIO_MAIL_ADDR,
-            subject: `Portfolio Contact: ${name.replace(/[\r\n]/g, '')}`,
-            text: `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`,
+            subject: `Portfolio Contact: ${nameTrim.replace(/[\r\n]/g, '')}`,
+            text: `Name: ${nameTrim}\nEmail: ${emailTrim}\n\nMessage:\n${messageTrim}`,
         });
 
         return Response.json({ errCode: null, error: null, success: true, message: "Email sent successfully!" }, { status: 200 });
