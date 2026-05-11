@@ -63,6 +63,8 @@
     "portfolio.contact.otp.resend_in": "Renvoyer dans {{seconds}}s",
     "portfolio.contact.otp.back": "Retour à l'édition",
     "portfolio.contact.otp.invalid": "Code invalide ou expiré. Réessayez ou renvoyez.",
+    "portfolio.contact.otp.code_resent": "Un nouveau code a été envoyé.",
+    "portfolio.contact.otp.code_sent": "Code envoyé. Vérifiez votre boîte de réception.",
     "portfolio.email.otp.subject": "Votre code de vérification : {{code}}",
     "portfolio.email.otp.preheader": "Votre code est {{code}}. Il expire dans {{minutes}} minutes.",
     "portfolio.email.otp.heading": "Code de vérification",
