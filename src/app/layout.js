@@ -10,7 +10,7 @@ import SkipNav from "./components/SkipNav";
 export const metadata = {
     metadataBase: new URL("https://manojtgn.me"),
     title: {
-        default: "Manoj A \u25aa Software Developer",
+        default: "Manoj A \u25aa Software Engineer",
         template: "%s",
     },
     description: "Software developer building reliable, performant systems. Explore projects, experience, and contact me.",
@@ -20,7 +20,7 @@ export const metadata = {
     keywords: [
         "Manoj A",
         "ManojTGN",
-        "Software Developer",
+        "Software Engineer",
         "Portfolio",
         "Next.js",
         "Zoho",
@@ -33,7 +33,7 @@ export const metadata = {
         follow: true,
     },
     openGraph: {
-        title: "Manoj A | Software Developer",
+        title: "Manoj A | Software Engineer",
         description: "Software developer building reliable, performant systems. Explore projects, experience, and more.",
         url: "https://manojtgn.me",
         siteName: "Manoj A \u2014 Portfolio",
@@ -41,7 +41,7 @@ export const metadata = {
     },
     twitter: {
         card: "summary_large_image",
-        title: "Manoj A | Software Developer",
+        title: "Manoj A | Software Engineer",
         description: "Software developer building reliable, performant systems.",
     },
 };
