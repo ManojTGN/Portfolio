@@ -66,6 +66,7 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
                         src={rightImageSrc}
                         alt={finalRightLabel}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                         className="object-cover"
                         draggable={false}
                     />
@@ -83,6 +84,7 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
                         src={leftImageSrc}
                         alt={finalLeftLabel}
                         fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
                         className="object-cover"
                         draggable={false}
                     />

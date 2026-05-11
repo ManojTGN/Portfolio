@@ -15,3 +15,14 @@ export const letterSpacingMap = {
     medium: '0.05em',
     large: '0.1em'
 };
+
+export const cursorSizes = ['default', 'small', 'medium', 'large'];
+
+export const pageTransitionValues = ['on', 'off'];
+
+// Returns true when the user has requested reduced motion at the OS level.
+// Safe to call from client components only.
+export function prefersReducedMotion() {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}

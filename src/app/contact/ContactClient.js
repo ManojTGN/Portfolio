@@ -1,0 +1,34 @@
+'use client'
+
+import { useTranslation } from "react-i18next";
+
+import Topbar from "../components/Topbar";
+import FixedTopbar from "../components/FixedTopbar";
+import Contact from "../components/Contact";
+import Footer from "../components/Footer";
+
+export default function ContactClient() {
+    const { t, ready } = useTranslation();
+
+    if (!ready) return null;
+
+    return (
+        <div className="w-full flex flex-col items-center justify-start">
+            <FixedTopbar triggerOffset={100} />
+            <div className="w-11/12 sm:w-4/5 md:w-9/12 lg:w-6/12 xl:max-w-[1100px] 2xl:max-w-[1280px] flex flex-col">
+                <Topbar />
+                <main id="main-content">
+                <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
+                    <section className="mt-16" aria-labelledby="contact-heading">
+                        <div className="flex flex-col md:flex-row items-start md:items-center w-full gap-2">
+                            <h2 id="contact-heading" className="w-full font-medium text-2xl md:text-3xl lg:text-4xl text-portfolio-950 dark:text-white">{t('portfolio.contact')}</h2>
+                            <p className="w-full text-start md:text-end text-portfolio-500 dark:text-portfolio-700 text-xl md:text-2xl lg:text-3xl font-medium">{t('portfolio.contact.fun')}</p>
+                        </div>
+                        <Contact />
+                    </section>
+                </main>
+                <Footer />
+            </div>
+        </div>
+    );
+}
