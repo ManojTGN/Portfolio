@@ -6,6 +6,41 @@ import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+// Single status banner used for every "sending / sent / error / rate-limit"
+// signal in the contact form. The same component is rendered both above and
+// below the captcha/OTP block so the message is visible regardless of where
+// the user is currently focused on a tall form.
+//
+// Variant styles:
+//   info    — neutral (in-flight states like "Sending…")
+//   success — green (confirmation)
+//   error   — red (validation / server failure)
+function StatusBanner({ message }) {
+    if (!message) return null;
+    const styles = {
+        info: 'border-portfolio-500 bg-portfolio-50 dark:bg-portfolio-900 text-portfolio-950 dark:text-portfolio-50',
+        success: 'border-green-600 bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-300',
+        error: 'border-red-500 bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-300',
+    };
+    const icons = {
+        info: 'fa-circle-notch fa-spin',
+        success: 'fa-circle-check',
+        error: 'fa-triangle-exclamation',
+    };
+    const variant = styles[message.type] || styles.info;
+    const icon = icons[message.type] || icons.info;
+    return (
+        <div
+            role={message.type === 'error' ? 'alert' : 'status'}
+            aria-live={message.type === 'error' ? 'assertive' : 'polite'}
+            className={`w-full border-2 ${variant} p-3 text-sm flex items-start gap-2`}
+        >
+            <i className={`fa-solid ${icon} mt-0.5 shrink-0`} aria-hidden="true"></i>
+            <span className="flex-1">{message.text}</span>
+        </div>
+    );
+}
+
 export default function Contact() {
     const { t, i18n } = useTranslation();
     const { resolvedTheme } = useTheme();
@@ -24,7 +59,6 @@ export default function Contact() {
     const [token, setToken] = useState('');
     const [time, setTime] = useState('');
     const [inputDisable, setInputDisable] = useState(false);
-    const [buttonText, setButtonText] = useState(null);
     const [recaptchaFailed, setRecaptchaFailed] = useState(false);
     const [emailCopied, setEmailCopied] = useState(false);
 
@@ -32,9 +66,31 @@ export default function Contact() {
     const [awaitingCode, setAwaitingCode] = useState(false);
     const [otpToken, setOtpToken] = useState('');
     const [otpCode, setOtpCode] = useState('');
-    const [otpError, setOtpError] = useState('');
     const [resendCooldown, setResendCooldown] = useState(0);
-    const [formError, setFormError] = useState('');
+
+    // Single status channel — all sending / sent / error feedback flows through
+    // this and renders in the banner(s) above + below the captcha/OTP box.
+    // The submit button itself stays static (no in-flight text changes).
+    //   shape: null | { type: 'info' | 'success' | 'error', text: string }
+    const [statusMessage, setStatusMessage] = useState(null);
+    const statusTimerRef = useRef(null);
+
+    const showStatus = useCallback((type, text, autoDismissMs = 0) => {
+        if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
+        setStatusMessage({ type, text });
+        if (autoDismissMs > 0) {
+            statusTimerRef.current = setTimeout(() => setStatusMessage(null), autoDismissMs);
+        }
+    }, []);
+
+    const clearStatus = useCallback(() => {
+        if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
+        setStatusMessage(null);
+    }, []);
+
+    useEffect(() => () => {
+        if (statusTimerRef.current) clearTimeout(statusTimerRef.current);
+    }, []);
 
     const copyEmail = async (e) => {
         e.preventDefault();
@@ -102,20 +158,16 @@ export default function Contact() {
         setToken('');
         setOtpToken('');
         setOtpCode('');
-        setOtpError('');
-        setFormError('');
         setAwaitingCode(false);
         setResendCooldown(0);
         setInputDisable(false);
-        setButtonText(null);
+        clearStatus();
         recaptchaRef.current?.reset();
-    }, []);
+    }, [clearStatus]);
 
     const requestOtp = async () => {
         setInputDisable(true);
-        setOtpError('');
-        setFormError('');
-        setButtonText(t('portfolio.contact.otp.sending_code'));
+        showStatus('info', t('portfolio.contact.otp.sending_code'));
 
         try {
             const res = await fetch("/api/sendMail/start", {
@@ -138,37 +190,32 @@ export default function Contact() {
                 setOtpToken(data.otpToken);
                 setAwaitingCode(true);
                 setResendCooldown(RESEND_COOLDOWN_SECONDS);
-                setButtonText(null);
                 setInputDisable(false);
+                showStatus('success', t('portfolio.contact.otp.code_sent'), 4000);
             } else {
                 console.error("Error:", data);
                 setInputDisable(false);
-                setButtonText(null);
-                // Surface server's reason on rate-limit (429) so user knows to wait.
+                // Rate-limit messages (429) stay persistent; other errors auto-clear.
                 if (res.status === 429 && data.error) {
-                    setFormError(data.error);
+                    showStatus('error', data.error);
                 } else {
-                    setFormError(t('portfolio.contact.mail.not.sent'));
-                    setTimeout(() => setFormError(''), 4000);
+                    showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
                 }
-                // reCAPTCHA token is single-use; reset on failure so user can retry
+                // reCAPTCHA token is single-use; reset on failure so user can retry.
                 recaptchaRef.current?.reset();
                 setToken('');
             }
         } catch (err) {
             console.error("Network Error:", err);
             setInputDisable(false);
-            setButtonText(null);
-            setFormError(t('portfolio.contact.mail.not.sent'));
-            setTimeout(() => setFormError(''), 4000);
+            showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
         }
     };
 
     const confirmOtp = async () => {
         if (!isOtpValid) return;
         setInputDisable(true);
-        setOtpError('');
-        setButtonText(t('portfolio.contact.mail.sending'));
+        showStatus('info', t('portfolio.contact.mail.sending'));
 
         try {
             const res = await fetch("/api/sendMail/confirm", {
@@ -184,21 +231,25 @@ export default function Contact() {
                 }),
             });
 
-            const data = await res.json();
+            let data = {};
+            try { data = await res.json(); } catch { /* non-JSON */ }
+
             if (res.ok) {
-                setButtonText(t('portfolio.contact.mail.sent.thank.you'));
+                showStatus('success', t('portfolio.contact.mail.sent.thank.you'));
                 setTimeout(() => resetForm(), 3000);
             } else {
                 console.error("Error:", data);
-                setOtpError(t('portfolio.contact.otp.invalid'));
-                setButtonText(null);
                 setInputDisable(false);
+                if (res.status === 429 && data.error) {
+                    showStatus('error', data.error);
+                } else {
+                    showStatus('error', t('portfolio.contact.otp.invalid'));
+                }
             }
         } catch (err) {
             console.error("Network Error:", err);
-            setOtpError(t('portfolio.contact.mail.not.sent'));
-            setButtonText(null);
             setInputDisable(false);
+            showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
         }
     };
 
@@ -206,8 +257,7 @@ export default function Contact() {
         if (resendCooldown > 0 || !otpToken) return;
         setInputDisable(true);
         setOtpCode('');
-        setOtpError('');
-        setButtonText(t('portfolio.contact.otp.sending_code'));
+        showStatus('info', t('portfolio.contact.otp.sending_code'));
 
         try {
             const res = await fetch("/api/sendMail/resend", {
@@ -215,35 +265,39 @@ export default function Contact() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ otpToken, lang: i18n.language }),
             });
-            const data = await res.json();
+
+            let data = {};
+            try { data = await res.json(); } catch { /* non-JSON */ }
+
             if (res.ok && data.otpToken) {
                 setOtpToken(data.otpToken);
                 setResendCooldown(RESEND_COOLDOWN_SECONDS);
-                setButtonText(null);
                 setInputDisable(false);
+                showStatus('success', t('portfolio.contact.otp.code_resent'), 4000);
             } else {
                 if (typeof data.retryAfter === 'number') setResendCooldown(data.retryAfter);
-                setOtpError(data.error || t('portfolio.contact.mail.not.sent'));
-                setButtonText(null);
                 setInputDisable(false);
+                if (res.status === 429 && data.error) {
+                    showStatus('error', data.error);
+                } else {
+                    showStatus('error', data.error || t('portfolio.contact.mail.not.sent'), 4000);
+                }
             }
         } catch (err) {
             console.error("Network Error:", err);
-            setOtpError(t('portfolio.contact.mail.not.sent'));
-            setButtonText(null);
             setInputDisable(false);
+            showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
         }
     };
 
     const backToEdit = () => {
         setAwaitingCode(false);
         setOtpCode('');
-        setOtpError('');
         setOtpToken('');
         setInputDisable(false);
-        setButtonText(null);
         setResendCooldown(0);
-        // Captcha token from /start was consumed by Google; require a fresh check
+        clearStatus();
+        // Captcha token from /start was consumed by Google; require a fresh check.
         recaptchaRef.current?.reset();
         setToken('');
     };
@@ -390,13 +444,6 @@ export default function Contact() {
                     }} maxLength={500} className="w-full disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 dark:border-portfolio-700 dark:bg-portfolio-950 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.message.placeholder') + ' *'} disabled={inputDisable || awaitingCode} required={true}></textarea>
                 </div>
 
-                {formError ? (
-                    <div role="alert" className="w-full border-2 border-red-500 bg-red-50 dark:bg-red-950/30 p-3 text-sm text-red-700 dark:text-red-300">
-                        <i className="fa-solid fa-triangle-exclamation mr-2" aria-hidden="true"></i>
-                        {formError}
-                    </div>
-                ) : null}
-
                 {!awaitingCode ? (
                     <div className={"captcha-wrapper w-full border-2 dark:border-portfolio-700 border-portfolio-300 dark:bg-portfolio-950 bg-white p-3 overflow-x-auto " + (!token ? ' !border-red-500' : '')}>
                         <div className="flex items-center justify-center origin-top scale-90 sm:scale-100">
@@ -432,7 +479,9 @@ export default function Contact() {
                                 onChange={(e) => {
                                     const v = e.target.value.replace(/\D/g, '').slice(0, 6);
                                     setOtpCode(v);
-                                    setOtpError('');
+                                    // Clear any error status as the user retypes — the banner can
+                                    // hang around after a bad submit; let typing dismiss it.
+                                    if (statusMessage?.type === 'error') clearStatus();
                                 }}
                                 type="text"
                                 inputMode="numeric"
@@ -441,13 +490,9 @@ export default function Contact() {
                                 maxLength={6}
                                 placeholder={t('portfolio.contact.otp.code_placeholder')}
                                 disabled={inputDisable}
-                                className={`w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 tracking-[0.5em] text-center text-lg ${otpError ? '!border-red-500' : ''}`}
-                                aria-invalid={!!otpError}
-                                aria-describedby={otpError ? 'otp-error' : undefined}
+                                className={`w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 tracking-[0.5em] text-center text-lg ${statusMessage?.type === 'error' ? '!border-red-500' : ''}`}
+                                aria-invalid={statusMessage?.type === 'error'}
                             />
-                            {otpError ? (
-                                <p id="otp-error" className="mt-1 text-sm text-red-600 dark:text-red-400">{otpError}</p>
-                            ) : null}
                         </div>
                         <div className="flex items-center justify-between gap-2 text-sm">
                             <button type="button" onClick={backToEdit} disabled={inputDisable} className="underline text-portfolio-500 hover:text-portfolio-950 dark:hover:text-portfolio-50 disabled:cursor-not-allowed disabled:opacity-50">
@@ -463,8 +508,10 @@ export default function Contact() {
                     </div>
                 )}
 
+                <StatusBanner message={statusMessage} />
+
                 <button type="submit" className="group disabled:cursor-not-allowed dark:disabled:hover:border-portfolio-950 dark:disabled:hover:text-portfolio-950 disabled:bg-portfolio-100 dark:disabled:bg-portfolio-700 w-full flex font-medium text-start text-portfolio-950 dark:text-portfolio-950 dark:border-portfolio-950 dark:bg-portfolio-400 dark:hover:border-white dark:hover:text-white border-2 p-2" disabled={sendDisable}>
-                    <span className="w-full">{buttonText || (awaitingCode ? t('portfolio.contact.mail.send.message') : t('portfolio.contact.otp.verify_button'))}</span>
+                    <span className="w-full">{awaitingCode ? t('portfolio.contact.mail.send.message') : t('portfolio.contact.otp.verify_button')}</span>
                     <span className="group-disabled:w-0 text-end w-full opacity-100 group-disabled:opacity-0" aria-hidden="true">
                         <i className={`fa-solid ${awaitingCode ? 'fa-dove' : 'fa-envelope-circle-check'}`}></i>
                     </span>

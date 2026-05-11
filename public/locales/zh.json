@@ -63,6 +63,8 @@
     "portfolio.contact.otp.resend_in": "{{seconds}} 秒后重发",
     "portfolio.contact.otp.back": "返回编辑",
     "portfolio.contact.otp.invalid": "验证码无效或已过期。请重试或重新发送。",
+    "portfolio.contact.otp.code_resent": "新的验证码已发送。",
+    "portfolio.contact.otp.code_sent": "验证码已发送。请查收。",
     "portfolio.email.otp.subject": "您的验证码：{{code}}",
     "portfolio.email.otp.preheader": "您的验证码是 {{code}}。{{minutes}} 分钟后过期。",
     "portfolio.email.otp.heading": "验证码",

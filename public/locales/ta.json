@@ -63,6 +63,8 @@
     "portfolio.contact.otp.resend_in": "{{seconds}}வி இல் மீண்டும் அனுப்பு",
     "portfolio.contact.otp.back": "திருத்துவதற்கு திரும்பு",
     "portfolio.contact.otp.invalid": "தவறான அல்லது காலாவதியான குறியீடு. மீண்டும் முயற்சிக்கவும் அல்லது மீண்டும் அனுப்பவும்.",
+    "portfolio.contact.otp.code_resent": "புதிய குறியீடு அனுப்பப்பட்டது.",
+    "portfolio.contact.otp.code_sent": "குறியீடு அனுப்பப்பட்டது. உங்கள் இன்பாக்ஸைச் சரிபார்க்கவும்.",
     "portfolio.email.otp.subject": "உங்கள் சரிபார்ப்பு குறியீடு: {{code}}",
     "portfolio.email.otp.preheader": "உங்கள் குறியீடு {{code}}. {{minutes}} நிமிடங்களில் காலாவதியாகும்.",
     "portfolio.email.otp.heading": "சரிபார்ப்பு குறியீடு",

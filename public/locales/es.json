@@ -63,6 +63,8 @@
     "portfolio.contact.otp.resend_in": "Reenviar en {{seconds}}s",
     "portfolio.contact.otp.back": "Volver a editar",
     "portfolio.contact.otp.invalid": "Código no válido o caducado. Inténtalo de nuevo o reenvía.",
+    "portfolio.contact.otp.code_resent": "Se ha enviado un código nuevo.",
+    "portfolio.contact.otp.code_sent": "Código enviado. Revisa tu bandeja de entrada.",
     "portfolio.email.otp.subject": "Tu código de verificación: {{code}}",
     "portfolio.email.otp.preheader": "Tu código es {{code}}. Caduca en {{minutes}} minutos.",
     "portfolio.email.otp.heading": "Código de verificación",
