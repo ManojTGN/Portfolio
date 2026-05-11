@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import Topbar from "./components/Topbar";
 import { useTranslation } from "react-i18next";
+import { prefersReducedMotion } from "@/app/lib/accessibility";
 
 const AVAILABLE_COLORS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
@@ -10,6 +11,9 @@ export default function NotFound() {
     const [colorNum, setColorNum] = useState(100);
 
     useEffect(() => {
+        // Skip the color-cycle animation entirely if the user prefers reduced motion.
+        if (prefersReducedMotion()) return;
+
         let ascending = true;
         const intervalId = setInterval(() => {
             setColorNum(prev => {

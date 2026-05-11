@@ -1,16 +1,20 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from "react-i18next";
 import { useTheme } from 'next-themes';
-
-const displayNames = new Intl.DisplayNames(["en"], { type: "language" });
 
 export default function Footer() {
     const { t, i18n, ready } = useTranslation();
     const { setTheme, resolvedTheme } = useTheme();
     const [langOpen, setLangOpen] = useState(false);
     const langRef = useRef(null);
+
+    // Render language names in the user's current language (English on `en`, español on `es`, etc.)
+    const displayNames = useMemo(
+        () => new Intl.DisplayNames([i18n.language || 'en'], { type: 'language' }),
+        [i18n.language]
+    );
 
     useEffect(() => {
         if (!langOpen) return;

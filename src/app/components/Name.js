@@ -6,9 +6,10 @@ import gsap from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 import { Physics2DPlugin } from 'gsap/Physics2DPlugin';
 
+import { prefersReducedMotion } from '@/app/lib/accessibility';
+
 gsap.registerPlugin(Physics2DPlugin);
 
-const BASE_FONT_SIZE = 3.75;
 const MIN_FONT_WEIGHT = 100;
 const MAX_FONT_WEIGHT = 900;
 const DEFAULT_FONT_WEIGHT = 600;
@@ -22,6 +23,17 @@ export default function Name() {
         if (!el) return;
 
         gsap.set(el, { opacity: 1 });
+
+        // Skip all hover/click animations entirely if the user prefers reduced motion.
+        // The Tailwind responsive classes still apply, so the name renders normally.
+        if (prefersReducedMotion()) {
+            return;
+        }
+
+        // Read the natural font size from CSS (varies by viewport) so we don't
+        // override the Tailwind responsive class on mouseleave/click reset.
+        const naturalFontSizePx = parseFloat(window.getComputedStyle(el).fontSize) || 60;
+        const BASE_FONT_SIZE = naturalFontSizePx / 16; // convert px to rem (assumes 16px root)
 
         let isExploding = false;
         let split = SplitText.create(el, { type: "chars, words" });
@@ -117,8 +129,8 @@ export default function Name() {
     }, []);
 
     return (
-        <p ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className="text-4xl sm:text-5xl lg:text-6xl text-portfolio-950 dark:text-white font-bold flex-none cursor-pointer select-none">
+        <h1 ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className="text-4xl sm:text-5xl lg:text-6xl text-portfolio-950 dark:text-white font-bold flex-none cursor-pointer select-none m-0">
             {t("portfolio.top.realname")}
-        </p>
+        </h1>
     );
 }

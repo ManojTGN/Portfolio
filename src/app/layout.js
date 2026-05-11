@@ -8,13 +8,18 @@ import PageTransition from "./components/PageTransition";
 import SkipNav from "./components/SkipNav";
 
 export const metadata = {
-    title: "ManojTGN \u25aa Portfolio",
-    description: "Portfolio",
+    metadataBase: new URL("https://manojtgn.me"),
+    title: {
+        default: "Manoj A \u25aa Software Developer",
+        template: "%s",
+    },
+    description: "Software developer building reliable, performant systems. Explore projects, experience, and contact me.",
     icons: {
         icon: '/favicon.ico',
     },
     keywords: [
         "Manoj A",
+        "ManojTGN",
         "Software Developer",
         "Portfolio",
         "Next.js",
@@ -29,17 +34,16 @@ export const metadata = {
     },
     openGraph: {
         title: "Manoj A | Software Developer",
-        description: "Explore my projects and experience.",
+        description: "Software developer building reliable, performant systems. Explore projects, experience, and more.",
         url: "https://manojtgn.me",
-        // images: [
-        //     {
-        //     url: "/preview.png",
-        //     width: 1200,
-        //     height: 630,
-        //     },
-        // ],
+        siteName: "Manoj A \u2014 Portfolio",
         type: "website",
-    }
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Manoj A | Software Developer",
+        description: "Software developer building reliable, performant systems.",
+    },
 };
 
 export default function RootLayout({ children }) {

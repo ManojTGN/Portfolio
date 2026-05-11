@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import Image from "next/image";
+import { prefersReducedMotion } from "@/app/lib/accessibility";
 
 gsap.registerPlugin(Draggable);
 
@@ -14,10 +15,13 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
     const intervalRef = useRef(null);
     const autoScrollControls = useRef({ start: () => {}, stop: () => {} });
     const [activeIndex, setActiveIndex] = useState(0);
+    // Respect OS-level reduced-motion preference: no auto-rotation, instant slide moves.
+    const reducedMotionRef = useRef(false);
 
     useEffect(() => {
         if (!containerRef.current || images.length === 0) return;
 
+        reducedMotionRef.current = prefersReducedMotion();
         const container = containerRef.current;
         const slides = gsap.utils.toArray(container.children);
         const slideCount = slides.length;
@@ -30,7 +34,7 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
             setActiveIndex(next);
             gsap.to(container, {
                 x: -next * slideWidthRef.current,
-                duration: 0.5,
+                duration: reducedMotionRef.current ? 0 : 0.5,
                 ease: "power3.out",
             });
         };
@@ -57,7 +61,7 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
         window.addEventListener("resize", handleResize);
 
         const startAutoScroll = () => {
-            if (!autoScroll) return;
+            if (!autoScroll || reducedMotionRef.current) return;
             clearInterval(intervalRef.current);
             intervalRef.current = setInterval(() => {
                 moveToIndex(activeIndexRef.current + 1);
@@ -119,6 +123,7 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
                     <div key={src} className="relative flex-shrink-0 w-full h-full">
                         <Image
                             src={src} alt="" fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 50vw"
                             className="object-cover" draggable="false"
                         />
                     </div>
@@ -136,7 +141,8 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
             )}
             <div
                 className="absolute bottom-3 right-3 bg-black/50 text-white text-xs font-medium px-2 py-1 tabular-nums pointer-events-none"
-                aria-live="polite"
+                aria-live={autoScroll ? "off" : "polite"}
+                aria-atomic="true"
             >
                 {String(activeIndex + 1).padStart(2, "0")}/{String(images.length).padStart(2, "0")}
             </div>

@@ -8,8 +8,8 @@ export default function Toolsets() {
 
     return (
         <>
-        <p className="text-xl text-portfolio-950 dark:text-white font-medium mt-5">{t('portfolio.skills.frontend.development')}</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-1 gap-5 md:gap-0">
+        <h3 className="text-xl text-portfolio-950 dark:text-white font-medium mt-5">{t('portfolio.skills.frontend.development')}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-0">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl">
                     <i className="fa-brands fa-js text-yellow-500"></i> {t('portfolio.skills.js')}
@@ -45,8 +45,8 @@ export default function Toolsets() {
             </div>
         </div>
 
-        <p className="text-xl text-portfolio-950 dark:text-white font-medium mt-5">{t('portfolio.skills.backend.systems')}</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-1 gap-5 md:gap-0">
+        <h3 className="text-xl text-portfolio-950 dark:text-white font-medium mt-5">{t('portfolio.skills.backend.systems')}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-0">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
                     <Image src="/images/work/brand/C.svg" alt="" width={30} height={30} draggable={false} />
@@ -101,8 +101,8 @@ export default function Toolsets() {
             </div>
         </div>
 
-        <p className="text-xl text-portfolio-950 dark:text-white font-medium mt-5">{t('portfolio.skills.frontend.design.creative.tools')}</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 grid-rows-1 gap-5 md:gap-0">
+        <h3 className="text-xl text-portfolio-950 dark:text-white font-medium mt-5">{t('portfolio.skills.frontend.design.creative.tools')}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-0">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
                     <Image src="/images/work/brand/AdobePhotoshop.svg" alt="" width={20} height={20} draggable={false} />

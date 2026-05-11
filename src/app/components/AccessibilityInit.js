@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect } from 'react';
-import { sizeMap, wordSpacingMap, letterSpacingMap } from '@/app/lib/accessibility';
+import { sizeMap, wordSpacingMap, letterSpacingMap, cursorSizes } from '@/app/lib/accessibility';
 
 export default function AccessibilityInit() {
     useEffect(() => {
@@ -21,7 +21,7 @@ export default function AccessibilityInit() {
         }
 
         const cursorSize = localStorage.getItem('cursorSize');
-        if (cursorSize && cursorSize !== 'default') {
+        if (cursorSize && cursorSizes.includes(cursorSize) && cursorSize !== 'default') {
             document.documentElement.setAttribute('data-cursor-size', cursorSize);
         }
     }, []);

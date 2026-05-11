@@ -12,7 +12,7 @@ const signatureFont = Mrs_Saint_Delafield({
     display: "swap",
 });
 
-const BASE_STYLE = "dark:hover:text-portfolio-50 hover:underline p-1";
+const BASE_STYLE = "dark:hover:text-portfolio-50 hover:underline px-2 py-2 min-h-[44px] inline-flex items-center";
 const ACTIVE_STYLE = "text-portfolio-950 dark:text-white font-medium underline cursor-default";
 const INACTIVE_STYLE = "dark:text-portfolio-500 cursor-pointer";
 
@@ -39,7 +39,7 @@ export default function FixedTopbar({ triggerOffset = 260 }) {
     return (
         <div
             aria-hidden={!visible}
-            className={`fixed top-0 left-1/2 -translate-x-1/2 z-40 w-11/12 md:w-9/12 lg:w-7/12 backdrop-blur-md bg-portfolio-50/80 dark:bg-portfolio-950/80 transition-transform duration-300 ease-out ${visible ? 'translate-y-0' : '-translate-y-[200%]'}`}
+            className={`fixed top-0 left-1/2 -translate-x-1/2 z-40 w-11/12 sm:w-4/5 md:w-9/12 lg:w-6/12 xl:max-w-[1100px] 2xl:max-w-[1280px] backdrop-blur-md bg-portfolio-50/80 dark:bg-portfolio-950/80 transition-transform duration-300 ease-out ${visible ? 'translate-y-0' : '-translate-y-[200%]'}`}
         >
             <div className="flex items-center gap-4 py-2">
                 <div className="flex-1 min-w-0">
