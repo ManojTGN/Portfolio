@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import Image from "next/image";
+import { track } from "@vercel/analytics";
 
 import Topbar from "./components/Topbar";
 import FixedTopbar from "./components/FixedTopbar";
@@ -76,6 +77,7 @@ export default function HomeClient() {
                                     href="https://drive.google.com/file/d/1YkDWnFv27z7AQwdJki7xhn-cPGYZLFox/view?usp=sharing"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    onClick={() => track('resume_clicked')}
                                     className="group w-64 sm:w-72 lg:w-80 flex items-center font-medium text-portfolio-950 dark:text-portfolio-950 dark:border-portfolio-950 dark:bg-portfolio-400 dark:hover:border-white dark:hover:text-white border-2 p-2"
                                 >
                                     <span className="w-full">{t('portfolio.about.me.download.resume')}</span>

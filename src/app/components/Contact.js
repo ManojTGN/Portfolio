@@ -5,6 +5,7 @@ import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { track } from "@vercel/analytics";
 
 // Single status banner used for every "sending / sent / error / rate-limit"
 // signal in the contact form. The same component is rendered both above and
@@ -235,6 +236,9 @@ export default function Contact() {
             try { data = await res.json(); } catch { /* non-JSON */ }
 
             if (res.ok) {
+                // Real conversion event — visitor verified their email AND sent a message.
+                // Pass only the category (non-PII) as a dimension so Vercel can break it down.
+                try { track('contact_submitted', { category }); } catch {}
                 showStatus('success', t('portfolio.contact.mail.sent.thank.you'));
                 setTimeout(() => resetForm(), 3000);
             } else {
