@@ -27,7 +27,7 @@ const SUPPORTED_LANGS = ["en", "es", "fr", "ta", "zh"];
 const DEFAULT_LANG = "en";
 
 const SENDER_NAME = "Manoj A";
-const SENDER_TAGLINE = "Software Developer";
+const SENDER_TAGLINE = "Software Engineer";
 
 function readTemplate(name) {
     return fs.readFileSync(path.join(TEMPLATES_DIR, name), "utf8");

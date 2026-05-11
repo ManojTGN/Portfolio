@@ -1,7 +1,7 @@
 {
     "portfolio.top.realname": "Manoj A",
     "portfolio.location": "Tamil Nadu, India",
-    "portfolio.about.me.role": "Software Developer",
+    "portfolio.about.me.role": "Software Engineer",
     "portfolio.top.realname.label": "Portfolio Name",
     "portfolio.about.me.email": "manojanguraja@gmail.com",
     "portfolio.topbar.home": "Home",
@@ -46,7 +46,7 @@
     "portfolio.experience.zoho.location": "Chennai, India",
     "portfolio.experience.zoho.fullname": "Zoho Corporation",
     "portfolio.experience.zoho.duration": "Feb 2024 - Present",
-    "portfolio.experience.zoho.role": "Software Developer",
+    "portfolio.experience.zoho.role": "Software Engineer",
     "portfolio.experience.zoho.desc": "Contributing to the Active Directory Manager Plus (ADMP), working with Java, C++, and C# to develop scalable and reliable enterprise directory solutions. Through this role, I have gained extensive experience in software architecture, system integrations, and collaborative team development, while enhancing my technical skills and understanding of complex enterprise workflows.",
     "portfolio.experience.nit.location": "Coimbatore, India",
     "portfolio.experience.nit.fullname": "Nandha Info Tech",
