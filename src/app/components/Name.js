@@ -24,16 +24,10 @@ export default function Name() {
 
         gsap.set(el, { opacity: 1 });
 
-        // Skip all hover/click animations entirely if the user prefers reduced motion.
-        // The Tailwind responsive classes still apply, so the name renders normally.
-        if (prefersReducedMotion()) {
-            return;
-        }
+        if (prefersReducedMotion()) return;
 
-        // Read the natural font size from CSS (varies by viewport) so we don't
-        // override the Tailwind responsive class on mouseleave/click reset.
         const naturalFontSizePx = parseFloat(window.getComputedStyle(el).fontSize) || 60;
-        const BASE_FONT_SIZE = naturalFontSizePx / 16; // convert px to rem (assumes 16px root)
+        const BASE_FONT_SIZE = naturalFontSizePx / 16;
 
         let isExploding = false;
         let split = SplitText.create(el, { type: "chars, words" });

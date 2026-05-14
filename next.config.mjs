@@ -2,12 +2,12 @@
 
 // Content-Security-Policy directives. The directives below allow exactly the
 // third parties this site actually uses:
-//   - kit.fontawesome.com / ka-f.fontawesome.com — FontAwesome kit JS + CSS + fonts
-//   - www.google.com / www.gstatic.com / www.recaptcha.net — reCAPTCHA challenge
-//   - fonts.googleapis.com / fonts.gstatic.com — next/font Mrs Saint Delafield
-//   - i.ytimg.com — YouTube video thumbnails (already whitelisted in images.remotePatterns)
-//   - va.vercel-scripts.com — @vercel/analytics + @vercel/speed-insights script loader
-//   - vitals.vercel-insights.com — @vercel/analytics + @vercel/speed-insights beacon endpoint (off-Vercel hosts)
+//   - kit.fontawesome.com / ka-f.fontawesome.com -FontAwesome kit JS + CSS + fonts
+//   - www.google.com / www.gstatic.com / www.recaptcha.net -reCAPTCHA challenge
+//   - fonts.googleapis.com / fonts.gstatic.com -next/font Mrs Saint Delafield
+//   - i.ytimg.com -YouTube video thumbnails (already whitelisted in images.remotePatterns)
+//   - va.vercel-scripts.com -@vercel/analytics + @vercel/speed-insights script loader
+//   - vitals.vercel-insights.com -@vercel/analytics + @vercel/speed-insights beacon endpoint (off-Vercel hosts)
 //
 // `'unsafe-inline'` is required on script-src for Next.js's hydration data
 // (`__NEXT_DATA__` and inline event handlers from the framework). `'unsafe-eval'`

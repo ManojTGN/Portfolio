@@ -11,7 +11,6 @@ export default function NotFound() {
     const [colorNum, setColorNum] = useState(100);
 
     useEffect(() => {
-        // Skip the color-cycle animation entirely if the user prefers reduced motion.
         if (prefersReducedMotion()) return;
 
         let ascending = true;

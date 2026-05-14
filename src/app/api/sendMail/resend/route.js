@@ -9,16 +9,30 @@ import {
     createTransporter,
     OTP_TTL_SECONDS,
     RESEND_COOLDOWN_SECONDS,
+    isTokenConsumed,
+    markTokenConsumed,
 } from "@/app/lib/contact";
 import { renderOtpEmail, FROM_NAME_OTP } from "@/app/lib/email";
 
-// Resend re-uses the payload locked in the existing otpToken (so no captcha needed),
-// but generates a fresh code and a fresh token.
+const MIN = 60 * 1000;
+const HOUR = 60 * MIN;
+const DAY = 24 * HOUR;
+
+const IP_PER_MIN = 2;
+const IP_PER_HOUR = 5;
+const IP_PER_DAY = 10;
+
 export async function POST(request) {
     try {
         const ip = getClientIp(request);
-        if (isRateLimited(`resend:ip:${ip}`, 5, 60 * 1000)) {
-            return Response.json({ errCode: 8, error: "Too many requests, try again later", success: false }, { status: 429 });
+        if (isRateLimited(`resend:ip:1m:${ip}`, IP_PER_MIN, MIN)) {
+            return Response.json({ errCode: 8, error: "Too many requests, try again later", success: false, retryAfter: 60 }, { status: 429, headers: { "Retry-After": "60" } });
+        }
+        if (isRateLimited(`resend:ip:1h:${ip}`, IP_PER_HOUR, HOUR)) {
+            return Response.json({ errCode: 8, error: "Hourly resend limit reached", success: false, retryAfter: 3600 }, { status: 429, headers: { "Retry-After": "3600" } });
+        }
+        if (isRateLimited(`resend:ip:1d:${ip}`, IP_PER_DAY, DAY)) {
+            return Response.json({ errCode: 8, error: "Daily resend limit reached", success: false, retryAfter: 86400 }, { status: 429, headers: { "Retry-After": "86400" } });
         }
 
         let body;
@@ -35,25 +49,25 @@ export async function POST(request) {
 
         const secrets = getOtpSecrets();
         if (!secrets) {
-            console.error("OTP_SECRET / OTP_PEPPER not configured");
+            console.error("EMAIL_OTP_PRIVATE_KEY / EMAIL_OTP_PEPPER not configured");
             return Response.json({ errCode: 7, error: "Server misconfigured", success: false }, { status: 500 });
         }
 
-        const claims = verifyToken(incomingToken, secrets.secret);
+        const claims = await verifyToken(incomingToken);
         if (!claims) {
             return Response.json({ errCode: 9, error: "Invalid or expired session", success: false }, { status: 400 });
         }
 
-        // Cooldown: don't issue a new code more often than RESEND_COOLDOWN_SECONDS
+        if (isTokenConsumed(claims.jti)) {
+            return Response.json({ errCode: 9, error: "This verification session has already been completed", success: false }, { status: 400 });
+        }
+
         const nowSec = Math.floor(Date.now() / 1000);
         if (typeof claims.iat === "number" && nowSec - claims.iat < RESEND_COOLDOWN_SECONDS) {
             const retryAfter = RESEND_COOLDOWN_SECONDS - (nowSec - claims.iat);
             return Response.json({ errCode: 8, error: `Please wait ${retryAfter}s before resending`, success: false, retryAfter }, { status: 429 });
         }
 
-        // Per-email cap (1 hour, total across start + resend together via shared prefix would be ideal, but
-        // resends already require a valid token so blanket-spam from start is the harder vector). Keep a separate
-        // resend cap to be safe.
         if (isRateLimited(`resend:email:${String(claims.e).toLowerCase()}`, 5, 60 * 60 * 1000)) {
             return Response.json({ errCode: 8, error: "Too many resends for this email", success: false }, { status: 429 });
         }
@@ -67,7 +81,7 @@ export async function POST(request) {
             iat: nowSec,
             exp: nowSec + OTP_TTL_SECONDS,
         };
-        const otpToken = signToken(newClaims, secrets.secret);
+        const otpToken = await signToken(newClaims);
 
         const { subject, text, html } = renderOtpEmail({
             code,
@@ -88,6 +102,8 @@ export async function POST(request) {
                 "X-Entity-Ref-ID": `otp-${nowSec}-r`,
             },
         });
+
+        markTokenConsumed(claims.jti, claims.exp);
 
         return Response.json({
             success: true,

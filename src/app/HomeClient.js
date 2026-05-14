@@ -32,7 +32,7 @@ export default function HomeClient() {
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <FixedTopbar />
-            <div className="w-11/12 sm:w-4/5 md:w-9/12 lg:w-6/12 xl:max-w-[1100px] 2xl:max-w-[1280px] flex flex-col justify-center">
+            <div className="w-full sm:w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 2xl:w-[70%] max-w-[1400px] flex flex-col justify-center">
                 <Topbar />
 
                 <main id="main-content">
