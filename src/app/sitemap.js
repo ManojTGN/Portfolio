@@ -1,16 +1,22 @@
 import { PROJECTS } from "@/app/lib/projects";
 
-const SITE_URL = "https://manojtgn.me";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://manojtgn.me").replace(/\/$/, "");
 
+/** @type {() => import('next').MetadataRoute.Sitemap} */
 export default function sitemap() {
     const lastModified = new Date();
 
     const staticRoutes = [
-        { url: `${SITE_URL}/`,              changeFrequency: "monthly", priority: 1.0 },
-        { url: `${SITE_URL}/work`,          changeFrequency: "monthly", priority: 0.9 },
-        { url: `${SITE_URL}/contact`,       changeFrequency: "yearly",  priority: 0.7 },
-        { url: `${SITE_URL}/accessibility`, changeFrequency: "yearly",  priority: 0.4 },
-    ].map((entry) => ({ ...entry, lastModified }));
+        { path: "/",              changeFrequency: "monthly", priority: 1.0 },
+        { path: "/work",          changeFrequency: "monthly", priority: 0.9 },
+        { path: "/contact",       changeFrequency: "yearly",  priority: 0.7 },
+        { path: "/accessibility", changeFrequency: "yearly",  priority: 0.4 },
+    ].map(({ path, changeFrequency, priority }) => ({
+        url: `${SITE_URL}${path}`,
+        lastModified,
+        changeFrequency,
+        priority,
+    }));
 
     const projectRoutes = PROJECTS.map((p) => ({
         url: `${SITE_URL}/work/${p.slug}`,

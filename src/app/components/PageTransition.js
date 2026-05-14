@@ -17,8 +17,6 @@ export default function PageTransition({ children }) {
     const blocksRef = useRef([]);
     const isTransitionRef = useRef(null);
 
-    // Transition is disabled if (a) the user explicitly turned it off in a11y settings,
-    // or (b) the OS reports `prefers-reduced-motion: reduce`.
     const isTransitionEnabled = () => {
         if (prefersReducedMotion()) return false;
         try { return localStorage.getItem('pageTransition') !== 'off'; } catch { return true; }

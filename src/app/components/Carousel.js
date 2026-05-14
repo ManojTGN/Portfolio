@@ -15,7 +15,6 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
     const intervalRef = useRef(null);
     const autoScrollControls = useRef({ start: () => {}, stop: () => {} });
     const [activeIndex, setActiveIndex] = useState(0);
-    // Respect OS-level reduced-motion preference: no auto-rotation, instant slide moves.
     const reducedMotionRef = useRef(false);
 
     useEffect(() => {

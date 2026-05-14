@@ -1,20 +1,3 @@
-// Email renderer. Loads HTML templates from ./email-templates/ at module init
-// (Node caches them for the lifetime of the serverless instance) and performs
-// safe placeholder substitution.
-//
-// Placeholder syntax (Mustache-style):
-//   {{var}}    — value is HTML-escaped before insertion (safe default)
-//   {{{var}}}  — value is inserted raw (use only for pre-rendered HTML fragments,
-//                e.g. message_html which is already escaped + nl2br'd)
-//
-// Substitution is single-pass, so raw-inserted content is NOT re-scanned for
-// placeholders. A user submitting a message containing literal "{{name}}" will
-// render that text verbatim, not as a recursive substitution.
-//
-// OTP emails are localized — strings come from public/locales/{lang}.json so the
-// recipient gets the email in whatever language they had selected on the site.
-// The owner-notification email stays English (the audience is the site owner).
-
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -33,11 +16,9 @@ function readTemplate(name) {
     return fs.readFileSync(path.join(TEMPLATES_DIR, name), "utf8");
 }
 
-// Cache HTML templates at module load — one read per process lifetime.
 const TEMPLATE_OTP = readTemplate("otp.html");
 const TEMPLATE_CONTACT = readTemplate("contact.html");
 
-// Lazy-loaded, per-language locale cache.
 const localeCache = {};
 function loadLocale(lang) {
     if (localeCache[lang]) return localeCache[lang];
@@ -50,17 +31,12 @@ function loadLocale(lang) {
     return localeCache[lang];
 }
 
-// Accept a user-supplied language string and clamp to a known one, defaulting to English.
-// Strips region tags ("en-US" → "en") and only allows our supported set.
 export function normalizeLang(lang) {
     if (typeof lang !== "string") return DEFAULT_LANG;
     const short = lang.split(/[-_]/)[0].toLowerCase();
     return SUPPORTED_LANGS.includes(short) ? short : DEFAULT_LANG;
 }
 
-// Translate a key into the requested language with {{var}} interpolation.
-// Falls back to English if the key is missing in the requested language;
-// falls back to the key itself if missing in English too (to make typos visible).
 function t(lang, key, vars = {}) {
     const locale = loadLocale(lang);
     let s = locale[key];
@@ -81,6 +57,7 @@ function escapeHtml(s) {
         .replace(/'/g, "&#39;");
 }
 
+// {{{var}}} = raw, {{var}} = escaped. Single-pass so user text can't recurse.
 function applyTemplate(template, vars) {
     return template.replace(/\{\{\{(\w+)\}\}\}|\{\{(\w+)\}\}/g, (_, rawKey, escKey) => {
         if (rawKey != null) {
@@ -93,7 +70,7 @@ function applyTemplate(template, vars) {
 }
 
 function nl2br(s) {
-    return escapeHtml(s).replace(/\n/g, "<br>");
+    return escapeHtml(s).replace(/\r\n?/g, "\n").replace(/\n/g, "<br>");
 }
 
 export function renderOtpEmail({ code, ttlMinutes = 10, lang = DEFAULT_LANG }) {
@@ -115,7 +92,7 @@ export function renderOtpEmail({ code, ttlMinutes = 10, lang = DEFAULT_LANG }) {
         t(language, "portfolio.email.otp.text.requested"),
         t(language, "portfolio.email.otp.text.ignore"),
         "",
-        `— ${SENDER_NAME}`,
+        SENDER_NAME,
     ].join("\n");
 
     const html = applyTemplate(TEMPLATE_OTP, {
@@ -138,10 +115,10 @@ export function renderContactEmail({ name, email, categoryLabel, message }) {
     const safeName = String(name).replace(/[\r\n]/g, "").trim();
     const safeSubjectName = safeName.length > 40 ? safeName.slice(0, 40) + "…" : safeName;
     const subject = `Portfolio Contact [${categoryLabel}]: ${safeSubjectName}`;
-    const preheader = `New contact form message from ${safeName} (${categoryLabel}).`;
+    const preheader = `A pigeon arrived from ${safeName} (${categoryLabel}).`;
 
     const text = [
-        "New message from your portfolio contact form.",
+        "A pigeon was dispatched.",
         "",
         `Name:     ${safeName}`,
         `Email:    ${email} (verified)`,
@@ -150,8 +127,7 @@ export function renderContactEmail({ name, email, categoryLabel, message }) {
         "Message:",
         message,
         "",
-        "—",
-        "Reply directly to this email to respond to the sender.",
+        "Hit Reply All on this email to respond directly. This keeps both Manoj and the sender in the conversation.",
     ].join("\n");
 
     const html = applyTemplate(TEMPLATE_CONTACT, {
@@ -168,6 +144,5 @@ export function renderContactEmail({ name, email, categoryLabel, message }) {
     return { subject, text, html };
 }
 
-// Display names used in the From: header. Kept ASCII-only for deliverability.
 export const FROM_NAME_OTP = SENDER_NAME;
 export const FROM_NAME_CONTACT = "Portfolio Contact";

@@ -2,7 +2,6 @@
 
 import { useTranslation } from "react-i18next";
 import { useState, useEffect, useCallback, useRef } from "react";
-import Link from "next/link";
 
 import Topbar from "../components/Topbar";
 import FixedTopbar from "../components/FixedTopbar";
@@ -112,7 +111,7 @@ export default function WorkClient() {
         <>
             <div className="w-full flex flex-col items-center justify-start">
                 <FixedTopbar triggerOffset={100} />
-                <div className="w-11/12 sm:w-4/5 md:w-9/12 lg:w-6/12 xl:max-w-[1100px] 2xl:max-w-[1280px] flex flex-col">
+                <div className="w-full sm:w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 2xl:w-[70%] max-w-[1400px] flex flex-col">
                     <Topbar />
                     <main id="main-content">
                     <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
@@ -140,11 +139,6 @@ export default function WorkClient() {
                             />
                         ))}
 
-                        <div className="mt-8 pl-5 border-dashed border-l-2 border-portfolio-500">
-                            <p className="dark:text-white font-medium text-lg">{t('portfolio.work.help.title')} </p>
-                            <p className="text-portfolio-500">{t('portfolio.work.help.desc')}</p>
-                            <p className="text-portfolio-500">{t('portfolio.work.help.contact')}  <Link className="underline text-yellow-700 font-semibold" href="/contact">{t('portfolio.work.help.come.say.hi')}</Link></p>
-                        </div>
                     </section>
 
                     <section aria-labelledby="content-creator-heading" className="mt-16">

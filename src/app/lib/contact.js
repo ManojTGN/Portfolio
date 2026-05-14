@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import nodemailer from "nodemailer";
+import { SignJWT, jwtVerify } from "jose";
 
 export const ALLOWED_CATEGORIES = {
     project: "Project Inquiry",
@@ -12,7 +13,52 @@ export const ALLOWED_CATEGORIES = {
 export const OTP_TTL_SECONDS = 600;
 export const RESEND_COOLDOWN_SECONDS = 60;
 
-const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+const MAX_LOCAL = 64;
+const MAX_DOMAIN = 253;
+const MAX_TOTAL = 254;
+const MAX_LABEL = 63;
+const MIN_TOTAL = 6;
+
+const LOCAL_CHARS = /^[A-Za-z0-9._%+-]+$/;
+const LABEL_CHARS = /^[A-Za-z0-9-]+$/;
+const ALPHA_ONLY = /^[A-Za-z]+$/;
+
+function isValidEmail(email) {
+    if (typeof email !== "string") return false;
+    if (email.length < MIN_TOTAL || email.length > MAX_TOTAL) return false;
+    if (/\s/.test(email)) return false;
+
+    const at = email.indexOf("@");
+    if (at <= 0 || at !== email.lastIndexOf("@")) return false;
+
+    const local = email.slice(0, at);
+    const domain = email.slice(at + 1);
+    if (!local || !domain) return false;
+
+    if (local.length > MAX_LOCAL) return false;
+    if (local.startsWith(".") || local.endsWith(".")) return false;
+    if (local.includes("..")) return false;
+    if (!LOCAL_CHARS.test(local)) return false;
+
+    if (domain.length > MAX_DOMAIN) return false;
+    if (!domain.includes(".")) return false;
+    if (domain.startsWith(".") || domain.endsWith(".")) return false;
+    if (domain.includes("..")) return false;
+    if (domain.startsWith("-") || domain.endsWith("-")) return false;
+
+    const labels = domain.split(".");
+    for (const label of labels) {
+        if (label.length === 0 || label.length > MAX_LABEL) return false;
+        if (label.startsWith("-") || label.endsWith("-")) return false;
+        if (!LABEL_CHARS.test(label)) return false;
+    }
+
+    const tld = labels[labels.length - 1];
+    if (tld.length < 2) return false;
+    if (!ALPHA_ONLY.test(tld)) return false;
+
+    return true;
+}
 
 export function validateContactPayload(body) {
     if (!body || typeof body !== "object") {
@@ -41,14 +87,16 @@ export function validateContactPayload(body) {
         return { error: { errCode: 2, error: "Invalid input", status: 400 } };
     }
 
-    if (!EMAIL_REGEX.test(emailTrim)) {
+    if (!isValidEmail(emailTrim)) {
         return { error: { errCode: 2, error: "Invalid email", status: 400 } };
     }
 
     if (nameTrim.length < 3) return { error: { errCode: 3, error: "Name too short", status: 400 } };
     if (name.length > 30) return { error: { errCode: 3, error: "Name too long", status: 400 } };
+    const letters = (nameTrim.match(/[A-Za-z]/g) || []).length;
+    if (letters < 3) return { error: { errCode: 3, error: "Name must contain at least 3 letters", status: 400 } };
     if (email.length > 40) return { error: { errCode: 4, error: "Email too long", status: 400 } };
-    if (messageTrim.split(/\s+/).length < 3) return { error: { errCode: 5, error: "Message too short", status: 400 } };
+    if (messageTrim.split(/\s+/).length < 5) return { error: { errCode: 5, error: "Message too short", status: 400 } };
     if (message.length > 500) return { error: { errCode: 5, error: "Message too long", status: 400 } };
 
     return {
@@ -63,36 +111,93 @@ export function validateContactPayload(body) {
     };
 }
 
-// HMAC-SHA256 over base64url(JSON payload). Stateless OTP envelope.
-export function signToken(payload, secret) {
-    if (!secret) throw new Error("OTP_SECRET is not configured");
-    const body = Buffer.from(JSON.stringify(payload)).toString("base64url");
-    const sig = crypto.createHmac("sha256", secret).update(body).digest("base64url");
-    return `${body}.${sig}`;
-}
+let cachedKeys = null;
+let cachedKeyError = null;
 
-export function verifyToken(token, secret) {
-    if (!secret || typeof token !== "string" || !token.includes(".")) return null;
-    const dot = token.indexOf(".");
-    const body = token.slice(0, dot);
-    const sig = token.slice(dot + 1);
-    if (!body || !sig) return null;
-
-    const expected = crypto.createHmac("sha256", secret).update(body).digest("base64url");
-    const sigBuf = Buffer.from(sig);
-    const expBuf = Buffer.from(expected);
-    if (sigBuf.length !== expBuf.length) return null;
-    if (!crypto.timingSafeEqual(sigBuf, expBuf)) return null;
-
-    let claims;
-    try {
-        claims = JSON.parse(Buffer.from(body, "base64url").toString());
-    } catch {
+function loadKeys() {
+    if (cachedKeys) return cachedKeys;
+    if (cachedKeyError) return null;
+    const b64 = process.env.EMAIL_OTP_PRIVATE_KEY;
+    if (!b64) {
+        cachedKeyError = new Error("EMAIL_OTP_PRIVATE_KEY is not configured");
         return null;
     }
+    try {
+        const pem = Buffer.from(b64, "base64").toString("utf8");
+        const privateKey = crypto.createPrivateKey(pem);
+        if (privateKey.asymmetricKeyType !== "ed25519") {
+            throw new Error(`EMAIL_OTP_PRIVATE_KEY must be an Ed25519 key (got ${privateKey.asymmetricKeyType})`);
+        }
+        const publicKey = crypto.createPublicKey(privateKey);
+        cachedKeys = { privateKey, publicKey };
+        return cachedKeys;
+    } catch (e) {
+        cachedKeyError = e;
+        console.error("[OTP] Failed to load Ed25519 private key:", e?.message || e);
+        return null;
+    }
+}
 
-    if (typeof claims.exp !== "number" || claims.exp < Math.floor(Date.now() / 1000)) return null;
-    return claims;
+export async function signToken(payload) {
+    const keys = loadKeys();
+    if (!keys) throw new Error("OTP signing keys not configured");
+    const now = Math.floor(Date.now() / 1000);
+    const iat = typeof payload.iat === "number" ? payload.iat : now;
+    const exp = typeof payload.exp === "number" ? payload.exp : now + OTP_TTL_SECONDS;
+    const { iat: _i, exp: _e, jti: _j, ...claims } = payload;
+    return await new SignJWT(claims)
+        .setProtectedHeader({ alg: "EdDSA", typ: "JWT" })
+        .setIssuedAt(iat)
+        .setExpirationTime(exp)
+        .setIssuer("portfolio")
+        .setAudience("portfolio-contact")
+        .setJti(crypto.randomUUID())
+        .sign(keys.privateKey);
+}
+
+const consumedJtis = new Map();
+const CONSUMED_PRUNE_THRESHOLD = 500;
+
+export function isTokenConsumed(jti) {
+    if (!jti) return false;
+    const exp = consumedJtis.get(jti);
+    if (!exp) return false;
+    if (exp < Math.floor(Date.now() / 1000)) {
+        consumedJtis.delete(jti);
+        return false;
+    }
+    return true;
+}
+
+export function markTokenConsumed(jti, expSec) {
+    if (!jti || typeof expSec !== "number") return;
+    consumedJtis.set(jti, expSec);
+    if (consumedJtis.size > CONSUMED_PRUNE_THRESHOLD) {
+        const now = Math.floor(Date.now() / 1000);
+        for (const [k, v] of consumedJtis) {
+            if (v <= now) consumedJtis.delete(k);
+        }
+    }
+}
+
+export async function verifyToken(token) {
+    if (!token || typeof token !== "string") return null;
+    const keys = loadKeys();
+    if (!keys) return null;
+    try {
+        const { payload } = await jwtVerify(token, keys.publicKey, {
+            algorithms: ["EdDSA"],
+            issuer: "portfolio",
+            audience: "portfolio-contact",
+            clockTolerance: 5,
+        });
+        return payload;
+    } catch (e) {
+        if (process.env.NODE_ENV !== "production") {
+            console.warn("[OTP] Token verification failed:", e?.code || e?.message || e);
+        }
+        return null;
+    }
 }
 
 function sha256Hex(input) {
@@ -116,8 +221,6 @@ export function generateOtpCode() {
     return String(crypto.randomInt(0, 1_000_000)).padStart(6, "0");
 }
 
-// In-memory sliding-window rate limiter. Per-instance; serverless cold starts reset it.
-// Acceptable for a portfolio — combined with reCAPTCHA + email-rate-limit + OTP secret it stays safe.
 const limiterStore = new Map();
 
 export function isRateLimited(key, max, windowMs) {
@@ -143,9 +246,7 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 5000) {
     }
 }
 
-// Returns a string safe to embed inside a `"display name" <addr>` header value.
-// Strips characters that are special in RFC 5322 address parsing (which could
-// otherwise be used to smuggle additional addresses into a Reply-To header).
+// Strips RFC 5322 specials so a Reply-To header can't smuggle extra addresses.
 export function sanitizeDisplayName(s) {
     if (typeof s !== "string") return "";
     return s.replace(/[\r\n"<>()@,;:\\\[\]]/g, "").trim().slice(0, 60);
@@ -200,10 +301,10 @@ export function getClientIp(request) {
 }
 
 export function getOtpSecrets() {
-    const secret = process.env.OTP_SECRET;
-    const pepper = process.env.OTP_PEPPER;
-    if (!secret || !pepper) return null;
-    return { secret, pepper };
+    const pepper = process.env.EMAIL_OTP_PEPPER;
+    const keys = loadKeys();
+    if (!pepper || !keys) return null;
+    return { pepper };
 }
 
 export function createTransporter() {

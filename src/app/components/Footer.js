@@ -10,7 +10,6 @@ export default function Footer() {
     const [langOpen, setLangOpen] = useState(false);
     const langRef = useRef(null);
 
-    // Render language names in the user's current language (English on `en`, español on `es`, etc.)
     const displayNames = useMemo(
         () => new Intl.DisplayNames([i18n.language || 'en'], { type: 'language' }),
         [i18n.language]

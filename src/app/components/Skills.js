@@ -1,12 +1,7 @@
 'use client'
 
-import Link from "next/link";
 import { useTranslation } from "react-i18next";
 
-// Five capability pillars. Each carries a value-proposition tagline (the "why
-// should a recruiter care" line) plus a flat list of items rendered as inline
-// chips. Key + icon + color are the only structural metadata here — copy lives
-// in the locale files.
 const CATEGORIES = [
     {
         key: 'core',
@@ -45,7 +40,6 @@ export default function Skills() {
 
     return (
         <>
-            {/* Lead — same border-l-2 idiom as Experiences / Toolsets / Contact */}
             <div className="mt-5 border-l-2 pl-5 border-portfolio-500">
                 <p className="text-portfolio-950 dark:text-white text-2xl font-medium">
                     {t('portfolio.skills.bring.heading')}
@@ -55,9 +49,6 @@ export default function Skills() {
                 </p>
             </div>
 
-            {/* Pillar grid — 1-col mobile, 2-col tablet+. Each card carries an
-                editorial sequence number, an icon, the pillar name, a value-prop
-                tagline, and the underlying items as chips. */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-8 mt-10">
                 {CATEGORIES.map((cat, idx) => (
                     <article
@@ -91,22 +82,6 @@ export default function Skills() {
                 ))}
             </div>
 
-            {/* CTA — converts intent into action. Border-l keeps the visual rhythm. */}
-            <div className="mt-12 border-l-2 pl-5 border-portfolio-500">
-                <p className="text-portfolio-950 dark:text-white font-medium text-xl">
-                    {t('portfolio.skills.cta.title')}
-                </p>
-                <p className="text-portfolio-500 mt-2 text-lg">
-                    {t('portfolio.skills.cta.body')}
-                </p>
-                <Link
-                    href="/contact"
-                    className="group mt-4 inline-flex items-center gap-2 font-medium underline text-portfolio-950 dark:text-portfolio-50 hover:no-underline"
-                >
-                    <span>{t('portfolio.skills.cta.button')}</span>
-                    <i className="fa-solid fa-arrow-right text-sm transition-transform group-hover:translate-x-0.5" aria-hidden="true"></i>
-                </Link>
-            </div>
         </>
     );
 }

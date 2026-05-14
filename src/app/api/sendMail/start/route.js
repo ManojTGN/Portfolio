@@ -17,16 +17,13 @@ const MIN = 60 * 1000;
 const HOUR = 60 * MIN;
 const DAY = 24 * HOUR;
 
-// Per-IP caps (defends against bursts from a single attacker)
-const IP_PER_MIN = 5;
-const IP_PER_HOUR = 30;
-const IP_PER_DAY = 100;
+const IP_PER_MIN = 2;
+const IP_PER_HOUR = 5;
+const IP_PER_DAY = 10;
 
-// Per-target-email caps (defends victims from being spammed with OTPs)
-// Legit users need at most 1 OTP per submission; resends go through /resend instead.
 const EMAIL_PER_MIN = 1;
-const EMAIL_PER_HOUR = 3;
-const EMAIL_PER_DAY = 5;
+const EMAIL_PER_HOUR = 2;
+const EMAIL_PER_DAY = 2;
 
 function rateLimit429(error, retryAfterSeconds) {
     const headers = retryAfterSeconds ? { "Retry-After": String(retryAfterSeconds) } : undefined;
@@ -54,7 +51,6 @@ export async function POST(request) {
         }
         const { nameTrim, emailTrim, category, messageTrim } = validation.fields;
 
-        // Per-target-email rate limits — the main defense against using the form to spam an arbitrary inbox with OTPs.
         const emailKey = emailTrim.toLowerCase();
         if (isRateLimited(`start:email:1m:${emailKey}`, EMAIL_PER_MIN, MIN)) {
             return rateLimit429("A code was just sent to this email. Please wait a minute before requesting another.", 60);
@@ -82,7 +78,7 @@ export async function POST(request) {
 
         const secrets = getOtpSecrets();
         if (!secrets) {
-            console.error("OTP_SECRET / OTP_PEPPER not configured");
+            console.error("EMAIL_OTP_PRIVATE_KEY / EMAIL_OTP_PEPPER not configured");
             return Response.json({ errCode: 7, error: "Server misconfigured", success: false }, { status: 500 });
         }
 
@@ -96,7 +92,7 @@ export async function POST(request) {
             iat: now,
             exp: now + OTP_TTL_SECONDS,
         };
-        const otpToken = signToken(claims, secrets.secret);
+        const otpToken = await signToken(claims);
 
         const { subject, text, html } = renderOtpEmail({
             code,

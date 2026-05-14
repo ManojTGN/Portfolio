@@ -7,15 +7,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { track } from "@vercel/analytics";
 
-// Single status banner used for every "sending / sent / error / rate-limit"
-// signal in the contact form. The same component is rendered both above and
-// below the captcha/OTP block so the message is visible regardless of where
-// the user is currently focused on a tall form.
-//
-// Variant styles:
-//   info    — neutral (in-flight states like "Sending…")
-//   success — green (confirmation)
-//   error   — red (validation / server failure)
+const EMAIL_PATTERN = "^[A-Za-z0-9](?:[A-Za-z0-9._%+-]*[A-Za-z0-9])?@[A-Za-z0-9](?:[A-Za-z0-9.-]*[A-Za-z0-9])?\\.[A-Za-z]{2,}$";
+
 function StatusBanner({ message }) {
     if (!message) return null;
     const styles = {
@@ -63,16 +56,11 @@ export default function Contact() {
     const [recaptchaFailed, setRecaptchaFailed] = useState(false);
     const [emailCopied, setEmailCopied] = useState(false);
 
-    // OTP state
     const [awaitingCode, setAwaitingCode] = useState(false);
     const [otpToken, setOtpToken] = useState('');
     const [otpCode, setOtpCode] = useState('');
     const [resendCooldown, setResendCooldown] = useState(0);
 
-    // Single status channel — all sending / sent / error feedback flows through
-    // this and renders in the banner(s) above + below the captcha/OTP box.
-    // The submit button itself stays static (no in-flight text changes).
-    //   shape: null | { type: 'info' | 'success' | 'error', text: string }
     const [statusMessage, setStatusMessage] = useState(null);
     const statusTimerRef = useRef(null);
 
@@ -107,7 +95,8 @@ export default function Contact() {
     const recaptchaRef = useRef(null);
     const otpInputRef = useRef(null);
     const messageWordCount = message.trim() ? message.trim().split(/\s+/).length : 0;
-    const isFormValid = name.trim().length >= 3 && email.trim().length > 0 && CATEGORIES.includes(category) && messageWordCount >= 3 && token.length > 0;
+    const nameLetterCount = (name.match(/[A-Za-z]/g) || []).length;
+    const isFormValid = nameLetterCount >= 3 && name.trim().length >= 3 && email.trim().length > 0 && CATEGORIES.includes(category) && messageWordCount >= 5 && token.length > 0;
     const isOtpValid = /^\d{6}$/.test(otpCode);
     const sendDisable = awaitingCode ? (!isOtpValid || inputDisable) : (!isFormValid || inputDisable);
 
@@ -139,14 +128,12 @@ export default function Contact() {
         return () => clearInterval(interval);
     }, []);
 
-    // Resend cooldown ticker
     useEffect(() => {
         if (resendCooldown <= 0) return;
         const id = setTimeout(() => setResendCooldown((c) => Math.max(0, c - 1)), 1000);
         return () => clearTimeout(id);
     }, [resendCooldown]);
 
-    // Auto-focus OTP input when entering the verify stage
     useEffect(() => {
         if (awaitingCode) otpInputRef.current?.focus();
     }, [awaitingCode]);
@@ -185,7 +172,7 @@ export default function Contact() {
             });
 
             let data = {};
-            try { data = await res.json(); } catch { /* non-JSON error body */ }
+            try { data = await res.json(); } catch {}
 
             if (res.ok && data.otpToken) {
                 setOtpToken(data.otpToken);
@@ -196,13 +183,11 @@ export default function Contact() {
             } else {
                 console.error("Error:", data);
                 setInputDisable(false);
-                // Rate-limit messages (429) stay persistent; other errors auto-clear.
                 if (res.status === 429 && data.error) {
                     showStatus('error', data.error);
                 } else {
                     showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
                 }
-                // reCAPTCHA token is single-use; reset on failure so user can retry.
                 recaptchaRef.current?.reset();
                 setToken('');
             }
@@ -233,11 +218,9 @@ export default function Contact() {
             });
 
             let data = {};
-            try { data = await res.json(); } catch { /* non-JSON */ }
+            try { data = await res.json(); } catch {}
 
             if (res.ok) {
-                // Real conversion event — visitor verified their email AND sent a message.
-                // Pass only the category (non-PII) as a dimension so Vercel can break it down.
                 try { track('contact_submitted', { category }); } catch {}
                 showStatus('success', t('portfolio.contact.mail.sent.thank.you'));
                 setTimeout(() => resetForm(), 3000);
@@ -271,7 +254,7 @@ export default function Contact() {
             });
 
             let data = {};
-            try { data = await res.json(); } catch { /* non-JSON */ }
+            try { data = await res.json(); } catch {}
 
             if (res.ok && data.otpToken) {
                 setOtpToken(data.otpToken);
@@ -301,7 +284,6 @@ export default function Contact() {
         setInputDisable(false);
         setResendCooldown(0);
         clearStatus();
-        // Captcha token from /start was consumed by Google; require a fresh check.
         recaptchaRef.current?.reset();
         setToken('');
     };
@@ -423,11 +405,19 @@ export default function Contact() {
             <form onSubmit={onSubmit} className="w-full flex flex-col gap-5 text-portfolio-500" aria-label={t('portfolio.contact.form.aria')}>
                 <div>
                     <label htmlFor="contact-name" className="sr-only">{t('portfolio.contact.name.placeholder')}</label>
-                    <input id="contact-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={30} minLength={3} type="text" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.name.placeholder') + ' *'} disabled={inputDisable || awaitingCode} autoComplete="name" pattern="^[a-zA-Z]{3,}([ \-'][a-zA-Z]+)*$" required={true} />
+                    <input id="contact-name" value={name} onChange={(e) => setName(e.target.value)} maxLength={30} minLength={3} type="text" className="peer w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 invalid:!border-red-500" placeholder={t('portfolio.contact.name.placeholder') + ' *'} disabled={inputDisable || awaitingCode} autoComplete="name" pattern="^(?=(?:[^A-Za-z]*[A-Za-z]){3})[A-Za-z .\-']+$" required={true} aria-describedby="contact-name-error" />
+                    <p id="contact-name-error" className="mt-1 text-xs text-red-600 dark:text-red-400 hidden peer-[&:not(:placeholder-shown):invalid]:block">
+                        <i className="fa-solid fa-circle-exclamation mr-1" aria-hidden="true"></i>
+                        {t('portfolio.contact.validation.name')}
+                    </p>
                 </div>
                 <div>
                     <label htmlFor="contact-email" className="sr-only">{t('portfolio.contact.email.placeholder')}</label>
-                    <input id="contact-email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={40} type="email" className="w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.email.placeholder') + ' *'} disabled={inputDisable || awaitingCode} autoComplete="email" pattern="^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$" required={true} />
+                    <input id="contact-email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={40} type="email" className="peer w-full disabled:cursor-not-allowed border-2 dark:border-portfolio-700 dark:bg-portfolio-950 h-12 p-2 invalid:!border-red-500" placeholder={t('portfolio.contact.email.placeholder') + ' *'} disabled={inputDisable || awaitingCode} autoComplete="email" pattern={EMAIL_PATTERN} required={true} aria-describedby="contact-email-error" />
+                    <p id="contact-email-error" className="mt-1 text-xs text-red-600 dark:text-red-400 hidden peer-[&:not(:placeholder-shown):invalid]:block">
+                        <i className="fa-solid fa-circle-exclamation mr-1" aria-hidden="true"></i>
+                        {t('portfolio.contact.validation.email')}
+                    </p>
                 </div>
                 <div>
                     <label htmlFor="contact-category" className="sr-only">{t('portfolio.contact.category.label')}</label>
@@ -444,29 +434,41 @@ export default function Contact() {
                         const val = e.target.value;
                         setMessage(val);
                         const words = val.trim() ? val.trim().split(/\s+/).length : 0;
-                        e.target.setCustomValidity(words >= 3 ? '' : t('portfolio.contact.validation.min_words'));
-                    }} maxLength={500} className="w-full disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 dark:border-portfolio-700 dark:bg-portfolio-950 p-2 invalid:!border-red-500 invalid:text-red-500" placeholder={t('portfolio.contact.message.placeholder') + ' *'} disabled={inputDisable || awaitingCode} required={true}></textarea>
+                        e.target.setCustomValidity(words >= 5 ? '' : t('portfolio.contact.validation.min_words'));
+                    }} maxLength={500} className="peer w-full disabled:cursor-not-allowed h-56 min-h-32 max-h-56 border-2 dark:border-portfolio-700 dark:bg-portfolio-950 p-2 invalid:!border-red-500" placeholder={t('portfolio.contact.message.placeholder') + ' *'} disabled={inputDisable || awaitingCode} required={true} aria-describedby="contact-message-error"></textarea>
+                    <p id="contact-message-error" className="mt-1 text-xs text-red-600 dark:text-red-400 hidden peer-[&:not(:placeholder-shown):invalid]:block">
+                        <i className="fa-solid fa-circle-exclamation mr-1" aria-hidden="true"></i>
+                        {t('portfolio.contact.validation.min_words')}
+                    </p>
                 </div>
 
                 {!awaitingCode ? (
-                    <div className={"captcha-wrapper w-full border-2 dark:border-portfolio-700 border-portfolio-300 dark:bg-portfolio-950 bg-white p-3 overflow-x-auto " + (!token ? ' !border-red-500' : '')}>
-                        <div className="flex items-center justify-center origin-top scale-90 sm:scale-100">
-                            <ReCAPTCHA
-                                ref={recaptchaRef}
-                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                                onChange={onReCAPTCHAChange}
-                                onExpired={onReCAPTCHAExpired}
-                                onErrored={onReCAPTCHAErrored}
-                                hl={i18n.language}
-                                theme={resolvedTheme}
-                            />
-                        </div>
+                    <div>
+                        <div className={"captcha-wrapper w-full border-2 dark:border-portfolio-700 border-portfolio-300 dark:bg-portfolio-950 bg-white p-3 overflow-x-auto " + (!token ? ' !border-red-500' : '')}>
+                            <div className="flex items-center justify-center origin-top scale-90 sm:scale-100">
+                                <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                                    onChange={onReCAPTCHAChange}
+                                    onExpired={onReCAPTCHAExpired}
+                                    onErrored={onReCAPTCHAErrored}
+                                    hl={i18n.language}
+                                    theme={resolvedTheme}
+                                />
+                            </div>
 
-                        {recaptchaFailed ? <span className="w-full" data-name="recaptcha-failed-status">
-                            <i className="fa-solid fa-xmark text-red-900" aria-hidden="true"></i>
-                            <span className="px-1 text-red-950">{t('portfolio.contact.captcha.failed')}</span>
-                            <span className="float-end">Google reCAPTCHA</span>
-                        </span> : null}
+                            {recaptchaFailed ? <span className="w-full" data-name="recaptcha-failed-status">
+                                <i className="fa-solid fa-xmark text-red-900" aria-hidden="true"></i>
+                                <span className="px-1 text-red-950">{t('portfolio.contact.captcha.failed')}</span>
+                                <span className="float-end">Google reCAPTCHA</span>
+                            </span> : null}
+                        </div>
+                        {!token ? (
+                            <p className="mt-1 text-xs text-red-600 dark:text-red-400">
+                                <i className="fa-solid fa-circle-exclamation mr-1" aria-hidden="true"></i>
+                                {t('portfolio.contact.validation.captcha')}
+                            </p>
+                        ) : null}
                     </div>
                 ) : (
                     <div className="w-full border-2 dark:border-portfolio-700 border-portfolio-300 dark:bg-portfolio-950 bg-white p-4 flex flex-col gap-3" aria-live="polite">
@@ -483,8 +485,6 @@ export default function Contact() {
                                 onChange={(e) => {
                                     const v = e.target.value.replace(/\D/g, '').slice(0, 6);
                                     setOtpCode(v);
-                                    // Clear any error status as the user retypes — the banner can
-                                    // hang around after a bad submit; let typing dismiss it.
                                     if (statusMessage?.type === 'error') clearStatus();
                                 }}
                                 type="text"

@@ -38,7 +38,7 @@ export const metadata = {
         title: "Manoj A | Software Engineer",
         description: "Software developer building reliable, performant systems. Explore projects, experience, and more.",
         url: "https://manojtgn.me",
-        siteName: "Manoj A \u2014 Portfolio",
+        siteName: "Manoj A | Portfolio",
         type: "website",
     },
     twitter: {

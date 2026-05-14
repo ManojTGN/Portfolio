@@ -1,13 +1,13 @@
-const SITE_URL = "https://manojtgn.me";
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://manojtgn.me").replace(/\/$/, "");
 
+/** @type {() => import('next').MetadataRoute.Robots} */
 export default function robots() {
     return {
         rules: [
             {
                 userAgent: "*",
                 allow: "/",
-                // Block the API surface from being crawled — it's transactional only.
-                disallow: ["/api/"],
+                disallow: ["/api/", "/_next/"],
             },
         ],
         sitemap: `${SITE_URL}/sitemap.xml`,
