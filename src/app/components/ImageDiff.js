@@ -86,7 +86,7 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
             )}
 
             {leftImageSrc && (
-                <div ref={clipRef} className="absolute inset-0 w-full h-full image-diff-clip">
+                <div ref={clipRef} className="absolute inset-0 w-full h-full [clip-path:inset(0_50%_0_0)]">
                     <Image
                         src={leftImageSrc}
                         alt={finalLeftLabel}
@@ -105,7 +105,7 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
 
             <div
                 ref={handleRef}
-                className="absolute top-0 bottom-0 w-1 bg-white cursor-col-resize z-20 image-diff-handle"
+                className="absolute top-0 bottom-0 w-1 bg-white cursor-col-resize z-20 left-1/2"
                 role="slider"
                 tabIndex={0}
                 aria-label="Image comparison slider"
