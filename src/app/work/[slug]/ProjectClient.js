@@ -89,7 +89,7 @@ export default function ProjectClient({ slug }) {
                     <section className="mt-12">
                         <h2 className="text-2xl md:text-3xl font-medium">{t('portfolio.work.detail.preview')}</h2>
                         <div className="mt-4 aspect-video">
-                            <Carousel showArrow={project.showArrow !== false} images={project.previewImages} />
+                            <Carousel showArrow={project.showArrow !== false} images={project.previewImages} label={niceName} />
                         </div>
                     </section>
                 )}

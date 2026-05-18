@@ -12,13 +12,15 @@ export async function generateMetadata({ params }) {
         };
     }
     const niceName = (project.slug || "").replace(/([A-Z])/g, " $1").trim().replace(/^./, c => c.toUpperCase());
+    const title = `${niceName} ▪ Project by Manoj A ▪ Features & Tech Stack`;
+    const description = `Deep dive into ${niceName}: overview, screenshots, key features, tech stack, and source code. One of the projects built and shipped by Manoj A.`;
     return {
-        title: `${niceName} ▪ Manoj A`,
-        description: `Details, features, and tech stack for the ${niceName} project.`,
+        title,
+        description,
         alternates: hreflangAlternates(`/work/${project.slug}`),
         openGraph: {
-            title: `${niceName} | Manoj A`,
-            description: `Details, features, and tech stack for the ${niceName} project.`,
+            title: `${niceName} | Project by Manoj A`,
+            description,
             url: `/work/${project.slug}`,
         },
     };

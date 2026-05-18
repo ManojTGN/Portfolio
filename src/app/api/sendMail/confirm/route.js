@@ -9,110 +9,151 @@ import {
     getOtpSecrets,
     createTransporter,
     sanitizeDisplayName,
-    isTokenConsumed,
-    markTokenConsumed,
+    tryAcquireToken,
+    finalizeToken,
+    releaseToken,
 } from "@/app/lib/contact";
 import { renderContactEmail, FROM_NAME_CONTACT } from "@/app/lib/email";
+import {
+    jsonOk,
+    jsonError,
+    methodNotAllowed,
+    preflight,
+    requireJsonBody,
+    rateLimitHeaders,
+    isSameOrigin,
+    forbiddenOrigin,
+    ERROR_CODES,
+} from "@/app/lib/api";
+
+const ALLOWED = ["POST", "OPTIONS"];
+const MAX_BODY_BYTES = 8 * 1024;
+
+export async function OPTIONS() { return preflight(ALLOWED); }
 
 export async function POST(request) {
     try {
+        if (!isSameOrigin(request)) return forbiddenOrigin();
         const ip = getClientIp(request);
         if (isRateLimited(`confirm:ip:${ip}`, 10, 60 * 1000)) {
-            return Response.json({ errCode: 8, error: "Too many requests, try again later", success: false }, { status: 429 });
+            return jsonError(ERROR_CODES.RATE_LIMITED, "Too many requests, try again later", {
+                status: 429,
+                headers: rateLimitHeaders({ limit: 10, remaining: 0, resetAfterSec: 60, retryAfterSec: 60 }),
+            });
         }
 
-        let body;
-        try {
-            body = await request.json();
-        } catch {
-            return Response.json({ errCode: 1, error: "Missing fields", success: false }, { status: 400 });
-        }
+        const parsed = await requireJsonBody(request, { maxBytes: MAX_BODY_BYTES });
+        if (parsed.error) return parsed.error;
+        const body = parsed.body;
 
         const validation = validateContactPayload(body);
         if (validation.error) {
-            const { errCode, error, status } = validation.error;
-            return Response.json({ errCode, error, success: false }, { status });
+            return jsonError(ERROR_CODES.VALIDATION_FAILED, validation.error.error, {
+                status: validation.error.status === 400 ? 422 : validation.error.status,
+                details: { errCode: validation.error.errCode },
+            });
         }
         const { nameTrim, emailTrim, category, categoryLabel, messageTrim } = validation.fields;
 
         const { otpToken, code } = body;
         if (typeof otpToken !== "string" || typeof code !== "string") {
-            return Response.json({ errCode: 9, error: "Missing verification code", success: false }, { status: 400 });
+            return jsonError(ERROR_CODES.VALIDATION_FAILED, "Missing verification code", {
+                status: 422,
+                details: { fields: ["otpToken", "code"] },
+            });
         }
-
         if (!/^\d{6}$/.test(code)) {
-            return Response.json({ errCode: 9, error: "Invalid code format", success: false }, { status: 400 });
+            return jsonError(ERROR_CODES.VALIDATION_FAILED, "Invalid code format", {
+                status: 422,
+                details: { field: "code", pattern: "^\\d{6}$" },
+            });
         }
 
         const secrets = getOtpSecrets();
         if (!secrets) {
             console.error("EMAIL_OTP_PRIVATE_KEY / EMAIL_OTP_PEPPER not configured");
-            return Response.json({ errCode: 7, error: "Server misconfigured", success: false }, { status: 500 });
+            return jsonError(ERROR_CODES.SERVER_MISCONFIGURED, "Server is misconfigured", { status: 500 });
         }
 
         const claims = await verifyToken(otpToken);
         if (!claims) {
-            return Response.json({ errCode: 9, error: "Invalid or expired code", success: false }, { status: 400 });
-        }
-
-        if (isTokenConsumed(claims.jti)) {
-            return Response.json({ errCode: 9, error: "This verification code has already been used", success: false }, { status: 400 });
+            // Unified error for invalid/expired/consumed/mismatched — avoids
+            // leaking which specific state a probed token is in.
+            return jsonError(ERROR_CODES.UNAUTHORIZED, "Invalid or expired code", { status: 401 });
         }
 
         const tokenKey = otpToken.slice(-32);
         if (isRateLimited(`confirm:token:${tokenKey}`, 5, 10 * 60 * 1000)) {
-            return Response.json({ errCode: 9, error: "Too many attempts. Please resend the code.", success: false }, { status: 429 });
+            return jsonError(ERROR_CODES.RATE_LIMITED, "Too many attempts. Please resend the code.", {
+                status: 429,
+                headers: rateLimitHeaders({ limit: 5, remaining: 0, resetAfterSec: 600, retryAfterSec: 600 }),
+            });
         }
 
         if (claims.e !== emailTrim || claims.c !== category) {
-            return Response.json({ errCode: 9, error: "Verification mismatch", success: false }, { status: 400 });
+            return jsonError(ERROR_CODES.UNAUTHORIZED, "Invalid or expired code", { status: 401 });
         }
 
         const ph = payloadHash({ nameTrim, emailTrim, category, messageTrim });
         if (!timingSafeEqualHex(ph, claims.ph)) {
-            return Response.json({ errCode: 9, error: "Verification mismatch", success: false }, { status: 400 });
+            return jsonError(ERROR_CODES.UNAUTHORIZED, "Invalid or expired code", { status: 401 });
         }
 
         const submittedHash = codeHash(code, secrets.pepper);
         if (!timingSafeEqualHex(submittedHash, claims.ch)) {
-            return Response.json({ errCode: 9, error: "Invalid or expired code", success: false }, { status: 400 });
+            return jsonError(ERROR_CODES.UNAUTHORIZED, "Invalid or expired code", { status: 401 });
         }
 
-        const { subject, text, html } = renderContactEmail({
-            name: nameTrim,
-            email: emailTrim,
-            categoryLabel,
-            message: messageTrim,
-        });
-        const safeReplyName = sanitizeDisplayName(nameTrim);
-        const replyTo = safeReplyName
-            ? `"${safeReplyName}" <${emailTrim}>`
-            : emailTrim;
+        // Atomically reserve the jti before sending mail. A concurrent /confirm
+        // with the same token cannot pass this check, so the email is sent at
+        // most once even under perfectly racing requests.
+        if (!tryAcquireToken(claims.jti)) {
+            return jsonError(ERROR_CODES.UNAUTHORIZED, "Invalid or expired code", { status: 401 });
+        }
 
-        const ownerMailbox = process.env.PORTFOLIO_MAIL_TO || process.env.PORTFOLIO_MAIL_ADDR;
-        const ccSender = emailTrim.toLowerCase() !== String(ownerMailbox).toLowerCase()
-            ? emailTrim
-            : undefined;
+        try {
+            const { subject, text, html } = renderContactEmail({
+                name: nameTrim,
+                email: emailTrim,
+                categoryLabel,
+                message: messageTrim,
+            });
+            const safeReplyName = sanitizeDisplayName(nameTrim);
+            const replyTo = safeReplyName ? `"${safeReplyName}" <${emailTrim}>` : emailTrim;
 
-        const transporter = createTransporter();
-        await transporter.sendMail({
-            from: `"${FROM_NAME_CONTACT}" <${process.env.PORTFOLIO_MAIL_ADDR}>`,
-            replyTo,
-            to: ownerMailbox,
-            cc: ccSender,
-            subject,
-            text,
-            html,
-            headers: {
-                "X-Entity-Ref-ID": `contact-${Math.floor(Date.now() / 1000)}`,
-            },
-        });
+            const ownerMailbox = process.env.PORTFOLIO_MAIL_TO || process.env.PORTFOLIO_MAIL_ADDR;
+            const ccSender = emailTrim.toLowerCase() !== String(ownerMailbox).toLowerCase() ? emailTrim : undefined;
 
-        markTokenConsumed(claims.jti, claims.exp);
+            const transporter = createTransporter();
+            await transporter.sendMail({
+                from: `"${FROM_NAME_CONTACT}" <${process.env.PORTFOLIO_MAIL_ADDR}>`,
+                replyTo,
+                to: ownerMailbox,
+                cc: ccSender,
+                subject,
+                text,
+                html,
+                headers: {
+                    "X-Entity-Ref-ID": `contact-${Math.floor(Date.now() / 1000)}`,
+                },
+            });
+        } catch (err) {
+            // Release the reservation so the user can retry with the same code.
+            releaseToken(claims.jti);
+            throw err;
+        }
 
-        return Response.json({ success: true, message: "Email sent successfully!" }, { status: 200 });
+        finalizeToken(claims.jti, claims.exp);
+
+        return jsonOk({ message: "Email sent successfully!" }, { status: 201 });
     } catch (err) {
-        console.error(err);
-        return Response.json({ errCode: 7, error: "Failed to send email", success: false }, { status: 500 });
+        if (process.env.NODE_ENV !== "production") console.debug("[sendMail/confirm] error", err);
+        return jsonError(ERROR_CODES.SERVER_ERROR, "Failed to send email", { status: 500 });
     }
 }
+
+export async function GET() { return methodNotAllowed(ALLOWED); }
+export async function PUT() { return methodNotAllowed(ALLOWED); }
+export async function PATCH() { return methodNotAllowed(ALLOWED); }
+export async function DELETE() { return methodNotAllowed(ALLOWED); }
+export async function HEAD() { return methodNotAllowed(ALLOWED); }

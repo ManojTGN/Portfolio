@@ -80,12 +80,215 @@ html[data-cursor-size="large"] * {
     outline-offset: 2px;
 }
 
-.image-diff-clip {
-    clip-path: inset(0 50% 0 0);
+/* Default-state 404: the middle 0 cycles through the Tailwind purple ramp
+   (50 → 700) and back, with a pulsing layered glow. The 800–950 stops are
+   skipped because they read as near-black and lose the brand colour. */
+.notfound-zero-purple {
+    color: #a855f7; /* purple-500 — initial paint before animation kicks in */
+    text-shadow:
+        0 0 14px rgba(168, 85, 247, 0.55),
+        0 0 30px rgba(168, 85, 247, 0.3);
+    animation:
+        notfound-zero-purple-glow 4s ease-in-out infinite,
+        notfound-zero-purple-cycle 0.96s linear infinite alternate;
+}
+@keyframes notfound-zero-purple-cycle {
+    0%   { color: #faf5ff; } /* purple-50  */
+    14%  { color: #f3e8ff; } /* purple-100 */
+    29%  { color: #e9d5ff; } /* purple-200 */
+    43%  { color: #d8b4fe; } /* purple-300 */
+    57%  { color: #c084fc; } /* purple-400 */
+    71%  { color: #a855f7; } /* purple-500 */
+    86%  { color: #9333ea; } /* purple-600 */
+    100% { color: #7e22ce; } /* purple-700 */
+}
+@keyframes notfound-zero-purple-glow {
+    0%, 100% {
+        text-shadow:
+            0 0 14px rgba(168, 85, 247, 0.55),
+            0 0 30px rgba(168, 85, 247, 0.3);
+    }
+    50% {
+        text-shadow:
+            0 0 20px rgba(168, 85, 247, 0.85),
+            0 0 42px rgba(168, 85, 247, 0.45);
+    }
 }
 
-.image-diff-handle {
-    left: 50%;
+/* Solved-state 404: the middle 0 cycles through the gold ramp (Tailwind's
+   amber palette) with a layered glow. Stops at gold-700 — past that the
+   colour drops into near-black bronze and stops reading as gold. */
+.notfound-zero-gold {
+    color: #f5b400;
+    text-shadow:
+        0 0 14px rgba(245, 180, 0, 0.55),
+        0 0 30px rgba(245, 180, 0, 0.3);
+    animation:
+        notfound-zero-gold-glow 4s ease-in-out infinite,
+        notfound-zero-gold-cycle 0.96s linear infinite alternate;
+}
+@keyframes notfound-zero-gold-cycle {
+    0%   { color: #fffbeb; } /* gold-50  */
+    14%  { color: #fef3c7; } /* gold-100 */
+    29%  { color: #fde68a; } /* gold-200 */
+    43%  { color: #fcd34d; } /* gold-300 */
+    57%  { color: #fbbf24; } /* gold-400 */
+    71%  { color: #f5b400; } /* gold-500 (rich gold) */
+    86%  { color: #d97706; } /* gold-600 */
+    100% { color: #b45309; } /* gold-700 */
+}
+@keyframes notfound-zero-gold-glow {
+    0%, 100% {
+        text-shadow:
+            0 0 14px rgba(245, 180, 0, 0.55),
+            0 0 30px rgba(245, 180, 0, 0.3);
+    }
+    50% {
+        text-shadow:
+            0 0 20px rgba(245, 180, 0, 0.85),
+            0 0 42px rgba(245, 180, 0, 0.45);
+    }
+}
+
+/* ─── Lights-out 404 puzzle ───────────────────────────────────────────── */
+.puzzle-cell {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    line-height: 2.4rem;
+    font-family: ui-monospace, "JetBrains Mono", "SF Mono", Menlo, Consolas, monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    transition: color 180ms ease, text-shadow 180ms ease, transform 100ms ease;
+    user-select: none;
+}
+@media (min-width: 640px) {
+    .puzzle-cell { width: 2.8rem; height: 2.8rem; line-height: 2.8rem; font-size: 1.9rem; }
+}
+@media (min-width: 768px) {
+    .puzzle-cell { width: 3.2rem; height: 3.2rem; line-height: 3.2rem; font-size: 2.2rem; }
+}
+.puzzle-cell.dim {
+    color: rgba(106, 106, 106, 0.35);
+    text-shadow: none;
+}
+.puzzle-cell.dim:hover {
+    color: rgba(255, 255, 255, 0.5);
+}
+.puzzle-cell.lit {
+    color: #fff;
+    text-shadow:
+        0 0 6px rgba(168, 85, 247, 0.9),
+        0 0 14px rgba(168, 85, 247, 0.65),
+        0 0 28px rgba(168, 85, 247, 0.35);
+}
+.puzzle-cell:active { transform: scale(0.92); }
+.puzzle-cell:disabled { cursor: default; }
+.puzzle-cell:focus-visible {
+    outline: 2px solid #c084fc;
+    outline-offset: -2px;
+    border-radius: 4px;
+}
+
+/* Entrance — board radiates out from the centre cell. Each cell's
+   animation-delay is set inline based on Chebyshev distance from center. */
+.puzzle-entering .puzzle-cell {
+    animation: puzzle-enter 0.7s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+    pointer-events: none;
+}
+@keyframes puzzle-enter {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+        color: rgba(168, 85, 247, 0);
+        text-shadow: none;
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.25);
+        color: #fff;
+        text-shadow:
+            0 0 8px rgba(168, 85, 247, 0.95),
+            0 0 18px rgba(168, 85, 247, 0.6);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Win celebration — diagonal sweep that flashes each cell purple → white →
+   fade. Each cell gets a staggered `animation-delay` set inline based on
+   `row + col`, producing a diagonal wave across the board. */
+.puzzle-celebrating .puzzle-cell {
+    animation: puzzle-celebrate 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    pointer-events: none;
+}
+@keyframes puzzle-celebrate {
+    0% {
+        color: rgba(106, 106, 106, 0.35);
+        text-shadow: none;
+        transform: scale(1);
+    }
+    25% {
+        color: #fff;
+        text-shadow:
+            0 0 10px rgba(168, 85, 247, 1),
+            0 0 22px rgba(168, 85, 247, 0.85),
+            0 0 36px rgba(168, 85, 247, 0.6);
+        transform: scale(1.18);
+    }
+    60% {
+        color: #fff;
+        text-shadow:
+            0 0 6px rgba(255, 255, 255, 0.95),
+            0 0 16px rgba(168, 85, 247, 0.75);
+        transform: scale(1);
+    }
+    100% {
+        color: rgba(106, 106, 106, 0.35);
+        text-shadow: none;
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.puzzle-banner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    pointer-events: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
+    text-shadow: 0 0 18px rgba(168, 85, 247, 0.95);
+    animation: puzzle-banner-in 1.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0.45s;
+    opacity: 0;
+}
+@keyframes puzzle-banner-in {
+    0%   { opacity: 0; transform: scale(0.9); letter-spacing: 0.1em; }
+    35%  { opacity: 1; transform: scale(1.02); letter-spacing: 0.02em; }
+    80%  { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0.96); }
+}
+.puzzle-banner-icon {
+    font-size: 1.5em;
+    animation: puzzle-spark 1.6s ease-in-out infinite;
+    animation-delay: 0.45s;
+    color: #c084fc;
+}
+@keyframes puzzle-spark {
+    0%, 100% { transform: rotate(0deg) scale(1); }
+    50%      { transform: rotate(180deg) scale(1.3); }
 }
 
 @media (prefers-reduced-motion: reduce) {

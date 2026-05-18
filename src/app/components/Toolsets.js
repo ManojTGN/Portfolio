@@ -15,7 +15,7 @@ export default function Toolsets() {
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Next.js.svg" alt="" width={30} height={30} draggable={false} className="dark:invert" />
+                    <Image src="/images/work/brand/Next.js.svg" alt="Next.js logo" width={30} height={30} draggable={false} className="dark:invert" />
                     {t('portfolio.skills.nextjs')}
                 </p>
             </div>
@@ -26,13 +26,13 @@ export default function Toolsets() {
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/gsap.png" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/gsap.png" alt="GSAP logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.gsap')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/tailwind.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/tailwind.svg" alt="Tailwind CSS logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.tailwind')}
                 </p>
             </div>
@@ -47,13 +47,13 @@ export default function Toolsets() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-0">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/C.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/C.svg" alt="C language logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.c')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/C++.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/C++.svg" alt="C++ language logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.cpp')}
                 </p>
             </div>
@@ -64,19 +64,19 @@ export default function Toolsets() {
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/java.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/java.svg" alt="Java logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.java')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Python.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/Python.svg" alt="Python logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.python')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Git.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/Git.svg" alt="Git logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.git')}
                 </p>
             </div>
@@ -87,13 +87,13 @@ export default function Toolsets() {
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/MySQL.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/MySQL.svg" alt="MySQL logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.mysql')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/PostgresSQL.svg" alt="" width={30} height={30} draggable={false} />
+                    <Image src="/images/work/brand/PostgresSQL.svg" alt="PostgreSQL logo" width={30} height={30} draggable={false} />
                     {t('portfolio.skills.postgres')}
                 </p>
             </div>
@@ -103,19 +103,19 @@ export default function Toolsets() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-0">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/AdobePhotoshop.svg" alt="" width={20} height={20} draggable={false} />
+                    <Image src="/images/work/brand/AdobePhotoshop.svg" alt="Adobe Photoshop logo" width={20} height={20} draggable={false} />
                     {t('portfolio.skills.photoshop')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/AdobePremierePro.svg" alt="" width={20} height={20} draggable={false} />
+                    <Image src="/images/work/brand/AdobePremierePro.svg" alt="Adobe Premiere Pro logo" width={20} height={20} draggable={false} />
                     {t('portfolio.skills.premiere')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Figma.svg" alt="" width={20} height={20} draggable={false} />
+                    <Image src="/images/work/brand/Figma.svg" alt="Figma logo" width={20} height={20} draggable={false} />
                     {t('portfolio.skills.figma')}
                 </p>
             </div>

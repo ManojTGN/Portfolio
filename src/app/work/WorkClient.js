@@ -91,12 +91,13 @@ export default function WorkClient() {
     useEffect(() => {
         const fetchYouTubeData = async () => {
             try {
-                const res = await fetch('/api/youtube');
+                const res = await fetch('/api/youtube', { headers: { Accept: 'application/json' } });
                 if (!res.ok) return;
 
-                const data = await res.json();
-                if (data.videos) setVideos(data.videos);
-                if (data.subscriberCount) setSubscriberCount(data.subscriberCount);
+                const body = await res.json();
+                const payload = body?.data || {};
+                if (Array.isArray(payload.videos)) setVideos(payload.videos);
+                if (payload.subscriberCount) setSubscriberCount(payload.subscriberCount);
             } catch (error) {
                 if (process.env.NODE_ENV !== 'production') console.debug("[work] youtube fetch", error);
             }
@@ -216,7 +217,7 @@ export default function WorkClient() {
                             <p className="text-portfolio-500 text-lg">{t('portfolio.work.steam.guide.desc')}</p>
                             <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=2732039208" target="_blank" rel="noopener noreferrer">
                                 <div className="flex gap-2 mt-5">
-                                    <Image src="/images/work/gameguide1.jpg" alt="" height={125} width={125} className="shrink-0" draggable={false} />
+                                    <Image src="/images/work/gameguide1.jpg" alt={t('portfolio.work.steam.guide.skyrim.title')} height={125} width={125} className="shrink-0" draggable={false} />
                                     <div>
                                         <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad" aria-hidden="true"></i> {t('portfolio.work.steam.guide.skyrim.game')}</p>
                                         <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.skyrim.title')}</p>
@@ -227,7 +228,7 @@ export default function WorkClient() {
                             </a>
                             <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3326170636" target="_blank" rel="noopener noreferrer">
                                 <div className="flex gap-2 mt-5">
-                                    <Image src="/images/work/gameguide2.jpg" alt="" height={125} width={125} className="shrink-0" draggable={false} />
+                                    <Image src="/images/work/gameguide2.jpg" alt={t('portfolio.work.steam.guide.kcd.title')} height={125} width={125} className="shrink-0" draggable={false} />
                                     <div>
                                         <p className="text-portfolio-500 text-base font-medium"><i className="fa-solid fa-gamepad" aria-hidden="true"></i> {t('portfolio.work.steam.guide.kcd.game')}</p>
                                         <p className="text-2xl font-semibold">{t('portfolio.work.steam.guide.kcd.title')}</p>
