@@ -65,6 +65,7 @@ export default function HomeClient() {
                                     alt={t('portfolio.about.me.stamp.alt')}
                                     width={600}
                                     height={700}
+                                    sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
                                     className="w-64 sm:w-72 lg:w-80 h-auto rotate-3 drop-shadow-xl"
                                     priority
                                     draggable={false}

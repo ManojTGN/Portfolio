@@ -155,28 +155,56 @@ export async function signToken(payload) {
         .sign(keys.privateKey);
 }
 
-const consumedJtis = new Map();
+// Token state machine: tracks jtis through reserve → finalize lifecycle.
+// Atomic acquire prevents two concurrent /confirm requests from both passing
+// the "not consumed" check and double-sending. A failed sendMail releases the
+// reservation so the user can retry within the original token TTL.
+const tokenState = new Map();
 const CONSUMED_PRUNE_THRESHOLD = 500;
+const RESERVATION_TTL_SECONDS = 30;
+
+function pruneTokens(now) {
+    for (const [k, v] of tokenState) {
+        if (v.exp <= now) tokenState.delete(k);
+    }
+}
 
 export function isTokenConsumed(jti) {
     if (!jti) return false;
-    const exp = consumedJtis.get(jti);
-    if (!exp) return false;
-    if (exp < Math.floor(Date.now() / 1000)) {
-        consumedJtis.delete(jti);
+    const state = tokenState.get(jti);
+    if (!state) return false;
+    if (state.exp < Math.floor(Date.now() / 1000)) {
+        tokenState.delete(jti);
         return false;
     }
     return true;
 }
 
+export function tryAcquireToken(jti) {
+    if (!jti) return false;
+    const now = Math.floor(Date.now() / 1000);
+    const existing = tokenState.get(jti);
+    if (existing && existing.exp > now) return false;
+    tokenState.set(jti, { exp: now + RESERVATION_TTL_SECONDS, state: "reserved" });
+    if (tokenState.size > CONSUMED_PRUNE_THRESHOLD) pruneTokens(now);
+    return true;
+}
+
+export function finalizeToken(jti, expSec) {
+    if (!jti || typeof expSec !== "number") return;
+    tokenState.set(jti, { exp: expSec, state: "consumed" });
+}
+
+export function releaseToken(jti) {
+    if (!jti) return;
+    tokenState.delete(jti);
+}
+
 export function markTokenConsumed(jti, expSec) {
     if (!jti || typeof expSec !== "number") return;
-    consumedJtis.set(jti, expSec);
-    if (consumedJtis.size > CONSUMED_PRUNE_THRESHOLD) {
-        const now = Math.floor(Date.now() / 1000);
-        for (const [k, v] of consumedJtis) {
-            if (v <= now) consumedJtis.delete(k);
-        }
+    tokenState.set(jti, { exp: expSec, state: "consumed" });
+    if (tokenState.size > CONSUMED_PRUNE_THRESHOLD) {
+        pruneTokens(Math.floor(Date.now() / 1000));
     }
 }
 
@@ -221,10 +249,39 @@ export function generateOtpCode() {
     return String(crypto.randomInt(0, 1_000_000)).padStart(6, "0");
 }
 
+// Bounded sliding-window rate limiter. Each key holds an array of recent
+// hit timestamps; entries older than the longest window are pruned on access.
+// The Map itself is capped to LIMITER_MAX_KEYS to prevent unbounded growth
+// from per-IP/email/endpoint key proliferation.
 const limiterStore = new Map();
+const LIMITER_MAX_KEYS = 10_000;
+const LIMITER_MAX_WINDOW_MS = 24 * 60 * 60 * 1000;
+const LIMITER_PRUNE_EVERY_MS = 5 * 60 * 1000;
+let limiterLastPrune = 0;
+
+function pruneLimiter(now) {
+    for (const [key, entries] of limiterStore) {
+        const recent = entries.filter((t) => now - t < LIMITER_MAX_WINDOW_MS);
+        if (recent.length === 0) limiterStore.delete(key);
+        else if (recent.length !== entries.length) limiterStore.set(key, recent);
+    }
+    if (limiterStore.size > LIMITER_MAX_KEYS) {
+        const overflow = limiterStore.size - LIMITER_MAX_KEYS;
+        const iter = limiterStore.keys();
+        for (let i = 0; i < overflow; i++) {
+            const next = iter.next();
+            if (next.done) break;
+            limiterStore.delete(next.value);
+        }
+    }
+}
 
 export function isRateLimited(key, max, windowMs) {
     const now = Date.now();
+    if (now - limiterLastPrune > LIMITER_PRUNE_EVERY_MS) {
+        pruneLimiter(now);
+        limiterLastPrune = now;
+    }
     const entries = limiterStore.get(key) || [];
     const recent = entries.filter((t) => now - t < windowMs);
     if (recent.length >= max) {
@@ -294,10 +351,20 @@ export async function verifyRecaptcha(recaptchaToken) {
     return { ok: true };
 }
 
+// Trust model: x-real-ip is set by Vercel's edge and cannot be spoofed by
+// clients (Vercel strips inbound). x-forwarded-for is also set by Vercel but
+// is comma-separated with the client IP first; we take only the LAST hop
+// after Vercel's last proxy, which equals x-real-ip when available. Falling
+// back to the first xff value is a last resort for non-Vercel deployments.
 export function getClientIp(request) {
+    const real = request.headers.get("x-real-ip");
+    if (real) return real.trim();
     const fwd = request.headers.get("x-forwarded-for");
-    if (fwd) return fwd.split(",")[0].trim();
-    return request.headers.get("x-real-ip") || "unknown";
+    if (fwd) {
+        const parts = fwd.split(",").map((s) => s.trim()).filter(Boolean);
+        if (parts.length > 0) return parts[parts.length - 1];
+    }
+    return "unknown";
 }
 
 export function getOtpSecrets() {

@@ -12,6 +12,20 @@ import {
     OTP_TTL_SECONDS,
 } from "@/app/lib/contact";
 import { renderOtpEmail, FROM_NAME_OTP } from "@/app/lib/email";
+import {
+    jsonOk,
+    jsonError,
+    methodNotAllowed,
+    preflight,
+    requireJsonBody,
+    rateLimitHeaders,
+    isSameOrigin,
+    forbiddenOrigin,
+    ERROR_CODES,
+} from "@/app/lib/api";
+
+const ALLOWED = ["POST", "OPTIONS"];
+const MAX_BODY_BYTES = 8 * 1024;
 
 const MIN = 60 * 1000;
 const HOUR = 60 * MIN;
@@ -25,61 +39,85 @@ const EMAIL_PER_MIN = 1;
 const EMAIL_PER_HOUR = 2;
 const EMAIL_PER_DAY = 2;
 
-function rateLimit429(error, retryAfterSeconds) {
-    const headers = retryAfterSeconds ? { "Retry-After": String(retryAfterSeconds) } : undefined;
-    return Response.json({ errCode: 8, error, success: false, retryAfter: retryAfterSeconds }, { status: 429, headers });
-}
+export async function OPTIONS() { return preflight(ALLOWED); }
 
 export async function POST(request) {
     try {
+        if (!isSameOrigin(request)) return forbiddenOrigin();
         const ip = getClientIp(request);
-        if (isRateLimited(`start:ip:1m:${ip}`, IP_PER_MIN, MIN)) return rateLimit429("Too many requests, try again in a minute", 60);
-        if (isRateLimited(`start:ip:1h:${ip}`, IP_PER_HOUR, HOUR)) return rateLimit429("Hourly request limit reached", 3600);
-        if (isRateLimited(`start:ip:1d:${ip}`, IP_PER_DAY, DAY)) return rateLimit429("Daily request limit reached", 86400);
-
-        let body;
-        try {
-            body = await request.json();
-        } catch {
-            return Response.json({ errCode: 1, error: "Missing fields", success: false }, { status: 400 });
+        if (isRateLimited(`start:ip:1m:${ip}`, IP_PER_MIN, MIN)) {
+            return jsonError(ERROR_CODES.RATE_LIMITED, "Too many requests, try again in a minute", {
+                status: 429,
+                headers: rateLimitHeaders({ limit: IP_PER_MIN, remaining: 0, resetAfterSec: 60, retryAfterSec: 60 }),
+            });
         }
+        if (isRateLimited(`start:ip:1h:${ip}`, IP_PER_HOUR, HOUR)) {
+            return jsonError(ERROR_CODES.RATE_LIMITED, "Hourly request limit reached", {
+                status: 429,
+                headers: rateLimitHeaders({ limit: IP_PER_HOUR, remaining: 0, resetAfterSec: 3600, retryAfterSec: 3600 }),
+            });
+        }
+        if (isRateLimited(`start:ip:1d:${ip}`, IP_PER_DAY, DAY)) {
+            return jsonError(ERROR_CODES.RATE_LIMITED, "Daily request limit reached", {
+                status: 429,
+                headers: rateLimitHeaders({ limit: IP_PER_DAY, remaining: 0, resetAfterSec: 86400, retryAfterSec: 86400 }),
+            });
+        }
+
+        const parsed = await requireJsonBody(request, { maxBytes: MAX_BODY_BYTES });
+        if (parsed.error) return parsed.error;
+        const body = parsed.body;
 
         const validation = validateContactPayload(body);
         if (validation.error) {
-            const { errCode, error, status } = validation.error;
-            return Response.json({ errCode, error, success: false }, { status });
+            return jsonError(ERROR_CODES.VALIDATION_FAILED, validation.error.error, {
+                status: validation.error.status === 400 ? 422 : validation.error.status,
+                details: { errCode: validation.error.errCode },
+            });
         }
         const { nameTrim, emailTrim, category, messageTrim } = validation.fields;
 
         const emailKey = emailTrim.toLowerCase();
         if (isRateLimited(`start:email:1m:${emailKey}`, EMAIL_PER_MIN, MIN)) {
-            return rateLimit429("A code was just sent to this email. Please wait a minute before requesting another.", 60);
+            return jsonError(ERROR_CODES.RATE_LIMITED, "A code was just sent to this email. Please wait a minute before requesting another.", {
+                status: 429,
+                headers: rateLimitHeaders({ limit: EMAIL_PER_MIN, remaining: 0, resetAfterSec: 60, retryAfterSec: 60 }),
+            });
         }
         if (isRateLimited(`start:email:1h:${emailKey}`, EMAIL_PER_HOUR, HOUR)) {
-            return rateLimit429("Too many codes sent to this email recently. Try again in an hour.", 3600);
+            return jsonError(ERROR_CODES.RATE_LIMITED, "Too many codes sent to this email recently. Try again in an hour.", {
+                status: 429,
+                headers: rateLimitHeaders({ limit: EMAIL_PER_HOUR, remaining: 0, resetAfterSec: 3600, retryAfterSec: 3600 }),
+            });
         }
         if (isRateLimited(`start:email:1d:${emailKey}`, EMAIL_PER_DAY, DAY)) {
-            return rateLimit429("Daily verification limit reached for this email.", 86400);
+            return jsonError(ERROR_CODES.RATE_LIMITED, "Daily verification limit reached for this email.", {
+                status: 429,
+                headers: rateLimitHeaders({ limit: EMAIL_PER_DAY, remaining: 0, resetAfterSec: 86400, retryAfterSec: 86400 }),
+            });
         }
 
         const { token: recaptchaToken } = body;
         if (typeof recaptchaToken !== "string" || !recaptchaToken) {
-            return Response.json({ errCode: 6, error: "Missing reCaptcha token", success: false }, { status: 400 });
+            return jsonError(ERROR_CODES.VALIDATION_FAILED, "Missing reCaptcha token", {
+                status: 422,
+                details: { field: "token" },
+            });
         }
 
         const recaptcha = await verifyRecaptcha(recaptchaToken);
         if (!recaptcha.ok) {
-            const payload = { errCode: 6, error: "Invalid reCaptcha", success: false };
-            if (process.env.NODE_ENV !== "production" && recaptcha.reason) {
-                payload.reason = recaptcha.reason;
-            }
-            return Response.json(payload, { status: 400 });
+            const details = process.env.NODE_ENV !== "production" && recaptcha.reason ? { reason: recaptcha.reason } : undefined;
+            return jsonError(ERROR_CODES.UNAUTHORIZED, "reCaptcha verification failed", {
+                status: 401,
+                details,
+            });
         }
 
         const secrets = getOtpSecrets();
         if (!secrets) {
             console.error("EMAIL_OTP_PRIVATE_KEY / EMAIL_OTP_PEPPER not configured");
-            return Response.json({ errCode: 7, error: "Server misconfigured", success: false }, { status: 500 });
+            return jsonError(ERROR_CODES.SERVER_MISCONFIGURED, "Server is misconfigured", { status: 500 });
         }
 
         const code = generateOtpCode();
@@ -114,13 +152,18 @@ export async function POST(request) {
             },
         });
 
-        return Response.json({
-            success: true,
-            otpToken,
-            expiresIn: OTP_TTL_SECONDS,
-        }, { status: 200 });
+        return jsonOk(
+            { otpToken, expiresIn: OTP_TTL_SECONDS },
+            { status: 201, headers: { Location: "/api/sendMail/confirm" } }
+        );
     } catch (err) {
-        console.error(err);
-        return Response.json({ errCode: 7, error: "Failed to send verification code", success: false }, { status: 500 });
+        if (process.env.NODE_ENV !== "production") console.debug("[sendMail/start] error", err);
+        return jsonError(ERROR_CODES.SERVER_ERROR, "Failed to send verification code", { status: 500 });
     }
 }
+
+export async function GET() { return methodNotAllowed(ALLOWED); }
+export async function PUT() { return methodNotAllowed(ALLOWED); }
+export async function PATCH() { return methodNotAllowed(ALLOWED); }
+export async function DELETE() { return methodNotAllowed(ALLOWED); }
+export async function HEAD() { return methodNotAllowed(ALLOWED); }

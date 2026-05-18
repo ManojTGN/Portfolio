@@ -8,7 +8,7 @@ import { prefersReducedMotion } from "@/app/lib/accessibility";
 
 gsap.registerPlugin(Draggable);
 
-export default function Carousel({ showArrow = true, autoScroll = true, images = [] }) {
+export default function Carousel({ showArrow = true, autoScroll = true, images = [], label = "project preview" }) {
     const containerRef = useRef(null);
     const activeIndexRef = useRef(0);
     const slideWidthRef = useRef(0);
@@ -118,10 +118,10 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
             onBlur={resumeAutoScroll}
         >
             <div ref={containerRef} className="flex w-full h-full cursor-grab active:cursor-grabbing touch-none">
-                {images.map((src) => (
+                {images.map((src, i) => (
                     <div key={src} className="relative flex-shrink-0 w-full h-full">
                         <Image
-                            src={src} alt="" fill
+                            src={src} alt={`${label} screenshot ${i + 1} of ${images.length}`} fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 50vw"
                             className="object-cover" draggable="false"
                         />

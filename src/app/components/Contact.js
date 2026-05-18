@@ -171,20 +171,22 @@ export default function Contact() {
                 }),
             });
 
-            let data = {};
-            try { data = await res.json(); } catch {}
+            let body = {};
+            try { body = await res.json(); } catch {}
+            const otpFromServer = body?.data?.otpToken;
+            const errMessage = body?.error?.message;
 
-            if (res.ok && data.otpToken) {
-                setOtpToken(data.otpToken);
+            if (res.ok && otpFromServer) {
+                setOtpToken(otpFromServer);
                 setAwaitingCode(true);
                 setResendCooldown(RESEND_COOLDOWN_SECONDS);
                 setInputDisable(false);
                 showStatus('success', t('portfolio.contact.otp.code_sent'), 4000);
             } else {
-                if (process.env.NODE_ENV !== 'production') console.debug("[contact]", data);
+                if (process.env.NODE_ENV !== 'production') console.debug("[contact]", body);
                 setInputDisable(false);
-                if (res.status === 429 && data.error) {
-                    showStatus('error', data.error);
+                if (res.status === 429 && errMessage) {
+                    showStatus('error', errMessage);
                 } else {
                     showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
                 }
@@ -217,18 +219,19 @@ export default function Contact() {
                 }),
             });
 
-            let data = {};
-            try { data = await res.json(); } catch {}
+            let body = {};
+            try { body = await res.json(); } catch {}
+            const errMessage = body?.error?.message;
 
             if (res.ok) {
                 try { track('contact_submitted', { category }); } catch {}
                 showStatus('success', t('portfolio.contact.mail.sent.thank.you'));
                 setTimeout(() => resetForm(), 3000);
             } else {
-                if (process.env.NODE_ENV !== 'production') console.debug("[contact]", data);
+                if (process.env.NODE_ENV !== 'production') console.debug("[contact]", body);
                 setInputDisable(false);
-                if (res.status === 429 && data.error) {
-                    showStatus('error', data.error);
+                if (res.status === 429 && errMessage) {
+                    showStatus('error', errMessage);
                 } else {
                     showStatus('error', t('portfolio.contact.otp.invalid'));
                 }
@@ -253,21 +256,24 @@ export default function Contact() {
                 body: JSON.stringify({ otpToken, lang: i18n.language }),
             });
 
-            let data = {};
-            try { data = await res.json(); } catch {}
+            let body = {};
+            try { body = await res.json(); } catch {}
+            const otpFromServer = body?.data?.otpToken;
+            const errMessage = body?.error?.message;
 
-            if (res.ok && data.otpToken) {
-                setOtpToken(data.otpToken);
+            if (res.ok && otpFromServer) {
+                setOtpToken(otpFromServer);
                 setResendCooldown(RESEND_COOLDOWN_SECONDS);
                 setInputDisable(false);
                 showStatus('success', t('portfolio.contact.otp.code_resent'), 4000);
             } else {
-                if (typeof data.retryAfter === 'number') setResendCooldown(data.retryAfter);
+                const retryAfterHeader = Number(res.headers.get('Retry-After'));
+                if (Number.isFinite(retryAfterHeader) && retryAfterHeader > 0) setResendCooldown(retryAfterHeader);
                 setInputDisable(false);
-                if (res.status === 429 && data.error) {
-                    showStatus('error', data.error);
+                if (res.status === 429 && errMessage) {
+                    showStatus('error', errMessage);
                 } else {
-                    showStatus('error', data.error || t('portfolio.contact.mail.not.sent'), 4000);
+                    showStatus('error', errMessage || t('portfolio.contact.mail.not.sent'), 4000);
                 }
             }
         } catch (err) {
