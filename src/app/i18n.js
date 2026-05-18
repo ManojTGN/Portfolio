@@ -3,6 +3,8 @@ import { initReactI18next } from "react-i18next";
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
+import enResources from '../../public/locales/en.json';
+
 if (!i18n.isInitialized) {
     i18n
     .use(Backend)
@@ -14,6 +16,10 @@ if (!i18n.isInitialized) {
         supportedLngs: ["en", "fr", "zh", "es", "ta"],
         keySeparator: false,
         nsSeparator: false,
+        resources: {
+            en: { translation: enResources },
+        },
+        partialBundledLanguages: true,
         interpolation: {
             escapeValue: false,
         },
@@ -22,7 +28,8 @@ if (!i18n.isInitialized) {
             referenceLng: 'en',
         },
         detection: {
-            order: ['localStorage', 'navigator'],
+            order: ['querystring', 'localStorage', 'navigator'],
+            lookupQuerystring: 'lng',
             caches: ['localStorage'],
             lookupLocalStorage: 'i18nextLng',
         },

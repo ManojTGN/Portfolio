@@ -23,7 +23,7 @@ export default function Experiences() {
                         <i className="fa-solid fa-location-dot" aria-hidden="true"></i> {t('portfolio.experience.zoho.location')}
                     </p>
                     <div className="flex flex-col sm:flex-row">
-                        <p className="w-full dark:text-white font-medium text-xl">{t('portfolio.experience.zoho.fullname')}</p>
+                        <h3 className="w-full dark:text-white font-medium text-xl">{t('portfolio.experience.zoho.fullname')}</h3>
                         <p className="w-full text-portfolio-500 dark:text-portfolio-500 font-medium text-end">{t('portfolio.experience.zoho.duration')}</p>
                     </div>
                     <p className="text-portfolio-500 dark:text-portfolio-500 text-lg">
@@ -50,7 +50,7 @@ export default function Experiences() {
                         <i className="fa-solid fa-location-dot" aria-hidden="true"></i> {t('portfolio.experience.nit.location')}
                     </p>
                     <div className="flex flex-col sm:flex-row">
-                        <p className="w-full dark:text-white font-medium text-xl">{t('portfolio.experience.nit.fullname')}</p>
+                        <h3 className="w-full dark:text-white font-medium text-xl">{t('portfolio.experience.nit.fullname')}</h3>
                         <p className="w-full text-portfolio-500 dark:text-portfolio-500 font-medium text-end">{t('portfolio.experience.nit.duration')}</p>
                     </div>
                     <p className="text-portfolio-500 dark:text-portfolio-500 text-lg">

@@ -8,9 +8,16 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
     const [sliderPosition, setSliderPosition] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
     const containerRef = useRef(null);
+    const clipRef = useRef(null);
+    const handleRef = useRef(null);
 
     const finalLeftLabel = leftLabel || t('portfolio.image.diff.original');
     const finalRightLabel = rightLabel || t('portfolio.image.diff.modified');
+
+    useEffect(() => {
+        if (clipRef.current) clipRef.current.style.clipPath = `inset(0 ${100 - sliderPosition}% 0 0)`;
+        if (handleRef.current) handleRef.current.style.left = `${sliderPosition}%`;
+    }, [sliderPosition]);
 
     const handleMouseDown = useCallback(() => setIsDragging(true), []);
     const handleMouseUp = useCallback(() => setIsDragging(false), []);
@@ -79,7 +86,7 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
             )}
 
             {leftImageSrc && (
-                <div className="absolute inset-0 w-full h-full" style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}>
+                <div ref={clipRef} className="absolute inset-0 w-full h-full image-diff-clip">
                     <Image
                         src={leftImageSrc}
                         alt={finalLeftLabel}
@@ -97,8 +104,8 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
             )}
 
             <div
-                className="absolute top-0 bottom-0 w-1 bg-white cursor-col-resize z-20"
-                style={{ left: `${sliderPosition}%` }}
+                ref={handleRef}
+                className="absolute top-0 bottom-0 w-1 bg-white cursor-col-resize z-20 image-diff-handle"
                 role="slider"
                 tabIndex={0}
                 aria-label="Image comparison slider"

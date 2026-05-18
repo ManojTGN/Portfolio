@@ -1,0 +1,29 @@
+# ai.txt — preferences for AI crawlers and training data collectors
+# Spec: https://site.spawning.ai/spaces/ai-txt
+
+# This is a personal portfolio. The owner is fine with AI agents reading
+# public pages for retrieval, citation, and helping users find the site.
+# Bulk scraping for model training without attribution is discouraged.
+
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+# Training-data crawlers
+User-Agent: GPTBot
+Allow: /
+
+User-Agent: ClaudeBot
+Allow: /
+
+User-Agent: Google-Extended
+Allow: /
+
+User-Agent: CCBot
+Allow: /
+
+User-Agent: PerplexityBot
+Allow: /
+
+Contact: https://manojtgn.me/contact
+Sitemap: https://manojtgn.me/sitemap.xml

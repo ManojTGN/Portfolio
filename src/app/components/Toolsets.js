@@ -1,10 +1,8 @@
 import { useTranslation } from "react-i18next";
 import Image from 'next/image';
-import { useTheme } from "next-themes";
 
 export default function Toolsets() {
     const { t } = useTranslation();
-    const { resolvedTheme } = useTheme();
 
     return (
         <>
@@ -17,7 +15,7 @@ export default function Toolsets() {
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Next.js.svg" alt="" width={30} height={30} draggable={false} className={resolvedTheme === 'dark' ? "invert" : ""} />
+                    <Image src="/images/work/brand/Next.js.svg" alt="" width={30} height={30} draggable={false} className="dark:invert" />
                     {t('portfolio.skills.nextjs')}
                 </p>
             </div>

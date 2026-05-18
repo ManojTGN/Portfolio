@@ -12,14 +12,15 @@ import Carousel from '@/app/components/Carousel';
 import { getProjectBySlug } from '@/app/lib/projects';
 
 export default function ProjectClient({ slug }) {
-    const { t, ready } = useTranslation();
+    const { t } = useTranslation();
     const project = getProjectBySlug(slug);
 
     if (!project) return notFound();
-    if (!ready) return null;
 
     const hasPreview = project.previewImages.length > 1 ||
         (project.previewImages.length === 1 && !project.previewImages[0].includes('noPreview'));
+
+    const niceName = project.slug.replace(/([A-Z])/g, ' $1').trim().replace(/^./, c => c.toUpperCase());
 
     return (
         <div className="w-full flex flex-col items-center justify-start">
@@ -49,9 +50,10 @@ export default function ProjectClient({ slug }) {
                 </div>
 
                 <div className="mt-8">
+                    <h1 className="sr-only">{niceName}</h1>
                     <Image
                         src={project.logoSrc}
-                        alt={project.slug}
+                        alt={niceName}
                         width={project.heroWidth}
                         height={200}
                         draggable="false"

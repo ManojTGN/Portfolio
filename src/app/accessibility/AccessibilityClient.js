@@ -10,11 +10,12 @@ import Footer from "../components/Footer";
 import { sizeMap, wordSpacingMap, letterSpacingMap, cursorSizes, pageTransitionValues } from '@/app/lib/accessibility';
 
 export default function AccessibilityClient() {
-    const { t, i18n, ready } = useTranslation();
+    const { t, i18n } = useTranslation();
 
+    const shortLang = (i18n.language || 'en').split(/[-_]/)[0];
     const displayNames = useMemo(
-        () => new Intl.DisplayNames([i18n.language || 'en'], { type: 'language' }),
-        [i18n.language]
+        () => new Intl.DisplayNames([shortLang], { type: 'language' }),
+        [shortLang]
     );
 
     function changeLanguage(event) {
@@ -46,6 +47,8 @@ export default function AccessibilityClient() {
     };
 
     const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => { setMounted(true); }, []);
     function changeTheme(event) {
         const selectedTheme = event.target.value;
         if(!document.startViewTransition) {
@@ -112,8 +115,6 @@ export default function AccessibilityClient() {
         }
     }, []);
 
-    if (!ready) return null;
-
     return (
         <div className="w-full flex flex-col items-center justify-center">
             <FixedTopbar triggerOffset={100} />
@@ -132,7 +133,7 @@ export default function AccessibilityClient() {
                         </div>
                         <div className="ml-auto w-full md:w-2/6 p-2">
                             <label htmlFor="language-select" className="sr-only">{t('portfolio.a11y.language')}</label>
-                            <select id="language-select" onChange={changeLanguage} value={i18n.language} className="dark:bg-portfolio-900 border dark:border-portfolio-600 dark:text-white text-sm block w-full p-2.5 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
+                            <select id="language-select" onChange={changeLanguage} value={mounted ? shortLang : 'en'} className="dark:bg-portfolio-900 border dark:border-portfolio-600 dark:text-white text-sm block w-full p-2.5 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" suppressHydrationWarning>
                                 {i18n.options.supportedLngs.map((language) => {
                                     if (language === 'cimode') return null;
                                     return <option key={language} value={language}>{displayNames.of(language)} ({language})</option>
@@ -148,7 +149,7 @@ export default function AccessibilityClient() {
                         </div>
                         <div className="ml-auto w-full md:w-2/6 p-2">
                             <label htmlFor="theme-select" className="sr-only">{t('portfolio.a11y.color.theme')}</label>
-                            <select id="theme-select" onChange={changeTheme} value={theme} className="dark:bg-portfolio-900 border dark:border-portfolio-600 dark:text-white text-sm block w-full p-2.5 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500">
+                            <select id="theme-select" onChange={changeTheme} value={mounted ? theme : 'system'} className="dark:bg-portfolio-900 border dark:border-portfolio-600 dark:text-white text-sm block w-full p-2.5 dark:placeholder-gray-400 focus:ring-blue-500 focus:border-blue-500" suppressHydrationWarning>
                                 <option value="system">{t('portfolio.a11y.color.theme.system')}</option>
                                 <option value="dark">{t('portfolio.a11y.color.theme.dark')}</option>
                                 <option value="light">{t('portfolio.a11y.color.theme.light')}</option>

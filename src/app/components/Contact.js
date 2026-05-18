@@ -181,7 +181,7 @@ export default function Contact() {
                 setInputDisable(false);
                 showStatus('success', t('portfolio.contact.otp.code_sent'), 4000);
             } else {
-                console.error("Error:", data);
+                if (process.env.NODE_ENV !== 'production') console.debug("[contact]", data);
                 setInputDisable(false);
                 if (res.status === 429 && data.error) {
                     showStatus('error', data.error);
@@ -192,7 +192,7 @@ export default function Contact() {
                 setToken('');
             }
         } catch (err) {
-            console.error("Network Error:", err);
+            if (process.env.NODE_ENV !== 'production') console.debug("[contact] network", err);
             setInputDisable(false);
             showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
         }
@@ -225,7 +225,7 @@ export default function Contact() {
                 showStatus('success', t('portfolio.contact.mail.sent.thank.you'));
                 setTimeout(() => resetForm(), 3000);
             } else {
-                console.error("Error:", data);
+                if (process.env.NODE_ENV !== 'production') console.debug("[contact]", data);
                 setInputDisable(false);
                 if (res.status === 429 && data.error) {
                     showStatus('error', data.error);
@@ -234,7 +234,7 @@ export default function Contact() {
                 }
             }
         } catch (err) {
-            console.error("Network Error:", err);
+            if (process.env.NODE_ENV !== 'production') console.debug("[contact] network", err);
             setInputDisable(false);
             showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
         }
@@ -271,7 +271,7 @@ export default function Contact() {
                 }
             }
         } catch (err) {
-            console.error("Network Error:", err);
+            if (process.env.NODE_ENV !== 'production') console.debug("[contact] network", err);
             setInputDisable(false);
             showStatus('error', t('portfolio.contact.mail.not.sent'), 4000);
         }
@@ -391,6 +391,12 @@ export default function Contact() {
                     </a>
                     <a href="https://www.paypal.com/paypalme/manojtgn" target="_blank" rel="noopener noreferrer" className="dark:hover:text-white" aria-label="PayPal" role="listitem">
                         <i className="fa-brands fa-paypal" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://stackoverflow.com/users/9558827/manoj-a" target="_blank" rel="noopener noreferrer" className="dark:hover:text-white" aria-label="Stack Overflow" role="listitem">
+                        <i className="fa-brands fa-stack-overflow" aria-hidden="true"></i>
+                    </a>
+                    <a href="https://www.youtube.com/@TamilGamersNetworks/videos" target="_blank" rel="noopener noreferrer" className="dark:hover:text-white" aria-label="YouTube" role="listitem">
+                        <i className="fa-brands fa-youtube" aria-hidden="true"></i>
                     </a>
                     <a href="mailto:manojanguraja@gmail.com" className="dark:hover:text-white" aria-label="Email" role="listitem">
                         <i className="fa-solid fa-at" aria-hidden="true"></i>

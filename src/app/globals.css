@@ -80,6 +80,14 @@ html[data-cursor-size="large"] * {
     outline-offset: 2px;
 }
 
+.image-diff-clip {
+    clip-path: inset(0 50% 0 0);
+}
+
+.image-diff-handle {
+    left: 50%;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
