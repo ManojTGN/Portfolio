@@ -5,14 +5,19 @@ import { useTranslation } from "react-i18next";
 import { useTheme } from 'next-themes';
 
 export default function Footer() {
-    const { t, i18n, ready } = useTranslation();
+    const { t, i18n } = useTranslation();
     const { setTheme, resolvedTheme } = useTheme();
     const [langOpen, setLangOpen] = useState(false);
+    const [mounted, setMounted] = useState(false);
     const langRef = useRef(null);
 
+    useEffect(() => { setMounted(true); }, []);
+
+    const shortLang = (i18n.language || 'en').split(/[-_]/)[0];
+
     const displayNames = useMemo(
-        () => new Intl.DisplayNames([i18n.language || 'en'], { type: 'language' }),
-        [i18n.language]
+        () => new Intl.DisplayNames([shortLang], { type: 'language' }),
+        [shortLang]
     );
 
     useEffect(() => {
@@ -31,9 +36,7 @@ export default function Footer() {
         };
     }, [langOpen]);
 
-    if (!ready) return null;
-
-    const languageName = displayNames.of(i18n.language);
+    const languageName = mounted ? displayNames.of(shortLang) : 'English';
     const supportedLngs = (i18n.options.supportedLngs || []).filter(l => l !== 'cimode');
 
     function toggleTheme() {
@@ -62,7 +65,15 @@ export default function Footer() {
                     <p>{t('portfolio.footer.copyrights.2026')}</p>
                 </div>
                 <div className="w-full flex items-center justify-end gap-2">
-                    <button onClick={toggleTheme} className='underline capitalize' aria-label={resolvedTheme === 'dark' ? t('portfolio.footer.theme.switch.to.light') : t('portfolio.footer.theme.switch.to.dark')}><i className={`underline fa-solid fa-circle-half-stroke ${resolvedTheme === 'dark' ? 'fa-flip-horizontal' : ''}`} aria-hidden="true"></i> {resolvedTheme}</button>
+                    <button
+                        onClick={toggleTheme}
+                        className='underline capitalize'
+                        aria-label={mounted && resolvedTheme === 'dark' ? t('portfolio.footer.theme.switch.to.light') : t('portfolio.footer.theme.switch.to.dark')}
+                        suppressHydrationWarning
+                    >
+                        <i className={`underline fa-solid fa-circle-half-stroke ${mounted && resolvedTheme === 'dark' ? 'fa-flip-horizontal' : ''}`} aria-hidden="true" suppressHydrationWarning></i>{' '}
+                        <span suppressHydrationWarning>{mounted ? resolvedTheme : ''}</span>
+                    </button>
                     <div className="relative" ref={langRef}>
                         <button
                             type="button"
@@ -72,7 +83,7 @@ export default function Footer() {
                             aria-expanded={langOpen}
                             aria-label={t('portfolio.a11y.language')}
                         >
-                            <i className="underline fa-solid fa-language" aria-hidden="true"></i> {languageName}
+                            <i className="underline fa-solid fa-language" aria-hidden="true"></i> <span suppressHydrationWarning>{languageName}</span>
                         </button>
                         {langOpen && (
                             <ul

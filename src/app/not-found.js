@@ -7,7 +7,7 @@ import { prefersReducedMotion } from "@/app/lib/accessibility";
 const AVAILABLE_COLORS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
 
 export default function NotFound() {
-    const { t, ready } = useTranslation();
+    const { t } = useTranslation();
     const [colorNum, setColorNum] = useState(100);
 
     useEffect(() => {
@@ -32,8 +32,6 @@ export default function NotFound() {
 
         return () => clearInterval(intervalId);
     }, []);
-
-    if (!ready) return null;
 
     return (
         <main id="main-content" className="w-full h-full flex flex-col items-center justify-center">

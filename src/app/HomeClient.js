@@ -15,19 +15,15 @@ import Footer from "./components/Footer";
 import Contact from "./components/Contact";
 
 export default function HomeClient() {
-    const { t, ready } = useTranslation();
+    const { t } = useTranslation();
 
     useEffect(() => {
-        if (!ready) return;
-
         const hash = window.location.hash;
         if (hash) {
             const el = document.getElementById(hash.substring(1));
             if (el) el.scrollIntoView({ behavior: "smooth" });
         }
-    }, [ready]);
-
-    if (!ready) return null;
+    }, []);
 
     return (
         <div className="w-full flex flex-col items-center justify-center">

@@ -1,5 +1,6 @@
 import { getProjectBySlug, PROJECTS } from "@/app/lib/projects";
 import ProjectClient from "./ProjectClient";
+import { hreflangAlternates } from "@/app/lib/seo";
 
 export async function generateMetadata({ params }) {
     const { slug } = await params;
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }) {
     return {
         title: `${niceName} ▪ Manoj A`,
         description: `Details, features, and tech stack for the ${niceName} project.`,
-        alternates: { canonical: `/work/${project.slug}` },
+        alternates: hreflangAlternates(`/work/${project.slug}`),
         openGraph: {
             title: `${niceName} | Manoj A`,
             description: `Details, features, and tech stack for the ${niceName} project.`,

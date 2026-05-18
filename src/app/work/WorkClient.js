@@ -24,7 +24,7 @@ const PHOTOSHOP_BATTLES = [
 ];
 
 export default function WorkClient() {
-    const { t, ready } = useTranslation();
+    const { t } = useTranslation();
     const [view, setView] = useState('COMPACT');
     const [videos, setVideos] = useState([]);
     const [subscriberCount, setSubscriberCount] = useState(null);
@@ -98,14 +98,12 @@ export default function WorkClient() {
                 if (data.videos) setVideos(data.videos);
                 if (data.subscriberCount) setSubscriberCount(data.subscriberCount);
             } catch (error) {
-                console.error("Error fetching YouTube data:", error);
+                if (process.env.NODE_ENV !== 'production') console.debug("[work] youtube fetch", error);
             }
         };
 
         fetchYouTubeData();
     }, []);
-
-    if (!ready) return null;
 
     return (
         <>
@@ -114,6 +112,11 @@ export default function WorkClient() {
                 <div className="w-full sm:w-11/12 md:w-5/6 lg:w-4/5 xl:w-3/4 2xl:w-[70%] max-w-[1400px] flex flex-col">
                     <Topbar />
                     <main id="main-content">
+                    <div className="mt-5 flex flex-col items-start">
+                        <h1 className="text-4xl sm:text-5xl lg:text-6xl text-portfolio-950 dark:text-white font-bold">
+                            {t('portfolio.topbar.work')}
+                        </h1>
+                    </div>
                     <div className="wavy-line w-full mt-5 bg-portfolio-950 dark:bg-portfolio-500" aria-hidden="true"></div>
 
                     <section aria-labelledby="product-heading">

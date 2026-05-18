@@ -1,0 +1,26 @@
+# Manoj A — Portfolio
+
+> Personal portfolio of Manoj A, a software engineer at Zoho Corporation building reliable, performant systems. The site documents projects, work experience, technical skills, and provides a verified contact channel.
+
+The owner is a software engineer focused on backend systems, performance tuning, low-level / systems programming, and shipping production-grade tooling. The portfolio is built with Next.js 15 (App Router), React 19, Tailwind CSS, and GSAP. All content is in English by default but the UI supports en, es, fr, ta, zh via i18next.
+
+## Main pages
+- [Home](https://manojtgn.me/): about, skills, toolset, experience, contact form
+- [Work](https://manojtgn.me/work): full project gallery, npm packages, content, Steam guides, photoshop battles
+- [Contact](https://manojtgn.me/contact): contact form with email verification (OTP)
+- [Accessibility](https://manojtgn.me/accessibility): font size, theme, language, cursor, motion preferences
+- [Sitemap](https://manojtgn.me/sitemap): human-readable index of every page
+
+## Projects
+- [GrievanceForum](https://manojtgn.me/work/grievanceForum): web product for college grievance reporting (Node.js, Express, MySQL)
+- [cGrafix](https://manojtgn.me/work/cGrafix): pure-C graphics library on Windows API
+- [asciiCam](https://manojtgn.me/work/asciiCam): real-time webcam-to-ASCII renderer in C++ / OpenCV
+- [Collision2Djs](https://manojtgn.me/work/collision2Djs): 2D collision library for JavaScript / Node, published to npm
+- [asciiTable](https://manojtgn.me/work/asciiTable): pure-C terminal ASCII table inspector
+
+## Optional
+- [GitHub](https://github.com/ManojTGN)
+- [LinkedIn](https://www.linkedin.com/in/manojbit/)
+- [YouTube](https://www.youtube.com/@TamilGamersNetworks/videos)
+- [Stack Overflow](https://stackoverflow.com/users/9558827/manoj-a)
+- [Resume](https://drive.google.com/file/d/1YkDWnFv27z7AQwdJki7xhn-cPGYZLFox/view?usp=sharing)
