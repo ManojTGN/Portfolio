@@ -7,8 +7,10 @@ export function proxy(request) {
     const directives = [
         "default-src 'self'",
         `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${isProd ? "" : "'unsafe-eval'"} https://kit.fontawesome.com https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://va.vercel-scripts.com https://www.googletagmanager.com`.replace(/\s+/g, " ").trim(),
-        `style-src 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
-        `style-src-elem 'self' 'nonce-${nonce}' https://fonts.googleapis.com`,
+        // Dev: Turbopack's HMR style-injector can't carry a nonce, so we
+        // accept 'unsafe-inline' there. Prod: nonce-only, no escape hatch.
+        `style-src 'self' ${isProd ? `'nonce-${nonce}'` : "'unsafe-inline'"} https://fonts.googleapis.com`,
+        `style-src-elem 'self' ${isProd ? `'nonce-${nonce}'` : "'unsafe-inline'"} https://fonts.googleapis.com`,
         "font-src 'self' data: https://fonts.gstatic.com https://ka-f.fontawesome.com",
         "img-src 'self' data: blob: https://i.ytimg.com https://www.googletagmanager.com https://www.google-analytics.com",
         "frame-src 'self' https://www.google.com https://www.recaptcha.net",

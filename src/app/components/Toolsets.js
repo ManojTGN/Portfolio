@@ -103,19 +103,19 @@ export default function Toolsets() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-0">
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/AdobePhotoshop.svg" alt="Adobe Photoshop logo" width={20} height={20} draggable={false} />
+                    <Image src="/images/work/brand/AdobePhotoshop.svg" alt="Adobe Photoshop logo" width={20} height={20} draggable={false} className="h-auto" />
                     {t('portfolio.skills.photoshop')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/AdobePremierePro.svg" alt="Adobe Premiere Pro logo" width={20} height={20} draggable={false} />
+                    <Image src="/images/work/brand/AdobePremierePro.svg" alt="Adobe Premiere Pro logo" width={20} height={20} draggable={false} className="h-auto" />
                     {t('portfolio.skills.premiere')}
                 </p>
             </div>
             <div className="w-full border-l-2 pl-5 border-portfolio-500 dark:border-portfolio-500 mt-5">
                 <p className="text-portfolio-500 dark:text-portfolio-500 font-medium text-xl flex gap-1">
-                    <Image src="/images/work/brand/Figma.svg" alt="Figma logo" width={20} height={20} draggable={false} />
+                    <Image src="/images/work/brand/Figma.svg" alt="Figma logo" width={20} height={20} draggable={false} className="h-auto" />
                     {t('portfolio.skills.figma')}
                 </p>
             </div>
