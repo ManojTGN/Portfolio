@@ -87,7 +87,7 @@ export default async function RootLayout({ children }) {
     const nonce = (await headers()).get("x-nonce") || undefined;
 
     return (
-        <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+        <html lang="en" className="dark scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <link rel="preconnect" href="https://kit.fontawesome.com" crossOrigin="anonymous" />
@@ -104,6 +104,17 @@ export default async function RootLayout({ children }) {
                     nonce={nonce}
                     suppressHydrationWarning
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteLd) }}
+                />
+                {/* Tells Font Awesome to stamp its runtime-injected <style> blocks
+                    with our CSP nonce so they're not blocked. Must run before the
+                    kit script downloads. */}
+                <script
+                    id="fa-config"
+                    nonce={nonce}
+                    suppressHydrationWarning
+                    dangerouslySetInnerHTML={{
+                        __html: `window.FontAwesomeConfig = Object.assign(window.FontAwesomeConfig || {}, { nonce: ${JSON.stringify(nonce || "")} });`,
+                    }}
                 />
             </head>
             <body className="m-0 p-0 w-full h-screen dark:bg-portfolio-950 bg-portfolio-50">
@@ -132,7 +143,7 @@ gtag('config', '${GA_ID}');`}
                     <Script
                         src="https://kit.fontawesome.com/08c3f952c9.js"
                         crossOrigin="anonymous"
-                        strategy="lazyOnload"
+                        strategy="afterInteractive"
                         nonce={nonce}
                     />
             </body>

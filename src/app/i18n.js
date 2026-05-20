@@ -37,6 +37,8 @@ if (!i18n.isInitialized) {
             useSuspense: false,
         },
         debug: false,
+        // Mutes the "i18next is made possible by Locize…" promo log.
+        showSupportNotice: false,
     });
 }
 
