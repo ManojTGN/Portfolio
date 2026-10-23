@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const isProd = process.env.NODE_ENV === "production";
+const VI_ORIGIN = "https://vi-indol.vercel.app";
 
 const nextConfig = {
     output: 'standalone',
@@ -47,6 +48,12 @@ const nextConfig = {
                     { key: 'Cache-Control', value: 'public, max-age=86400' },
                 ],
             },
+        ];
+    },
+    async rewrites() {
+        return [
+            { source: '/VI', destination: `${VI_ORIGIN}/VI` },
+            { source: '/VI/:path*', destination: `${VI_ORIGIN}/VI/:path*` },
         ];
     },
 };
