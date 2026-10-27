@@ -57,7 +57,6 @@ function escapeHtml(s) {
         .replace(/'/g, "&#39;");
 }
 
-// {{{var}}} = raw, {{var}} = escaped. Single-pass so user text can't recurse.
 function applyTemplate(template, vars) {
     return template.replace(/\{\{\{(\w+)\}\}\}|\{\{(\w+)\}\}/g, (_, rawKey, escKey) => {
         if (rawKey != null) {
@@ -112,7 +111,9 @@ export function renderOtpEmail({ code, ttlMinutes = 10, lang = DEFAULT_LANG }) {
 }
 
 export function renderContactEmail({ name, email, categoryLabel, message }) {
-    const safeName = String(name).replace(/[\r\n]/g, "").trim();
+    const safeName = String(name)
+        .replace(/[\r\n]/g, "")
+        .trim();
     const safeSubjectName = safeName.length > 40 ? safeName.slice(0, 40) + "…" : safeName;
     const subject = `Portfolio Contact [${categoryLabel}]: ${safeSubjectName}`;
     const preheader = `A pigeon arrived from ${safeName} (${categoryLabel}).`;

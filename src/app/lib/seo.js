@@ -1,4 +1,4 @@
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://manojtgn.me").replace(/\/$/, "");
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "https://www.manojtgn.me").replace(/\/$/, "");
 
 export const SUPPORTED_LANGS = ["en", "es", "fr", "ta", "zh"];
 

@@ -13,6 +13,7 @@ import {
 const ALLOWED = ["GET", "HEAD", "OPTIONS"];
 
 const CHANNEL_ID = "UCIpx-ZquNHFjjODgW5_yroQ";
+const CHANNEL_HANDLE = "@TamilGamersNetworks";
 
 const CACHE_TTL_MS = 30 * 60 * 1000;
 const STALE_TTL_MS = 24 * 60 * 60 * 1000;
@@ -43,14 +44,23 @@ function formatSubs(raw) {
     return String(n);
 }
 
-async function fetchYouTube(apiKey) {
-    const channelUrl = `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&id=${encodeURIComponent(CHANNEL_ID)}&key=${encodeURIComponent(apiKey)}`;
-    const channelRes = await fetchWithTimeout(channelUrl, FETCH_TIMEOUT_MS);
-    if (!channelRes.ok) throw new Error(`channels HTTP ${channelRes.status}`);
-    const channelData = await channelRes.json();
-    if (!channelData.items?.length) return EMPTY_DATA;
+async function fetchChannel(apiKey, selector) {
+    const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics,contentDetails&${selector}&key=${encodeURIComponent(apiKey)}`;
+    const res = await fetchWithTimeout(url, FETCH_TIMEOUT_MS);
+    if (!res.ok) throw new Error(`channels HTTP ${res.status}`);
+    const data = await res.json();
+    return data.items?.[0] ?? null;
+}
 
-    const item = channelData.items[0];
+async function fetchYouTube(apiKey) {
+    // A channel id can go stale if the channel is recreated, and it fails
+    // silently: the API answers 200 with an empty list. Fall back to the
+    // handle, which is what the site links to anyway.
+    const item =
+        (await fetchChannel(apiKey, `id=${encodeURIComponent(CHANNEL_ID)}`)) ??
+        (await fetchChannel(apiKey, `forHandle=${encodeURIComponent(CHANNEL_HANDLE)}`));
+    if (!item) return EMPTY_DATA;
+
     const subscriberCount = formatSubs(item.statistics?.subscriberCount);
     const uploadsPlaylistId = item.contentDetails?.relatedPlaylists?.uploads;
     if (!uploadsPlaylistId) return { videos: [], subscriberCount };
@@ -81,6 +91,59 @@ function computeEtag(body) {
     return `W/"yt-${(h >>> 0).toString(16)}"`;
 }
 
+const FEED_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
+
+function decodeEntities(value) {
+    return value
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, '"')
+        .replace(/&#39;/g, "'")
+        .replace(/&amp;/g, "&");
+}
+
+// The channel's public Atom feed. No key, no quota, and it carries the last
+// 15 uploads, which is why the listing works whether or not YOUTUBE_API_KEY
+// is configured. Thumbnails follow i.ytimg.com's fixed URL shape.
+async function fetchFromFeed() {
+    const res = await fetchWithTimeout(FEED_URL, FETCH_TIMEOUT_MS);
+    if (!res.ok) throw new Error(`feed HTTP ${res.status}`);
+    const xml = await res.text();
+
+    const videos = [];
+    for (const entry of xml.split("<entry>").slice(1)) {
+        const id = entry.match(/<yt:videoId>([^<]+)<\/yt:videoId>/)?.[1];
+        if (!id || !/^[A-Za-z0-9_-]{6,16}$/.test(id)) continue;
+
+        videos.push({
+            id,
+            title: decodeEntities(entry.match(/<title>([^<]*)<\/title>/)?.[1] ?? "").slice(0, 200),
+            link: `https://www.youtube.com/watch?v=${id}`,
+            thumbnail: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
+            published: entry.match(/<published>([^<]+)<\/published>/)?.[1] ?? null,
+        });
+        if (videos.length === 6) break;
+    }
+    return { videos, subscriberCount: null };
+}
+
+// The Data API is preferred because it also carries the subscriber count, but
+// the feed is the floor: a missing key, a stale id or a quota error all land
+// on it rather than on an empty section.
+async function loadYouTube(apiKey) {
+    if (apiKey) {
+        try {
+            const data = await fetchYouTube(apiKey);
+            if (data.videos.length > 0) return data;
+        } catch (err) {
+            if (process.env.NODE_ENV !== "production") {
+                console.debug("[youtube] data api failed, falling back to feed:", err?.message || err);
+            }
+        }
+    }
+    return fetchFromFeed();
+}
+
 async function getCached(apiKey) {
     const now = Date.now();
     if (cache.data && now - cache.fetchedAt < CACHE_TTL_MS) {
@@ -90,7 +153,7 @@ async function getCached(apiKey) {
         const body = await cache.inflight;
         return { body, etag: cache.etag, source: "cache-inflight" };
     }
-    cache.inflight = fetchYouTube(apiKey)
+    cache.inflight = loadYouTube(apiKey)
         .then((body) => {
             cache = { data: body, fetchedAt: Date.now(), etag: computeEtag(body), inflight: null };
             return body;
@@ -132,28 +195,28 @@ export async function GET(request) {
     }
 
     const API_KEY = process.env.YOUTUBE_API_KEY;
-    if (!API_KEY) {
-        return jsonOk(EMPTY_DATA, {
-            headers: { "Cache-Control": "public, max-age=3600" },
-        });
-    }
 
     try {
         const { body, etag, source } = await getCached(API_KEY);
+        // An empty list is usually a transient upstream failure. Caching that
+        // for half an hour leaves every visitor with a blank section, so an
+        // empty answer is held for a minute and a real one for the full TTL.
+        const maxAge = body.videos.length > 0 ? Math.floor(CACHE_TTL_MS / 1000) : 60;
+        const cacheControl = `public, max-age=${maxAge}, s-maxage=${maxAge}, stale-while-revalidate=86400`;
         const inm = request.headers.get("if-none-match");
         if (inm && etag && inm === etag) {
             return new Response(null, {
                 status: 304,
                 headers: {
                     ETag: etag,
-                    "Cache-Control": `public, max-age=${Math.floor(CACHE_TTL_MS / 1000)}, s-maxage=${Math.floor(CACHE_TTL_MS / 1000)}, stale-while-revalidate=86400`,
+                    "Cache-Control": cacheControl,
                     "X-Content-Type-Options": "nosniff",
                 },
             });
         }
         return jsonOk(body, {
             headers: {
-                "Cache-Control": `public, max-age=${Math.floor(CACHE_TTL_MS / 1000)}, s-maxage=${Math.floor(CACHE_TTL_MS / 1000)}, stale-while-revalidate=86400`,
+                "Cache-Control": cacheControl,
                 ETag: etag,
                 "X-Cache-Source": source,
                 Vary: "Origin, Referer",
@@ -175,7 +238,15 @@ export async function HEAD(request) {
     return new Response(null, { status: res.status, headers: res.headers });
 }
 
-export async function POST() { return methodNotAllowed(ALLOWED); }
-export async function PUT() { return methodNotAllowed(ALLOWED); }
-export async function PATCH() { return methodNotAllowed(ALLOWED); }
-export async function DELETE() { return methodNotAllowed(ALLOWED); }
+export async function POST() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function PUT() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function PATCH() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function DELETE() {
+    return methodNotAllowed(ALLOWED);
+}

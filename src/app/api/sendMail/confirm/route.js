@@ -29,7 +29,9 @@ import {
 const ALLOWED = ["POST", "OPTIONS"];
 const MAX_BODY_BYTES = 8 * 1024;
 
-export async function OPTIONS() { return preflight(ALLOWED); }
+export async function OPTIONS() {
+    return preflight(ALLOWED);
+}
 
 export async function POST(request) {
     try {
@@ -77,8 +79,6 @@ export async function POST(request) {
 
         const claims = await verifyToken(otpToken);
         if (!claims) {
-            // Unified error for invalid/expired/consumed/mismatched — avoids
-            // leaking which specific state a probed token is in.
             return jsonError(ERROR_CODES.UNAUTHORIZED, "Invalid or expired code", { status: 401 });
         }
 
@@ -104,9 +104,7 @@ export async function POST(request) {
             return jsonError(ERROR_CODES.UNAUTHORIZED, "Invalid or expired code", { status: 401 });
         }
 
-        // Atomically reserve the jti before sending mail. A concurrent /confirm
-        // with the same token cannot pass this check, so the email is sent at
-        // most once even under perfectly racing requests.
+        // Reserve before sending, so the mail goes out at most once per token.
         if (!tryAcquireToken(claims.jti)) {
             return jsonError(ERROR_CODES.UNAUTHORIZED, "Invalid or expired code", { status: 401 });
         }
@@ -138,7 +136,6 @@ export async function POST(request) {
                 },
             });
         } catch (err) {
-            // Release the reservation so the user can retry with the same code.
             releaseToken(claims.jti);
             throw err;
         }
@@ -152,8 +149,18 @@ export async function POST(request) {
     }
 }
 
-export async function GET() { return methodNotAllowed(ALLOWED); }
-export async function PUT() { return methodNotAllowed(ALLOWED); }
-export async function PATCH() { return methodNotAllowed(ALLOWED); }
-export async function DELETE() { return methodNotAllowed(ALLOWED); }
-export async function HEAD() { return methodNotAllowed(ALLOWED); }
+export async function GET() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function PUT() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function PATCH() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function DELETE() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function HEAD() {
+    return methodNotAllowed(ALLOWED);
+}

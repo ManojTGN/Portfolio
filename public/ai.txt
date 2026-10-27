@@ -25,5 +25,5 @@ Allow: /
 User-Agent: PerplexityBot
 Allow: /
 
-Contact: https://manojtgn.me/contact
-Sitemap: https://manojtgn.me/sitemap.xml
+Contact: https://www.manojtgn.me/contact
+Sitemap: https://www.manojtgn.me/sitemap.xml

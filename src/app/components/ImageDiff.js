@@ -1,6 +1,6 @@
-'use client';
-import { useState, useEffect, useRef, useCallback } from 'react';
-import Image from 'next/image';
+"use client";
+import { useState, useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import { useTranslation } from "react-i18next";
 
 export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, rightLabel }) {
@@ -11,8 +11,8 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
     const clipRef = useRef(null);
     const handleRef = useRef(null);
 
-    const finalLeftLabel = leftLabel || t('portfolio.image.diff.original');
-    const finalRightLabel = rightLabel || t('portfolio.image.diff.modified');
+    const finalLeftLabel = leftLabel || t("portfolio.image.diff.original");
+    const finalRightLabel = rightLabel || t("portfolio.image.diff.modified");
 
     useEffect(() => {
         if (clipRef.current) clipRef.current.style.clipPath = `inset(0 ${100 - sliderPosition}% 0 0)`;
@@ -35,16 +35,16 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
 
     const handleKeyDown = useCallback((e) => {
         const step = e.shiftKey ? 10 : 2;
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+        if (e.key === "ArrowLeft" || e.key === "ArrowDown") {
             e.preventDefault();
-            setSliderPosition(prev => Math.max(0, prev - step));
-        } else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+            setSliderPosition((prev) => Math.max(0, prev - step));
+        } else if (e.key === "ArrowRight" || e.key === "ArrowUp") {
             e.preventDefault();
-            setSliderPosition(prev => Math.min(100, prev + step));
-        } else if (e.key === 'Home') {
+            setSliderPosition((prev) => Math.min(100, prev + step));
+        } else if (e.key === "Home") {
             e.preventDefault();
             setSliderPosition(0);
-        } else if (e.key === 'End') {
+        } else if (e.key === "End") {
             e.preventDefault();
             setSliderPosition(100);
         }
@@ -52,21 +52,26 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
 
     useEffect(() => {
         if (isDragging) {
-            window.addEventListener('mousemove', onMouseMove);
-            window.addEventListener('mouseup', handleMouseUp);
-            window.addEventListener('touchmove', onTouchMove);
-            window.addEventListener('touchend', handleMouseUp);
+            window.addEventListener("mousemove", onMouseMove);
+            window.addEventListener("mouseup", handleMouseUp);
+            window.addEventListener("touchmove", onTouchMove);
+            window.addEventListener("touchend", handleMouseUp);
         }
         return () => {
-            window.removeEventListener('mousemove', onMouseMove);
-            window.removeEventListener('mouseup', handleMouseUp);
-            window.removeEventListener('touchmove', onTouchMove);
-            window.removeEventListener('touchend', handleMouseUp);
+            window.removeEventListener("mousemove", onMouseMove);
+            window.removeEventListener("mouseup", handleMouseUp);
+            window.removeEventListener("touchmove", onTouchMove);
+            window.removeEventListener("touchend", handleMouseUp);
         };
     }, [isDragging, onMouseMove, onTouchMove, handleMouseUp]);
 
     return (
-        <div ref={containerRef} className="relative w-full h-full select-none group cursor-col-resize overflow-hidden" onMouseDown={handleMouseDown} onTouchStart={handleMouseDown}>
+        <div
+            ref={containerRef}
+            className="relative w-full h-full select-none group cursor-col-resize overflow-hidden"
+            onMouseDown={handleMouseDown}
+            onTouchStart={handleMouseDown}
+        >
             {rightImageSrc && (
                 <div className="absolute inset-0 w-full h-full">
                     <Image
@@ -78,7 +83,10 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
                         draggable={false}
                     />
                     {finalRightLabel && (
-                        <span className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded z-10" aria-hidden="true">
+                        <span
+                            className="absolute top-2 right-2 bg-black/50 text-white text-xs px-2 py-1 rounded z-10"
+                            aria-hidden="true"
+                        >
                             {finalRightLabel}
                         </span>
                     )}
@@ -96,7 +104,10 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
                         draggable={false}
                     />
                     {finalLeftLabel && (
-                        <span className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded z-10" aria-hidden="true">
+                        <span
+                            className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded z-10"
+                            aria-hidden="true"
+                        >
                             {finalLeftLabel}
                         </span>
                     )}
@@ -115,7 +126,18 @@ export default function ImageDiff({ leftImageSrc, rightImageSrc, leftLabel, righ
                 onKeyDown={handleKeyDown}
             >
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-portfolio-950" aria-hidden="true">
+                    <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-portfolio-950"
+                        aria-hidden="true"
+                    >
                         <path d="M18 8L22 12L18 16" />
                         <path d="M2 12H22" />
                         <path d="M6 8L2 12L6 16" />
