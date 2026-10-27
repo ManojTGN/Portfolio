@@ -39,7 +39,9 @@ const EMAIL_PER_MIN = 1;
 const EMAIL_PER_HOUR = 2;
 const EMAIL_PER_DAY = 2;
 
-export async function OPTIONS() { return preflight(ALLOWED); }
+export async function OPTIONS() {
+    return preflight(ALLOWED);
+}
 
 export async function POST(request) {
     try {
@@ -54,13 +56,23 @@ export async function POST(request) {
         if (isRateLimited(`start:ip:1h:${ip}`, IP_PER_HOUR, HOUR)) {
             return jsonError(ERROR_CODES.RATE_LIMITED, "Hourly request limit reached", {
                 status: 429,
-                headers: rateLimitHeaders({ limit: IP_PER_HOUR, remaining: 0, resetAfterSec: 3600, retryAfterSec: 3600 }),
+                headers: rateLimitHeaders({
+                    limit: IP_PER_HOUR,
+                    remaining: 0,
+                    resetAfterSec: 3600,
+                    retryAfterSec: 3600,
+                }),
             });
         }
         if (isRateLimited(`start:ip:1d:${ip}`, IP_PER_DAY, DAY)) {
             return jsonError(ERROR_CODES.RATE_LIMITED, "Daily request limit reached", {
                 status: 429,
-                headers: rateLimitHeaders({ limit: IP_PER_DAY, remaining: 0, resetAfterSec: 86400, retryAfterSec: 86400 }),
+                headers: rateLimitHeaders({
+                    limit: IP_PER_DAY,
+                    remaining: 0,
+                    resetAfterSec: 86400,
+                    retryAfterSec: 86400,
+                }),
             });
         }
 
@@ -79,21 +91,44 @@ export async function POST(request) {
 
         const emailKey = emailTrim.toLowerCase();
         if (isRateLimited(`start:email:1m:${emailKey}`, EMAIL_PER_MIN, MIN)) {
-            return jsonError(ERROR_CODES.RATE_LIMITED, "A code was just sent to this email. Please wait a minute before requesting another.", {
-                status: 429,
-                headers: rateLimitHeaders({ limit: EMAIL_PER_MIN, remaining: 0, resetAfterSec: 60, retryAfterSec: 60 }),
-            });
+            return jsonError(
+                ERROR_CODES.RATE_LIMITED,
+                "A code was just sent to this email. Please wait a minute before requesting another.",
+                {
+                    status: 429,
+                    headers: rateLimitHeaders({
+                        limit: EMAIL_PER_MIN,
+                        remaining: 0,
+                        resetAfterSec: 60,
+                        retryAfterSec: 60,
+                    }),
+                },
+            );
         }
         if (isRateLimited(`start:email:1h:${emailKey}`, EMAIL_PER_HOUR, HOUR)) {
-            return jsonError(ERROR_CODES.RATE_LIMITED, "Too many codes sent to this email recently. Try again in an hour.", {
-                status: 429,
-                headers: rateLimitHeaders({ limit: EMAIL_PER_HOUR, remaining: 0, resetAfterSec: 3600, retryAfterSec: 3600 }),
-            });
+            return jsonError(
+                ERROR_CODES.RATE_LIMITED,
+                "Too many codes sent to this email recently. Try again in an hour.",
+                {
+                    status: 429,
+                    headers: rateLimitHeaders({
+                        limit: EMAIL_PER_HOUR,
+                        remaining: 0,
+                        resetAfterSec: 3600,
+                        retryAfterSec: 3600,
+                    }),
+                },
+            );
         }
         if (isRateLimited(`start:email:1d:${emailKey}`, EMAIL_PER_DAY, DAY)) {
             return jsonError(ERROR_CODES.RATE_LIMITED, "Daily verification limit reached for this email.", {
                 status: 429,
-                headers: rateLimitHeaders({ limit: EMAIL_PER_DAY, remaining: 0, resetAfterSec: 86400, retryAfterSec: 86400 }),
+                headers: rateLimitHeaders({
+                    limit: EMAIL_PER_DAY,
+                    remaining: 0,
+                    resetAfterSec: 86400,
+                    retryAfterSec: 86400,
+                }),
             });
         }
 
@@ -107,7 +142,8 @@ export async function POST(request) {
 
         const recaptcha = await verifyRecaptcha(recaptchaToken);
         if (!recaptcha.ok) {
-            const details = process.env.NODE_ENV !== "production" && recaptcha.reason ? { reason: recaptcha.reason } : undefined;
+            const details =
+                process.env.NODE_ENV !== "production" && recaptcha.reason ? { reason: recaptcha.reason } : undefined;
             return jsonError(ERROR_CODES.UNAUTHORIZED, "reCaptcha verification failed", {
                 status: 401,
                 details,
@@ -154,7 +190,7 @@ export async function POST(request) {
 
         return jsonOk(
             { otpToken, expiresIn: OTP_TTL_SECONDS },
-            { status: 201, headers: { Location: "/api/sendMail/confirm" } }
+            { status: 201, headers: { Location: "/api/sendMail/confirm" } },
         );
     } catch (err) {
         if (process.env.NODE_ENV !== "production") console.debug("[sendMail/start] error", err);
@@ -162,8 +198,18 @@ export async function POST(request) {
     }
 }
 
-export async function GET() { return methodNotAllowed(ALLOWED); }
-export async function PUT() { return methodNotAllowed(ALLOWED); }
-export async function PATCH() { return methodNotAllowed(ALLOWED); }
-export async function DELETE() { return methodNotAllowed(ALLOWED); }
-export async function HEAD() { return methodNotAllowed(ALLOWED); }
+export async function GET() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function PUT() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function PATCH() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function DELETE() {
+    return methodNotAllowed(ALLOWED);
+}
+export async function HEAD() {
+    return methodNotAllowed(ALLOWED);
+}

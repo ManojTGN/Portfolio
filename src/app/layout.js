@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 
 import "./globals.css";
 import AccessibilityInit from "./components/AccessibilityInit";
+import Banner from "./components/Banner";
 import I18nProvider from "./providers/I18nProvider";
 import PageTransition from "./components/PageTransition";
 import SkipNav from "./components/SkipNav";
@@ -19,19 +20,12 @@ export const metadata = {
         default: "Manoj A ▪ Software Engineer",
         template: "%s",
     },
-    description: "Software developer building reliable, performant systems. Explore projects, experience, and contact me.",
+    description:
+        "Software developer building reliable, performant systems. Explore projects, experience, and contact me.",
     icons: {
-        icon: '/favicon.ico',
+        icon: "/favicon.ico",
     },
-    keywords: [
-        "Manoj A",
-        "ManojTGN",
-        "Software Engineer",
-        "Portfolio",
-        "Next.js",
-        "Zoho",
-        "Web Developer",
-    ],
+    keywords: ["Manoj A", "ManojTGN", "Software Engineer", "Portfolio", "Next.js", "Zoho", "Web Developer"],
     authors: [{ name: "Manoj A" }],
     creator: "Manoj A",
     robots: {
@@ -40,7 +34,8 @@ export const metadata = {
     },
     openGraph: {
         title: "Manoj A | Software Engineer",
-        description: "Software developer building reliable, performant systems. Explore projects, experience, and more.",
+        description:
+            "Software developer building reliable, performant systems. Explore projects, experience, and more.",
         url: SITE_URL,
         siteName: "Manoj A | Portfolio",
         type: "website",
@@ -91,8 +86,6 @@ export default async function RootLayout({ children }) {
             <head>
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <link rel="preconnect" href="https://www.googletagmanager.com" />
-                {/* Self-hosted FontAwesome 6.7.2 (was kit.fontawesome.com).
-                    Files live in /public/fonts/fontawesome/. */}
                 <link
                     rel="preload"
                     href="/fonts/fontawesome/webfonts/fa-brands-400.woff2"
@@ -107,6 +100,8 @@ export default async function RootLayout({ children }) {
                     type="font/woff2"
                     crossOrigin="anonymous"
                 />
+                {/* Self-hosted so the CSP stays nonce-only; bundling it would rewrite its ../webfonts/* URLs. */}
+                {/* eslint-disable-next-line @next/next/no-css-tags */}
                 <link rel="stylesheet" href="/fonts/fontawesome/css/all.min.css" />
                 <script
                     type="application/ld+json"
@@ -122,28 +117,27 @@ export default async function RootLayout({ children }) {
                 />
             </head>
             <body className="m-0 p-0 w-full h-screen dark:bg-portfolio-950 bg-portfolio-50">
-                    <I18nProvider>
-                        <SkipNav />
-                        <ThemeProvider attribute="class" defaultTheme="system" enableSystem nonce={nonce}>
-                            <AccessibilityInit />
-                            <PageTransition>
-                                {children}
-                            </PageTransition>
-                        </ThemeProvider>
-                    </I18nProvider>
-                    <Analytics />
-                    <SpeedInsights />
-                    <Script
-                        src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-                        strategy="afterInteractive"
-                        nonce={nonce}
-                    />
-                    <Script id="gtag-init" strategy="afterInteractive" nonce={nonce}>
-                        {`window.dataLayer = window.dataLayer || [];
+                <I18nProvider>
+                    <SkipNav />
+                    <Banner />
+                    <ThemeProvider attribute="class" defaultTheme="system" enableSystem nonce={nonce}>
+                        <AccessibilityInit />
+                        <PageTransition>{children}</PageTransition>
+                    </ThemeProvider>
+                </I18nProvider>
+                <Analytics />
+                <SpeedInsights />
+                <Script
+                    src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+                    strategy="afterInteractive"
+                    nonce={nonce}
+                />
+                <Script id="gtag-init" strategy="afterInteractive" nonce={nonce}>
+                    {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', '${GA_ID}');`}
-                    </Script>
+                </Script>
             </body>
         </html>
     );

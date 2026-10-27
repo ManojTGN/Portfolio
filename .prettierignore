@@ -1,0 +1,15 @@
+node_modules
+.next
+out
+build
+package-lock.json
+
+# Everything under public/ is served as-is. Vendored assets are already
+# minified, and formatting all.min.css unminified it and added 22KB to a
+# file every visitor downloads. Translations here are flat key/value lists
+# grouped with blank lines, which reflowing would destroy.
+public
+
+# HTML emails are whitespace-sensitive across clients and carry {{placeholders}};
+# leave them exactly as authored.
+src/app/lib/email-templates

@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -41,57 +41,63 @@ export default function NotFound() {
     const [puzzleMode, setPuzzleMode] = useState(false);
     const [grid, setGrid] = useState(() => new Array(TOTAL).fill(false));
     const [moves, setMoves] = useState(0);
-    const [celebrating, setCelebrating] = useState(false);
     const [entering, setEntering] = useState(false);
     const [seconds, setSeconds] = useState(0);
     const [completed, setCompleted] = useState(false); // set true after first win; persists until page reload
+
+    const winMode = useMemo(() => {
+        if (!puzzleMode || moves === 0) return null;
+        if (grid.every((v) => !v)) return "off";
+        if (grid.every((v) => v)) return "on";
+        return null;
+    }, [grid, puzzleMode, moves]);
+    const solved = winMode !== null;
+
+    const celebrating = solved;
 
     const startPuzzle = useCallback(() => {
         if (completed) return; // one-shot per page load
         setGrid(makeSolvableGrid());
         setMoves(0);
         setSeconds(0);
-        setCelebrating(false);
         setPuzzleMode(true);
         setEntering(true);
     }, [completed]);
 
-    // End the entrance animation after the radial sweep finishes.
     useEffect(() => {
         if (!entering) return;
         const id = setTimeout(() => setEntering(false), prefersReducedMotion() ? 50 : ENTRANCE_MS);
         return () => clearTimeout(id);
     }, [entering]);
 
-    // Game clock: ticks every second while the player is playing.
-    // Frozen during the entrance and celebration animations.
     useEffect(() => {
         if (!puzzleMode || entering || celebrating) return;
         const id = setInterval(() => setSeconds((s) => s + 1), 1000);
         return () => clearInterval(id);
     }, [puzzleMode, entering, celebrating]);
 
-    const clickCell = useCallback((i) => {
-        if (celebrating || entering) return;
-        const r = Math.floor(i / COLS);
-        const c = i % COLS;
-        setGrid((prev) => {
-            const next = prev.slice();
-            toggleCross(next, r, c);
-            return next;
-        });
-        setMoves((m) => m + 1);
-    }, [celebrating, entering]);
+    const clickCell = useCallback(
+        (i) => {
+            if (celebrating || entering) return;
+            const r = Math.floor(i / COLS);
+            const c = i % COLS;
+            setGrid((prev) => {
+                const next = prev.slice();
+                toggleCross(next, r, c);
+                return next;
+            });
+            setMoves((m) => m + 1);
+        },
+        [celebrating, entering],
+    );
 
     const exitPuzzle = useCallback(() => {
         setPuzzleMode(false);
         setEntering(false);
-        setCelebrating(false);
         setMoves(0);
         setSeconds(0);
     }, []);
 
-    // Esc exits the puzzle back to the 404 hero.
     useEffect(() => {
         if (!puzzleMode) return;
         const onKey = (e) => {
@@ -101,30 +107,17 @@ export default function NotFound() {
         return () => window.removeEventListener("keydown", onKey);
     }, [puzzleMode, exitPuzzle]);
 
-    // Win = every cell in the same state. Either all dark OR all glowing
-    // counts. (For most starting scrambles only one of the two is reachable,
-    // but accept whichever the player gets to first.)
-    const winMode = useMemo(() => {
-        if (!puzzleMode || moves === 0) return null;
-        if (grid.every((v) => !v)) return "off";
-        if (grid.every((v) => v)) return "on";
-        return null;
-    }, [grid, puzzleMode, moves]);
-    const solved = winMode !== null;
-
-    // When the puzzle is solved → play the celebration, then return to hero.
-    // NOTE: depend on `solved` only. Including `celebrating` causes the cleanup
-    // to clearTimeout the moment `setCelebrating(true)` triggers a re-run.
     useEffect(() => {
         if (!solved) return;
-        setCelebrating(true);
         const reduced = prefersReducedMotion();
-        const id = setTimeout(() => {
-            setPuzzleMode(false);
-            setCelebrating(false);
-            setMoves(0);
-            setCompleted(true); // lock the puzzle: 0 turns gold, button becomes inert until reload
-        }, reduced ? 400 : CELEBRATION_MS);
+        const id = setTimeout(
+            () => {
+                setPuzzleMode(false);
+                setMoves(0);
+                setCompleted(true); // lock the puzzle: 0 turns gold, button becomes inert until reload
+            },
+            reduced ? 400 : CELEBRATION_MS,
+        );
         return () => clearTimeout(id);
     }, [solved]);
 
@@ -152,9 +145,12 @@ export default function NotFound() {
                         </span>
                         <span aria-hidden="true">4</span>
                     </button>
-                    <div className="w-px h-16 sm:h-20 md:h-24 bg-portfolio-300 dark:bg-portfolio-700" aria-hidden="true"></div>
+                    <div
+                        className="w-px h-16 sm:h-20 md:h-24 bg-portfolio-300 dark:bg-portfolio-700"
+                        aria-hidden="true"
+                    ></div>
                     <p className="text-base sm:text-lg md:text-xl font-medium text-portfolio-700 dark:text-portfolio-300 max-w-xs">
-                        {t('portfolio.notfound.desc')}
+                        {t("portfolio.notfound.desc")}
                     </p>
                 </div>
             ) : (
@@ -172,12 +168,15 @@ export default function NotFound() {
             )}
 
             {puzzleMode && (
-                <div className="mt-8 w-full max-w-md border-t border-dashed border-portfolio-300 dark:border-portfolio-700" aria-hidden="true"></div>
+                <div
+                    className="mt-8 w-full max-w-md border-t border-dashed border-portfolio-300 dark:border-portfolio-700"
+                    aria-hidden="true"
+                ></div>
             )}
 
             {puzzleMode && (
                 <p className="mt-6 text-base sm:text-lg font-medium text-portfolio-700 dark:text-portfolio-300 text-center max-w-md">
-                    {t('portfolio.notfound.desc')}
+                    {t("portfolio.notfound.desc")}
                 </p>
             )}
 
@@ -185,7 +184,9 @@ export default function NotFound() {
                 href="/"
                 className="mt-8 group inline-flex items-center gap-2 text-portfolio-500 hover:text-portfolio-950 dark:hover:text-white transition-colors text-sm sm:text-base"
             >
-                <span aria-hidden="true" className="transition-transform group-hover:-translate-x-0.5">←</span>
+                <span aria-hidden="true" className="transition-transform group-hover:-translate-x-0.5">
+                    ←
+                </span>
                 <span className="underline underline-offset-4 decoration-portfolio-500/40 group-hover:decoration-current">
                     Return home
                 </span>
@@ -227,7 +228,7 @@ function PuzzleBoard({ grid, moves, seconds, solved, winMode, celebrating, enter
             </div>
 
             <div
-                role="grid"
+                role="group"
                 aria-label="Lights out puzzle — click any digit to toggle it and its four neighbors. Turn them all off to win."
                 className={`grid select-none ${entering ? "puzzle-entering" : ""} ${celebrating ? "puzzle-celebrating" : ""}`}
                 style={{ gridTemplateColumns: `repeat(${COLS}, minmax(0, 1fr))` }}
@@ -241,13 +242,12 @@ function PuzzleBoard({ grid, moves, seconds, solved, winMode, celebrating, enter
                     const styleObj = entering
                         ? { animationDelay: `${enterWave * 70}ms` }
                         : celebrating
-                            ? { animationDelay: `${exitWave * 60}ms` }
-                            : undefined;
+                          ? { animationDelay: `${exitWave * 60}ms` }
+                          : undefined;
                     return (
                         <button
                             key={i}
                             type="button"
-                            role="gridcell"
                             aria-pressed={lit}
                             disabled={celebrating || entering}
                             onClick={() => onCell(i)}
@@ -263,17 +263,23 @@ function PuzzleBoard({ grid, moves, seconds, solved, winMode, celebrating, enter
             <div className="mt-4 w-full flex justify-between items-center text-xs sm:text-sm font-mono tabular-nums">
                 <div className="inline-flex items-baseline gap-2">
                     <span className="uppercase tracking-[0.1em] text-[0.7rem] text-portfolio-500">Moves</span>
-                    <span className="text-white font-semibold text-[1.05rem] [text-shadow:0_0_6px_rgba(168,85,247,0.25)]">{String(moves).padStart(2, "0")}</span>
+                    <span className="text-white font-semibold text-[1.05rem] [text-shadow:0_0_6px_rgba(168,85,247,0.25)]">
+                        {String(moves).padStart(2, "0")}
+                    </span>
                 </div>
                 <div className="inline-flex items-baseline gap-2">
                     <span className="uppercase tracking-[0.1em] text-[0.7rem] text-portfolio-500">Time</span>
-                    <span className="text-white font-semibold text-[1.05rem] [text-shadow:0_0_6px_rgba(168,85,247,0.25)]">{fmtTime(seconds)}</span>
+                    <span className="text-white font-semibold text-[1.05rem] [text-shadow:0_0_6px_rgba(168,85,247,0.25)]">
+                        {fmtTime(seconds)}
+                    </span>
                 </div>
             </div>
 
             {celebrating && (
                 <div role="status" aria-live="polite" className="puzzle-banner">
-                    <span className="puzzle-banner-icon" aria-hidden="true">✦</span>
+                    <span className="puzzle-banner-icon" aria-hidden="true">
+                        ✦
+                    </span>
                     <span>
                         All {winMode === "on" ? "on" : "off"} in {moves} moves · {fmtTime(seconds)}
                     </span>

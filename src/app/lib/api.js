@@ -17,8 +17,6 @@ export const ERROR_CODES = {
 
 const MAX_BODY_BYTES_DEFAULT = 16 * 1024;
 
-// application/json with optional whitespace and optional charset/parameters.
-// Rejects close matches like application/jsonp+xxx or application/json5.
 const CONTENT_TYPE_JSON_RE = /^application\/json\s*(?:;\s*[^;]+)*$/i;
 
 function baseHeaders(extra = {}) {
@@ -60,11 +58,10 @@ export function jsonError(code, message, { status = 400, details, headers = {} }
 
 export function methodNotAllowed(allowedMethods) {
     const allow = allowedMethods.join(", ");
-    return jsonError(
-        ERROR_CODES.METHOD_NOT_ALLOWED,
-        `Method not allowed. Allowed: ${allow}`,
-        { status: 405, headers: { Allow: allow } }
-    );
+    return jsonError(ERROR_CODES.METHOD_NOT_ALLOWED, `Method not allowed. Allowed: ${allow}`, {
+        status: 405,
+        headers: { Allow: allow },
+    });
 }
 
 export function preflight(allowedMethods, allowedOrigins = []) {
@@ -83,16 +80,16 @@ export function preflight(allowedMethods, allowedOrigins = []) {
 }
 
 export function allowedHostsForSite() {
-    const expectedHost = process.env.NEXT_PUBLIC_SITE_HOST
-        || (process.env.NEXT_PUBLIC_SITE_URL && new URL(process.env.NEXT_PUBLIC_SITE_URL).host)
-        || "manojtgn.me";
-    return new Set([expectedHost, `www.${expectedHost}`, "localhost", "localhost:3000"]);
+    const expectedHost =
+        process.env.NEXT_PUBLIC_SITE_HOST ||
+        (process.env.NEXT_PUBLIC_SITE_URL && new URL(process.env.NEXT_PUBLIC_SITE_URL).host) ||
+        "www.manojtgn.me";
+    // Accept the apex and the www form whichever way the host is configured,
+    // so a redirect between the two never turns into a 403 on the form.
+    const bareHost = expectedHost.replace(/^www\./i, "");
+    return new Set([bareHost, `www.${bareHost}`, "localhost", "localhost:3000"]);
 }
 
-// Same-origin enforcement: prefer the Origin header (always sent on
-// cross-origin fetches and on POSTs from modern browsers), fall back to
-// Referer. Missing both means the request didn't come from a browser
-// navigation context, which on a public-facing form route is suspicious.
 export function isSameOrigin(request) {
     const allowed = allowedHostsForSite();
     for (const header of ["origin", "referer"]) {
@@ -115,21 +112,15 @@ export async function requireJsonBody(request, { maxBytes = MAX_BODY_BYTES_DEFAU
     const contentType = request.headers.get("content-type") || "";
     if (!CONTENT_TYPE_JSON_RE.test(contentType.trim())) {
         return {
-            error: jsonError(
-                ERROR_CODES.INVALID_CONTENT_TYPE,
-                "Content-Type must be application/json",
-                { status: 415 }
-            ),
+            error: jsonError(ERROR_CODES.INVALID_CONTENT_TYPE, "Content-Type must be application/json", {
+                status: 415,
+            }),
         };
     }
     const declaredLength = Number(request.headers.get("content-length"));
     if (Number.isFinite(declaredLength) && declaredLength > maxBytes) {
         return {
-            error: jsonError(
-                ERROR_CODES.PAYLOAD_TOO_LARGE,
-                `Request body exceeds ${maxBytes} bytes`,
-                { status: 413 }
-            ),
+            error: jsonError(ERROR_CODES.PAYLOAD_TOO_LARGE, `Request body exceeds ${maxBytes} bytes`, { status: 413 }),
         };
     }
     let raw;
@@ -142,11 +133,7 @@ export async function requireJsonBody(request, { maxBytes = MAX_BODY_BYTES_DEFAU
     }
     if (raw.length > maxBytes) {
         return {
-            error: jsonError(
-                ERROR_CODES.PAYLOAD_TOO_LARGE,
-                `Request body exceeds ${maxBytes} bytes`,
-                { status: 413 }
-            ),
+            error: jsonError(ERROR_CODES.PAYLOAD_TOO_LARGE, `Request body exceeds ${maxBytes} bytes`, { status: 413 }),
         };
     }
     if (!raw) return { body: {} };

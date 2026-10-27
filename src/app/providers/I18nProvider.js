@@ -1,8 +1,8 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react';
-import { I18nextProvider, useTranslation } from 'react-i18next';
-import i18n from '../i18n';
+import { useEffect } from "react";
+import { I18nextProvider, useTranslation } from "react-i18next";
+import i18n from "../i18n";
 
 function HtmlLangSync() {
     const { i18n: instance } = useTranslation();
@@ -13,10 +13,10 @@ function HtmlLangSync() {
         };
 
         updateLang(instance.language);
-        instance.on('languageChanged', updateLang);
+        instance.on("languageChanged", updateLang);
 
         return () => {
-            instance.off('languageChanged', updateLang);
+            instance.off("languageChanged", updateLang);
         };
     }, [instance]);
 

@@ -1,12 +1,12 @@
-import { useRef } from 'react';
-import { useGSAP } from '@gsap/react';
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 import { useTranslation } from "react-i18next";
 
-import gsap from 'gsap';
-import { SplitText } from 'gsap/SplitText';
-import { Physics2DPlugin } from 'gsap/Physics2DPlugin';
+import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
+import { Physics2DPlugin } from "gsap/Physics2DPlugin";
 
-import { prefersReducedMotion } from '@/app/lib/accessibility';
+import { prefersReducedMotion } from "@/app/lib/accessibility";
 
 gsap.registerPlugin(Physics2DPlugin);
 
@@ -38,7 +38,7 @@ export default function Name() {
             const rect = el.getBoundingClientRect();
             const mouseX = event.clientX - rect.left;
 
-            split.chars.forEach(char => {
+            split.chars.forEach((char) => {
                 const charRect = char.getBoundingClientRect();
                 const charX = charRect.left + charRect.width / 2 - rect.left;
 
@@ -63,8 +63,14 @@ export default function Name() {
         const onMouseLeave = () => {
             if (isExploding) return;
 
-            split.chars.forEach(char => {
-                gsap.to(char, { fontWeight: DEFAULT_FONT_WEIGHT, rotate: 0, duration: 0.2, fontSize: `${BASE_FONT_SIZE}rem`, textShadow: '' });
+            split.chars.forEach((char) => {
+                gsap.to(char, {
+                    fontWeight: DEFAULT_FONT_WEIGHT,
+                    rotate: 0,
+                    duration: 0.2,
+                    fontSize: `${BASE_FONT_SIZE}rem`,
+                    textShadow: "",
+                });
             });
         };
 
@@ -72,58 +78,61 @@ export default function Name() {
             if (isExploding) return;
 
             isExploding = true;
-            el.classList.remove('cursor-pointer');
-            el.classList.add('cursor-help');
+            el.classList.remove("cursor-pointer");
+            el.classList.add("cursor-help");
 
-            split.chars.forEach(char => {
-                gsap.to(char, {
+            gsap.timeline({
+                onComplete: () => {
+                    isExploding = false;
+                    el.classList.add("cursor-pointer");
+                    el.classList.remove("cursor-help");
+                },
+            })
+                .to(split.chars, {
                     duration: 1.2,
                     physics2D: {
                         velocity: "random(600, 850)",
                         angle: "random(0,360)",
-                        gravity: 600
+                        gravity: 600,
                     },
                     opacity: 0,
-                    stagger: { amount: 10 }
-                });
-
-                gsap.to(char, {
-                    x: 0, y: 0, rotation: 0,
+                    stagger: { amount: 0.4 },
+                })
+                .set(split.chars, {
+                    x: 0,
+                    y: 0,
+                    rotation: 0,
                     fontWeight: DEFAULT_FONT_WEIGHT,
                     fontSize: `${BASE_FONT_SIZE}rem`,
-                    textShadow: '',
-                    delay: 1.2
-                });
-
-                const exploding = gsap.to(char, {
+                    textShadow: "",
+                })
+                .to(split.chars, {
                     opacity: 1,
                     duration: 0.5,
                     ease: "power2.inOut",
-                    delay: 1.5
                 });
-
-                exploding.eventCallback("onComplete", () => {
-                    isExploding = false;
-                    el.classList.add('cursor-pointer');
-                    el.classList.remove('cursor-help');
-                });
-            });
         };
 
-        el.addEventListener('mousemove', onMouseMove);
-        el.addEventListener('mouseleave', onMouseLeave);
-        el.addEventListener('click', onClick);
+        el.addEventListener("mousemove", onMouseMove);
+        el.addEventListener("mouseleave", onMouseLeave);
+        el.addEventListener("click", onClick);
 
         return () => {
-            el.removeEventListener('mousemove', onMouseMove);
-            el.removeEventListener('mouseleave', onMouseLeave);
-            el.removeEventListener('click', onClick);
+            el.removeEventListener("mousemove", onMouseMove);
+            el.removeEventListener("mouseleave", onMouseLeave);
+            el.removeEventListener("click", onClick);
             split.revert();
         };
     }, []);
 
     return (
-        <h1 ref={textRef} tabIndex={0} aria-label={t("portfolio.top.realname.label")} translate="no" className="text-4xl sm:text-5xl lg:text-6xl text-portfolio-950 dark:text-white font-bold flex-none cursor-pointer select-none m-0">
+        <h1
+            ref={textRef}
+            tabIndex={0}
+            aria-label={t("portfolio.top.realname.label")}
+            translate="no"
+            className="text-4xl sm:text-5xl lg:text-6xl text-portfolio-950 dark:text-white font-bold flex-none cursor-pointer select-none m-0"
+        >
             {t("portfolio.top.realname")}
         </h1>
     );

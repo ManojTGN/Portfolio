@@ -67,7 +67,12 @@ export function validateContactPayload(body) {
 
     const { name, email, category, message } = body;
 
-    if (typeof name !== "string" || typeof email !== "string" || typeof category !== "string" || typeof message !== "string") {
+    if (
+        typeof name !== "string" ||
+        typeof email !== "string" ||
+        typeof category !== "string" ||
+        typeof message !== "string"
+    ) {
         return { error: { errCode: 1, error: "Missing fields", status: 400 } };
     }
 
@@ -155,10 +160,7 @@ export async function signToken(payload) {
         .sign(keys.privateKey);
 }
 
-// Token state machine: tracks jtis through reserve → finalize lifecycle.
-// Atomic acquire prevents two concurrent /confirm requests from both passing
-// the "not consumed" check and double-sending. A failed sendMail releases the
-// reservation so the user can retry within the original token TTL.
+// jti lifecycle: reserve -> finalize, so two racing /confirm calls cannot both send.
 const tokenState = new Map();
 const CONSUMED_PRUNE_THRESHOLD = 500;
 const RESERVATION_TTL_SECONDS = 30;
@@ -249,10 +251,6 @@ export function generateOtpCode() {
     return String(crypto.randomInt(0, 1_000_000)).padStart(6, "0");
 }
 
-// Bounded sliding-window rate limiter. Each key holds an array of recent
-// hit timestamps; entries older than the longest window are pruned on access.
-// The Map itself is capped to LIMITER_MAX_KEYS to prevent unbounded growth
-// from per-IP/email/endpoint key proliferation.
 const limiterStore = new Map();
 const LIMITER_MAX_KEYS = 10_000;
 const LIMITER_MAX_WINDOW_MS = 24 * 60 * 60 * 1000;
@@ -303,10 +301,12 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 5000) {
     }
 }
 
-// Strips RFC 5322 specials so a Reply-To header can't smuggle extra addresses.
 export function sanitizeDisplayName(s) {
     if (typeof s !== "string") return "";
-    return s.replace(/[\r\n"<>()@,;:\\\[\]]/g, "").trim().slice(0, 60);
+    return s
+        .replace(/[\r\n"<>()@,;:\\\[\]]/g, "")
+        .trim()
+        .slice(0, 60);
 }
 
 export async function verifyRecaptcha(recaptchaToken) {
@@ -320,11 +320,15 @@ export async function verifyRecaptcha(recaptchaToken) {
 
     let data;
     try {
-        const res = await fetchWithTimeout("https://www.google.com/recaptcha/api/siteverify", {
-            method: "POST",
-            headers: { "Content-Type": "application/x-www-form-urlencoded" },
-            body: `secret=${encodeURIComponent(process.env.RECAPTCHA_SECRET_KEY)}&response=${encodeURIComponent(recaptchaToken)}`,
-        }, 5000);
+        const res = await fetchWithTimeout(
+            "https://www.google.com/recaptcha/api/siteverify",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: `secret=${encodeURIComponent(process.env.RECAPTCHA_SECRET_KEY)}&response=${encodeURIComponent(recaptchaToken)}`,
+            },
+            5000,
+        );
         data = await res.json();
     } catch (e) {
         console.warn("[reCAPTCHA] siteverify request failed:", e?.message || e);
@@ -337,8 +341,13 @@ export async function verifyRecaptcha(recaptchaToken) {
         return { ok: false, reason: `siteverify:${codes}` };
     }
 
+    // Compared with any www. prefix removed from both sides. The site is served
+    // from www.manojtgn.me and the apex redirects to it, so an exact match
+    // against whichever of the two is configured would reject every real
+    // submission while still passing the Origin check in lib/api.js.
     const expectedHost = process.env.RECAPTCHA_EXPECTED_HOSTNAME;
-    if (expectedHost && data.hostname && data.hostname !== expectedHost) {
+    const bareHost = (host) => host.replace(/^www\./i, "").toLowerCase();
+    if (expectedHost && data.hostname && bareHost(data.hostname) !== bareHost(expectedHost)) {
         console.warn(`[reCAPTCHA] hostname mismatch: got '${data.hostname}', expected '${expectedHost}'`);
         return { ok: false, reason: `hostname-mismatch:got=${data.hostname},expected=${expectedHost}` };
     }
@@ -351,17 +360,16 @@ export async function verifyRecaptcha(recaptchaToken) {
     return { ok: true };
 }
 
-// Trust model: x-real-ip is set by Vercel's edge and cannot be spoofed by
-// clients (Vercel strips inbound). x-forwarded-for is also set by Vercel but
-// is comma-separated with the client IP first; we take only the LAST hop
-// after Vercel's last proxy, which equals x-real-ip when available. Falling
-// back to the first xff value is a last resort for non-Vercel deployments.
+// x-real-ip first: Vercel sets it and strips inbound copies, so clients cannot spoof it.
 export function getClientIp(request) {
     const real = request.headers.get("x-real-ip");
     if (real) return real.trim();
     const fwd = request.headers.get("x-forwarded-for");
     if (fwd) {
-        const parts = fwd.split(",").map((s) => s.trim()).filter(Boolean);
+        const parts = fwd
+            .split(",")
+            .map((s) => s.trim())
+            .filter(Boolean);
         if (parts.length > 0) return parts[parts.length - 1];
     }
     return "unknown";

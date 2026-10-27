@@ -6,10 +6,10 @@ export function proxy(request) {
 
     const directives = [
         "default-src 'self'",
-        `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${isProd ? "" : "'unsafe-eval'"} https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://va.vercel-scripts.com https://www.googletagmanager.com`.replace(/\s+/g, " ").trim(),
-        // Dev: Turbopack's HMR style-injector can't carry a nonce, so we
-        // accept 'unsafe-inline' there. Prod: nonce-only, no escape hatch.
-        // FontAwesome is self-hosted from /fonts/fontawesome — covered by 'self'.
+        `script-src 'self' 'nonce-${nonce}' 'strict-dynamic' ${isProd ? "" : "'unsafe-eval'"} https://www.google.com https://www.gstatic.com https://www.recaptcha.net https://va.vercel-scripts.com https://www.googletagmanager.com`
+            .replace(/\s+/g, " ")
+            .trim(),
+        // Dev only: Turbopack's HMR style injector cannot carry a nonce. Production is nonce-only.
         `style-src 'self' ${isProd ? `'nonce-${nonce}'` : "'unsafe-inline'"} https://fonts.googleapis.com`,
         `style-src-elem 'self' ${isProd ? `'nonce-${nonce}'` : "'unsafe-inline'"} https://fonts.googleapis.com`,
         "font-src 'self' data: https://fonts.gstatic.com",

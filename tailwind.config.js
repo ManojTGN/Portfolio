@@ -6,9 +6,7 @@ module.exports = {
         "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
         "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     ],
-    safelist: [
-        { pattern: /text-purple-(50|100|200|300|400|500|600|700|800|900|950)/ },
-    ],
+    safelist: [{ pattern: /text-purple-(50|100|200|300|400|500|600|700|800|900|950)/ }],
     theme: {
         extend: {
             backgroundImage: {
@@ -16,11 +14,11 @@ module.exports = {
                 "gradient-conic": "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
             },
             fontFamily: {
-                portfolio: ['portfolio', 'sans-serif'],
+                portfolio: ["portfolio", "sans-serif"],
             },
             animation: {
-                'spin-slow': 'spin 20s linear infinite',
-                'spin-fast': 'spin 0.5s linear infinite',
+                "spin-slow": "spin 20s linear infinite",
+                "spin-fast": "spin 0.5s linear infinite",
             },
             colors: {
                 portfolio: {
@@ -32,9 +30,9 @@ module.exports = {
                     600: "#505050",
                     700: "#373737",
                     900: "#1f1f1f",
-                    950: "#030303"
-                }
-            }
+                    950: "#030303",
+                },
+            },
         },
     },
     plugins: [],

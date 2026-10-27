@@ -11,7 +11,7 @@ export async function generateMetadata({ params }) {
             robots: { index: false, follow: false },
         };
     }
-    const niceName = (project.slug || "").replace(/([A-Z])/g, " $1").trim().replace(/^./, c => c.toUpperCase());
+    const niceName = project.name;
     const title = `${niceName} ▪ Project by Manoj A ▪ Features & Tech Stack`;
     const description = `Deep dive into ${niceName}: overview, screenshots, key features, tech stack, and source code. One of the projects built and shipped by Manoj A.`;
     return {

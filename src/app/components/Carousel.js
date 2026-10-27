@@ -121,19 +121,30 @@ export default function Carousel({ showArrow = true, autoScroll = true, images =
                 {images.map((src, i) => (
                     <div key={src} className="relative flex-shrink-0 w-full h-full">
                         <Image
-                            src={src} alt={`${label} screenshot ${i + 1} of ${images.length}`} fill
+                            src={src}
+                            alt={`${label} screenshot ${i + 1} of ${images.length}`}
+                            fill
                             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 60vw, 50vw"
-                            className="object-cover" draggable="false"
+                            className="object-cover"
+                            draggable="false"
                         />
                     </div>
                 ))}
             </div>
             {showArrow && (
                 <>
-                    <button onClick={prevSlide} aria-label="Previous slide" className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
+                    <button
+                        onClick={prevSlide}
+                        aria-label="Previous slide"
+                        className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition"
+                    >
                         <i className="fa-solid fa-caret-left" aria-hidden="true"></i>
                     </button>
-                    <button onClick={nextSlide} aria-label="Next slide" className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition">
+                    <button
+                        onClick={nextSlide}
+                        aria-label="Next slide"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-portfolio-50 hover:text-portfolio-700 text-white p-2 transition"
+                    >
                         <i className="fa-solid fa-caret-right" aria-hidden="true"></i>
                     </button>
                 </>

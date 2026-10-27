@@ -1,47 +1,47 @@
 /* Thin */
 @font-face {
-    font-family: 'portfolio';
-    src: url('/fonts/Thin.ttf') format('truetype');
+    font-family: "portfolio";
+    src: url("/fonts/Thin.ttf") format("truetype");
     font-weight: 100;
     font-style: normal;
 }
 
 /* Light */
 @font-face {
-    font-family: 'portfolio';
-    src: url('/fonts/Light.ttf') format('truetype');
+    font-family: "portfolio";
+    src: url("/fonts/Light.ttf") format("truetype");
     font-weight: 300;
     font-style: normal;
 }
 
 /* Regular */
 @font-face {
-    font-family: 'portfolio';
-    src: url('/fonts/Regular.ttf') format('truetype');
+    font-family: "portfolio";
+    src: url("/fonts/Regular.ttf") format("truetype");
     font-weight: 400;
     font-style: normal;
 }
 
 /* Medium */
 @font-face {
-    font-family: 'portfolio';
-    src: url('/fonts/Medium.ttf') format('truetype');
+    font-family: "portfolio";
+    src: url("/fonts/Medium.ttf") format("truetype");
     font-weight: 500;
     font-style: normal;
 }
 
 /* Bold */
 @font-face {
-    font-family: 'portfolio';
-    src: url('/fonts/Bold.ttf') format('truetype');
+    font-family: "portfolio";
+    src: url("/fonts/Bold.ttf") format("truetype");
     font-weight: 700;
     font-style: normal;
 }
 
 /* Black */
 @font-face {
-    font-family: 'portfolio';
-    src: url('/fonts/Black.ttf') format('truetype');
+    font-family: "portfolio";
+    src: url("/fonts/Black.ttf") format("truetype");
     font-weight: 900;
     font-style: normal;
 }
@@ -58,21 +58,28 @@ html {
     letter-spacing: var(--letter-spacing);
 }
 
-
-
 html[data-cursor-size="small"],
 html[data-cursor-size="small"] * {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='25' viewBox='0 0 16 22'%3E%3Cpath d='M0,0 L0,17 L4.5,12.5 L8,20 L10.5,18.5 L7,11.5 L13,11.5 Z' fill='white' stroke='black' stroke-width='0.75'/%3E%3C/svg%3E") 0 0, auto !important;
+    cursor:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='25' viewBox='0 0 16 22'%3E%3Cpath d='M0,0 L0,17 L4.5,12.5 L8,20 L10.5,18.5 L7,11.5 L13,11.5 Z' fill='white' stroke='black' stroke-width='0.75'/%3E%3C/svg%3E")
+            0 0,
+        auto !important;
 }
 
 html[data-cursor-size="medium"],
 html[data-cursor-size="medium"] * {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='44' viewBox='0 0 16 22'%3E%3Cpath d='M0,0 L0,17 L4.5,12.5 L8,20 L10.5,18.5 L7,11.5 L13,11.5 Z' fill='white' stroke='black' stroke-width='0.75'/%3E%3C/svg%3E") 0 0, auto !important;
+    cursor:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='44' viewBox='0 0 16 22'%3E%3Cpath d='M0,0 L0,17 L4.5,12.5 L8,20 L10.5,18.5 L7,11.5 L13,11.5 Z' fill='white' stroke='black' stroke-width='0.75'/%3E%3C/svg%3E")
+            0 0,
+        auto !important;
 }
 
 html[data-cursor-size="large"],
 html[data-cursor-size="large"] * {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='66' viewBox='0 0 16 22'%3E%3Cpath d='M0,0 L0,17 L4.5,12.5 L8,20 L10.5,18.5 L7,11.5 L13,11.5 Z' fill='white' stroke='black' stroke-width='0.75'/%3E%3C/svg%3E") 0 0, auto !important;
+    cursor:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='66' viewBox='0 0 16 22'%3E%3Cpath d='M0,0 L0,17 L4.5,12.5 L8,20 L10.5,18.5 L7,11.5 L13,11.5 Z' fill='white' stroke='black' stroke-width='0.75'/%3E%3C/svg%3E")
+            0 0,
+        auto !important;
 }
 
 *:focus-visible {
@@ -93,17 +100,34 @@ html[data-cursor-size="large"] * {
         notfound-zero-purple-cycle 0.96s linear infinite alternate;
 }
 @keyframes notfound-zero-purple-cycle {
-    0%   { color: #faf5ff; } /* purple-50  */
-    14%  { color: #f3e8ff; } /* purple-100 */
-    29%  { color: #e9d5ff; } /* purple-200 */
-    43%  { color: #d8b4fe; } /* purple-300 */
-    57%  { color: #c084fc; } /* purple-400 */
-    71%  { color: #a855f7; } /* purple-500 */
-    86%  { color: #9333ea; } /* purple-600 */
-    100% { color: #7e22ce; } /* purple-700 */
+    0% {
+        color: #faf5ff;
+    } /* purple-50  */
+    14% {
+        color: #f3e8ff;
+    } /* purple-100 */
+    29% {
+        color: #e9d5ff;
+    } /* purple-200 */
+    43% {
+        color: #d8b4fe;
+    } /* purple-300 */
+    57% {
+        color: #c084fc;
+    } /* purple-400 */
+    71% {
+        color: #a855f7;
+    } /* purple-500 */
+    86% {
+        color: #9333ea;
+    } /* purple-600 */
+    100% {
+        color: #7e22ce;
+    } /* purple-700 */
 }
 @keyframes notfound-zero-purple-glow {
-    0%, 100% {
+    0%,
+    100% {
         text-shadow:
             0 0 14px rgba(168, 85, 247, 0.55),
             0 0 30px rgba(168, 85, 247, 0.3);
@@ -128,17 +152,34 @@ html[data-cursor-size="large"] * {
         notfound-zero-gold-cycle 0.96s linear infinite alternate;
 }
 @keyframes notfound-zero-gold-cycle {
-    0%   { color: #fffbeb; } /* gold-50  */
-    14%  { color: #fef3c7; } /* gold-100 */
-    29%  { color: #fde68a; } /* gold-200 */
-    43%  { color: #fcd34d; } /* gold-300 */
-    57%  { color: #fbbf24; } /* gold-400 */
-    71%  { color: #f5b400; } /* gold-500 (rich gold) */
-    86%  { color: #d97706; } /* gold-600 */
-    100% { color: #b45309; } /* gold-700 */
+    0% {
+        color: #fffbeb;
+    } /* gold-50  */
+    14% {
+        color: #fef3c7;
+    } /* gold-100 */
+    29% {
+        color: #fde68a;
+    } /* gold-200 */
+    43% {
+        color: #fcd34d;
+    } /* gold-300 */
+    57% {
+        color: #fbbf24;
+    } /* gold-400 */
+    71% {
+        color: #f5b400;
+    } /* gold-500 (rich gold) */
+    86% {
+        color: #d97706;
+    } /* gold-600 */
+    100% {
+        color: #b45309;
+    } /* gold-700 */
 }
 @keyframes notfound-zero-gold-glow {
-    0%, 100% {
+    0%,
+    100% {
         text-shadow:
             0 0 14px rgba(245, 180, 0, 0.55),
             0 0 30px rgba(245, 180, 0, 0.3);
@@ -163,14 +204,27 @@ html[data-cursor-size="large"] * {
     font-weight: 700;
     text-align: center;
     cursor: pointer;
-    transition: color 180ms ease, text-shadow 180ms ease, transform 100ms ease;
+    transition:
+        color 180ms ease,
+        text-shadow 180ms ease,
+        transform 100ms ease;
     user-select: none;
 }
 @media (min-width: 640px) {
-    .puzzle-cell { width: 2.8rem; height: 2.8rem; line-height: 2.8rem; font-size: 1.9rem; }
+    .puzzle-cell {
+        width: 2.8rem;
+        height: 2.8rem;
+        line-height: 2.8rem;
+        font-size: 1.9rem;
+    }
 }
 @media (min-width: 768px) {
-    .puzzle-cell { width: 3.2rem; height: 3.2rem; line-height: 3.2rem; font-size: 2.2rem; }
+    .puzzle-cell {
+        width: 3.2rem;
+        height: 3.2rem;
+        line-height: 3.2rem;
+        font-size: 2.2rem;
+    }
 }
 .puzzle-cell.dim {
     color: rgba(106, 106, 106, 0.35);
@@ -186,8 +240,12 @@ html[data-cursor-size="large"] * {
         0 0 14px rgba(168, 85, 247, 0.65),
         0 0 28px rgba(168, 85, 247, 0.35);
 }
-.puzzle-cell:active { transform: scale(0.92); }
-.puzzle-cell:disabled { cursor: default; }
+.puzzle-cell:active {
+    transform: scale(0.92);
+}
+.puzzle-cell:disabled {
+    cursor: default;
+}
 .puzzle-cell:focus-visible {
     outline: 2px solid #c084fc;
     outline-offset: -2px;
@@ -275,10 +333,24 @@ html[data-cursor-size="large"] * {
     opacity: 0;
 }
 @keyframes puzzle-banner-in {
-    0%   { opacity: 0; transform: scale(0.9); letter-spacing: 0.1em; }
-    35%  { opacity: 1; transform: scale(1.02); letter-spacing: 0.02em; }
-    80%  { opacity: 1; transform: scale(1); }
-    100% { opacity: 0; transform: scale(0.96); }
+    0% {
+        opacity: 0;
+        transform: scale(0.9);
+        letter-spacing: 0.1em;
+    }
+    35% {
+        opacity: 1;
+        transform: scale(1.02);
+        letter-spacing: 0.02em;
+    }
+    80% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.96);
+    }
 }
 .puzzle-banner-icon {
     font-size: 1.5em;
@@ -287,12 +359,19 @@ html[data-cursor-size="large"] * {
     color: #c084fc;
 }
 @keyframes puzzle-spark {
-    0%, 100% { transform: rotate(0deg) scale(1); }
-    50%      { transform: rotate(180deg) scale(1.3); }
+    0%,
+    100% {
+        transform: rotate(0deg) scale(1);
+    }
+    50% {
+        transform: rotate(180deg) scale(1.3);
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
@@ -305,15 +384,152 @@ html[data-cursor-size="large"] * {
         --s: 5px;
         --b: 3px;
         --m: 0.4;
-        --R: calc(var(--s)*sqrt(var(--m)*var(--m) + 1) + var(--b)/2);
+        --R: calc(var(--s) * sqrt(var(--m) * var(--m) + 1) + var(--b)/2);
         --_g: #0000 calc(99% - var(--b)), #000 calc(101% - var(--b)) 99%, #0000 101%;
-        height: calc(2*var(--R));
+        height: calc(2 * var(--R));
 
         mask:
-        radial-gradient(var(--R) at left 50% bottom calc(-1*var(--m)*var(--s)), var(--_g))
-            calc(50% - 2*var(--s)) calc(50% - var(--s)/2 - var(--b)/2)/calc(4*var(--s)) calc(var(--s) + var(--b)) repeat-x,
-        radial-gradient(var(--R) at left 50% top calc(-1*var(--m)*var(--s)), var(--_g))
-            50% calc(50% + var(--s)/2 + var(--b)/2)/calc(4*var(--s)) calc(var(--s) + var(--b)) repeat-x;
+            radial-gradient(var(--R) at left 50% bottom calc(-1 * var(--m) * var(--s)), var(--_g))
+                calc(50% - 2 * var(--s)) calc(50% - var(--s) / 2 - var(--b) / 2) / calc(4 * var(--s))
+                calc(var(--s) + var(--b)) repeat-x,
+            radial-gradient(var(--R) at left 50% top calc(-1 * var(--m) * var(--s)), var(--_g)) 50%
+                calc(50% + var(--s) / 2 + var(--b) / 2) / calc(4 * var(--s)) calc(var(--s) + var(--b)) repeat-x;
+    }
+}
+
+/* GTA VI announcement banner. Colours sampled from the source artwork: a
+   symmetric dusk gradient, purple at both edges and pink through the middle. */
+.banner-sky {
+    background-image: linear-gradient(
+        90deg,
+        #746caa 0%,
+        #a481be 20%,
+        #bb8fc3 30%,
+        #d2a1c0 40%,
+        #e9b4be 50%,
+        #d9a7c0 60%,
+        #c294c2 70%,
+        #ab84c1 80%,
+        #7b6fad 100%
+    );
+}
+
+/* Intro: the shell grows from zero height so the whole page is pushed down as
+   the banner arrives, while the strip inside slides down in step with it. Both
+   run on the same duration and easing, which keeps the strip's bottom edge
+   pinned to the shell's — so it reads as one panel descending. */
+.banner-shell {
+    --banner-h: 3.2rem;
+    /* Beat of stillness after load before the banner moves, so the drop reads
+       as an arrival rather than part of the page painting. Everything else in
+       the intro is timed off this, so it is the one knob to turn. */
+    --banner-wait: 700ms;
+    overflow: hidden;
+    animation: banner-reveal 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--banner-wait);
+}
+
+@media (min-width: 640px) {
+    .banner-shell {
+        --banner-h: 3.6rem;
+    }
+}
+
+@keyframes banner-reveal {
+    from {
+        height: 0;
+    }
+    to {
+        height: var(--banner-h);
+    }
+}
+
+@keyframes banner-drop {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.banner-drop {
+    animation: banner-drop 1100ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: var(--banner-wait);
+}
+
+/* The headline rises in word by word once the banner has landed. */
+@keyframes banner-word-in {
+    from {
+        opacity: 0;
+        transform: translateY(0.55em);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.banner-word {
+    animation: banner-word-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    /* anything past the ninth word lands with the ninth */
+    animation-delay: calc(var(--banner-wait) + 1140ms);
+}
+
+.banner-word:nth-child(1) {
+    animation-delay: calc(var(--banner-wait) + 700ms);
+}
+.banner-word:nth-child(2) {
+    animation-delay: calc(var(--banner-wait) + 755ms);
+}
+.banner-word:nth-child(3) {
+    animation-delay: calc(var(--banner-wait) + 810ms);
+}
+.banner-word:nth-child(4) {
+    animation-delay: calc(var(--banner-wait) + 865ms);
+}
+.banner-word:nth-child(5) {
+    animation-delay: calc(var(--banner-wait) + 920ms);
+}
+.banner-word:nth-child(6) {
+    animation-delay: calc(var(--banner-wait) + 975ms);
+}
+.banner-word:nth-child(7) {
+    animation-delay: calc(var(--banner-wait) + 1030ms);
+}
+.banner-word:nth-child(8) {
+    animation-delay: calc(var(--banner-wait) + 1085ms);
+}
+.banner-word:nth-child(9) {
+    animation-delay: calc(var(--banner-wait) + 1140ms);
+}
+
+/* "LIVE" keeps breathing after the headline settles, so the word reads as a
+   running countdown rather than a label. It sits on a span inside the link so
+   this endless pulse never collides with the link's one-shot entrance. */
+@keyframes banner-live-pulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.55;
+    }
+}
+
+.banner-live {
+    animation: banner-live-pulse 1700ms ease-in-out infinite;
+    animation-delay: calc(var(--banner-wait) + 1400ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .banner-shell,
+    .banner-drop,
+    .banner-word,
+    .banner-live {
+        animation: none;
     }
 }
 
